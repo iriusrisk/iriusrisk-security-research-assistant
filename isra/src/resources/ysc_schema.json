@@ -1,0 +1,791 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://www.iriusrisk.com",
+  "title": "Root",
+  "type": "object",
+  "required": [
+    "component"
+  ],
+  "properties": {
+    "component": {
+      "$id": "#root/component",
+      "title": "Component",
+      "type": "object",
+      "required": [
+        "ref",
+        "name",
+        "description",
+        "category",
+        "last_review",
+        "risk_pattern"
+      ],
+      "properties": {
+        "ref": {
+          "$id": "#root/component/ref",
+          "title": "Ref",
+          "type": "string",
+          "default": "",
+          "pattern": "^CD-[A-Z0-9:-]+$",
+          "examples": [
+            "CD-V2-API-SERVICE"
+          ]
+        },
+        "name": {
+          "$id": "#root/component/name",
+          "title": "Name",
+          "type": "string",
+          "default": "",
+          "examples": [
+            "API Service"
+          ]
+        },
+        "description": {
+          "$id": "#root/component/description",
+          "title": "Description",
+          "type": "string",
+          "default": "",
+          "examples": [
+            "An API Service is an interface enabling interaction between different software applications, allowing them to communicate and exchange data seamlessly"
+          ]
+        },
+        "category": {
+          "$id": "#root/component/category",
+          "title": "Category",
+          "type": "string",
+          "default": "",
+          "enum": [
+            "sap-components",
+            "hardware",
+            "microsoft-azure",
+            "regulatory",
+            "service-side",
+            "general",
+            "client-side",
+            "data-store",
+            "message-broker",
+            "on-premises-architecture",
+            "amazon-web-services",
+            "machine-learning-artificial-intelligence",
+            "functional",
+            "blockchain",
+            "microservice-architecture",
+            "kubernetes",
+            "iot-components",
+            "generic-components",
+            "docker-category",
+            "google-cloud-platform",
+            "network-components",
+            "boundary-devices",
+            "financial-services",
+            "automotive",
+            "virtual-components",
+            "vmware",
+            "oracle-cloud-infrastructure",
+            "salesforce-components",
+            "alibaba-cloud"
+          ],
+          "examples": [
+            "data-store"
+          ]
+        },
+        "last_review": {
+          "$id": "#root/component/last_review",
+          "title": "Last_review",
+          "type": "string",
+          "default": "",
+          "pattern": "(\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2}:\\d{2})",
+          "examples": [
+            "2024/03/27 14:24:51"
+          ]
+        },
+        "risk_pattern": {
+          "$id": "#root/component/risk_pattern",
+          "title": "Risk_pattern",
+          "type": "object",
+          "required": [
+            "ref",
+            "name",
+            "description",
+            "type",
+            "threats"
+          ],
+          "properties": {
+            "ref": {
+              "$id": "#root/component/risk_pattern/ref",
+              "title": "Ref",
+              "type": "string",
+              "default": "",
+              "pattern": "^RP-[A-Z0-9:-]+$",
+              "examples": [
+                "RP-API-SERVICE"
+              ]
+            },
+            "name": {
+              "$id": "#root/component/risk_pattern/name",
+              "title": "Name",
+              "type": "string",
+              "default": "",
+              "examples": [
+                "API Service"
+              ]
+            },
+            "description": {
+              "$id": "#root/component/risk_pattern/description",
+              "title": "Description",
+              "type": "string",
+              "default": "",
+              "examples": [
+                "An API Service is an interface enabling interaction between different software applications, allowing them to communicate and exchange data seamlessly"
+              ]
+            },
+            "type": {
+              "$id": "#root/component/risk_pattern/type",
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "static"
+              ],
+              "default": "",
+              "examples": [
+                "static"
+              ]
+            },
+            "threats": {
+              "$id": "#root/component/risk_pattern/threats",
+              "title": "Threats",
+              "type": "array",
+              "default": [],
+              "items": {
+                "$id": "#root/component/risk_pattern/threats/items",
+                "title": "Items",
+                "type": "object",
+                "required": [
+                  "ref",
+                  "name",
+                  "description",
+                  "group",
+                  "risk_score",
+                  "taxonomies",
+                  "countermeasures"
+                ],
+                "properties": {
+                  "ref": {
+                    "$id": "#root/component/risk_pattern/threats/items/ref",
+                    "title": "Ref",
+                    "type": "string",
+                    "default": "",
+                    "pattern": "^T-[A-Z0-9:-]+$",
+                    "examples": [
+                      "T-API-SERVICE-0008"
+                    ]
+                  },
+                  "name": {
+                    "$id": "#root/component/risk_pattern/threats/items/name",
+                    "title": "Name",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                      "Over consumption of the resources of the API server can render it inaccessible"
+                    ]
+                  },
+                  "description": {
+                    "$id": "#root/component/risk_pattern/threats/items/description",
+                    "title": "Description",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                      ""
+                    ]
+                  },
+                  "group": {
+                    "$id": "#root/component/risk_pattern/threats/items/group",
+                    "title": "Group",
+                    "type": "string",
+                    "default": "",
+                    "enum": [
+                      "Spoofing",
+                      "Tampering",
+                      "Repudiation",
+                      "Information Disclosure",
+                      "Denial of Service",
+                      "Elevation of Privilege",
+                      "Lateral Movement"
+                    ],
+                    "examples": [
+                      "Denial of Service"
+                    ]
+                  },
+                  "risk_score": {
+                    "$id": "#root/component/risk_pattern/threats/items/risk_score",
+                    "title": "Risk_score",
+                    "type": "object",
+                    "required": [
+                      "confidentiality",
+                      "integrity",
+                      "availability",
+                      "ease_of_exploitation"
+                    ],
+                    "properties": {
+                      "confidentiality": {
+                        "$id": "#root/component/risk_pattern/threats/items/risk_score/confidentiality",
+                        "title": "Confidentiality",
+                        "type": "string",
+                        "enum": [
+                          "1",
+                          "25",
+                          "50",
+                          "75",
+                          "100"
+                        ],
+                        "default": "",
+                        "examples": [
+                          "25"
+                        ]
+                      },
+                      "integrity": {
+                        "$id": "#root/component/risk_pattern/threats/items/risk_score/integrity",
+                        "title": "Integrity",
+                        "type": "string",
+                        "enum": [
+                          "1",
+                          "25",
+                          "50",
+                          "75",
+                          "100"
+                        ],
+                        "default": "",
+                        "examples": [
+                          "25"
+                        ]
+                      },
+                      "availability": {
+                        "$id": "#root/component/risk_pattern/threats/items/risk_score/availability",
+                        "title": "Availability",
+                        "type": "string",
+                        "enum": [
+                          "1",
+                          "25",
+                          "50",
+                          "75",
+                          "100"
+                        ],
+                        "default": "",
+                        "examples": [
+                          "100"
+                        ]
+                      },
+                      "ease_of_exploitation": {
+                        "$id": "#root/component/risk_pattern/threats/items/risk_score/ease_of_exploitation",
+                        "title": "Ease_of_exploitation",
+                        "type": "string",
+                        "enum": [
+                          "1",
+                          "25",
+                          "50",
+                          "75",
+                          "100"
+                        ],
+                        "default": "",
+                        "examples": [
+                          "50"
+                        ]
+                      }
+                    }
+                  },
+                  "references": {
+                    "$id": "#root/component/risk_pattern/threats/items/references",
+                    "title": "References",
+                    "type": "array",
+                    "default": [],
+                    "items": {
+                      "$id": "#root/component/risk_pattern/threats/items/references/items",
+                      "title": "Reference",
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "url"
+                      ],
+                      "properties": {
+                        "name": {
+                          "$id": "#root/component/risk_pattern/threats/items/references/items/name",
+                          "title": "Name",
+                          "type": "string",
+                          "default": "",
+                          "examples": [
+                            "NIST 800-53 PDF"
+                          ]
+                        },
+                        "url": {
+                          "$id": "#root/component/risk_pattern/threats/items/references/items/url",
+                          "title": "Url",
+                          "type": "string",
+                          "default": "",
+                          "pattern": "^(http|https)://",
+                          "examples": [
+                            "https://localhost:8080"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "taxonomies": {
+                    "$id": "#root/component/risk_pattern/threats/items/taxonomies",
+                    "title": "Taxonomies",
+                    "type": "object",
+                    "properties": {
+                      "stride": {
+                        "$id": "#root/component/risk_pattern/threats/items/taxonomies/stride",
+                        "title": "Stride",
+                        "type": "array",
+                        "default": [],
+                        "items": {
+                          "$id": "#root/component/risk_pattern/threats/items/taxonomies/stride/items",
+                          "title": "Items",
+                          "type": "string",
+                          "enum": [
+                            "Spoofing",
+                            "Tampering",
+                            "Repudiation",
+                            "Information Disclosure",
+                            "Denial of Service",
+                            "Elevation of Privilege",
+                            "Lateral Movement"
+                          ],
+                          "default": "",
+                          "examples": [
+                            "Spoofing"
+                          ]
+                        }
+                      },
+                      "attack_enterprise_technique": {
+                        "$id": "#root/component/risk_pattern/threats/items/taxonomies/attack_enterprise_technique",
+                        "title": "Attack_enterprise_technique",
+                        "type": "array",
+                        "default": [],
+                        "items": {
+                          "$id": "#root/component/risk_pattern/threats/items/taxonomies/attack_enterprise_technique/items",
+                          "title": "Items",
+                          "type": "string",
+                          "default": "",
+                          "pattern": "^[\\x20-\\x7E]*$",
+                          "examples": [
+                            "T1001"
+                          ]
+                        }
+                      },
+                      "attack_ics_technique": {
+                        "$id": "#root/component/risk_pattern/threats/items/taxonomies/attack_ics_technique",
+                        "title": "Attack_ics_technique",
+                        "type": "array",
+                        "default": [],
+                        "items": {
+                          "$id": "#root/component/risk_pattern/threats/items/taxonomies/attack_ics_technique/items",
+                          "title": "Items",
+                          "type": "string",
+                          "default": "",
+                          "pattern": "^[\\x20-\\x7E]*$",
+                          "examples": [
+                            "T1001"
+                          ]
+                        }
+                      },
+                      "attack_mobile_technique": {
+                        "$id": "#root/component/risk_pattern/threats/items/taxonomies/attack_mobile_technique",
+                        "title": "Attack_mobile_technique",
+                        "type": "array",
+                        "default": [],
+                        "items": {
+                          "$id": "#root/component/risk_pattern/threats/items/taxonomies/attack_mobile_technique/items",
+                          "title": "Items",
+                          "type": "string",
+                          "default": "",
+                          "pattern": "^[\\x20-\\x7E]*$",
+                          "examples": [
+                            "T1001"
+                          ]
+                        }
+                      },
+                      "atlas_technique": {
+                        "$id": "#root/component/risk_pattern/threats/items/taxonomies/atlas_technique",
+                        "title": "Atlas_technique",
+                        "type": "array",
+                        "default": [],
+                        "items": {
+                          "$id": "#root/component/risk_pattern/threats/items/taxonomies/atlas_technique/items",
+                          "title": "Items",
+                          "type": "string",
+                          "default": "",
+                          "pattern": "^[\\x20-\\x7E]*$",
+                          "examples": [
+                            "T1001"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "countermeasures": {
+                    "$id": "#root/component/risk_pattern/threats/items/countermeasures",
+                    "title": "Countermeasures",
+                    "type": "array",
+                    "default": [],
+                    "items": {
+                      "$id": "#root/component/risk_pattern/threats/items/countermeasures/items",
+                      "title": "Items",
+                      "type": "object",
+                      "required": [
+                        "ref",
+                        "name",
+                        "description",
+                        "taxonomies",
+                        "standards"
+                      ],
+                      "properties": {
+                        "ref": {
+                          "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/ref",
+                          "title": "Ref",
+                          "type": "string",
+                          "default": "",
+                          "pattern": "^C-[A-Z0-9:-]+$",
+                          "examples": [
+                            "C-API-SERVICE-0008"
+                          ]
+                        },
+                        "name": {
+                          "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/name",
+                          "title": "Name",
+                          "type": "string",
+                          "default": "",
+                          "examples": [
+                            "Use Rate Limiting and Throttling"
+                          ]
+                        },
+                        "description": {
+                          "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/description",
+                          "title": "Description",
+                          "type": "string",
+                          "default": "",
+                          "examples": [
+                            ""
+                          ]
+                        },
+                        "question": {
+                          "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/question",
+                          "title": "Question",
+                          "type": "string",
+                          "default": "",
+                          "pattern": "^[^\"]*[\\w\\s.,!?-]*$",
+                          "message": {
+                            "pattern": "Question cannot include quotes"
+                          },
+                          "examples": [
+                            "Is the countermeasure of using rate limiting and throttling currently implemented for our API server?"
+                          ]
+                        },
+                        "question_desc": {
+                          "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/question_desc",
+                          "title": "Question_desc",
+                          "type": "string",
+                          "default": "",
+                          "pattern": "^[^\"]*[\\w\\s.,!?-]*$",
+                          "examples": [
+                            "Review the configuration settings and any security measures applied specifically to our API server, with a focus on practices including rate limiting and throttling."
+                          ]
+                        },
+                        "cwe": {
+                          "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/cwe",
+                          "title": "Cwe",
+                          "type": "string",
+                          "default": "",
+                          "examples": [
+                            "CWE-770"
+                          ]
+                        },
+                        "cwe_impact": {
+                          "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/cwe_impact",
+                          "title": "Cwe_impact",
+                          "type": "string",
+                          "default": "100",
+                          "examples": [
+                            "100",
+                            "75",
+                            "50",
+                            "25",
+                            "1"
+                          ]
+                        },
+                        "dataflow_tags": {
+                          "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/dataflow_tags",
+                          "title": "Dataflow_tags",
+                          "type": "array",
+                          "default": [],
+                          "items": {
+                            "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/dataflow_tags/items",
+                            "title": "Tags",
+                            "type": "string",
+                            "default": "",
+                            "enum": [
+                              "https",
+                              "http",
+                              "tls",
+                              "ssh",
+                              "ssl",
+                              "json",
+                              "xml",
+                              "jwt",
+                              "mfa",
+                              "2fa",
+                              "oauth",
+                              "oauth2"
+                            ],
+                            "examples": [
+                              "https"
+                            ]
+                          }
+                        },
+                        "references": {
+                          "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/references",
+                          "title": "References",
+                          "type": "array",
+                          "default": [],
+                          "items": {
+                            "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/references/items",
+                            "title": "Reference",
+                            "type": "object",
+                            "required": [
+                              "name",
+                              "url"
+                            ],
+                            "properties": {
+                              "name": {
+                                "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/references/items/name",
+                                "title": "Name",
+                                "type": "string",
+                                "default": "",
+                                "examples": [
+                                  "NIST 800-53 PDF"
+                                ]
+                              },
+                              "url": {
+                                "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/references/items/url",
+                                "title": "Url",
+                                "type": "string",
+                                "default": "",
+                                "pattern": "^(http|https)://",
+                                "examples": [
+                                  "https://localhost:8080"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "taxonomies": {
+                          "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/taxonomies",
+                          "title": "Taxonomies",
+                          "type": "object",
+                          "properties": {
+                            "scope": {
+                              "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/taxonomies/scope",
+                              "title": "Scope",
+                              "type": "array",
+                              "default": [],
+                              "items": {
+                                "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/taxonomies/scope/items",
+                                "title": "Items",
+                                "type": "string",
+                                "default": "",
+                                "enum": [
+                                  "Application Security",
+                                  "Network Security",
+                                  "Physical Security",
+                                  "Data Security",
+                                  "AI Security",
+                                  "Operational Security",
+                                  "Cloud Security",
+                                  "IoT Security",
+                                  "Risk & Compliance"
+                                ],
+                                "examples": [
+                                  "Network Security"
+                                ]
+                              }
+                            },
+                            "attack_enterprise_mitigation": {
+                              "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/taxonomies/attack_enterprise_mitigation",
+                              "title": "Attack_enterprise_mitigation",
+                              "type": "array",
+                              "default": [],
+                              "items": {
+                                "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/taxonomies/attack_enterprise_mitigation/items",
+                                "title": "Items",
+                                "type": "string",
+                                "default": "",
+                                "pattern": "^[\\x20-\\x7E]*$",
+                                "examples": [
+                                  "ATT&CK Enterprise - M1050 - Exploit Protection"
+                                ]
+                              }
+                            },
+                            "attack_ics_mitigation": {
+                              "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/taxonomies/attack_ics_mitigation",
+                              "title": "Attack_ics_mitigation",
+                              "type": "array",
+                              "default": [],
+                              "items": {
+                                "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/taxonomies/attack_ics_mitigation/items",
+                                "title": "Items",
+                                "type": "string",
+                                "default": "",
+                                "pattern": "^[\\x20-\\x7E]*$",
+                                "examples": [
+                                  "T1001"
+                                ]
+                              }
+                            },
+                            "attack_mobile_mitigation": {
+                              "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/taxonomies/attack_mobile_mitigation",
+                              "title": "attack_mobile_mitigation",
+                              "type": "array",
+                              "default": [],
+                              "items": {
+                                "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/taxonomies/attack_mobile_mitigation/items",
+                                "title": "Items",
+                                "type": "string",
+                                "default": "",
+                                "pattern": "^[\\x20-\\x7E]*$",
+                                "examples": [
+                                  "T1001"
+                                ]
+                              }
+                            },
+                            "atlas_mitigation": {
+                              "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/taxonomies/atlas_mitigation",
+                              "title": "Atlas_mitigation",
+                              "type": "array",
+                              "default": [],
+                              "items": {
+                                "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/taxonomies/atlas_mitigation/items",
+                                "title": "Items",
+                                "type": "string",
+                                "default": "",
+                                "pattern": "^[\\x20-\\x7E]*$",
+                                "examples": [
+                                  "AML1001"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "base_standard": {
+                          "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/base_standard",
+                          "title": "Base_standard",
+                          "type": "string",
+                          "default": "",
+                          "examples": [
+                            "ASVS"
+                          ]
+                        },
+                        "base_standard_section": {
+                          "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/base_standard_section",
+                          "title": "Base_standard_section",
+                          "type": "array",
+                          "default": [],
+                          "examples": [
+                            "V5.1.2"
+                          ]
+                        },
+                        "standards": {
+                          "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/standards",
+                          "title": "Standards",
+                          "type": "object",
+                          "required": [
+                          ],
+                          "properties": {
+                            "CRE": {
+                              "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/standards/CRE",
+                              "title": "Cre",
+                              "type": "array",
+                              "default": [],
+                              "items": {
+                                "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/standards/CRE/items",
+                                "title": "Items",
+                                "type": "string",
+                                "default": "",
+                                "examples": [
+                                  "042-550"
+                                ]
+                              }
+                            },
+                            "ASVS": {
+                              "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/standards/ASVS",
+                              "title": "Asvs",
+                              "type": "array",
+                              "default": [],
+                              "items": {
+                                "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/standards/ASVS/items",
+                                "title": "Items",
+                                "type": "string",
+                                "default": "",
+                                "examples": [
+                                  "V5.1.2"
+                                ]
+                              }
+                            },
+                            "CWE": {
+                              "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/standards/CWE",
+                              "title": "Cwe",
+                              "type": "array",
+                              "default": [],
+                              "items": {
+                                "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/standards/CWE/items",
+                                "title": "Items",
+                                "type": "string",
+                                "default": "",
+                                "examples": [
+                                  "915"
+                                ]
+                              }
+                            },
+                            "OWASP Cheat Sheets": {
+                              "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/standards/OWASP Cheat Sheets",
+                              "title": "Owasp cheat sheets",
+                              "type": "array",
+                              "default": [],
+                              "items": {
+                                "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/standards/OWASP Cheat Sheets/items",
+                                "title": "Items",
+                                "type": "string",
+                                "default": "",
+                                "examples": [
+                                  "Input Validation Cheat Sheet"
+                                ]
+                              }
+                            },
+                            "OWASP Proactive Controls": {
+                              "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/standards/OWASP Proactive Controls",
+                              "title": "Owasp proactive controls",
+                              "type": "array",
+                              "default": [],
+                              "items": {
+                                "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/standards/OWASP Proactive Controls/items",
+                                "title": "Items",
+                                "type": "string",
+                                "default": "",
+                                "examples": [
+                                  "C5"
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1597 @@
+{
+    "usecases": {
+        "General": {
+            "ref": "General",
+            "name": "General",
+            "desc": ""
+        },
+        "UC-STRIDE-DENIAL-OF-SERVICE": {
+            "ref": "UC-STRIDE-DENIAL-OF-SERVICE",
+            "name": "Denial of Service",
+            "desc": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users."
+        },
+        "UC-STRIDE-ELEVATION-OF-PRIVILEGE": {
+            "ref": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+            "name": "Elevation of Privilege",
+            "desc": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data."
+        },
+        "UC-STRIDE-INFORMATION-DISCLOSURE": {
+            "ref": "UC-STRIDE-INFORMATION-DISCLOSURE",
+            "name": "Information Disclosure",
+            "desc": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property."
+        },
+        "UC-STRIDE-TAMPERING": {
+            "ref": "UC-STRIDE-TAMPERING",
+            "name": "Tampering",
+            "desc": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system."
+        }
+    },
+    "threats": {
+        "T-SERVICE-ABUSE": {
+            "ref": "T-SERVICE-ABUSE",
+            "name": "Attackers abuse the service, e.g., lack of rate limiting",
+            "desc": "<p><strong>General Threat Description</strong></p> <p>When a server-side web service, such as a REST API or a gRPC service, lacks adequate rate limiting, it becomes vulnerable to various forms of abuse. Rate limiting is crucial for controlling the frequency of client requests to prevent overuse and ensure fair resource allocation among users. Without proper rate-limiting controls, attackers can inundate the service with a high volume of requests, potentially leading to denial of service, resource exhaustion, and performance degradation. This vulnerability can also be exploited to facilitate other attack types, such as brute force attacks aimed at guessing user credentials.</p>\n<p><strong>Threat Agents/Attack Vectors</strong></p> <p>The primary threat agents in this scenario are malicious actors or bots designed to exploit weaknesses in web services. Attack vectors include automated scripts or botnets that send a large number of requests in a short period, overwhelming the service. These actors may seek to disrupt the service availability, gain unauthorized access, or exploit the service for other malicious purposes. The lack of rate limiting makes it easier for such actors to carry out their attacks without being detected or throttled by the system.</p>\n<p><strong>Impacts</strong></p> <p>The impacts of failing to implement adequate rate limiting can be severe. It can lead to service degradation, where legitimate users experience slow response times or are unable to access the service altogether. In extreme cases, it can result in a complete denial of service, making the web service unavailable. Furthermore, it can compromise the security of the service by facilitating brute force and other exploitation techniques, potentially leading to unauthorized access and data breaches.</p>\n<p><strong>Example Attack Scenarios</strong></p> <p>An attacker deploys a botnet to send thousands of login requests per minute to a web service that lacks proper rate limiting. The service becomes overwhelmed with the volume of requests, leading to resource exhaustion and significant performance degradation. Legitimate users are unable to access the service, and the attacker may eventually bypass authentication controls through brute force attacks, gaining unauthorized access to sensitive information.</p> ",
+            "riskRating": {
+                "C": "1",
+                "I": "50",
+                "A": "50",
+                "EE": "75"
+            },
+            "references": [
+                {
+                    "name": "CWE-400: Uncontrolled Resource Consumption",
+                    "url": "https://cwe.mitre.org/data/definitions/400.html"
+                },
+                {
+                    "name": "OWASP API Security Top 10 - Lack of Resources & Rate Limiting",
+                    "url": "https://owasp.org/API-Security/editions/2019/en/0xa4-lack-of-resources-and-rate-limiting/"
+                }
+            ],
+            "customFields": {
+                "attack_enterprise_technique": "ATT&CK Enterprise - TA0040 - Impact||ATT&CK Enterprise - T1110 - Brute Force||ATT&CK Enterprise - T1498 - Network Denial of Service||ATT&CK Enterprise - T1499 - Endpoint Denial of Service",
+                "attack_ics_technique": "",
+                "attack_mobile_technique": "",
+                "atlas_technique": "",
+                "stride_lm": "Denial of Service"
+            }
+        },
+        "T-AUTHENTICATION-BYPASS": {
+            "ref": "T-AUTHENTICATION-BYPASS",
+            "name": "Attackers bypass authentication and gain unauthorized access",
+            "desc": "<p><strong>General Threat Description</strong></p> <p>Attackers exploiting weaknesses in the authentication mechanisms of a server-side web service, such as a REST API or a gRPC service, pose a significant security threat. Authentication bypass occurs when attackers find ways to circumvent authentication processes, allowing them to impersonate legitimate users or access the service without authorization. This threat can arise from various vulnerabilities, including inadequate access controls, the use of weak or default credentials, insecure session management, and other software flaws that may be exploited through injection attacks or other techniques.</p>\n<p><strong>Threat Agents/Attack Vectors</strong></p> <p>The threat agents in this scenario include cybercriminals, malicious insiders, or automated bots that specifically target authentication mechanisms to gain unauthorized access. These agents might use various attack vectors, such as phishing to steal credentials, exploiting known vulnerabilities in authentication mechanisms, session hijacking, or even using previously leaked credentials obtained from other breaches (credential stuffing).</p>\n<p><strong>Impacts</strong></p> <p>An authentication bypass can lead to severe impacts, including unauthorized access to sensitive data, data manipulation or theft, and potentially gaining elevated privileges within the system. Such incidents can result in financial loss, reputational damage, and legal consequences for the affected organization. Moreover, they compromise the confidentiality, integrity, and availability of the service, affecting both the service provider and its users.</p>\n<p><strong>Example Attack Scenarios</strong></p> <p>An attacker discovers a vulnerability in the session management of a web service, allowing them to hijack an active session of a legitimate user. By exploiting this weakness, the attacker gains unauthorized access to the user's account without needing to bypass the login credentials. In another scenario, an attacker uses a SQL injection flaw in the login form to bypass authentication checks, granting them access to restricted areas of the web service that contain sensitive user data.</p> ",
+            "riskRating": {
+                "C": "75",
+                "I": "75",
+                "A": "50",
+                "EE": "75"
+            },
+            "references": [
+                {
+                    "name": "Broken Access Control: Attack Examples and 4 Defensive Measures",
+                    "url": "https://brightsec.com/blog/broken-access-control-attack-examples-and-4-defensive-measures/"
+                },
+                {
+                    "name": "OWASP Top 10:2021 - Identification and Authentication Failures",
+                    "url": "https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/"
+                }
+            ],
+            "customFields": {
+                "attack_enterprise_technique": "ATT&CK Enterprise - T1556 - Modify Authentication Process||ATT&CK Enterprise - TA0006 - Credential Access||ATT&CK Enterprise - TA0008 - Lateral Movement||ATT&CK Enterprise - TA0001 - Initial Access||ATT&CK Enterprise - TA0005 - Defense Evasion",
+                "attack_ics_technique": "",
+                "attack_mobile_technique": "",
+                "atlas_technique": "",
+                "stride_lm": "Elevation of Privilege||Lateral Movement"
+            }
+        },
+        "T-INJECTION-SERVICE": {
+            "ref": "T-INJECTION-SERVICE",
+            "name": "Attackers craft and inject malicious content, e.g., SQLi",
+            "desc": "<p><strong>General Threat Description</strong></p> <p>Injection attacks occur when an attacker crafts and injects malicious content into a server-side web service, such as a REST API or a gRPC service, targeting its data interpreters. SQL Injection (SQLi) is a prevalent form of this threat, but the risk also extends to Command Injection, XML Injection, LDAP Injection, Cross-Site Scripting (XSS), and malicious file executions. These attacks exploit vulnerabilities in the application's input validation mechanisms, allowing the attacker to execute arbitrary commands, manipulate queries, or access unauthorized data.</p>\n<p><strong>Threat Agents/Attack Vectors</strong></p> <p>The primary threat agents include cybercriminals, hacking groups, and malicious insiders with knowledge of software vulnerabilities. Attack vectors involve the submission of crafted input data into web forms, URLs, or even in the headers of HTTP requests, aiming to manipulate the backend data processing systems. By exploiting vulnerabilities in how user input is processed and validated, attackers can execute unauthorized commands or queries within the application's underlying databases or operating systems.</p>\n<p><strong>Impacts</strong></p> <p>The impacts of injection attacks can be devastating, leading to data breaches, loss of data integrity, unauthorized access to sensitive information, and complete system compromise. These attacks can result in regulatory penalties, financial losses, and severe damage to an organization's reputation. Moreover, they can undermine user trust in the affected web service, with long-term consequences for user retention and business viability.</p>\n<p><strong>Example Attack Scenarios</strong></p> <p>In an SQL Injection attack, an attacker manipulates input fields or URL parameters to include malicious SQL code, which is then executed by the database server, leading to unauthorized data access. For example, by entering a specially crafted SQL query into a search box, the attacker could dump the database contents, including user credentials. In a Cross-Site Scripting attack, an attacker injects malicious scripts into web pages viewed by other users, stealing cookies or session tokens, thereby hijacking user sessions.</p> ",
+            "riskRating": {
+                "C": "75",
+                "I": "75",
+                "A": "50",
+                "EE": "75"
+            },
+            "references": [
+                {
+                    "name": "Top 5 most dangerous injection attacks",
+                    "url": "https://www.invicti.com/blog/web-security/top-dangerous-injection-attacks/"
+                }
+            ],
+            "customFields": {
+                "attack_enterprise_technique": "ATT&CK Enterprise - T1055 - Process Injection||ATT&CK Enterprise - T1202 - Indirect Command Execution||ATT&CK Enterprise - T1059 - Command and Scripting Interpreter||ATT&CK Enterprise - T1190 - Exploit Public-Facing Application||ATT&CK Enterprise - T1221 - Template Injection||ATT&CK Enterprise - T1220 - XSL Script Processing||ATT&CK Enterprise - TA0004 - Privilege Escalation||ATT&CK Enterprise - TA0005 - Defense Evasion",
+                "attack_ics_technique": "",
+                "attack_mobile_technique": "ATT&CK Mobile - T1516 - Input Injection",
+                "atlas_technique": "",
+                "stride_lm": "Elevation of Privilege"
+            }
+        },
+        "T-LEAKAGE": {
+            "ref": "T-LEAKAGE",
+            "name": "Attackers access information, including secrets, through misconfiguration, errors, or logging",
+            "desc": "<p><strong>General Threat Description</strong></p> <p>Improper configurations, coding errors, and insecure logging practices in a server-side web service can lead to the unintentional exposure of sensitive information, including secrets like passwords, API keys, and both system and user data. Such vulnerabilities occur when the web service is not correctly secured, potentially due to oversight, lack of awareness, or misinterpretation of configuration settings. These vulnerabilities can allow attackers to access confidential information that should otherwise be protected, compromising the security and integrity of the web service and its users.</p>\n<p><strong>Threat Agents/Attack Vectors</strong></p> <p>Threat agents in these scenarios can range from opportunistic hackers to sophisticated cybercriminals actively scanning for exposed information due to misconfigurations or errors. Attack vectors include exploiting publicly accessible directories, unprotected files, verbose error messages, and logs that contain sensitive information. Attackers may also use automated tools to scan for common misconfigurations or coding errors that lead to information exposure.</p>\n<p><strong>Impacts</strong></p> <p>The exposure of sensitive information through misconfiguration, coding errors, or insecure logging can have severe consequences, including data breaches, identity theft, and unauthorized access to protected resources. It can also lead to loss of customer trust, reputational damage, and potential legal and regulatory implications for the organization. The compromised information can further be used in more sophisticated attacks, amplifying the overall risk to the organization and its stakeholders.</p>\n<p><strong>Example Attack Scenarios</strong></p> <p>An attacker discovers that a web service's error messages are verbose and include detailed stack traces, revealing database connection strings and API keys. Utilizing this information, the attacker gains unauthorized access to the database and third-party services. In another scenario, an attacker finds a misconfigured server that logs all HTTP requests, including URLs containing unencrypted passwords and tokens. By accessing these logs, the attacker harvests credentials and tokens to impersonate legitimate users or escalate privileges.</p> ",
+            "riskRating": {
+                "C": "100",
+                "I": "75",
+                "A": "25",
+                "EE": "75"
+            },
+            "references": [
+                {
+                    "name": "Information disclosure vulnerabilities and attacks in web applications",
+                    "url": "https://www.invicti.com/blog/web-security/information-disclosure-issues-attacks/"
+                },
+                {
+                    "name": "Web Service Security Cheat Sheet",
+                    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Web_Service_Security_Cheat_Sheet.html"
+                }
+            ],
+            "customFields": {
+                "attack_enterprise_technique": "ATT&CK Enterprise - TA0009 - Collection||ATT&CK Enterprise - T1552 - Unsecured Credentials||ATT&CK Enterprise - T1567 - Exfiltration Over Web Service||ATT&CK Enterprise - T1190 - Exploit Public-Facing Application||ATT&CK Enterprise - TA0001 - Initial Access||ATT&CK Enterprise - T1213 - Data from Information Repositories",
+                "attack_ics_technique": "",
+                "attack_mobile_technique": "",
+                "atlas_technique": "",
+                "stride_lm": "Elevation of Privilege||Information Disclosure"
+            }
+        },
+        "T-DESERIALIZATION": {
+            "ref": "T-DESERIALIZATION",
+            "name": "Attackers leverage deserialization flaws to execute malicious code",
+            "desc": "<p><strong>General Threat Description</strong></p> <p>Deserialization flaws arise when a server-side web service deserializes untrusted or maliciously crafted data, leading to the execution of unintended code. This vulnerability is often rooted in design faults within the application or service-level serialization logic. Attackers exploit these flaws by sending crafted data that, once deserialized, executes malicious code within the service's environment. Such vulnerabilities are especially critical in web services that rely heavily on serialization to process complex data structures received from clients, making them susceptible to attacks aiming to disrupt or gain unauthorized control over the service.</p>\n<p><strong>Threat Agents/Attack Vectors</strong></p> <p>The primary threat agents exploiting deserialization flaws include external attackers and, in some cases, malicious insiders. These individuals craft and submit data that, when deserialized by the vulnerable service, leads to the execution of malicious code. Attack vectors can involve submitting crafted objects via web forms, API calls, or any other input mechanisms accepted by the web service. Exploits can be designed to target specific vulnerabilities in the service's deserialization logic, leveraging the application's own functionality to trigger malicious outcomes.</p>\n<p><strong>Impacts</strong></p> <p>The impacts of exploiting deserialization flaws can be severe and varied, ranging from unauthorized access and data exfiltration to denial-of-service attacks and the complete compromise of the underlying server. Such attacks can lead to the theft of sensitive information, execution of arbitrary code with server privileges, disruption of service availability, and potential escalation to further attacks on the network or other connected systems. The compromise of server functionality poses a significant risk to the integrity, confidentiality, and availability of the application and its data.</p>\n<p><strong>Example Attack Scenarios</strong></p> <p>An attacker crafts a malicious object that, when deserialized by the web service, executes a shell command on the server. This could enable the attacker to gain unauthorized access to the server, modify data, or create new administrative accounts for further exploitation. In another scenario, an attacker sends serialized data that triggers a denial-of-service attack when deserialized, exploiting a flaw in the application's error handling logic to exhaust system resources, leading to service downtime.</p> ",
+            "riskRating": {
+                "C": "50",
+                "I": "75",
+                "A": "50",
+                "EE": "75"
+            },
+            "references": [
+                {
+                    "name": "Insecure deserialization",
+                    "url": "https://portswigger.net/web-security/deserialization"
+                }
+            ],
+            "customFields": {
+                "attack_enterprise_technique": "ATT&CK Enterprise - T1203 - Exploitation for Client Execution||ATT&CK Enterprise - T1190 - Exploit Public-Facing Application||ATT&CK Enterprise - TA0001 - Initial Access||ATT&CK Enterprise - TA0002 - Execution||ATT&CK Enterprise - T1210 - Exploitation of Remote Services",
+                "attack_ics_technique": "",
+                "attack_mobile_technique": "",
+                "atlas_technique": "",
+                "stride_lm": "Elevation of Privilege||Tampering"
+            }
+        },
+        "T-MITM": {
+            "ref": "T-MITM",
+            "name": "Attackers use Man-in-the-Middle (MitM) to intercept communications",
+            "desc": "<p><strong>General Threat Description</strong></p> <p>Man-in-the-Middle (MitM) attacks pose a substantial threat to server-side web services, such as REST APIs or gRPC services. In this type of attack, an unauthorized actor intercepts, and potentially alters, the communications between two parties who believe they are directly communicating with each other. The attacker's ability to secretly listen in on or manipulate the data being exchanged makes MitM attacks particularly insidious. These attacks can occur at any stage of the data transmission process, exploiting vulnerabilities in the network or the encryption protocols used to secure the communication.</p>\n<p><strong>Threat Agents/Attack Vectors</strong></p> <p>Threat agents carrying out MitM attacks can range from individual hackers to organized cybercriminal groups. These attackers exploit weaknesses in network security, deploy malicious software, or utilize compromised network devices to intercept communications. Techniques include network eavesdropping, DNS hijacking, ARP spoofing, and exploiting weak encryption protocols. In cases where communications are encrypted, attackers may employ SSL stripping to force a connection to revert to an unencrypted state, or use forged certificates to decrypt and access the data without raising suspicion.</p>\n<p><strong>Impacts</strong></p> <p>The impacts of MitM attacks can be severe, ranging from the breach of sensitive information, such as personal data and login credentials, to the manipulation of data in transit. This can lead to financial fraud, identity theft, unauthorized transactions, and the spread of malware. Additionally, the compromise of communication integrity and confidentiality can erode trust in the web service, resulting in reputational damage and potential legal implications for the service provider.</p>\n<p><strong>Example Attack Scenarios</strong></p> <p>An attacker conducts a DNS hijacking attack to intercept communications between users and a financial service's REST API. The attacker redirects users to a fraudulent version of the service, where login credentials are harvested. In another scenario, through ARP spoofing, an attacker intercepts and modifies the transaction details sent from a client to a web service, altering the payee information and redirecting funds to an account under the attacker's control.</p> ",
+            "riskRating": {
+                "C": "100",
+                "I": "100",
+                "A": "75",
+                "EE": "75"
+            },
+            "references": [
+                {
+                    "name": "Man in the Middle (MITM) Attacks",
+                    "url": "https://www.rapid7.com/fundamentals/man-in-the-middle-attacks/"
+                }
+            ],
+            "customFields": {
+                "attack_enterprise_technique": "ATT&CK Enterprise - T1040 - Network Sniffing||ATT&CK Enterprise - TA0009 - Collection||ATT&CK Enterprise - TA0006 - Credential Access||ATT&CK Enterprise - T1557 - Adversary-in-the-Middle||ATT&CK Enterprise - T1584 - Compromise Infrastructure||ATT&CK Enterprise - TA0007 - Discovery",
+                "attack_ics_technique": "",
+                "attack_mobile_technique": "",
+                "atlas_technique": "",
+                "stride_lm": "Information Disclosure||Tampering"
+            }
+        }
+    },
+    "weaknesses": {
+        "CWE-770": {
+            "ref": "CWE-770",
+            "name": "CWE-770",
+            "desc": "CWE:\nCWE-770: Allocation of Resources Without Limits or Throttling\nThe product allocates a reusable resource or group of resources on behalf of an actor without imposing any restrictions on the size or number of resources that can be allocated, in violation of the intended security policy for that actor.\n\n\t\t\t\t",
+            "impact": "75"
+        },
+        "CWE-284": {
+            "ref": "CWE-284",
+            "name": "CWE-284",
+            "desc": "CWE:\nCWE-284: Improper Access Control\nThe product does not restrict or incorrectly restricts access to a resource from an unauthorized actor.\n\n\t\t\t\t",
+            "impact": "100"
+        },
+        "CWE-74": {
+            "ref": "CWE-74",
+            "name": "CWE-74",
+            "desc": "CWE:\nCWE-74: Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection')\nThe product constructs all or part of a command, data structure, or record using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify how it is parsed or interpreted when it is sent to a downstream component.\nSoftware or other automated logic has certain assumptions about what constitutes data and control respectively. It is the lack of verification of these assumptions for user-controlled input that leads to injection problems. Injection problems encompass a wide variety of issues -- all mitigated in very different ways and usually attempted in order to alter the control flow of the process. For this reason, the most effective way to discuss these weaknesses is to note the distinct features that classify them as injection weaknesses. The most important issue to note is that all injection problems share one thing in common -- i.e., they allow for the injection of control plane data into the user-controlled data plane. This means that the execution of the process may be altered by sending code in through legitimate data channels, using no other mechanism. While buffer overflows, and many other flaws, involve the use of some further issue to gain execution, injection problems need only for the data to be parsed.",
+            "impact": "75"
+        },
+        "CWE-668": {
+            "ref": "CWE-668",
+            "name": "CWE-668",
+            "desc": "CWE:\nCWE-668: Exposure of Resource to Wrong Sphere\nThe product exposes a resource to the wrong control sphere, providing unintended actors with inappropriate access to the resource.\n\n\t\t\t\t",
+            "impact": "75"
+        },
+        "CWE-755": {
+            "ref": "CWE-755",
+            "name": "CWE-755",
+            "desc": "CWE:\nCWE-755: Improper Handling of Exceptional Conditions\nThe product does not handle or incorrectly handles an exceptional condition.\n",
+            "impact": "75"
+        },
+        "CWE-502": {
+            "ref": "CWE-502",
+            "name": "CWE-502",
+            "desc": "CWE:\nCWE-502: Deserialization of Untrusted Data\nThe product deserializes untrusted data without sufficiently verifying that the resulting data will be valid.\n\n\t\t\t\t",
+            "impact": "75"
+        },
+        "CWE-923": {
+            "ref": "CWE-923",
+            "name": "CWE-923",
+            "desc": "CWE:\nCWE-923: Improper Restriction of Communication Channel to Intended Endpoints\nThe product establishes a communication channel to (or from) an endpoint for privileged or protected operations, but it does not properly ensure that it is communicating with the correct endpoint.\n\n\t\t\t\t",
+            "impact": "100"
+        }
+    },
+    "controls": {
+        "C-SERVICE-RESTRICTIONS": {
+            "ref": "C-SERVICE-RESTRICTIONS",
+            "name": "Implement service restrictions",
+            "desc": "<p>Implement service restrictions effectively to safeguard your server-side web service, including REST APIs and gRPC services, against unauthorized use and potential security threats. Follow these actionable steps, designed even for developers with no prior security background, to mitigate risks such as brute force attacks, denial-of-service (DoS) attempts, and unwarranted resource consumption.</p>\n<strong>Implementing Rate Limiting and Service Restrictions:</strong>\n<ul> <li>Introduce rate-limiting mechanisms. Use a library or module specific to your development framework to limit the number of requests a user or client can make within a given timeframe. This measure is crucial for preventing overuse and abuse of the service.</li> <li>Establish granular rate limits for various actions or API endpoints. Analyze the functionality and sensitivity of different parts of your service to apply more stringent limits where necessary. For instance, login attempts may require stricter limits compared to general data retrieval operations.</li> <li>Set time windows for rate limiting that reflect the expected traffic patterns. Shorter windows can prevent burst traffic from causing harm, while longer windows prevent sustained high usage. Adjust these windows based on real-world usage data and analytics.</li> <li>Consider implementing graceful degradation strategies. During peak loads or detected attacks, dynamically adjust rate limits or temporarily degrade service for non-critical functionalities to ensure availability of core features.</li> <li>Use whitelisting and blacklisting to control access. Allow trusted clients or users unfettered access by whitelisting their IPs or accounts, and blacklist entities that exhibit malicious behavior or violate usage policies.</li> <li>Deploy comprehensive monitoring and logging. Utilize tools and practices that enable you to observe traffic in real-time, recognize patterns indicative of abuse, and maintain records for investigating security incidents.</li> <li>Incorporate additional security layers. Integrate solutions like Web Application Firewalls (WAFs) and Intrusion Detection Systems (IDS) to defend against a broader spectrum of threats, including sophisticated DoS and DDoS attacks.</li> </ul>\n<p>Refer to reputable security frameworks and guidelines, such as those provided by OWASP (Open Web Application Security Project), to further enhance your service's security posture. Staying informed about the latest security best practices and vulnerabilities in web services is crucial for maintaining a robust defense against evolving threats.</p> ",
+            "cost": "0",
+            "customFields": {
+                "attack_enterprise_mitigation": "ATT&CK Enterprise - M1031 - Network Intrusion Prevention||ATT&CK Enterprise - M1035 - Limit Access to Resource Over Network||ATT&CK Enterprise - M1022 - Restrict File and Directory Permissions",
+                "attack_ics_mitigation": "",
+                "attack_mobile_mitigation": "",
+                "atlas_mitigation": "",
+                "baseline_standard_ref": "NIST 800-53 v5",
+                "baseline_standard_section": "SC-5 DENIAL-OF-SERVICE PROTECTION||SC-43 Usage Restrictions||AC-17 Remote Access",
+                "scope": "Network Security||Operational Security"
+            },
+            "references": [
+                {
+                    "name": "What is Rate Limiting? How it works and implementation techniques",
+                    "url": "https://www.vaadata.com/blog/what-is-rate-limiting-how-it-works-and-implementation-techniques/"
+                }
+            ],
+            "question": "Are service restrictions implemented? E.g., rate limiting or whitelisting/blacklisting mechanisms",
+            "question_desc": "",
+            "dataflow_tags": [],
+            "standards": [
+                {
+                    "standard-ref": "CRE",
+                    "standard-section": "623-550"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "Low"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "Moderate"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "High"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-5 DENIAL-OF-SERVICE PROTECTION"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "DE.CM-1: The network is monitored to detect potential cybersecurity events"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.DS-4: Adequate capacity to ensure availability is maintained"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.PT-4: Communications and control networks are protected"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "11.4"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "10.6.2"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "10.6.1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "2"
+                },
+                {
+                    "standard-ref": "CRE",
+                    "standard-section": "862-452"
+                },
+                {
+                    "standard-ref": "Cloud Controls Matrix",
+                    "standard-section": "Infrastructure and Virtualization Security Policy and Procedures"
+                },
+                {
+                    "standard-ref": "ISO 27001",
+                    "standard-section": "Information security for use of cloud services"
+                },
+                {
+                    "standard-ref": "ISO 27001",
+                    "standard-section": "Documented operating procedures"
+                },
+                {
+                    "standard-ref": "ISO 27001",
+                    "standard-section": "Separation of development, test and production environments"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-36 Distributed Processing and Storage"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-43 Usage Restrictions"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-30 Concealment and Misdirection"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-35 External Malicious Code Identification"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-47 Alternate Communications Paths"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-46 Cross Domain Policy Enforcement"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-50 Software-enforced Separation and Policy Enforcement"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-38 Operations Security"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-37 Out-of-band Channels"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-26 Decoys"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-48 Sensor Relocation"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-42 Sensor Capability and Data"
+                },
+                {
+                    "standard-ref": "CRE",
+                    "standard-section": "278-646"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Executable Denylisting"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-18 Wireless Access"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "CA-3 Information Exchange"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "CA-9 Internal System Connections"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-17 Remote Access"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-8 TRANSMISSION CONFIDENTIALITY AND INTEGRITY"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-16 Transmission of Security and Privacy Attributes"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-11 Trusted Path"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "DE.AE-1: A baseline of network operations and expected data flows for users and systems is established and managed"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.DS-2: Data-in-transit is protected"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "ID.AM-3: Organizational communication and data flows are mapped"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.AC-3: Remote access is managed"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "1.1.1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.5.1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "4"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "12.3.8"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "12.3.10"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "1.1.2"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "12.3.9"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "2.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.1.5"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.2.1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "1.1.3"
+                }
+            ]
+        },
+        "C-STRONG-AUTHENTICATION": {
+            "ref": "C-STRONG-AUTHENTICATION",
+            "name": "Use strong authentication mechanisms",
+            "desc": "<p>Secure your server-side web service, be it a REST API or a gRPC service, by implementing robust authentication mechanisms. This will ensure that only authorized users or systems can access and interact with your service. Here are actionable steps that developers, even those without prior security knowledge, can follow to strengthen authentication:</p>\n<strong>Key Steps to Enhance Authentication:</strong>\n<ul> <li>Adopt multi-factor authentication (MFA). For APIs, combine traditional methods like API keys or client credentials with dynamic security tokens that change periodically, adding an extra layer of security.</li> <li>Utilize industry-standard authentication and authorization protocols such as OAuth and OpenID Connect. These protocols provide a secure and standardized way for clients to request and use access tokens effectively safeguarding access to your services.</li> <li>Implement strong password policies. Enforce rules on password complexity, such as minimum length, inclusion of uppercase and lowercase letters, numbers, and symbols, and mandate regular password updates.</li> <li>Follow secure session management practices. Use secure, randomly generated session identifiers, enforce session expiration after a period of inactivity, and protect against session hijacking attacks.</li> <li>Consider adaptive authentication methods that gauge the authentication requirements based on context, like the user's location, device, or the sensitivity of the operation being requested.</li> <li>For machine-to-machine interactions or when strong client authentication is necessary, use client certificate authentication. This ensures that only clients with a valid certificate can establish connections.</li> <li>Deploy account lockout mechanisms to lock or suspend user accounts after several unsuccessful login attempts, protecting against brute-force attacks.</li> <li>Ensure secure transmission of credentials using encrypted channels, preferably HTTPS, to protect data in transit.</li> <li>Maintain secure user account management. Regularly review user access privileges, promptly deactivate inactive accounts, and immediately revoke access for users who leave the organization or whose accounts are compromised.</li> <li>Enable detailed logging and monitoring of authentication attempts to identify and investigate suspicious activities promptly.</li> </ul>\n<p>Following these steps and adhering to established security practices, such as those recommended by the Open Web Application Security Project (OWASP), can significantly mitigate unauthorized access and potential security threats to your web service.</p> ",
+            "cost": "0",
+            "customFields": {
+                "attack_enterprise_mitigation": "ATT&CK Enterprise - M1032 - Multi-factor Authentication||ATT&CK Enterprise - M1018 - User Account Management||ATT&CK Enterprise - M1027 - Password Policies",
+                "attack_ics_mitigation": "",
+                "attack_mobile_mitigation": "",
+                "atlas_mitigation": "",
+                "baseline_standard_ref": "NIST 800-53 v5",
+                "baseline_standard_section": "AC-3 ACCESS ENFORCEMENT||IA-2 Identification and Authentication (organizational Users)||IA-8 Identification and Authentication (non-organizational Users)",
+                "scope": "Application Security||Operational Security"
+            },
+            "references": [
+                {
+                    "name": "Authentication Cheat Sheet",
+                    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html"
+                }
+            ],
+            "question": "Are strong authentication mechanisms in place?",
+            "question_desc": "",
+            "dataflow_tags": [],
+            "standards": [
+                {
+                    "standard-ref": "CRE",
+                    "standard-section": "128-128"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Executable Denylisting"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Mandatory Access Control"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "System Call Filtering"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Executable Allowlisting"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "Low"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "Moderate"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "High"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-3 ACCESS ENFORCEMENT"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.AC-4: Access permissions and authorizations are managed, incorporating the principles of least privilege and separation of duties"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.PT-3: The principle of least functionality is incorporated by configuring systems to provide only essential capabilities"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.7"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "7.1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "7.2"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "2.2"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "9.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "6.4.2"
+                },
+                {
+                    "standard-ref": "CRE",
+                    "standard-section": "633-428"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Local Account Monitoring"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Account Locking"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Multi-factor Authentication"
+                },
+                {
+                    "standard-ref": "ISO 27001",
+                    "standard-section": "Secure authentication"
+                },
+                {
+                    "standard-ref": "ISO 27001",
+                    "standard-section": "Authentication information"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "IA-12 Identity Proofing"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "IA-1 Policy and Procedures"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "IA-3 Device Identification and Authentication"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "IA-8 Identification and Authentication (non-organizational Users)"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-8 SYSTEM USE NOTIFICATION"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "IA-2 Identification and Authentication (organizational Users)"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "IA-4 Identifier Management"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "IA-5 AUTHENTICATOR MANAGEMENT"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-9 PREVIOUS LOGON NOTIFICATION"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-7 UNSUCCESSFUL LOGON ATTEMPTS"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "IA-10 Adaptive Authentication"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.AC-1: Identities and credentials are issued, managed, verified, revoked, and audited for authorized devices, users and processes"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.AC-6: Identities are proofed and bound to credentials and asserted in interactions"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.AC-7: Users, devices, and other assets are authenticated (e.g., single-factor, multi-factor) commensurate with the risk of the transaction (e.g., individuals' security and privacy risks and other organizational risks)"
+                },
+                {
+                    "standard-ref": "OWASP Top 10 2021",
+                    "standard-section": "Identification and Authentication Failures"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "7.1.4"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.5"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.2.2"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.2"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "2.1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.6"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "12.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.1"
+                }
+            ]
+        },
+        "C-VALIDATION-SERVICE": {
+            "ref": "C-VALIDATION-SERVICE",
+            "name": "Implement proper parsing and input validation",
+            "desc": "<p>Ensure the security of your server-side web service, including REST APIs and gRPC services, by implementing effective parsing and input validation. Proper execution of these practices prevents security vulnerabilities such as injection attacks, buffer overflows, and other forms of malicious input manipulation. The following steps, designed for developers with no previous security experience, provide a guideline to implement these measures:</p>\n<strong>Steps for Robust Parsing and Input Validation:</strong>\n<ul> <li>Enforce strict input validation checks. Verify that all user-provided data matches the expected format, length, and data type. Employ regular expressions for the validation of complex input patterns, ensuring that data conforms to predefined formats.</li> <li>Adopt a whitelisting approach for input validation. Explicitly define and accept only known, safe input patterns, rather than attempting to identify and block potentially harmful inputs.</li> <li>Handle special characters with care, especially in contexts where they might be interpreted as executable or control characters. This step is crucial for preventing injection attacks.</li> <li>Utilize input sanitization techniques. Employ encoding or proper filtering strategies to neutralize or strip out potentially dangerous characters or patterns from user inputs.</li> <li>Employ established libraries and tools for their robust input validation and parsing features. This approach minimizes the risk of errors that could lead to vulnerabilities.</li> <li>Implement both client-side and server-side validation to improve user experience by providing immediate feedback through client-side validation, while relying on server-side validation as the ultimate enforcement point to ensure security.</li> <li>Develop secure error-handling practices. Ensure that error messages do not disclose sensitive information that could be exploited by attackers.</li> <li>Incorporate automated tools for scanning and testing your application regularly. This helps in early detection and fixing of potential issues related to input validation and parsing.</li> </ul>\n<p>By following these actionable steps and adhering to good security practices, you can significantly reduce the risk of security breaches and vulnerabilities in your web service. Regularly update your knowledge on security best practices and tools from reliable sources such as the Open Web Application Security Project (OWASP) to stay ahead of potential threats.</p> ",
+            "cost": "0",
+            "customFields": {
+                "attack_enterprise_mitigation": "ATT&CK Enterprise - M1017 - User Training||ATT&CK Enterprise - M1016 - Vulnerability Scanning",
+                "attack_ics_mitigation": "ATT&CK ICS - M0818 - Validate Program Inputs",
+                "attack_mobile_mitigation": "",
+                "atlas_mitigation": "",
+                "baseline_standard_ref": "NIST 800-53 v5",
+                "baseline_standard_section": "SI-10 INFORMATION INPUT VALIDATION",
+                "scope": "Application Security||Data Security"
+            },
+            "references": [
+                {
+                    "name": "Input Validation Cheat Sheet",
+                    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html"
+                }
+            ],
+            "question": "Is proper parsing and input validation implemented in the service application?",
+            "question_desc": "My question desc",
+            "dataflow_tags": ["https", "tls"],
+            "standards": [
+                {
+                    "standard-ref": "CRE",
+                    "standard-section": "503-455"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "Moderate"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "High"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SI-10 INFORMATION INPUT VALIDATION"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.DS-6: Integrity checking mechanisms are used to verify software, firmware, and information integrity"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "11.5"
+                }
+            ]
+        },
+        "C-SECRETS": {
+            "ref": "C-SECRETS",
+            "name": "Use secure methods to handle secrets and other sensitive information",
+            "desc": "<p>Protecting secrets and other sensitive information is paramount for any server-side web service, including REST APIs and gRPC services, to prevent unauthorized access and data breaches. Follow these actionable steps to securely manage such critical data, suitable even for developers without prior security experience:</p>\n<strong>Secure Handling of Secrets and Sensitive Information:</strong>\n<ul> <li>Securely store sensitive data by avoiding plaintext storage of passwords and employing strong encryption mechanisms for all sensitive information.</li> <li>Utilize secure credential vaults or management systems for centralizing the protection of sensitive data. These tools offer encryption, stringent access controls, and auditing capabilities to safeguard secrets.</li> <li>Ensure the secure generation, storage, and transmission of API keys or tokens. Communicate over secure protocols like HTTPS to protect the integrity and confidentiality of these credentials.</li> <li>Adopt a regular rotation policy for all secrets, such as passwords, API keys, and tokens, to mitigate the risk of old credentials being exploited.</li> <li>Encrypt all secrets during transit between different components of your service, ensuring they are not exposed to eavesdropping or interception.</li> <li>For password transmission, always use HTTPS and avoid including passwords in URL parameters. Implement secure password hashing and salting techniques to protect stored passwords.</li> <li>Apply strict access control measures to limit access to sensitive information, adhering to the principle of least privilege. Ensure users and services have only the access necessary for their function.</li> <li>Maintain sensitive configuration files securely and separately from the codebase to prevent accidental exposure. Avoid hardcoding secrets in source code.</li> <li>Set up auditing and monitoring to quickly detect unauthorized attempts to access sensitive information and to ensure compliance with security policies.</li> <li>When deploying services, carefully handle the transfer of secrets to production environments to prevent leakage or exposure during the deployment phase.</li> </ul>\n<p>By adhering to these guidelines and incorporating security best practices from authoritative sources like OWASP (Open Web Application Security Project), you can significantly enhance the security posture of your web service, protecting it and its users from potential threats.</p> ",
+            "cost": "1",
+            "customFields": {
+                "attack_enterprise_mitigation": "ATT&CK Enterprise - M1043 - Credential Access Protection||ATT&CK Enterprise - M1041 - Encrypt Sensitive Information",
+                "attack_ics_mitigation": "ATT&CK ICS - M0809 - Operational Information Confidentiality",
+                "attack_mobile_mitigation": "",
+                "atlas_mitigation": "",
+                "baseline_standard_ref": "NIST 800-53 v5",
+                "baseline_standard_section": "SC-13 Cryptographic Protection||IA-1 Policy and Procedures||IA-3 Device Identification and Authentication",
+                "scope": "Data Security||Operational Security"
+            },
+            "references": [
+                {
+                    "name": "7 Best Methods for Protecting Sensitive Data",
+                    "url": "https://www.upguard.com/blog/protecting-sensitive-data"
+                }
+            ],
+            "question": "Are secure storage and trasmission mechanisms used to protect sensitive data?",
+            "question_desc": "",
+            "dataflow_tags": ["ssl", "oauth2"],
+            "standards": [
+                {
+                    "standard-ref": "CRE",
+                    "standard-section": "170-772"
+                },
+                {
+                    "standard-ref": "Cloud Controls Matrix",
+                    "standard-section": "Cryptography, Encryption & Key Management"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "Low"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "Moderate"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "High"
+                },
+                {
+                    "standard-ref": "ISO 27001",
+                    "standard-section": "Use of cryptography"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-13 Cryptographic Protection"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-12 CRYPTOGRAPHIC KEY ESTABLISHMENT AND MANAGEMENT"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-17 Public Key Infrastructure Certificates"
+                },
+                {
+                    "standard-ref": "OWASP Top 10 2021",
+                    "standard-section": "Cryptographic Failures"
+                },
+                {
+                    "standard-ref": "CRE",
+                    "standard-section": "633-428"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Local Account Monitoring"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Account Locking"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Multi-factor Authentication"
+                },
+                {
+                    "standard-ref": "ISO 27001",
+                    "standard-section": "Secure authentication"
+                },
+                {
+                    "standard-ref": "ISO 27001",
+                    "standard-section": "Authentication information"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "IA-12 Identity Proofing"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "IA-1 Policy and Procedures"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "IA-3 Device Identification and Authentication"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "IA-8 Identification and Authentication (non-organizational Users)"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-8 SYSTEM USE NOTIFICATION"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "IA-2 Identification and Authentication (organizational Users)"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "IA-4 Identifier Management"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "IA-5 AUTHENTICATOR MANAGEMENT"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-9 PREVIOUS LOGON NOTIFICATION"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-7 UNSUCCESSFUL LOGON ATTEMPTS"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "IA-10 Adaptive Authentication"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.AC-1: Identities and credentials are issued, managed, verified, revoked, and audited for authorized devices, users and processes"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.AC-6: Identities are proofed and bound to credentials and asserted in interactions"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.AC-7: Users, devices, and other assets are authenticated (e.g., single-factor, multi-factor) commensurate with the risk of the transaction (e.g., individuals' security and privacy risks and other organizational risks)"
+                },
+                {
+                    "standard-ref": "OWASP Top 10 2021",
+                    "standard-section": "Identification and Authentication Failures"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "7.1.4"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.5"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.2.2"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.2"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "2.1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.6"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "12.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.1"
+                }
+            ]
+        },
+        "C-HARDENED-CONFIGURATION": {
+            "ref": "C-HARDENED-CONFIGURATION",
+            "name": "Limit information leakage, e.g., via hardened configuration",
+            "desc": "<p>Limiting information leakage in your server-side web service, such as a REST API or a gRPC service, is crucial to protect sensitive information from being exposed through various channels like error messages, system logs, or misconfigurations. Follow these actionable steps to harden your service's configuration against unintended data exposure, suitable for developers without previous security experience:</p>\n<strong>Key Strategies to Limit Information Leakage:</strong>\n<ul> <li>Display minimalistic error messages that do not reveal internal details about the service's structure or state. Error messages should be generic enough to inform the user of the problem without disclosing sensitive information.</li> <li>Alter default configurations immediately after service setup to ensure that security settings are optimized and not left at their less secure, default state.</li> <li>Restrict access to the service and its logs strictly to authorized personnel. Ensure that administrative interfaces and log files are not accessible to unauthorized users.</li> <li>Apply data masking techniques for outputs that may display sensitive information. This is especially important for personal or financial data to prevent direct exposure to unauthorized viewers.</li> <li>Configure network settings and firewalls diligently to close off unnecessary open ports and correct misconfigured services that might inadvertently expose sensitive data.</li> <li>Implement Content Security Policies (CSP) to restrict what resources can be loaded and executed by the service, reducing the risk of data leakage via XSS attacks or other vector exploits.</li> <li>Manage file and directory permissions meticulously to prevent unauthorized access to files containing sensitive information. Only essential access rights should be granted, based on the principle of least privilege.</li> <li>Encrypt sensitive data in transit and at rest. Utilizing strong encryption methods ensures that, even if data is somehow accessed, it remains unintelligible without the decryption keys.</li> </ul>\n<p>Adhering to these steps not only enhances your web service's security posture but also aligns with good security practices recommended by leading security organizations, such as OWASP (Open Web Application Security Project). Regularly review and update your service's configurations to adapt to evolving security threats and protect against information leakage.</p> ",
+            "cost": "1",
+            "customFields": {
+                "attack_enterprise_mitigation": "ATT&CK Enterprise - M1041 - Encrypt Sensitive Information||ATT&CK Enterprise - M1054 - Software Configuration",
+                "attack_ics_mitigation": "",
+                "attack_mobile_mitigation": "",
+                "atlas_mitigation": "",
+                "baseline_standard_ref": "NIST 800-53 v5",
+                "baseline_standard_section": "SI-7 Software, Firmware, and Information Integrity||SI-6 Security and Privacy Function Verification||AC-4 Information Flow Enforcement||CM-6 Configuration Settings",
+                "scope": "Application Security||Data Security"
+            },
+            "references": [
+                {
+                    "name": "A05:2021 Security Misconfiguration",
+                    "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+                }
+            ],
+            "question": "Is sensitive data protected from unintentional exposure, e.g., in error messages or logs?",
+            "question_desc": "",
+            "dataflow_tags": [],
+            "standards": [
+                {
+                    "standard-ref": "CRE",
+                    "standard-section": "626-250"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "Moderate"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "High"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SI-6 Security and Privacy Function Verification"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SI-7 Software, Firmware, and Information Integrity"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.DS-6: Integrity checking mechanisms are used to verify software, firmware, and information integrity"
+                },
+                {
+                    "standard-ref": "NIST SSDF",
+                    "standard-section": "PW.2.1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "11.5"
+                },
+                {
+                    "standard-ref": "SAMM",
+                    "standard-section": "Achitecture validation"
+                },
+                {
+                    "standard-ref": "SAMM",
+                    "standard-section": "Achitecture mitigation"
+                },
+                {
+                    "standard-ref": "CRE",
+                    "standard-section": "247-250"
+                },
+                {
+                    "standard-ref": "Cloud Controls Matrix",
+                    "standard-section": "Identity & Access Management"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Local Account Monitoring"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Inbound Traffic Filtering"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "File Content Rules"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Job Function Access Pattern Analysis"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Resource Access Pattern Analysis"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Domain Trust Policy"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Outbound Traffic Filtering"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "User Data Transfer Analysis"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "Low"
+                },
+                {
+                    "standard-ref": "ISO 27001",
+                    "standard-section": "Access rights"
+                },
+                {
+                    "standard-ref": "ISO 27001",
+                    "standard-section": "Information access restriction"
+                },
+                {
+                    "standard-ref": "ISO 27001",
+                    "standard-section": "Access control"
+                },
+                {
+                    "standard-ref": "ISO 27001",
+                    "standard-section": "Identity management"
+                },
+                {
+                    "standard-ref": "ISO 27001",
+                    "standard-section": "Segregation of duties"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-22 Publicly Accessible Content"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "PM-10 Authorization Process"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-20 Use of External Systems"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-1 POLICY AND PROCEDURES"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-21 Information Sharing"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-23 Data Mining Protection"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-4 Information Flow Enforcement"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "DE.AE-1: A baseline of network operations and expected data flows for users and systems is established and managed"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "ID.GV-4: Governance and risk management processes address cybersecurity risks"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.AC-5: Network integrity is protected (e.g., network segregation, network segmentation)"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.AC-4: Access permissions and authorizations are managed, incorporating the principles of least privilege and separation of duties"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "ID.AM-3: Organizational communication and data flows are mapped"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.IP-8: Effectiveness of protection technologies is shared"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.AC-3: Remote access is managed"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.DS-5: Protections against data leaks are implemented"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "ID.AM-4: External information systems are catalogued"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.8"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "3.7"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "4.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "1.1.2"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "7.1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "1.1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "6.4.2"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "12.3.8"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.5.1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "5.4"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "12.3.9"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "12.2"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "6.7"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "7.2"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.1.5"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "2.2"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "6.2"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "10.8"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "1.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "1.1.1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "12.3.10"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "2.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "11.6"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "12.1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "1.1.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "11.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "2.4"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.7"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "1.5"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "2.5"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "9.10"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "10.6"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "7.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "9.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "1.2"
+                },
+                {
+                    "standard-ref": "CRE",
+                    "standard-section": "486-813"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Application Configuration Hardening"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "CM-6 Configuration Settings"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "CM-2 BASELINE CONFIGURATION"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.DS-7: The development and testing environment(s) are separate from the production environment"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.IP-1: A baseline configuration of information technology/industrial control systems is created and maintained incorporating security principles (e.g. concept of least functionality)"
+                },
+                {
+                    "standard-ref": "OWASP Top 10 2021",
+                    "standard-section": "Security Misconfiguration"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "6.4.1"
+                }
+            ]
+        },
+        "C-VALIDATE-SERIALIZED": {
+            "ref": "C-VALIDATE-SERIALIZED",
+            "name": "Validate and sanitize serialized data",
+            "desc": "<p>Validating and sanitizing serialized data is essential for maintaining the integrity and security of data within your server-side web service, including REST APIs and gRPC services. These measures are crucial to prevent injection attacks, data tampering, and other vulnerabilities associated with serialization and deserialization processes. Follow these actionable steps to secure your data serialization practices:</p>\n<strong>Guidelines for Secure Serialization and Deserialization:</strong>\n<ul> <li>Conduct rigorous input validation on all serialized data. Ensure that it matches the expected structure, format, and content. Reject any data that fails to meet these predefined standards.</li> <li>Implement schema validation for serialized data. Utilize tools that can check incoming data against a defined schema to confirm its validity and structure.</li> <li>Create a whitelist of permissible values for each field within your serialized data. Disallow any data containing values not included in this list, mitigating the risk of harmful content injections.</li> <li>Impose restrictions on the size and length of serialized data. This limits potential attack vectors by reducing the amount of data an attacker can manipulate.</li> <li>Apply sanitization techniques to serialized data. Remove or alter characters or sequences that could be exploited for malicious purposes.</li> <li>Select secure and regularly updated libraries for data serialization and deserialization. Libraries like Jackson for Java offer built-in security features and are actively maintained to address new vulnerabilities.</li> <li>Incorporate digital signatures with serialized data. This step verifies the authenticity and integrity of the data, ensuring it has not been altered in transit.</li> <li>Establish a robust logging and monitoring system. Keep detailed records of deserialization events and anomalies to detect and respond to potential security incidents swiftly.</li> </ul>\n<p>By adhering to these steps and integrating security best practices into your development process, you can significantly enhance the safety of your web service. Continuously update your knowledge and tools based on the latest security research and recommendations from authoritative sources, such as OWASP (Open Web Application Security Project), to protect against evolving threats.</p> ",
+            "cost": "0",
+            "customFields": {
+                "attack_enterprise_mitigation": "ATT&CK Enterprise - M1038 - Execution Prevention",
+                "attack_ics_mitigation": "ATT&CK ICS - M0818 - Validate Program Inputs",
+                "attack_mobile_mitigation": "",
+                "atlas_mitigation": "",
+                "baseline_standard_ref": "NIST 800-53 v5",
+                "baseline_standard_section": "SI-10 INFORMATION INPUT VALIDATION",
+                "scope": "Application Security||Data Security"
+            },
+            "references": [
+                {
+                    "name": "Deserialization Cheat Sheet",
+                    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html"
+                }
+            ],
+            "question": "Is input validation and data sanitization on serialized data implemented to prevent injection attacks and tampering?",
+            "question_desc": "",
+            "dataflow_tags": [],
+            "standards": [
+                {
+                    "standard-ref": "CRE",
+                    "standard-section": "503-455"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "Moderate"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "High"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SI-10 INFORMATION INPUT VALIDATION"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.DS-6: Integrity checking mechanisms are used to verify software, firmware, and information integrity"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "11.5"
+                }
+            ]
+        },
+        "C-TLS-SERVICE": {
+            "ref": "C-TLS-SERVICE",
+            "name": "Secure communication channels, e.g., use TLS",
+            "desc": "<p>Securing communication channels is critical for any server-side web service, such as REST APIs and gRPC services, to protect data from eavesdropping, tampering, and unauthorized access. Implementing Transport Layer Security (TLS) is a foundational step towards achieving this goal. Here are actionable steps to ensure secure communication through TLS, suitable for developers without previous security experience:</p>\n<strong>Steps for Implementing TLS:</strong>\n<ul> <li>Adopt the latest version of TLS (e.g., TLS 1.2 or higher) to leverage advanced security features and address vulnerabilities found in older versions.</li> <li>Ensure digital certificates used for TLS are properly managed. Certificates should be signed by a trusted Certificate Authority (CA), kept up-to-date, and renewed regularly.</li> <li>Select strong and secure cipher suites for the service configuration, which are essential for providing effective encryption, key exchange, and authentication.</li> <li>Enable Perfect Forward Secrecy (PFS) to guarantee that each session's encryption keys are unique and cannot be compromised even if the long-term keys are.</li> <li>Implement HTTP Strict Transport Security (HSTS) to force web browsers to establish connections only over HTTPS, minimizing the risk of downgrade attacks.</li> <li>Create a protocol for continuous monitoring and auditing of your TLS settings to quickly identify and fix any vulnerabilities or configuration errors.</li> <li>For services requiring authentication, configure TLS to request and validate client certificates during the handshake, enhancing mutual authentication.</li> <li>Practice secure key management to protect the confidentiality and integrity of cryptographic keys involved in the TLS process.</li> </ul>\n<p>By following these guidelines and incorporating security best practices into your development and deployment processes, you can significantly strengthen the security of your web service. Regular updates and audits of your TLS configuration, in line with recommendations from security experts and organizations such as the Open Web Application Security Project (OWASP), are crucial for maintaining a high level of protection against emerging threats.</p> ",
+            "cost": "0",
+            "customFields": {
+                "attack_enterprise_mitigation": "ATT&CK Enterprise - M1041 - Encrypt Sensitive Information||ATT&CK Enterprise - M1047 - Audit||ATT&CK Enterprise - M1056 - Pre-compromise",
+                "attack_ics_mitigation": "",
+                "attack_mobile_mitigation": "",
+                "atlas_mitigation": "",
+                "baseline_standard_ref": "NIST 800-53 v5",
+                "baseline_standard_section": "SC-13 Cryptographic Protection||SC-12 CRYPTOGRAPHIC KEY ESTABLISHMENT AND MANAGEMENT||SC-17 Public Key Infrastructure Certificates||SC-8 TRANSMISSION CONFIDENTIALITY AND INTEGRITY",
+                "scope": "Data Security||Network Security"
+            },
+            "references": [],
+            "question": "Is data transmission encrypted? E.g., using TLS 1.2 or higher",
+            "question_desc": "",
+            "dataflow_tags": [],
+            "standards": [
+                {
+                    "standard-ref": "CRE",
+                    "standard-section": "170-772"
+                },
+                {
+                    "standard-ref": "Cloud Controls Matrix",
+                    "standard-section": "Cryptography, Encryption & Key Management"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "Low"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "Moderate"
+                },
+                {
+                    "standard-ref": "FedRAMP",
+                    "standard-section": "High"
+                },
+                {
+                    "standard-ref": "ISO 27001",
+                    "standard-section": "Use of cryptography"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-13 Cryptographic Protection"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-12 CRYPTOGRAPHIC KEY ESTABLISHMENT AND MANAGEMENT"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-17 Public Key Infrastructure Certificates"
+                },
+                {
+                    "standard-ref": "OWASP Top 10 2021",
+                    "standard-section": "Cryptographic Failures"
+                },
+                {
+                    "standard-ref": "CRE",
+                    "standard-section": "278-646"
+                },
+                {
+                    "standard-ref": "D3FEND",
+                    "standard-section": "Executable Denylisting"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-18 Wireless Access"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "CA-3 Information Exchange"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "CA-9 Internal System Connections"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "AC-17 Remote Access"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-8 TRANSMISSION CONFIDENTIALITY AND INTEGRITY"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-16 Transmission of Security and Privacy Attributes"
+                },
+                {
+                    "standard-ref": "NIST 800-53 v5",
+                    "standard-section": "SC-11 Trusted Path"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "DE.AE-1: A baseline of network operations and expected data flows for users and systems is established and managed"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.DS-2: Data-in-transit is protected"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "ID.AM-3: Organizational communication and data flows are mapped"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.PT-4: Communications and control networks are protected"
+                },
+                {
+                    "standard-ref": "NIST CSF v1.1",
+                    "standard-section": "PR.AC-3: Remote access is managed"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "1.1.1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.5.1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "4"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "12.3.8"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "12.3.10"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "1.1.2"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "12.3.9"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "2.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.3"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.1.5"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "8.2.1"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "2"
+                },
+                {
+                    "standard-ref": "PCI DSS v3.2.1",
+                    "standard-section": "1.1.3"
+                }
+            ]
+        }
+    },
+    "relations": [
+        {
+            "riskPattern": "RP-V2-TEST-COMPONENT",
+            "usecase": "UC-STRIDE-DENIAL-OF-SERVICE",
+            "threat": "T-SERVICE-ABUSE",
+            "weakness": "CWE-770",
+            "control": "C-SERVICE-RESTRICTIONS",
+            "mitigation": "100"
+        },
+        {
+            "riskPattern": "RP-V2-TEST-COMPONENT",
+            "usecase": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+            "threat": "T-AUTHENTICATION-BYPASS",
+            "weakness": "CWE-284",
+            "control": "C-STRONG-AUTHENTICATION",
+            "mitigation": "100"
+        },
+        {
+            "riskPattern": "RP-V2-TEST-COMPONENT",
+            "usecase": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+            "threat": "T-INJECTION-SERVICE",
+            "weakness": "CWE-74",
+            "control": "C-VALIDATION-SERVICE",
+            "mitigation": "100"
+        },
+        {
+            "riskPattern": "RP-V2-TEST-COMPONENT",
+            "usecase": "UC-STRIDE-INFORMATION-DISCLOSURE",
+            "threat": "T-LEAKAGE",
+            "weakness": "CWE-668",
+            "control": "C-SECRETS",
+            "mitigation": "50"
+        },
+        {
+            "riskPattern": "RP-V2-TEST-COMPONENT",
+            "usecase": "UC-STRIDE-INFORMATION-DISCLOSURE",
+            "threat": "T-LEAKAGE",
+            "weakness": "CWE-755",
+            "control": "C-HARDENED-CONFIGURATION",
+            "mitigation": "50"
+        },
+        {
+            "riskPattern": "RP-V2-TEST-COMPONENT",
+            "usecase": "UC-STRIDE-TAMPERING",
+            "threat": "T-DESERIALIZATION",
+            "weakness": "CWE-502",
+            "control": "C-VALIDATE-SERIALIZED",
+            "mitigation": "100"
+        },
+        {
+            "riskPattern": "RP-V2-TEST-COMPONENT",
+            "usecase": "UC-STRIDE-TAMPERING",
+            "threat": "T-MITM",
+            "weakness": "CWE-923",
+            "control": "C-TLS-SERVICE",
+            "mitigation": "100"
+        }
+    ],
+    "rules": [],
+    "standards": [],
+    "component": {
+        "ref": "CD-V2-TEST-COMPONENT",
+        "name": "TEST COMPONENT",
+        "desc": "A TEST COMPONENT CREATED BY ISRA",
+        "categoryRef": "service-side",
+        "visible": "true",
+        "riskPatternRefs": [
+            "RP-V2-TEST-COMPONENT"
+        ]
+    },
+    "riskPattern": {
+        "ref": "RP-V2-TEST-COMPONENT",
+        "name": "TEST COMPONENT",
+        "desc": "A TEST COMPONENT CREATED BY ISRA"
+    }
+}

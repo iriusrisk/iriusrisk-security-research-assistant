@@ -1,0 +1,135 @@
+# Changelog
+
+
+## 2.0.0 - 20240507
+
+## Features
+
+* ISRA repository will be moved to GitHub
+* Added new 'isra screening cost' to calculate the cost of implementing a countermeasure
+* Added new 'isra standards show' to show the current Standards Matrix with filter options
+* Added new 'isra config allowed-values' to show the values that are allowed for system fields in IriusRisk
+* Removed properties related with XML folders
+* Removed tests related with XML validation
+* The default format to save a component is now YAML instead of XML
+* Renamed screening processes: 
+
+
+    isra screening threat     -> isra screening new-threat
+    isra screening control    -> isra screening new-control
+    isra screening threat-s   -> isra screening threat-screening
+    isra screening control-s  -> isra screening control-screening
+
+### Enhancements
+
+* Added pattern validation to questions to avoid having double quotes on them
+* Added pattern validation to taxonomies to ensure there are only printable characters
+* New process to validate the answers from ChatGPT with the allowed values for the system fields
+* New tests to ensure that everything gets correctly uploaded and pulled from IriusRisk
+* Updated Standards Matrix with new standards: CCPA
+* Improved descriptions
+
+## 1.3.2 - 20240424
+
+### Features
+
+* Added new config variable: company_name. This will be added to the component definition and risk pattern to avoid
+  collision with default content
+
+### Enhancements
+
+* General refactor to improve legibility
+* Automatically generated CWE references in IR won't be pulled anymore
+* New test to check for duplicated values inside taxonomies
+* API errors will be shown to the user when calling IR API
+* Load from XML has been refactored to be more accurate
+* Pull from remote has been updated to export XML instead of using the API until it gets fixed
+* CWEs are now updated after screening, even if there was a value present
+
+## 1.3.1 - 20240411
+
+### Features
+
+* Added new 'isra component pull' function to pull attributes for threats and countermeasures from an IR instance
+* Added new 'isra config save' and 'isra config load' functions to create config backups
+* Added new 'isra component batch' and 'isra component release' to improve release method
+* Added new 'isra tests components' to run tests over YAML files.
+
+### Enhancements
+
+* Trailing slashes and other suffixes at the end of the IR URL will be automatically removed
+* Fixed wrong options in the baseline screening
+* Fixed upload method that failed on some cases when updating lists
+
+## 1.3.0 - 20240409
+
+### Enhancements
+
+* The YAML validator now prints all the errors at the same time
+* Added "cost" to schema
+* Added hints while waiting for ChatGPT answers
+* Fixed many load/save bugs
+* Modified custom fields to the right refs
+* General code refactor to be more clear
+
+## 1.2.1 - 20240330
+
+### Enhancements
+
+* The baseline standard section is now a list in the YAML format
+* The standards expand function now handles more than one section
+* Added references to threats and countermeasures
+* Added more validations to YSC schema
+
+## 1.2.0 - 20240320
+
+### Features
+
+* New option to upload files to IriusRisk directly from ISRA
+* Added --format option to "isra component save" to indicate if the output will be in XML or YAML. XML by default
+* Added --force option to "isra component restart" to avoid answering yes or no
+* Added new method to load YAML files by using the same "load" function
+* Now questionnaire rules can be imported back into ISRA
+* Now you don't need to restart the component before loading a new one
+
+### Enhancements
+
+* There was a misunderstood about what the "scope" screening should produce. Now there are two methods: scope and
+  audience. Scope tries to find the best scope for a countermeasure, while audience finds who should be the reader
+* Questions now shouldn't be generated with plural forms such as "we" or "ours"
+* Some methods have been moved to auxiliary functions
+* Now the "isra standards expand" function shows which standards have been added to each control
+* Fixed bug that was appending || to empty custom values
+* Now mitigation values are balanced after loading a component
+* Added YAML schema validation when saving a YAML file
+
+## 1.1.0 - 20240212
+
+### Features
+
+* Added --preview option to "isra component save" function to see the XML output without saving it to a file
+* Added --full option to "isra component info" to show descriptions and other things that are not relevant
+* Added new screening processes to manually create threats and countermeasures, for a more accurate result
+* Added new screening function to find a Mitre ATT&CK Mitigation for a given countermeasure
+
+### Enhancements
+
+* Added version number to "isra about"
+* Changed "Unsure" answer generated with the question generator to "Not sure" for readability purposes
+* Changed "Audience" to "Scope" for readability purposes
+* Added a mechanism to attempt to create a threat model until 10 unsuccessful attempts are done
+* More tests added to pytest suite
+* When doing a screening, if a custom field was present with an empty value it will be counted for the screening process
+* Added process to use OpenAI Assistant. If no assistant is defined it will just call ChatGPT
+* Added "v2-components" to the available categories
+* Now you can append multiple custom fields in some screening functions
+* The method to create base standard has been split into "baselines" and "sections"
+* Added function to remove non-ASCII characters from ChatGPT response (only for a few common cases)
+* Tests are now automatically run in the application folder if no working directory has been specified in the
+  configuration
+
+## 1.0.0 - 20240206
+
+### Features
+
+* Initial release

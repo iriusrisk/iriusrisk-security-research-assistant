@@ -1,0 +1,1992 @@
+SF-MITRE-C-TYPE:
+- ATLAS - AML.M0000 - Limit Release of Public Information
+- ATLAS - AML.M0001 - Limit Model Artifact Release
+- ATLAS - AML.M0002 - Passive ML Output Obfuscation
+- ATLAS - AML.M0003 - Model Hardening
+- ATLAS - AML.M0004 - Restrict Number of ML Model Queries
+- ATLAS - AML.M0005 - Control Access to ML Models and Data at Rest
+- ATLAS - AML.M0006 - Use Ensemble Methods
+- ATLAS - AML.M0007 - Sanitize Training Data
+- ATLAS - AML.M0008 - Validate ML Model
+- ATLAS - AML.M0009 - Use Multi-Modal Sensors
+- ATLAS - AML.M0010 - Input Restoration
+- ATLAS - AML.M0011 - Restrict Library Loading
+- ATLAS - AML.M0012 - Encrypt Sensitive Information
+- ATLAS - AML.M0013 - Code Signing
+- ATLAS - AML.M0014 - Verify ML Artifacts
+- ATLAS - AML.M0015 - Adversarial Input Detection
+- ATLAS - AML.M0016 - Vulnerability Scanning
+- ATLAS - AML.M0017 - Model Distribution Methods
+- ATLAS - AML.M0018 - User Training
+- ATLAS - AML.M0019 - Control Access to ML Models and Data in Production
+- ATT&CK Enterprise - M1013 - Application Developer Guidance
+- ATT&CK Enterprise - M1015 - Active Directory Configuration
+- ATT&CK Enterprise - M1016 - Vulnerability Scanning
+- ATT&CK Enterprise - M1017 - User Training
+- ATT&CK Enterprise - M1018 - User Account Management
+- ATT&CK Enterprise - M1019 - Threat Intelligence Program
+- ATT&CK Enterprise - M1020 - SSL/TLS Inspection
+- ATT&CK Enterprise - M1021 - Restrict Web-Based Content
+- ATT&CK Enterprise - M1022 - Restrict File and Directory Permissions
+- ATT&CK Enterprise - M1024 - Restrict Registry Permissions
+- ATT&CK Enterprise - M1025 - Privileged Process Integrity
+- ATT&CK Enterprise - M1026 - Privileged Account Management
+- ATT&CK Enterprise - M1027 - Password Policies
+- ATT&CK Enterprise - M1028 - Operating System Configuration
+- ATT&CK Enterprise - M1029 - Remote Data Storage
+- ATT&CK Enterprise - M1030 - Network Segmentation
+- ATT&CK Enterprise - M1031 - Network Intrusion Prevention
+- ATT&CK Enterprise - M1032 - Multi-factor Authentication
+- ATT&CK Enterprise - M1033 - Limit Software Installation
+- ATT&CK Enterprise - M1034 - Limit Hardware Installation
+- ATT&CK Enterprise - M1035 - Limit Access to Resource Over Network
+- ATT&CK Enterprise - M1036 - Account Use Policies
+- ATT&CK Enterprise - M1037 - Filter Network Traffic
+- ATT&CK Enterprise - M1038 - Execution Prevention
+- ATT&CK Enterprise - M1039 - Environment Variable Permissions
+- ATT&CK Enterprise - M1040 - Behavior Prevention on Endpoint
+- ATT&CK Enterprise - M1041 - Encrypt Sensitive Information
+- ATT&CK Enterprise - M1042 - Disable or Remove Feature or Program
+- ATT&CK Enterprise - M1043 - Credential Access Protection
+- ATT&CK Enterprise - M1044 - Restrict Library Loading
+- ATT&CK Enterprise - M1045 - Code Signing
+- ATT&CK Enterprise - M1046 - Boot Integrity
+- ATT&CK Enterprise - M1047 - Audit
+- ATT&CK Enterprise - M1048 - Application Isolation and Sandboxing
+- ATT&CK Enterprise - M1049 - Antivirus/Antimalware
+- ATT&CK Enterprise - M1050 - Exploit Protection
+- ATT&CK Enterprise - M1051 - Update Software
+- ATT&CK Enterprise - M1052 - User Account Control
+- ATT&CK Enterprise - M1053 - Data Backup
+- ATT&CK Enterprise - M1054 - Software Configuration
+- ATT&CK Enterprise - M1055 - Do Not Mitigate
+- ATT&CK Enterprise - M1056 - Pre-compromise
+- ATT&CK Enterprise - M1057 - Data Loss Prevention
+- ATT&CK ICS - M0800 - Authorization Enforcement
+- ATT&CK ICS - M0801 - Access Management
+- ATT&CK ICS - M0802 - Communication Authenticity
+- ATT&CK ICS - M0803 - Data Loss Prevention
+- ATT&CK ICS - M0804 - Human User Authentication
+- ATT&CK ICS - M0805 - Mechanical Protection Layers
+- ATT&CK ICS - M0806 - Minimize Wireless Signal Propagation
+- ATT&CK ICS - M0807 - Network Allowlists
+- ATT&CK ICS - M0808 - Encrypt Network Traffic
+- ATT&CK ICS - M0809 - Operational Information Confidentiality
+- ATT&CK ICS - M0810 - Out-of-Band Communications Channel
+- ATT&CK ICS - M0811 - Redundancy of Service
+- ATT&CK ICS - M0812 - Safety Instrumented Systems
+- ATT&CK ICS - M0813 - Software Process and Device Authentication
+- ATT&CK ICS - M0814 - Static Network Configuration
+- ATT&CK ICS - M0815 - Watchdog Timers
+- ATT&CK ICS - M0816 - Mitigation Limited or Not Effective
+- ATT&CK ICS - M0817 - Supply Chain Management
+- ATT&CK ICS - M0818 - Validate Program Inputs
+- ATT&CK ICS - M0913 - Application Developer Guidance
+- ATT&CK ICS - M0915 - Active Directory Configuration
+- ATT&CK ICS - M0916 - Vulnerability Scanning
+- ATT&CK ICS - M0917 - User Training
+- ATT&CK ICS - M0918 - User Account Management
+- ATT&CK ICS - M0919 - Threat Intelligence Program
+- ATT&CK ICS - M0920 - SSL/TLS Inspection
+- ATT&CK ICS - M0921 - Restrict Web-Based Content
+- ATT&CK ICS - M0922 - Restrict File and Directory Permissions
+- ATT&CK ICS - M0924 - Restrict Registry Permissions
+- ATT&CK ICS - M0926 - Privileged Account Management
+- ATT&CK ICS - M0927 - Password Policies
+- ATT&CK ICS - M0928 - Operating System Configuration
+- ATT&CK ICS - M0930 - Network Segmentation
+- ATT&CK ICS - M0931 - Network Intrusion Prevention
+- ATT&CK ICS - M0932 - Multi-factor Authentication
+- ATT&CK ICS - M0934 - Limit Hardware Installation
+- ATT&CK ICS - M0935 - Limit Access to Resource Over Network
+- ATT&CK ICS - M0936 - Account Use Policies
+- ATT&CK ICS - M0937 - Filter Network Traffic
+- ATT&CK ICS - M0938 - Execution Prevention
+- ATT&CK ICS - M0941 - Encrypt Sensitive Information
+- ATT&CK ICS - M0942 - Disable or Remove Feature or Program
+- ATT&CK ICS - M0944 - Restrict Library Loading
+- ATT&CK ICS - M0945 - Code Signing
+- ATT&CK ICS - M0946 - Boot Integrity
+- ATT&CK ICS - M0947 - Audit
+- ATT&CK ICS - M0948 - Application Isolation and Sandboxing
+- ATT&CK ICS - M0949 - Antivirus/Antimalware
+- ATT&CK ICS - M0950 - Exploit Protection
+- ATT&CK ICS - M0951 - Update Software
+- ATT&CK ICS - M0953 - Data Backup
+- ATT&CK ICS - M0954 - Software Configuration
+SF-MITRE-T-TYPE:
+- ATLAS - AML.TA0000 - ML Model Access
+- ATLAS - AML.TA0001 - ML Attack Staging
+- ATLAS - AML.TA0002 - Reconnaissance
+- ATLAS - AML.TA0003 - Resource Development
+- ATLAS - AML.TA0004 - Initial Access
+- ATLAS - AML.TA0005 - Execution
+- ATLAS - AML.TA0006 - Persistence
+- ATLAS - AML.TA0007 - Defense Evasion
+- ATLAS - AML.TA0008 - Discovery
+- ATLAS - AML.TA0009 - Collection
+- ATLAS - AML.TA0010 - Exfiltration
+- ATLAS - AML.TA0011 - Impact
+- ATLAS - AML.TA0012 - Privilege Escalation
+- ATLAS - AML.TA0013 - Credential Access
+- ATLAS - AML.T0000 - Search for Victim's Publicly Available Research Materials
+- ATLAS - AML.T0000.000 - Journals and Conference Proceedings
+- ATLAS - AML.T0000.001 - Pre-Print Repositories
+- ATLAS - AML.T0000.002 - Technical Blogs
+- ATLAS - AML.T0001 - Search for Publicly Available Adversarial Vulnerability Analysis
+- ATLAS - AML.T0002 - Acquire Public ML Artifacts
+- ATLAS - AML.T0002.000 - Datasets
+- ATLAS - AML.T0002.001 - Models
+- ATLAS - AML.T0003 - Search Victim-Owned Websites
+- ATLAS - AML.T0004 - Search Application Repositories
+- ATLAS - AML.T0005 - Create Proxy ML Model
+- ATLAS - AML.T0005.000 - Train Proxy via Gathered ML Artifacts
+- ATLAS - AML.T0005.001 - Train Proxy via Replication
+- ATLAS - AML.T0005.002 - Use Pre-Trained Model
+- ATLAS - AML.T0006 - Active Scanning
+- ATLAS - AML.T0007 - Discover ML Artifacts
+- ATLAS - AML.T0008 - Acquire Infrastructure
+- ATLAS - AML.T0008.000 - ML Development Workspaces
+- ATLAS - AML.T0008.001 - Consumer Hardware
+- ATLAS - AML.T0010 - ML Supply Chain Compromise
+- ATLAS - AML.T0010.000 - GPU Hardware
+- ATLAS - AML.T0010.001 - ML Software
+- ATLAS - AML.T0010.002 - Data
+- ATLAS - AML.T0010.003 - Model
+- ATLAS - AML.T0011 - User Execution
+- ATLAS - AML.T0011.000 - Unsafe ML Artifacts
+- ATLAS - AML.T0012 - Valid Accounts
+- ATLAS - AML.T0013 - Discover ML Model Ontology
+- ATLAS - AML.T0014 - Discover ML Model Family
+- ATLAS - AML.T0015 - Evade ML Model
+- ATLAS - AML.T0016 - Obtain Capabilities
+- ATLAS - AML.T0016.000 - Adversarial ML Attack Implementations
+- ATLAS - AML.T0016.001 - Software Tools
+- ATLAS - AML.T0017 - Develop Capabilities
+- ATLAS - AML.T0017.000 - Adversarial ML Attacks
+- ATLAS - AML.T0018 - Backdoor ML Model
+- ATLAS - AML.T0018.000 - Poison ML Model
+- ATLAS - AML.T0018.001 - Inject Payload
+- ATLAS - AML.T0019 - Publish Poisoned Datasets
+- ATLAS - AML.T0020 - Poison Training Data
+- ATLAS - AML.T0021 - Establish Accounts
+- ATLAS - AML.T0024 - Exfiltration via ML Inference API
+- ATLAS - AML.T0024.000 - Infer Training Data Membership
+- ATLAS - AML.T0024.001 - Invert ML Model
+- ATLAS - AML.T0024.002 - Extract ML Model
+- ATLAS - AML.T0025 - Exfiltration via Cyber Means
+- ATLAS - AML.T0029 - Denial of ML Service
+- ATLAS - AML.T0031 - Erode ML Model Integrity
+- ATLAS - AML.T0034 - Cost Harvesting
+- ATLAS - AML.T0035 - ML Artifact Collection
+- ATLAS - AML.T0036 - Data from Information Repositories
+- ATLAS - AML.T0037 - Data from Local System
+- ATLAS - AML.T0040 - ML Model Inference API Access
+- ATLAS - AML.T0041 - Physical Environment Access
+- ATLAS - AML.T0042 - Verify Attack
+- ATLAS - AML.T0043 - Craft Adversarial Data
+- ATLAS - AML.T0043.000 - White-Box Optimization
+- ATLAS - AML.T0043.001 - Black-Box Optimization
+- ATLAS - AML.T0043.002 - Black-Box Transfer
+- ATLAS - AML.T0043.003 - Manual Modification
+- ATLAS - AML.T0043.004 - Insert Backdoor Trigger
+- ATLAS - AML.T0044 - Full ML Model Access
+- ATLAS - AML.T0046 - Spamming ML System with Chaff Data
+- ATLAS - AML.T0047 - ML-Enabled Product or Service
+- ATLAS - AML.T0048 - External Harms
+- ATLAS - AML.T0048.000 - Financial Harm
+- ATLAS - AML.T0048.001 - Reputational Harm
+- ATLAS - AML.T0048.002 - Societal Harm
+- ATLAS - AML.T0048.003 - User Harm
+- ATLAS - AML.T0048.004 - ML Intellectual Property Theft
+- ATLAS - AML.T0049 - Exploit Public-Facing Application
+- ATLAS - AML.T0050 - Command and Scripting Interpreter
+- ATLAS - AML.T0051 - LLM Prompt Injection
+- ATLAS - AML.T0051.000 - Direct
+- ATLAS - AML.T0051.001 - Indirect
+- ATLAS - AML.T0052 - Phishing
+- ATLAS - AML.T0052.000 - Spearphishing via Social Engineering LLM
+- ATLAS - AML.T0053 - LLM Plugin Compromise
+- ATLAS - AML.T0054 - LLM Jailbreak
+- ATLAS - AML.T0055 - Unsecured Credentials
+- ATLAS - AML.T0056 - LLM Meta Prompt Extraction
+- ATLAS - AML.T0057 - LLM Data Leakage
+- ATT&CK Enterprise - TA0001 - Initial Access
+- ATT&CK Enterprise - TA0002 - Execution
+- ATT&CK Enterprise - TA0003 - Persistence
+- ATT&CK Enterprise - TA0004 - Privilege Escalation
+- ATT&CK Enterprise - TA0005 - Defense Evasion
+- ATT&CK Enterprise - TA0006 - Credential Access
+- ATT&CK Enterprise - TA0007 - Discovery
+- ATT&CK Enterprise - TA0008 - Lateral Movement
+- ATT&CK Enterprise - TA0009 - Collection
+- ATT&CK Enterprise - TA0010 - Exfiltration
+- ATT&CK Enterprise - TA0011 - Command and Control
+- ATT&CK Enterprise - TA0040 - Impact
+- ATT&CK Enterprise - TA0042 - Resource Development
+- ATT&CK Enterprise - TA0043 - Reconnaissance
+- ATT&CK Enterprise - T1001 - Data Obfuscation
+- ATT&CK Enterprise - T1001.001 - Junk Data
+- ATT&CK Enterprise - T1001.002 - Steganography
+- ATT&CK Enterprise - T1001.003 - Protocol Impersonation
+- ATT&CK Enterprise - T1002 - Data Compressed
+- ATT&CK Enterprise - T1003 - OS Credential Dumping
+- ATT&CK Enterprise - T1003.001 - LSASS Memory
+- ATT&CK Enterprise - T1003.002 - Security Account Manager
+- ATT&CK Enterprise - T1003.003 - NTDS
+- ATT&CK Enterprise - T1003.004 - LSA Secrets
+- ATT&CK Enterprise - T1003.005 - Cached Domain Credentials
+- ATT&CK Enterprise - T1003.006 - DCSync
+- ATT&CK Enterprise - T1003.007 - Proc Filesystem
+- ATT&CK Enterprise - T1003.008 - /etc/passwd and /etc/shadow
+- ATT&CK Enterprise - T1004 - Winlogon Helper DLL
+- ATT&CK Enterprise - T1005 - Data from Local System
+- ATT&CK Enterprise - T1006 - Direct Volume Access
+- ATT&CK Enterprise - T1007 - System Service Discovery
+- ATT&CK Enterprise - T1008 - Fallback Channels
+- ATT&CK Enterprise - T1009 - Binary Padding
+- ATT&CK Enterprise - T1010 - Application Window Discovery
+- ATT&CK Enterprise - T1011 - Exfiltration Over Other Network Medium
+- ATT&CK Enterprise - T1011.001 - Exfiltration Over Bluetooth
+- ATT&CK Enterprise - T1012 - Query Registry
+- ATT&CK Enterprise - T1013 - Port Monitors
+- ATT&CK Enterprise - T1014 - Rootkit
+- ATT&CK Enterprise - T1015 - Accessibility Features
+- ATT&CK Enterprise - T1016 - System Network Configuration Discovery
+- ATT&CK Enterprise - T1016.001 - Internet Connection Discovery
+- ATT&CK Enterprise - T1016.002 - Wi-Fi Discovery
+- ATT&CK Enterprise - T1017 - Application Deployment Software
+- ATT&CK Enterprise - T1018 - Remote System Discovery
+- ATT&CK Enterprise - T1019 - System Firmware
+- ATT&CK Enterprise - T1020 - Automated Exfiltration
+- ATT&CK Enterprise - T1020.001 - Traffic Duplication
+- ATT&CK Enterprise - T1021 - Remote Services
+- ATT&CK Enterprise - T1021.001 - Remote Desktop Protocol
+- ATT&CK Enterprise - T1021.002 - SMB/Windows Admin Shares
+- ATT&CK Enterprise - T1021.003 - Distributed Component Object Model
+- ATT&CK Enterprise - T1021.004 - SSH
+- ATT&CK Enterprise - T1021.005 - VNC
+- ATT&CK Enterprise - T1021.006 - Windows Remote Management
+- ATT&CK Enterprise - T1021.007 - Cloud Services
+- ATT&CK Enterprise - T1021.008 - Direct Cloud VM Connections
+- ATT&CK Enterprise - T1022 - Data Encrypted
+- ATT&CK Enterprise - T1023 - Shortcut Modification
+- ATT&CK Enterprise - T1024 - Custom Cryptographic Protocol
+- ATT&CK Enterprise - T1025 - Data from Removable Media
+- ATT&CK Enterprise - T1026 - Multiband Communication
+- ATT&CK Enterprise - T1027 - Obfuscated Files or Information
+- ATT&CK Enterprise - T1027.001 - Binary Padding
+- ATT&CK Enterprise - T1027.002 - Software Packing
+- ATT&CK Enterprise - T1027.003 - Steganography
+- ATT&CK Enterprise - T1027.004 - Compile After Delivery
+- ATT&CK Enterprise - T1027.005 - Indicator Removal from Tools
+- ATT&CK Enterprise - T1027.006 - HTML Smuggling
+- ATT&CK Enterprise - T1027.007 - Dynamic API Resolution
+- ATT&CK Enterprise - T1027.008 - Stripped Payloads
+- ATT&CK Enterprise - T1027.009 - Embedded Payloads
+- ATT&CK Enterprise - T1027.010 - Command Obfuscation
+- ATT&CK Enterprise - T1027.011 - Fileless Storage
+- ATT&CK Enterprise - T1027.012 - LNK Icon Smuggling
+- ATT&CK Enterprise - T1028 - Windows Remote Management
+- ATT&CK Enterprise - T1029 - Scheduled Transfer
+- ATT&CK Enterprise - T1030 - Data Transfer Size Limits
+- ATT&CK Enterprise - T1031 - Modify Existing Service
+- ATT&CK Enterprise - T1032 - Standard Cryptographic Protocol
+- ATT&CK Enterprise - T1033 - System Owner/User Discovery
+- ATT&CK Enterprise - T1034 - Path Interception
+- ATT&CK Enterprise - T1035 - Service Execution
+- ATT&CK Enterprise - T1036 - Masquerading
+- ATT&CK Enterprise - T1036.001 - Invalid Code Signature
+- ATT&CK Enterprise - T1036.002 - Right-to-Left Override
+- ATT&CK Enterprise - T1036.003 - Rename System Utilities
+- ATT&CK Enterprise - T1036.004 - Masquerade Task or Service
+- ATT&CK Enterprise - T1036.005 - Match Legitimate Name or Location
+- ATT&CK Enterprise - T1036.006 - Space after Filename
+- ATT&CK Enterprise - T1036.007 - Double File Extension
+- ATT&CK Enterprise - T1036.008 - Masquerade File Type
+- ATT&CK Enterprise - T1036.009 - Break Process Trees
+- ATT&CK Enterprise - T1037 - Boot or Logon Initialization Scripts
+- ATT&CK Enterprise - T1037.001 - Logon Script (Windows)
+- ATT&CK Enterprise - T1037.002 - Login Hook
+- ATT&CK Enterprise - T1037.003 - Network Logon Script
+- ATT&CK Enterprise - T1037.004 - RC Scripts
+- ATT&CK Enterprise - T1037.005 - Startup Items
+- ATT&CK Enterprise - T1038 - DLL Search Order Hijacking
+- ATT&CK Enterprise - T1039 - Data from Network Shared Drive
+- ATT&CK Enterprise - T1040 - Network Sniffing
+- ATT&CK Enterprise - T1041 - Exfiltration Over C2 Channel
+- ATT&CK Enterprise - T1042 - Change Default File Association
+- ATT&CK Enterprise - T1043 - Commonly Used Port
+- ATT&CK Enterprise - T1044 - File System Permissions Weakness
+- ATT&CK Enterprise - T1045 - Software Packing
+- ATT&CK Enterprise - T1046 - Network Service Discovery
+- ATT&CK Enterprise - T1047 - Windows Management Instrumentation
+- ATT&CK Enterprise - T1048 - Exfiltration Over Alternative Protocol
+- ATT&CK Enterprise - T1048.001 - Exfiltration Over Symmetric Encrypted Non-C2 Protocol
+- ATT&CK Enterprise - T1048.002 - Exfiltration Over Asymmetric Encrypted Non-C2 Protocol
+- ATT&CK Enterprise - T1048.003 - Exfiltration Over Unencrypted Non-C2 Protocol
+- ATT&CK Enterprise - T1049 - System Network Connections Discovery
+- ATT&CK Enterprise - T1050 - New Service
+- ATT&CK Enterprise - T1051 - Shared Webroot
+- ATT&CK Enterprise - T1052 - Exfiltration Over Physical Medium
+- ATT&CK Enterprise - T1052.001 - Exfiltration over USB
+- ATT&CK Enterprise - T1053 - Scheduled Task/Job
+- ATT&CK Enterprise - T1053.001 - At (Linux)
+- ATT&CK Enterprise - T1053.002 - At
+- ATT&CK Enterprise - T1053.003 - Cron
+- ATT&CK Enterprise - T1053.004 - Launchd
+- ATT&CK Enterprise - T1053.005 - Scheduled Task
+- ATT&CK Enterprise - T1053.006 - Systemd Timers
+- ATT&CK Enterprise - T1053.007 - Container Orchestration Job
+- ATT&CK Enterprise - T1054 - Indicator Blocking
+- ATT&CK Enterprise - T1055 - Process Injection
+- ATT&CK Enterprise - T1055.001 - Dynamic-link Library Injection
+- ATT&CK Enterprise - T1055.002 - Portable Executable Injection
+- ATT&CK Enterprise - T1055.003 - Thread Execution Hijacking
+- ATT&CK Enterprise - T1055.004 - Asynchronous Procedure Call
+- ATT&CK Enterprise - T1055.005 - Thread Local Storage
+- ATT&CK Enterprise - T1055.008 - Ptrace System Calls
+- ATT&CK Enterprise - T1055.009 - Proc Memory
+- ATT&CK Enterprise - T1055.011 - Extra Window Memory Injection
+- ATT&CK Enterprise - T1055.012 - Process Hollowing
+- "ATT&CK Enterprise - T1055.013 - Process Doppelg\xE4nging"
+- ATT&CK Enterprise - T1055.014 - VDSO Hijacking
+- ATT&CK Enterprise - T1055.015 - ListPlanting
+- ATT&CK Enterprise - T1056 - Input Capture
+- ATT&CK Enterprise - T1056.001 - Keylogging
+- ATT&CK Enterprise - T1056.002 - GUI Input Capture
+- ATT&CK Enterprise - T1056.003 - Web Portal Capture
+- ATT&CK Enterprise - T1056.004 - Credential API Hooking
+- ATT&CK Enterprise - T1057 - Process Discovery
+- ATT&CK Enterprise - T1058 - Service Registry Permissions Weakness
+- ATT&CK Enterprise - T1059 - Command and Scripting Interpreter
+- ATT&CK Enterprise - T1059.001 - PowerShell
+- ATT&CK Enterprise - T1059.002 - AppleScript
+- ATT&CK Enterprise - T1059.003 - Windows Command Shell
+- ATT&CK Enterprise - T1059.004 - Unix Shell
+- ATT&CK Enterprise - T1059.005 - Visual Basic
+- ATT&CK Enterprise - T1059.006 - Python
+- ATT&CK Enterprise - T1059.007 - JavaScript
+- ATT&CK Enterprise - T1059.008 - Network Device CLI
+- ATT&CK Enterprise - T1059.009 - Cloud API
+- ATT&CK Enterprise - T1060 - Registry Run Keys / Startup Folder
+- ATT&CK Enterprise - T1061 - Graphical User Interface
+- ATT&CK Enterprise - T1062 - Hypervisor
+- ATT&CK Enterprise - T1063 - Security Software Discovery
+- ATT&CK Enterprise - T1064 - Scripting
+- ATT&CK Enterprise - T1065 - Uncommonly Used Port
+- ATT&CK Enterprise - T1066 - Indicator Removal from Tools
+- ATT&CK Enterprise - T1067 - Bootkit
+- ATT&CK Enterprise - T1068 - Exploitation for Privilege Escalation
+- ATT&CK Enterprise - T1069 - Permission Groups Discovery
+- ATT&CK Enterprise - T1069.001 - Local Groups
+- ATT&CK Enterprise - T1069.002 - Domain Groups
+- ATT&CK Enterprise - T1069.003 - Cloud Groups
+- ATT&CK Enterprise - T1070 - Indicator Removal
+- ATT&CK Enterprise - T1070.001 - Clear Windows Event Logs
+- ATT&CK Enterprise - T1070.002 - Clear Linux or Mac System Logs
+- ATT&CK Enterprise - T1070.003 - Clear Command History
+- ATT&CK Enterprise - T1070.004 - File Deletion
+- ATT&CK Enterprise - T1070.005 - Network Share Connection Removal
+- ATT&CK Enterprise - T1070.006 - Timestomp
+- ATT&CK Enterprise - T1070.007 - Clear Network Connection History and Configurations
+- ATT&CK Enterprise - T1070.008 - Clear Mailbox Data
+- ATT&CK Enterprise - T1070.009 - Clear Persistence
+- ATT&CK Enterprise - T1071 - Application Layer Protocol
+- ATT&CK Enterprise - T1071.001 - Web Protocols
+- ATT&CK Enterprise - T1071.002 - File Transfer Protocols
+- ATT&CK Enterprise - T1071.003 - Mail Protocols
+- ATT&CK Enterprise - T1071.004 - DNS
+- ATT&CK Enterprise - T1072 - Software Deployment Tools
+- ATT&CK Enterprise - T1073 - DLL Side-Loading
+- ATT&CK Enterprise - T1074 - Data Staged
+- ATT&CK Enterprise - T1074.001 - Local Data Staging
+- ATT&CK Enterprise - T1074.002 - Remote Data Staging
+- ATT&CK Enterprise - T1075 - Pass the Hash
+- ATT&CK Enterprise - T1076 - Remote Desktop Protocol
+- ATT&CK Enterprise - T1077 - Windows Admin Shares
+- ATT&CK Enterprise - T1078 - Valid Accounts
+- ATT&CK Enterprise - T1078.001 - Default Accounts
+- ATT&CK Enterprise - T1078.002 - Domain Accounts
+- ATT&CK Enterprise - T1078.003 - Local Accounts
+- ATT&CK Enterprise - T1078.004 - Cloud Accounts
+- ATT&CK Enterprise - T1079 - Multilayer Encryption
+- ATT&CK Enterprise - T1080 - Taint Shared Content
+- ATT&CK Enterprise - T1081 - Credentials in Files
+- ATT&CK Enterprise - T1082 - System Information Discovery
+- ATT&CK Enterprise - T1083 - File and Directory Discovery
+- ATT&CK Enterprise - T1084 - Windows Management Instrumentation Event Subscription
+- ATT&CK Enterprise - T1085 - Rundll32
+- ATT&CK Enterprise - T1086 - PowerShell
+- ATT&CK Enterprise - T1087 - Account Discovery
+- ATT&CK Enterprise - T1087.001 - Local Account
+- ATT&CK Enterprise - T1087.002 - Domain Account
+- ATT&CK Enterprise - T1087.003 - Email Account
+- ATT&CK Enterprise - T1087.004 - Cloud Account
+- ATT&CK Enterprise - T1088 - Bypass User Account Control
+- ATT&CK Enterprise - T1089 - Disabling Security Tools
+- ATT&CK Enterprise - T1090 - Proxy
+- ATT&CK Enterprise - T1090.001 - Internal Proxy
+- ATT&CK Enterprise - T1090.002 - External Proxy
+- ATT&CK Enterprise - T1090.003 - Multi-hop Proxy
+- ATT&CK Enterprise - T1090.004 - Domain Fronting
+- ATT&CK Enterprise - T1091 - Replication Through Removable Media
+- ATT&CK Enterprise - T1092 - Communication Through Removable Media
+- ATT&CK Enterprise - T1093 - Process Hollowing
+- ATT&CK Enterprise - T1094 - Custom Command and Control Protocol
+- ATT&CK Enterprise - T1095 - Non-Application Layer Protocol
+- ATT&CK Enterprise - T1096 - NTFS File Attributes
+- ATT&CK Enterprise - T1097 - Pass the Ticket
+- ATT&CK Enterprise - T1098 - Account Manipulation
+- ATT&CK Enterprise - T1098.001 - Additional Cloud Credentials
+- ATT&CK Enterprise - T1098.002 - Additional Email Delegate Permissions
+- ATT&CK Enterprise - T1098.003 - Additional Cloud Roles
+- ATT&CK Enterprise - T1098.004 - SSH Authorized Keys
+- ATT&CK Enterprise - T1098.005 - Device Registration
+- ATT&CK Enterprise - T1098.006 - Additional Container Cluster Roles
+- ATT&CK Enterprise - T1099 - Timestomp
+- ATT&CK Enterprise - T1100 - Web Shell
+- ATT&CK Enterprise - T1101 - Security Support Provider
+- ATT&CK Enterprise - T1102 - Web Service
+- ATT&CK Enterprise - T1102.001 - Dead Drop Resolver
+- ATT&CK Enterprise - T1102.002 - Bidirectional Communication
+- ATT&CK Enterprise - T1102.003 - One-Way Communication
+- ATT&CK Enterprise - T1103 - AppInit DLLs
+- ATT&CK Enterprise - T1104 - Multi-Stage Channels
+- ATT&CK Enterprise - T1105 - Ingress Tool Transfer
+- ATT&CK Enterprise - T1106 - Native API
+- ATT&CK Enterprise - T1107 - File Deletion
+- ATT&CK Enterprise - T1108 - Redundant Access
+- ATT&CK Enterprise - T1109 - Component Firmware
+- ATT&CK Enterprise - T1110 - Brute Force
+- ATT&CK Enterprise - T1110.001 - Password Guessing
+- ATT&CK Enterprise - T1110.002 - Password Cracking
+- ATT&CK Enterprise - T1110.003 - Password Spraying
+- ATT&CK Enterprise - T1110.004 - Credential Stuffing
+- ATT&CK Enterprise - T1111 - Multi-Factor Authentication Interception
+- ATT&CK Enterprise - T1112 - Modify Registry
+- ATT&CK Enterprise - T1113 - Screen Capture
+- ATT&CK Enterprise - T1114 - Email Collection
+- ATT&CK Enterprise - T1114.001 - Local Email Collection
+- ATT&CK Enterprise - T1114.002 - Remote Email Collection
+- ATT&CK Enterprise - T1114.003 - Email Forwarding Rule
+- ATT&CK Enterprise - T1115 - Clipboard Data
+- ATT&CK Enterprise - T1116 - Code Signing
+- ATT&CK Enterprise - T1117 - Regsvr32
+- ATT&CK Enterprise - T1118 - InstallUtil
+- ATT&CK Enterprise - T1119 - Automated Collection
+- ATT&CK Enterprise - T1120 - Peripheral Device Discovery
+- ATT&CK Enterprise - T1121 - Regsvcs/Regasm
+- ATT&CK Enterprise - T1122 - Component Object Model Hijacking
+- ATT&CK Enterprise - T1123 - Audio Capture
+- ATT&CK Enterprise - T1124 - System Time Discovery
+- ATT&CK Enterprise - T1125 - Video Capture
+- ATT&CK Enterprise - T1126 - Network Share Connection Removal
+- ATT&CK Enterprise - T1127 - Trusted Developer Utilities Proxy Execution
+- ATT&CK Enterprise - T1127.001 - MSBuild
+- ATT&CK Enterprise - T1128 - Netsh Helper DLL
+- ATT&CK Enterprise - T1129 - Shared Modules
+- ATT&CK Enterprise - T1130 - Install Root Certificate
+- ATT&CK Enterprise - T1131 - Authentication Package
+- ATT&CK Enterprise - T1132 - Data Encoding
+- ATT&CK Enterprise - T1132.001 - Standard Encoding
+- ATT&CK Enterprise - T1132.002 - Non-Standard Encoding
+- ATT&CK Enterprise - T1133 - External Remote Services
+- ATT&CK Enterprise - T1134 - Access Token Manipulation
+- ATT&CK Enterprise - T1134.001 - Token Impersonation/Theft
+- ATT&CK Enterprise - T1134.002 - Create Process with Token
+- ATT&CK Enterprise - T1134.003 - Make and Impersonate Token
+- ATT&CK Enterprise - T1134.004 - Parent PID Spoofing
+- ATT&CK Enterprise - T1134.005 - SID-History Injection
+- ATT&CK Enterprise - T1135 - Network Share Discovery
+- ATT&CK Enterprise - T1136 - Create Account
+- ATT&CK Enterprise - T1136.001 - Local Account
+- ATT&CK Enterprise - T1136.002 - Domain Account
+- ATT&CK Enterprise - T1136.003 - Cloud Account
+- ATT&CK Enterprise - T1137 - Office Application Startup
+- ATT&CK Enterprise - T1137.001 - Office Template Macros
+- ATT&CK Enterprise - T1137.002 - Office Test
+- ATT&CK Enterprise - T1137.003 - Outlook Forms
+- ATT&CK Enterprise - T1137.004 - Outlook Home Page
+- ATT&CK Enterprise - T1137.005 - Outlook Rules
+- ATT&CK Enterprise - T1137.006 - Add-ins
+- ATT&CK Enterprise - T1138 - Application Shimming
+- ATT&CK Enterprise - T1139 - Bash History
+- ATT&CK Enterprise - T1140 - Deobfuscate/Decode Files or Information
+- ATT&CK Enterprise - T1141 - Input Prompt
+- ATT&CK Enterprise - T1142 - Keychain
+- ATT&CK Enterprise - T1143 - Hidden Window
+- ATT&CK Enterprise - T1144 - Gatekeeper Bypass
+- ATT&CK Enterprise - T1145 - Private Keys
+- ATT&CK Enterprise - T1146 - Clear Command History
+- ATT&CK Enterprise - T1147 - Hidden Users
+- ATT&CK Enterprise - T1148 - HISTCONTROL
+- ATT&CK Enterprise - T1149 - LC_MAIN Hijacking
+- ATT&CK Enterprise - T1150 - Plist Modification
+- ATT&CK Enterprise - T1151 - Space after Filename
+- ATT&CK Enterprise - T1152 - Launchctl
+- ATT&CK Enterprise - T1153 - Source
+- ATT&CK Enterprise - T1154 - Trap
+- ATT&CK Enterprise - T1155 - AppleScript
+- ATT&CK Enterprise - T1156 - Malicious Shell Modification
+- ATT&CK Enterprise - T1157 - Dylib Hijacking
+- ATT&CK Enterprise - T1158 - Hidden Files and Directories
+- ATT&CK Enterprise - T1159 - Launch Agent
+- ATT&CK Enterprise - T1160 - Launch Daemon
+- ATT&CK Enterprise - T1161 - LC_LOAD_DYLIB Addition
+- ATT&CK Enterprise - T1162 - Login Item
+- ATT&CK Enterprise - T1163 - Rc.common
+- ATT&CK Enterprise - T1164 - Re-opened Applications
+- ATT&CK Enterprise - T1165 - Startup Items
+- ATT&CK Enterprise - T1166 - Setuid and Setgid
+- ATT&CK Enterprise - T1167 - Securityd Memory
+- ATT&CK Enterprise - T1168 - Local Job Scheduling
+- ATT&CK Enterprise - T1169 - Sudo
+- ATT&CK Enterprise - T1170 - Mshta
+- ATT&CK Enterprise - T1171 - LLMNR/NBT-NS Poisoning and Relay
+- ATT&CK Enterprise - T1172 - Domain Fronting
+- ATT&CK Enterprise - T1173 - Dynamic Data Exchange
+- ATT&CK Enterprise - T1174 - Password Filter DLL
+- ATT&CK Enterprise - T1175 - Component Object Model and Distributed COM
+- ATT&CK Enterprise - T1176 - Browser Extensions
+- ATT&CK Enterprise - T1177 - LSASS Driver
+- ATT&CK Enterprise - T1178 - SID-History Injection
+- ATT&CK Enterprise - T1179 - Hooking
+- ATT&CK Enterprise - T1180 - Screensaver
+- ATT&CK Enterprise - T1181 - Extra Window Memory Injection
+- ATT&CK Enterprise - T1182 - AppCert DLLs
+- ATT&CK Enterprise - T1183 - Image File Execution Options Injection
+- ATT&CK Enterprise - T1184 - SSH Hijacking
+- ATT&CK Enterprise - T1185 - Browser Session Hijacking
+- "ATT&CK Enterprise - T1186 - Process Doppelg\xE4nging"
+- ATT&CK Enterprise - T1187 - Forced Authentication
+- ATT&CK Enterprise - T1188 - Multi-hop Proxy
+- ATT&CK Enterprise - T1189 - Drive-by Compromise
+- ATT&CK Enterprise - T1190 - Exploit Public-Facing Application
+- ATT&CK Enterprise - T1191 - CMSTP
+- ATT&CK Enterprise - T1192 - Spearphishing Link
+- ATT&CK Enterprise - T1193 - Spearphishing Attachment
+- ATT&CK Enterprise - T1194 - Spearphishing via Service
+- ATT&CK Enterprise - T1195 - Supply Chain Compromise
+- ATT&CK Enterprise - T1195.001 - Compromise Software Dependencies and Development
+  Tools
+- ATT&CK Enterprise - T1195.002 - Compromise Software Supply Chain
+- ATT&CK Enterprise - T1195.003 - Compromise Hardware Supply Chain
+- ATT&CK Enterprise - T1196 - Control Panel Items
+- ATT&CK Enterprise - T1197 - BITS Jobs
+- ATT&CK Enterprise - T1198 - SIP and Trust Provider Hijacking
+- ATT&CK Enterprise - T1199 - Trusted Relationship
+- ATT&CK Enterprise - T1200 - Hardware Additions
+- ATT&CK Enterprise - T1201 - Password Policy Discovery
+- ATT&CK Enterprise - T1202 - Indirect Command Execution
+- ATT&CK Enterprise - T1203 - Exploitation for Client Execution
+- ATT&CK Enterprise - T1204 - User Execution
+- ATT&CK Enterprise - T1204.001 - Malicious Link
+- ATT&CK Enterprise - T1204.002 - Malicious File
+- ATT&CK Enterprise - T1204.003 - Malicious Image
+- ATT&CK Enterprise - T1205 - Traffic Signaling
+- ATT&CK Enterprise - T1205.001 - Port Knocking
+- ATT&CK Enterprise - T1205.002 - Socket Filters
+- ATT&CK Enterprise - T1206 - Sudo Caching
+- ATT&CK Enterprise - T1207 - Rogue Domain Controller
+- ATT&CK Enterprise - T1208 - Kerberoasting
+- ATT&CK Enterprise - T1209 - Time Providers
+- ATT&CK Enterprise - T1210 - Exploitation of Remote Services
+- ATT&CK Enterprise - T1211 - Exploitation for Defense Evasion
+- ATT&CK Enterprise - T1212 - Exploitation for Credential Access
+- ATT&CK Enterprise - T1213 - Data from Information Repositories
+- ATT&CK Enterprise - T1213.001 - Confluence
+- ATT&CK Enterprise - T1213.002 - Sharepoint
+- ATT&CK Enterprise - T1213.003 - Code Repositories
+- ATT&CK Enterprise - T1214 - Credentials in Registry
+- ATT&CK Enterprise - T1215 - Kernel Modules and Extensions
+- ATT&CK Enterprise - T1216 - System Script Proxy Execution
+- ATT&CK Enterprise - T1216.001 - PubPrn
+- ATT&CK Enterprise - T1217 - Browser Information Discovery
+- ATT&CK Enterprise - T1218 - System Binary Proxy Execution
+- ATT&CK Enterprise - T1218.001 - Compiled HTML File
+- ATT&CK Enterprise - T1218.002 - Control Panel
+- ATT&CK Enterprise - T1218.003 - CMSTP
+- ATT&CK Enterprise - T1218.004 - InstallUtil
+- ATT&CK Enterprise - T1218.005 - Mshta
+- ATT&CK Enterprise - T1218.007 - Msiexec
+- ATT&CK Enterprise - T1218.008 - Odbcconf
+- ATT&CK Enterprise - T1218.009 - Regsvcs/Regasm
+- ATT&CK Enterprise - T1218.010 - Regsvr32
+- ATT&CK Enterprise - T1218.011 - Rundll32
+- ATT&CK Enterprise - T1218.012 - Verclsid
+- ATT&CK Enterprise - T1218.013 - Mavinject
+- ATT&CK Enterprise - T1218.014 - MMC
+- ATT&CK Enterprise - T1219 - Remote Access Software
+- ATT&CK Enterprise - T1220 - XSL Script Processing
+- ATT&CK Enterprise - T1221 - Template Injection
+- ATT&CK Enterprise - T1222 - File and Directory Permissions Modification
+- ATT&CK Enterprise - T1222.001 - Windows File and Directory Permissions Modification
+- ATT&CK Enterprise - T1222.002 - Linux and Mac File and Directory Permissions Modification
+- ATT&CK Enterprise - T1223 - Compiled HTML File
+- ATT&CK Enterprise - T1480 - Execution Guardrails
+- ATT&CK Enterprise - T1480.001 - Environmental Keying
+- ATT&CK Enterprise - T1482 - Domain Trust Discovery
+- ATT&CK Enterprise - T1483 - Domain Generation Algorithms
+- ATT&CK Enterprise - T1484 - Domain Policy Modification
+- ATT&CK Enterprise - T1484.001 - Group Policy Modification
+- ATT&CK Enterprise - T1484.002 - Domain Trust Modification
+- ATT&CK Enterprise - T1485 - Data Destruction
+- ATT&CK Enterprise - T1486 - Data Encrypted for Impact
+- ATT&CK Enterprise - T1487 - Disk Structure Wipe
+- ATT&CK Enterprise - T1488 - Disk Content Wipe
+- ATT&CK Enterprise - T1489 - Service Stop
+- ATT&CK Enterprise - T1490 - Inhibit System Recovery
+- ATT&CK Enterprise - T1491 - Defacement
+- ATT&CK Enterprise - T1491.001 - Internal Defacement
+- ATT&CK Enterprise - T1491.002 - External Defacement
+- ATT&CK Enterprise - T1492 - Stored Data Manipulation
+- ATT&CK Enterprise - T1493 - Transmitted Data Manipulation
+- ATT&CK Enterprise - T1494 - Runtime Data Manipulation
+- ATT&CK Enterprise - T1495 - Firmware Corruption
+- ATT&CK Enterprise - T1496 - Resource Hijacking
+- ATT&CK Enterprise - T1497 - Virtualization/Sandbox Evasion
+- ATT&CK Enterprise - T1497.001 - System Checks
+- ATT&CK Enterprise - T1497.002 - User Activity Based Checks
+- ATT&CK Enterprise - T1497.003 - Time Based Evasion
+- ATT&CK Enterprise - T1498 - Network Denial of Service
+- ATT&CK Enterprise - T1498.001 - Direct Network Flood
+- ATT&CK Enterprise - T1498.002 - Reflection Amplification
+- ATT&CK Enterprise - T1499 - Endpoint Denial of Service
+- ATT&CK Enterprise - T1499.001 - OS Exhaustion Flood
+- ATT&CK Enterprise - T1499.002 - Service Exhaustion Flood
+- ATT&CK Enterprise - T1499.003 - Application Exhaustion Flood
+- ATT&CK Enterprise - T1499.004 - Application or System Exploitation
+- ATT&CK Enterprise - T1500 - Compile After Delivery
+- ATT&CK Enterprise - T1501 - Systemd Service
+- ATT&CK Enterprise - T1502 - Parent PID Spoofing
+- ATT&CK Enterprise - T1503 - Credentials from Web Browsers
+- ATT&CK Enterprise - T1504 - PowerShell Profile
+- ATT&CK Enterprise - T1505 - Server Software Component
+- ATT&CK Enterprise - T1505.001 - SQL Stored Procedures
+- ATT&CK Enterprise - T1505.002 - Transport Agent
+- ATT&CK Enterprise - T1505.003 - Web Shell
+- ATT&CK Enterprise - T1505.004 - IIS Components
+- ATT&CK Enterprise - T1505.005 - Terminal Services DLL
+- ATT&CK Enterprise - T1506 - Web Session Cookie
+- ATT&CK Enterprise - T1514 - Elevated Execution with Prompt
+- ATT&CK Enterprise - T1518 - Software Discovery
+- ATT&CK Enterprise - T1518.001 - Security Software Discovery
+- ATT&CK Enterprise - T1519 - Emond
+- ATT&CK Enterprise - T1522 - Cloud Instance Metadata API
+- ATT&CK Enterprise - T1525 - Implant Internal Image
+- ATT&CK Enterprise - T1526 - Cloud Service Discovery
+- ATT&CK Enterprise - T1527 - Application Access Token
+- ATT&CK Enterprise - T1528 - Steal Application Access Token
+- ATT&CK Enterprise - T1529 - System Shutdown/Reboot
+- ATT&CK Enterprise - T1530 - Data from Cloud Storage
+- ATT&CK Enterprise - T1531 - Account Access Removal
+- ATT&CK Enterprise - T1534 - Internal Spearphishing
+- ATT&CK Enterprise - T1535 - Unused/Unsupported Cloud Regions
+- ATT&CK Enterprise - T1536 - Revert Cloud Instance
+- ATT&CK Enterprise - T1537 - Transfer Data to Cloud Account
+- ATT&CK Enterprise - T1538 - Cloud Service Dashboard
+- ATT&CK Enterprise - T1539 - Steal Web Session Cookie
+- ATT&CK Enterprise - T1542 - Pre-OS Boot
+- ATT&CK Enterprise - T1542.001 - System Firmware
+- ATT&CK Enterprise - T1542.002 - Component Firmware
+- ATT&CK Enterprise - T1542.003 - Bootkit
+- ATT&CK Enterprise - T1542.004 - ROMMONkit
+- ATT&CK Enterprise - T1542.005 - TFTP Boot
+- ATT&CK Enterprise - T1543 - Create or Modify System Process
+- ATT&CK Enterprise - T1543.001 - Launch Agent
+- ATT&CK Enterprise - T1543.002 - Systemd Service
+- ATT&CK Enterprise - T1543.003 - Windows Service
+- ATT&CK Enterprise - T1543.004 - Launch Daemon
+- ATT&CK Enterprise - T1546 - Event Triggered Execution
+- ATT&CK Enterprise - T1546.001 - Change Default File Association
+- ATT&CK Enterprise - T1546.002 - Screensaver
+- ATT&CK Enterprise - T1546.003 - Windows Management Instrumentation Event Subscription
+- ATT&CK Enterprise - T1546.004 - Unix Shell Configuration Modification
+- ATT&CK Enterprise - T1546.005 - Trap
+- ATT&CK Enterprise - T1546.006 - LC_LOAD_DYLIB Addition
+- ATT&CK Enterprise - T1546.007 - Netsh Helper DLL
+- ATT&CK Enterprise - T1546.008 - Accessibility Features
+- ATT&CK Enterprise - T1546.009 - AppCert DLLs
+- ATT&CK Enterprise - T1546.010 - AppInit DLLs
+- ATT&CK Enterprise - T1546.011 - Application Shimming
+- ATT&CK Enterprise - T1546.012 - Image File Execution Options Injection
+- ATT&CK Enterprise - T1546.013 - PowerShell Profile
+- ATT&CK Enterprise - T1546.014 - Emond
+- ATT&CK Enterprise - T1546.015 - Component Object Model Hijacking
+- ATT&CK Enterprise - T1546.016 - Installer Packages
+- ATT&CK Enterprise - T1547 - Boot or Logon Autostart Execution
+- ATT&CK Enterprise - T1547.001 - Registry Run Keys / Startup Folder
+- ATT&CK Enterprise - T1547.002 - Authentication Package
+- ATT&CK Enterprise - T1547.003 - Time Providers
+- ATT&CK Enterprise - T1547.004 - Winlogon Helper DLL
+- ATT&CK Enterprise - T1547.005 - Security Support Provider
+- ATT&CK Enterprise - T1547.006 - Kernel Modules and Extensions
+- ATT&CK Enterprise - T1547.007 - Re-opened Applications
+- ATT&CK Enterprise - T1547.008 - LSASS Driver
+- ATT&CK Enterprise - T1547.009 - Shortcut Modification
+- ATT&CK Enterprise - T1547.010 - Port Monitors
+- ATT&CK Enterprise - T1547.011 - Plist Modification
+- ATT&CK Enterprise - T1547.012 - Print Processors
+- ATT&CK Enterprise - T1547.013 - XDG Autostart Entries
+- ATT&CK Enterprise - T1547.014 - Active Setup
+- ATT&CK Enterprise - T1547.015 - Login Items
+- ATT&CK Enterprise - T1548 - Abuse Elevation Control Mechanism
+- ATT&CK Enterprise - T1548.001 - Setuid and Setgid
+- ATT&CK Enterprise - T1548.002 - Bypass User Account Control
+- ATT&CK Enterprise - T1548.003 - Sudo and Sudo Caching
+- ATT&CK Enterprise - T1548.004 - Elevated Execution with Prompt
+- ATT&CK Enterprise - T1548.005 - Temporary Elevated Cloud Access
+- ATT&CK Enterprise - T1550 - Use Alternate Authentication Material
+- ATT&CK Enterprise - T1550.001 - Application Access Token
+- ATT&CK Enterprise - T1550.002 - Pass the Hash
+- ATT&CK Enterprise - T1550.003 - Pass the Ticket
+- ATT&CK Enterprise - T1550.004 - Web Session Cookie
+- ATT&CK Enterprise - T1552 - Unsecured Credentials
+- ATT&CK Enterprise - T1552.001 - Credentials In Files
+- ATT&CK Enterprise - T1552.002 - Credentials in Registry
+- ATT&CK Enterprise - T1552.003 - Bash History
+- ATT&CK Enterprise - T1552.004 - Private Keys
+- ATT&CK Enterprise - T1552.005 - Cloud Instance Metadata API
+- ATT&CK Enterprise - T1552.006 - Group Policy Preferences
+- ATT&CK Enterprise - T1552.007 - Container API
+- ATT&CK Enterprise - T1552.008 - Chat Messages
+- ATT&CK Enterprise - T1553 - Subvert Trust Controls
+- ATT&CK Enterprise - T1553.001 - Gatekeeper Bypass
+- ATT&CK Enterprise - T1553.002 - Code Signing
+- ATT&CK Enterprise - T1553.003 - SIP and Trust Provider Hijacking
+- ATT&CK Enterprise - T1553.004 - Install Root Certificate
+- ATT&CK Enterprise - T1553.005 - Mark-of-the-Web Bypass
+- ATT&CK Enterprise - T1553.006 - Code Signing Policy Modification
+- ATT&CK Enterprise - T1554 - Compromise Client Software Binary
+- ATT&CK Enterprise - T1555 - Credentials from Password Stores
+- ATT&CK Enterprise - T1555.001 - Keychain
+- ATT&CK Enterprise - T1555.002 - Securityd Memory
+- ATT&CK Enterprise - T1555.003 - Credentials from Web Browsers
+- ATT&CK Enterprise - T1555.004 - Windows Credential Manager
+- ATT&CK Enterprise - T1555.005 - Password Managers
+- ATT&CK Enterprise - T1555.006 - Cloud Secrets Management Stores
+- ATT&CK Enterprise - T1556 - Modify Authentication Process
+- ATT&CK Enterprise - T1556.001 - Domain Controller Authentication
+- ATT&CK Enterprise - T1556.002 - Password Filter DLL
+- ATT&CK Enterprise - T1556.003 - Pluggable Authentication Modules
+- ATT&CK Enterprise - T1556.004 - Network Device Authentication
+- ATT&CK Enterprise - T1556.005 - Reversible Encryption
+- ATT&CK Enterprise - T1556.006 - Multi-Factor Authentication
+- ATT&CK Enterprise - T1556.007 - Hybrid Identity
+- ATT&CK Enterprise - T1556.008 - Network Provider DLL
+- ATT&CK Enterprise - T1557 - Adversary-in-the-Middle
+- ATT&CK Enterprise - T1557.001 - LLMNR/NBT-NS Poisoning and SMB Relay
+- ATT&CK Enterprise - T1557.002 - ARP Cache Poisoning
+- ATT&CK Enterprise - T1557.003 - DHCP Spoofing
+- ATT&CK Enterprise - T1558 - Steal or Forge Kerberos Tickets
+- ATT&CK Enterprise - T1558.001 - Golden Ticket
+- ATT&CK Enterprise - T1558.002 - Silver Ticket
+- ATT&CK Enterprise - T1558.003 - Kerberoasting
+- ATT&CK Enterprise - T1558.004 - AS-REP Roasting
+- ATT&CK Enterprise - T1559 - Inter-Process Communication
+- ATT&CK Enterprise - T1559.001 - Component Object Model
+- ATT&CK Enterprise - T1559.002 - Dynamic Data Exchange
+- ATT&CK Enterprise - T1559.003 - XPC Services
+- ATT&CK Enterprise - T1560 - Archive Collected Data
+- ATT&CK Enterprise - T1560.001 - Archive via Utility
+- ATT&CK Enterprise - T1560.002 - Archive via Library
+- ATT&CK Enterprise - T1560.003 - Archive via Custom Method
+- ATT&CK Enterprise - T1561 - Disk Wipe
+- ATT&CK Enterprise - T1561.001 - Disk Content Wipe
+- ATT&CK Enterprise - T1561.002 - Disk Structure Wipe
+- ATT&CK Enterprise - T1562 - Impair Defenses
+- ATT&CK Enterprise - T1562.001 - Disable or Modify Tools
+- ATT&CK Enterprise - T1562.002 - Disable Windows Event Logging
+- ATT&CK Enterprise - T1562.003 - Impair Command History Logging
+- ATT&CK Enterprise - T1562.004 - Disable or Modify System Firewall
+- ATT&CK Enterprise - T1562.006 - Indicator Blocking
+- ATT&CK Enterprise - T1562.007 - Disable or Modify Cloud Firewall
+- ATT&CK Enterprise - T1562.008 - Disable or Modify Cloud Logs
+- ATT&CK Enterprise - T1562.009 - Safe Mode Boot
+- ATT&CK Enterprise - T1562.010 - Downgrade Attack
+- ATT&CK Enterprise - T1562.011 - Spoof Security Alerting
+- ATT&CK Enterprise - T1562.012 - Disable or Modify Linux Audit System
+- ATT&CK Enterprise - T1563 - Remote Service Session Hijacking
+- ATT&CK Enterprise - T1563.001 - SSH Hijacking
+- ATT&CK Enterprise - T1563.002 - RDP Hijacking
+- ATT&CK Enterprise - T1564 - Hide Artifacts
+- ATT&CK Enterprise - T1564.001 - Hidden Files and Directories
+- ATT&CK Enterprise - T1564.002 - Hidden Users
+- ATT&CK Enterprise - T1564.003 - Hidden Window
+- ATT&CK Enterprise - T1564.004 - NTFS File Attributes
+- ATT&CK Enterprise - T1564.005 - Hidden File System
+- ATT&CK Enterprise - T1564.006 - Run Virtual Instance
+- ATT&CK Enterprise - T1564.007 - VBA Stomping
+- ATT&CK Enterprise - T1564.008 - Email Hiding Rules
+- ATT&CK Enterprise - T1564.009 - Resource Forking
+- ATT&CK Enterprise - T1564.010 - Process Argument Spoofing
+- ATT&CK Enterprise - T1564.011 - Ignore Process Interrupts
+- ATT&CK Enterprise - T1565 - Data Manipulation
+- ATT&CK Enterprise - T1565.001 - Stored Data Manipulation
+- ATT&CK Enterprise - T1565.002 - Transmitted Data Manipulation
+- ATT&CK Enterprise - T1565.003 - Runtime Data Manipulation
+- ATT&CK Enterprise - T1566 - Phishing
+- ATT&CK Enterprise - T1566.001 - Spearphishing Attachment
+- ATT&CK Enterprise - T1566.002 - Spearphishing Link
+- ATT&CK Enterprise - T1566.003 - Spearphishing via Service
+- ATT&CK Enterprise - T1566.004 - Spearphishing Voice
+- ATT&CK Enterprise - T1567 - Exfiltration Over Web Service
+- ATT&CK Enterprise - T1567.001 - Exfiltration to Code Repository
+- ATT&CK Enterprise - T1567.002 - Exfiltration to Cloud Storage
+- ATT&CK Enterprise - T1567.003 - Exfiltration to Text Storage Sites
+- ATT&CK Enterprise - T1567.004 - Exfiltration Over Webhook
+- ATT&CK Enterprise - T1568 - Dynamic Resolution
+- ATT&CK Enterprise - T1568.001 - Fast Flux DNS
+- ATT&CK Enterprise - T1568.002 - Domain Generation Algorithms
+- ATT&CK Enterprise - T1568.003 - DNS Calculation
+- ATT&CK Enterprise - T1569 - System Services
+- ATT&CK Enterprise - T1569.001 - Launchctl
+- ATT&CK Enterprise - T1569.002 - Service Execution
+- ATT&CK Enterprise - T1570 - Lateral Tool Transfer
+- ATT&CK Enterprise - T1571 - Non-Standard Port
+- ATT&CK Enterprise - T1572 - Protocol Tunneling
+- ATT&CK Enterprise - T1573 - Encrypted Channel
+- ATT&CK Enterprise - T1573.001 - Symmetric Cryptography
+- ATT&CK Enterprise - T1573.002 - Asymmetric Cryptography
+- ATT&CK Enterprise - T1574 - Hijack Execution Flow
+- ATT&CK Enterprise - T1574.001 - DLL Search Order Hijacking
+- ATT&CK Enterprise - T1574.002 - DLL Side-Loading
+- ATT&CK Enterprise - T1574.004 - Dylib Hijacking
+- ATT&CK Enterprise - T1574.005 - Executable Installer File Permissions Weakness
+- ATT&CK Enterprise - T1574.006 - Dynamic Linker Hijacking
+- ATT&CK Enterprise - T1574.007 - Path Interception by PATH Environment Variable
+- ATT&CK Enterprise - T1574.008 - Path Interception by Search Order Hijacking
+- ATT&CK Enterprise - T1574.009 - Path Interception by Unquoted Path
+- ATT&CK Enterprise - T1574.010 - Services File Permissions Weakness
+- ATT&CK Enterprise - T1574.011 - Services Registry Permissions Weakness
+- ATT&CK Enterprise - T1574.012 - COR_PROFILER
+- ATT&CK Enterprise - T1574.013 - KernelCallbackTable
+- ATT&CK Enterprise - T1578 - Modify Cloud Compute Infrastructure
+- ATT&CK Enterprise - T1578.001 - Create Snapshot
+- ATT&CK Enterprise - T1578.002 - Create Cloud Instance
+- ATT&CK Enterprise - T1578.003 - Delete Cloud Instance
+- ATT&CK Enterprise - T1578.004 - Revert Cloud Instance
+- ATT&CK Enterprise - T1578.005 - Modify Cloud Compute Configurations
+- ATT&CK Enterprise - T1580 - Cloud Infrastructure Discovery
+- ATT&CK Enterprise - T1583 - Acquire Infrastructure
+- ATT&CK Enterprise - T1583.001 - Domains
+- ATT&CK Enterprise - T1583.002 - DNS Server
+- ATT&CK Enterprise - T1583.003 - Virtual Private Server
+- ATT&CK Enterprise - T1583.004 - Server
+- ATT&CK Enterprise - T1583.005 - Botnet
+- ATT&CK Enterprise - T1583.006 - Web Services
+- ATT&CK Enterprise - T1583.007 - Serverless
+- ATT&CK Enterprise - T1583.008 - Malvertising
+- ATT&CK Enterprise - T1584 - Compromise Infrastructure
+- ATT&CK Enterprise - T1584.001 - Domains
+- ATT&CK Enterprise - T1584.002 - DNS Server
+- ATT&CK Enterprise - T1584.003 - Virtual Private Server
+- ATT&CK Enterprise - T1584.004 - Server
+- ATT&CK Enterprise - T1584.005 - Botnet
+- ATT&CK Enterprise - T1584.006 - Web Services
+- ATT&CK Enterprise - T1584.007 - Serverless
+- ATT&CK Enterprise - T1585 - Establish Accounts
+- ATT&CK Enterprise - T1585.001 - Social Media Accounts
+- ATT&CK Enterprise - T1585.002 - Email Accounts
+- ATT&CK Enterprise - T1585.003 - Cloud Accounts
+- ATT&CK Enterprise - T1586 - Compromise Accounts
+- ATT&CK Enterprise - T1586.001 - Social Media Accounts
+- ATT&CK Enterprise - T1586.002 - Email Accounts
+- ATT&CK Enterprise - T1586.003 - Cloud Accounts
+- ATT&CK Enterprise - T1587 - Develop Capabilities
+- ATT&CK Enterprise - T1587.001 - Malware
+- ATT&CK Enterprise - T1587.002 - Code Signing Certificates
+- ATT&CK Enterprise - T1587.003 - Digital Certificates
+- ATT&CK Enterprise - T1587.004 - Exploits
+- ATT&CK Enterprise - T1588 - Obtain Capabilities
+- ATT&CK Enterprise - T1588.001 - Malware
+- ATT&CK Enterprise - T1588.002 - Tool
+- ATT&CK Enterprise - T1588.003 - Code Signing Certificates
+- ATT&CK Enterprise - T1588.004 - Digital Certificates
+- ATT&CK Enterprise - T1588.005 - Exploits
+- ATT&CK Enterprise - T1588.006 - Vulnerabilities
+- ATT&CK Enterprise - T1589 - Gather Victim Identity Information
+- ATT&CK Enterprise - T1589.001 - Credentials
+- ATT&CK Enterprise - T1589.002 - Email Addresses
+- ATT&CK Enterprise - T1589.003 - Employee Names
+- ATT&CK Enterprise - T1590 - Gather Victim Network Information
+- ATT&CK Enterprise - T1590.001 - Domain Properties
+- ATT&CK Enterprise - T1590.002 - DNS
+- ATT&CK Enterprise - T1590.003 - Network Trust Dependencies
+- ATT&CK Enterprise - T1590.004 - Network Topology
+- ATT&CK Enterprise - T1590.005 - IP Addresses
+- ATT&CK Enterprise - T1590.006 - Network Security Appliances
+- ATT&CK Enterprise - T1591 - Gather Victim Org Information
+- ATT&CK Enterprise - T1591.001 - Determine Physical Locations
+- ATT&CK Enterprise - T1591.002 - Business Relationships
+- ATT&CK Enterprise - T1591.003 - Identify Business Tempo
+- ATT&CK Enterprise - T1591.004 - Identify Roles
+- ATT&CK Enterprise - T1592 - Gather Victim Host Information
+- ATT&CK Enterprise - T1592.001 - Hardware
+- ATT&CK Enterprise - T1592.002 - Software
+- ATT&CK Enterprise - T1592.003 - Firmware
+- ATT&CK Enterprise - T1592.004 - Client Configurations
+- ATT&CK Enterprise - T1593 - Search Open Websites/Domains
+- ATT&CK Enterprise - T1593.001 - Social Media
+- ATT&CK Enterprise - T1593.002 - Search Engines
+- ATT&CK Enterprise - T1593.003 - Code Repositories
+- ATT&CK Enterprise - T1594 - Search Victim-Owned Websites
+- ATT&CK Enterprise - T1595 - Active Scanning
+- ATT&CK Enterprise - T1595.001 - Scanning IP Blocks
+- ATT&CK Enterprise - T1595.002 - Vulnerability Scanning
+- ATT&CK Enterprise - T1595.003 - Wordlist Scanning
+- ATT&CK Enterprise - T1596 - Search Open Technical Databases
+- ATT&CK Enterprise - T1596.001 - DNS/Passive DNS
+- ATT&CK Enterprise - T1596.002 - WHOIS
+- ATT&CK Enterprise - T1596.003 - Digital Certificates
+- ATT&CK Enterprise - T1596.004 - CDNs
+- ATT&CK Enterprise - T1596.005 - Scan Databases
+- ATT&CK Enterprise - T1597 - Search Closed Sources
+- ATT&CK Enterprise - T1597.001 - Threat Intel Vendors
+- ATT&CK Enterprise - T1597.002 - Purchase Technical Data
+- ATT&CK Enterprise - T1598 - Phishing for Information
+- ATT&CK Enterprise - T1598.001 - Spearphishing Service
+- ATT&CK Enterprise - T1598.002 - Spearphishing Attachment
+- ATT&CK Enterprise - T1598.003 - Spearphishing Link
+- ATT&CK Enterprise - T1598.004 - Spearphishing Voice
+- ATT&CK Enterprise - T1599 - Network Boundary Bridging
+- ATT&CK Enterprise - T1599.001 - Network Address Translation Traversal
+- ATT&CK Enterprise - T1600 - Weaken Encryption
+- ATT&CK Enterprise - T1600.001 - Reduce Key Space
+- ATT&CK Enterprise - T1600.002 - Disable Crypto Hardware
+- ATT&CK Enterprise - T1601 - Modify System Image
+- ATT&CK Enterprise - T1601.001 - Patch System Image
+- ATT&CK Enterprise - T1601.002 - Downgrade System Image
+- ATT&CK Enterprise - T1602 - Data from Configuration Repository
+- ATT&CK Enterprise - T1602.001 - SNMP (MIB Dump)
+- ATT&CK Enterprise - T1602.002 - Network Device Configuration Dump
+- ATT&CK Enterprise - T1606 - Forge Web Credentials
+- ATT&CK Enterprise - T1606.001 - Web Cookies
+- ATT&CK Enterprise - T1606.002 - SAML Tokens
+- ATT&CK Enterprise - T1608 - Stage Capabilities
+- ATT&CK Enterprise - T1608.001 - Upload Malware
+- ATT&CK Enterprise - T1608.002 - Upload Tool
+- ATT&CK Enterprise - T1608.003 - Install Digital Certificate
+- ATT&CK Enterprise - T1608.004 - Drive-by Target
+- ATT&CK Enterprise - T1608.005 - Link Target
+- ATT&CK Enterprise - T1608.006 - SEO Poisoning
+- ATT&CK Enterprise - T1609 - Container Administration Command
+- ATT&CK Enterprise - T1610 - Deploy Container
+- ATT&CK Enterprise - T1611 - Escape to Host
+- ATT&CK Enterprise - T1612 - Build Image on Host
+- ATT&CK Enterprise - T1613 - Container and Resource Discovery
+- ATT&CK Enterprise - T1614 - System Location Discovery
+- ATT&CK Enterprise - T1614.001 - System Language Discovery
+- ATT&CK Enterprise - T1615 - Group Policy Discovery
+- ATT&CK Enterprise - T1619 - Cloud Storage Object Discovery
+- ATT&CK Enterprise - T1620 - Reflective Code Loading
+- ATT&CK Enterprise - T1621 - Multi-Factor Authentication Request Generation
+- ATT&CK Enterprise - T1622 - Debugger Evasion
+- ATT&CK Enterprise - T1647 - Plist File Modification
+- ATT&CK Enterprise - T1648 - Serverless Execution
+- ATT&CK Enterprise - T1649 - Steal or Forge Authentication Certificates
+- ATT&CK Enterprise - T1650 - Acquire Access
+- ATT&CK Enterprise - T1651 - Cloud Administration Command
+- ATT&CK Enterprise - T1652 - Device Driver Discovery
+- ATT&CK Enterprise - T1653 - Power Settings
+- ATT&CK Enterprise - T1654 - Log Enumeration
+- ATT&CK Enterprise - T1656 - Impersonation
+- ATT&CK Enterprise - T1657 - Financial Theft
+- ATT&CK Enterprise - T1659 - Content Injection
+- ATT&CK ICS - TA0100 - Collection
+- ATT&CK ICS - TA0101 - Command and Control
+- ATT&CK ICS - TA0102 - Discovery
+- ATT&CK ICS - TA0103 - Evasion
+- ATT&CK ICS - TA0104 - Execution
+- ATT&CK ICS - TA0105 - Impact
+- ATT&CK ICS - TA0106 - Impair Process Control
+- ATT&CK ICS - TA0107 - Inhibit Response Function
+- ATT&CK ICS - TA0108 - Initial Access
+- ATT&CK ICS - TA0109 - Lateral Movement
+- ATT&CK ICS - TA0110 - Persistence
+- ATT&CK ICS - TA0111 - Privilege Escalation
+- ATT&CK ICS - T0800 - Activate Firmware Update Mode
+- ATT&CK ICS - T0801 - Monitor Process State
+- ATT&CK ICS - T0802 - Automated Collection
+- ATT&CK ICS - T0803 - Block Command Message
+- ATT&CK ICS - T0804 - Block Reporting Message
+- ATT&CK ICS - T0805 - Block Serial COM
+- ATT&CK ICS - T0806 - Brute Force I/O
+- ATT&CK ICS - T0807 - Command-Line Interface
+- ATT&CK ICS - T0808 - Control Device Identification
+- ATT&CK ICS - T0809 - Data Destruction
+- ATT&CK ICS - T0810 - Data Historian Compromise
+- ATT&CK ICS - T0811 - Data from Information Repositories
+- ATT&CK ICS - T0812 - Default Credentials
+- ATT&CK ICS - T0813 - Denial of Control
+- ATT&CK ICS - T0814 - Denial of Service
+- ATT&CK ICS - T0815 - Denial of View
+- ATT&CK ICS - T0816 - Device Restart/Shutdown
+- ATT&CK ICS - T0817 - Drive-by Compromise
+- ATT&CK ICS - T0818 - Engineering Workstation Compromise
+- ATT&CK ICS - T0819 - Exploit Public-Facing Application
+- ATT&CK ICS - T0820 - Exploitation for Evasion
+- ATT&CK ICS - T0821 - Modify Controller Tasking
+- ATT&CK ICS - T0822 - External Remote Services
+- ATT&CK ICS - T0823 - Graphical User Interface
+- ATT&CK ICS - T0824 - I/O Module Discovery
+- ATT&CK ICS - T0825 - Location Identification
+- ATT&CK ICS - T0826 - Loss of Availability
+- ATT&CK ICS - T0827 - Loss of Control
+- ATT&CK ICS - T0828 - Loss of Productivity and Revenue
+- ATT&CK ICS - T0829 - Loss of View
+- ATT&CK ICS - T0830 - Adversary-in-the-Middle
+- ATT&CK ICS - T0831 - Manipulation of Control
+- ATT&CK ICS - T0832 - Manipulation of View
+- ATT&CK ICS - T0833 - Modify Control Logic
+- ATT&CK ICS - T0834 - Native API
+- ATT&CK ICS - T0835 - Manipulate I/O Image
+- ATT&CK ICS - T0836 - Modify Parameter
+- ATT&CK ICS - T0837 - Loss of Protection
+- ATT&CK ICS - T0838 - Modify Alarm Settings
+- ATT&CK ICS - T0839 - Module Firmware
+- ATT&CK ICS - T0840 - Network Connection Enumeration
+- ATT&CK ICS - T0841 - Network Service Scanning
+- ATT&CK ICS - T0842 - Network Sniffing
+- ATT&CK ICS - T0843 - Program Download
+- ATT&CK ICS - T0844 - Program Organization Units
+- ATT&CK ICS - T0845 - Program Upload
+- ATT&CK ICS - T0846 - Remote System Discovery
+- ATT&CK ICS - T0847 - Replication Through Removable Media
+- ATT&CK ICS - T0848 - Rogue Master
+- ATT&CK ICS - T0849 - Masquerading
+- ATT&CK ICS - T0850 - Role Identification
+- ATT&CK ICS - T0851 - Rootkit
+- ATT&CK ICS - T0852 - Screen Capture
+- ATT&CK ICS - T0853 - Scripting
+- ATT&CK ICS - T0854 - Serial Connection Enumeration
+- ATT&CK ICS - T0855 - Unauthorized Command Message
+- ATT&CK ICS - T0856 - Spoof Reporting Message
+- ATT&CK ICS - T0857 - System Firmware
+- ATT&CK ICS - T0858 - Change Operating Mode
+- ATT&CK ICS - T0859 - Valid Accounts
+- ATT&CK ICS - T0860 - Wireless Compromise
+- ATT&CK ICS - T0861 - Point & Tag Identification
+- ATT&CK ICS - T0862 - Supply Chain Compromise
+- ATT&CK ICS - T0863 - User Execution
+- ATT&CK ICS - T0864 - Transient Cyber Asset
+- ATT&CK ICS - T0865 - Spearphishing Attachment
+- ATT&CK ICS - T0866 - Exploitation of Remote Services
+- ATT&CK ICS - T0867 - Lateral Tool Transfer
+- ATT&CK ICS - T0868 - Detect Operating Mode
+- ATT&CK ICS - T0869 - Standard Application Layer Protocol
+- ATT&CK ICS - T0870 - Detect Program State
+- ATT&CK ICS - T0871 - Execution through API
+- ATT&CK ICS - T0872 - Indicator Removal on Host
+- ATT&CK ICS - T0873 - Project File Infection
+- ATT&CK ICS - T0874 - Hooking
+- ATT&CK ICS - T0875 - Change Program State
+- ATT&CK ICS - T0877 - I/O Image
+- ATT&CK ICS - T0878 - Alarm Suppression
+- ATT&CK ICS - T0879 - Damage to Property
+- ATT&CK ICS - T0880 - Loss of Safety
+- ATT&CK ICS - T0881 - Service Stop
+- ATT&CK ICS - T0882 - Theft of Operational Information
+- ATT&CK ICS - T0883 - Internet Accessible Device
+- ATT&CK ICS - T0884 - Connection Proxy
+- ATT&CK ICS - T0885 - Commonly Used Port
+- ATT&CK ICS - T0886 - Remote Services
+- ATT&CK ICS - T0887 - Wireless Sniffing
+- ATT&CK ICS - T0888 - Remote System Information Discovery
+- ATT&CK ICS - T0889 - Modify Program
+- ATT&CK ICS - T0890 - Exploitation for Privilege Escalation
+- ATT&CK ICS - T0891 - Hardcoded Credentials
+- ATT&CK ICS - T0892 - Change Credential
+- ATT&CK ICS - T0893 - Data from Local System
+- ATT&CK Mobile - TA0027 - Initial Access
+- ATT&CK Mobile - TA0028 - Persistence
+- ATT&CK Mobile - TA0029 - Privilege Escalation
+- ATT&CK Mobile - TA0030 - Defense Evasion
+- ATT&CK Mobile - TA0031 - Credential Access
+- ATT&CK Mobile - TA0032 - Discovery
+- ATT&CK Mobile - TA0033 - Lateral Movement
+- ATT&CK Mobile - TA0034 - Impact
+- ATT&CK Mobile - TA0035 - Collection
+- ATT&CK Mobile - TA0036 - Exfiltration
+- ATT&CK Mobile - TA0037 - Command and Control
+- ATT&CK Mobile - TA0038 - Network Effects
+- ATT&CK Mobile - TA0039 - Remote Service Effects
+- ATT&CK Mobile - TA0041 - Execution
+- ATT&CK Mobile - T1398 - Boot or Logon Initialization Scripts
+- ATT&CK Mobile - T1399 - Modify Trusted Execution Environment
+- ATT&CK Mobile - T1400 - Modify System Partition
+- ATT&CK Mobile - T1401 - Device Administrator Permissions
+- ATT&CK Mobile - T1402 - Broadcast Receivers
+- ATT&CK Mobile - T1403 - Modify Cached Executable Code
+- ATT&CK Mobile - T1404 - Exploitation for Privilege Escalation
+- ATT&CK Mobile - T1405 - Exploit TEE Vulnerability
+- ATT&CK Mobile - T1406 - Obfuscated Files or Information
+- ATT&CK Mobile - T1406.001 - Steganography
+- ATT&CK Mobile - T1406.002 - Software Packing
+- ATT&CK Mobile - T1407 - Download New Code at Runtime
+- ATT&CK Mobile - T1408 - Disguise Root/Jailbreak Indicators
+- ATT&CK Mobile - T1409 - Stored Application Data
+- ATT&CK Mobile - T1410 - Network Traffic Capture or Redirection
+- ATT&CK Mobile - T1411 - Input Prompt
+- ATT&CK Mobile - T1412 - Capture SMS Messages
+- ATT&CK Mobile - T1413 - Access Sensitive Data in Device Logs
+- ATT&CK Mobile - T1414 - Clipboard Data
+- ATT&CK Mobile - T1415 - URL Scheme Hijacking
+- ATT&CK Mobile - T1416 - URI Hijacking
+- ATT&CK Mobile - T1417 - Input Capture
+- ATT&CK Mobile - T1417.001 - Keylogging
+- ATT&CK Mobile - T1417.002 - GUI Input Capture
+- ATT&CK Mobile - T1418 - Software Discovery
+- ATT&CK Mobile - T1418.001 - Security Software Discovery
+- ATT&CK Mobile - T1419 - Device Type Discovery
+- ATT&CK Mobile - T1420 - File and Directory Discovery
+- ATT&CK Mobile - T1421 - System Network Connections Discovery
+- ATT&CK Mobile - T1422 - System Network Configuration Discovery
+- ATT&CK Mobile - T1423 - Network Service Scanning
+- ATT&CK Mobile - T1424 - Process Discovery
+- ATT&CK Mobile - T1425 - Insecure Third-Party Libraries
+- ATT&CK Mobile - T1426 - System Information Discovery
+- ATT&CK Mobile - T1427 - Attack PC via USB Connection
+- ATT&CK Mobile - T1428 - Exploitation of Remote Services
+- ATT&CK Mobile - T1429 - Audio Capture
+- ATT&CK Mobile - T1430 - Location Tracking
+- ATT&CK Mobile - T1430.001 - Remote Device Management Services
+- ATT&CK Mobile - T1430.002 - Impersonate SS7 Nodes
+- ATT&CK Mobile - T1431 - App Delivered via Web Download
+- ATT&CK Mobile - T1432 - Access Contact List
+- ATT&CK Mobile - T1433 - Access Call Log
+- ATT&CK Mobile - T1434 - App Delivered via Email Attachment
+- ATT&CK Mobile - T1435 - Access Calendar Entries
+- ATT&CK Mobile - T1436 - Commonly Used Port
+- ATT&CK Mobile - T1437 - Application Layer Protocol
+- ATT&CK Mobile - T1437.001 - Web Protocols
+- ATT&CK Mobile - T1438 - Exfiltration Over Other Network Medium
+- ATT&CK Mobile - T1439 - Eavesdrop on Insecure Network Communication
+- ATT&CK Mobile - T1440 - Detect App Analysis Environment
+- ATT&CK Mobile - T1441 - Stolen Developer Credentials or Signing Keys
+- ATT&CK Mobile - T1442 - Fake Developer Accounts
+- ATT&CK Mobile - T1443 - Remotely Install Application
+- ATT&CK Mobile - T1444 - Masquerade as Legitimate Application
+- ATT&CK Mobile - T1445 - Abuse of iOS Enterprise App Signing Key
+- ATT&CK Mobile - T1446 - Device Lockout
+- ATT&CK Mobile - T1447 - Delete Device Data
+- ATT&CK Mobile - T1448 - Carrier Billing Fraud
+- ATT&CK Mobile - T1449 - Exploit SS7 to Redirect Phone Calls/SMS
+- ATT&CK Mobile - T1450 - Exploit SS7 to Track Device Location
+- ATT&CK Mobile - T1451 - SIM Card Swap
+- ATT&CK Mobile - T1452 - Manipulate App Store Rankings or Ratings
+- ATT&CK Mobile - T1453 - Abuse Accessibility Features
+- ATT&CK Mobile - T1454 - Malicious SMS Message
+- ATT&CK Mobile - T1455 - Exploit Baseband Vulnerability
+- ATT&CK Mobile - T1456 - Drive-By Compromise
+- ATT&CK Mobile - T1457 - Malicious Media Content
+- ATT&CK Mobile - T1458 - Replication Through Removable Media
+- ATT&CK Mobile - T1459 - Device Unlock Code Guessing or Brute Force
+- ATT&CK Mobile - T1460 - Biometric Spoofing
+- ATT&CK Mobile - T1461 - Lockscreen Bypass
+- ATT&CK Mobile - T1462 - Malicious Software Development Tools
+- ATT&CK Mobile - T1463 - Manipulate Device Communication
+- ATT&CK Mobile - T1464 - Network Denial of Service
+- ATT&CK Mobile - T1465 - Rogue Wi-Fi Access Points
+- ATT&CK Mobile - T1466 - Downgrade to Insecure Protocols
+- ATT&CK Mobile - T1467 - Rogue Cellular Base Station
+- ATT&CK Mobile - T1468 - Remotely Track Device Without Authorization
+- ATT&CK Mobile - T1469 - Remotely Wipe Data Without Authorization
+- ATT&CK Mobile - T1470 - Obtain Device Cloud Backups
+- ATT&CK Mobile - T1471 - Data Encrypted for Impact
+- ATT&CK Mobile - T1472 - Generate Fraudulent Advertising Revenue
+- ATT&CK Mobile - T1473 - Malicious or Vulnerable Built-in Device Functionality
+- ATT&CK Mobile - T1474 - Supply Chain Compromise
+- ATT&CK Mobile - T1474.001 - Compromise Software Dependencies and Development Tools
+- ATT&CK Mobile - T1474.002 - Compromise Hardware Supply Chain
+- ATT&CK Mobile - T1474.003 - Compromise Software Supply Chain
+- ATT&CK Mobile - T1475 - Deliver Malicious App via Authorized App Store
+- ATT&CK Mobile - T1476 - Deliver Malicious App via Other Means
+- ATT&CK Mobile - T1477 - Exploit via Radio Interfaces
+- ATT&CK Mobile - T1478 - Install Insecure or Malicious Configuration
+- ATT&CK Mobile - T1481 - Web Service
+- ATT&CK Mobile - T1481.001 - Dead Drop Resolver
+- ATT&CK Mobile - T1481.002 - Bidirectional Communication
+- ATT&CK Mobile - T1481.003 - One-Way Communication
+- ATT&CK Mobile - T1507 - Network Information Discovery
+- ATT&CK Mobile - T1508 - Suppress Application Icon
+- ATT&CK Mobile - T1509 - Non-Standard Port
+- ATT&CK Mobile - T1510 - Clipboard Modification
+- ATT&CK Mobile - T1512 - Video Capture
+- ATT&CK Mobile - T1513 - Screen Capture
+- ATT&CK Mobile - T1516 - Input Injection
+- ATT&CK Mobile - T1517 - Access Notifications
+- ATT&CK Mobile - T1520 - Domain Generation Algorithms
+- ATT&CK Mobile - T1521 - Encrypted Channel
+- ATT&CK Mobile - T1521.001 - Symmetric Cryptography
+- ATT&CK Mobile - T1521.002 - Asymmetric Cryptography
+- ATT&CK Mobile - T1523 - Evade Analysis Environment
+- ATT&CK Mobile - T1532 - Archive Collected Data
+- ATT&CK Mobile - T1533 - Data from Local System
+- ATT&CK Mobile - T1540 - Code Injection
+- ATT&CK Mobile - T1541 - Foreground Persistence
+- ATT&CK Mobile - T1544 - Ingress Tool Transfer
+- ATT&CK Mobile - T1575 - Native API
+- ATT&CK Mobile - T1576 - Uninstall Malicious Application
+- ATT&CK Mobile - T1577 - Compromise Application Executable
+- ATT&CK Mobile - T1579 - Keychain
+- ATT&CK Mobile - T1581 - Geofencing
+- ATT&CK Mobile - T1582 - SMS Control
+- ATT&CK Mobile - T1603 - Scheduled Task/Job
+- ATT&CK Mobile - T1604 - Proxy Through Victim
+- ATT&CK Mobile - T1605 - Command-Line Interface
+- ATT&CK Mobile - T1616 - Call Control
+- ATT&CK Mobile - T1617 - Hooking
+- ATT&CK Mobile - T1618 - User Evasion
+- ATT&CK Mobile - T1623 - Command and Scripting Interpreter
+- ATT&CK Mobile - T1623.001 - Unix Shell
+- ATT&CK Mobile - T1624 - Event Triggered Execution
+- ATT&CK Mobile - T1624.001 - Broadcast Receivers
+- ATT&CK Mobile - T1625 - Hijack Execution Flow
+- ATT&CK Mobile - T1625.001 - System Runtime API Hijacking
+- ATT&CK Mobile - T1626 - Abuse Elevation Control Mechanism
+- ATT&CK Mobile - T1626.001 - Device Administrator Permissions
+- ATT&CK Mobile - T1627 - Execution Guardrails
+- ATT&CK Mobile - T1627.001 - Geofencing
+- ATT&CK Mobile - T1628 - Hide Artifacts
+- ATT&CK Mobile - T1628.001 - Suppress Application Icon
+- ATT&CK Mobile - T1628.002 - User Evasion
+- ATT&CK Mobile - T1629 - Impair Defenses
+- ATT&CK Mobile - T1629.001 - Prevent Application Removal
+- ATT&CK Mobile - T1629.002 - Device Lockout
+- ATT&CK Mobile - T1629.003 - Disable or Modify Tools
+- ATT&CK Mobile - T1630 - Indicator Removal on Host
+- ATT&CK Mobile - T1630.001 - Uninstall Malicious Application
+- ATT&CK Mobile - T1630.002 - File Deletion
+- ATT&CK Mobile - T1630.003 - Disguise Root/Jailbreak Indicators
+- ATT&CK Mobile - T1631 - Process Injection
+- ATT&CK Mobile - T1631.001 - Ptrace System Calls
+- ATT&CK Mobile - T1632 - Subvert Trust Controls
+- ATT&CK Mobile - T1632.001 - Code Signing Policy Modification
+- ATT&CK Mobile - T1633 - Virtualization/Sandbox Evasion
+- ATT&CK Mobile - T1633.001 - System Checks
+- ATT&CK Mobile - T1634 - Credentials from Password Store
+- ATT&CK Mobile - T1634.001 - Keychain
+- ATT&CK Mobile - T1635 - Steal Application Access Token
+- ATT&CK Mobile - T1635.001 - URI Hijacking
+- ATT&CK Mobile - T1636 - Protected User Data
+- ATT&CK Mobile - T1636.001 - Calendar Entries
+- ATT&CK Mobile - T1636.002 - Call Log
+- ATT&CK Mobile - T1636.003 - Contact List
+- ATT&CK Mobile - T1636.004 - SMS Messages
+- ATT&CK Mobile - T1637 - Dynamic Resolution
+- ATT&CK Mobile - T1637.001 - Domain Generation Algorithms
+- ATT&CK Mobile - T1638 - Adversary-in-the-Middle
+- ATT&CK Mobile - T1639 - Exfiltration Over Alternative Protocol
+- ATT&CK Mobile - T1639.001 - Exfiltration Over Unencrypted Non-C2 Protocol
+- ATT&CK Mobile - T1640 - Account Access Removal
+- ATT&CK Mobile - T1641 - Data Manipulation
+- ATT&CK Mobile - T1641.001 - Transmitted Data Manipulation
+- ATT&CK Mobile - T1642 - Endpoint Denial of Service
+- ATT&CK Mobile - T1643 - Generate Traffic from Victim
+- ATT&CK Mobile - T1644 - Out of Band Data
+- ATT&CK Mobile - T1645 - Compromise Client Software Binary
+- ATT&CK Mobile - T1646 - Exfiltration Over C2 Channel
+- ATT&CK Mobile - T1655 - Masquerading
+- ATT&CK Mobile - T1655.001 - Match Legitimate Name or Location
+- ATT&CK Mobile - T1658 - Exploitation for Client Execution
+- ATT&CK Mobile - T1660 - Phishing
+- ATT&CK Mobile - T1661 - Application Versioning
+- ATT&CK Mobile - T1662 - Data Destruction
+- ATT&CK Mobile - T1663 - Remote Access Software
+SF-SCOPE-TYPE:
+- AI Security
+- Application Security
+- Cloud Security
+- Data Security
+- IoT Security
+- Network Security
+- Operational Security
+- Physical Security
+- Risk & Compliance
+SF-STANDARD-BASELINE-TYPE:
+- ASVS
+- ISO 27001
+- NIST 800-53 v5
+SF-STANDARD-SECTION-TYPE:
+- V1.1.1
+- V1.1.3
+- V1.1.4
+- V1.1.5
+- V1.1.6
+- V1.1.7
+- V1.10.1
+- V1.11.1
+- V1.11.2
+- V1.11.3
+- V1.12.2
+- V1.14.1
+- V1.14.2
+- V1.14.3
+- V1.14.4
+- V1.14.5
+- V1.14.6
+- V1.2.1
+- V1.2.2
+- V1.2.3
+- V1.2.4
+- V1.4.1
+- V1.4.4
+- V1.4.5
+- V1.5.1
+- V1.5.2
+- V1.5.3
+- V1.5.4
+- V1.6.1
+- V1.6.2
+- V1.6.3
+- V1.6.4
+- V1.7.1
+- V1.7.2
+- V1.8.1
+- V1.8.2
+- V1.9.1
+- V1.9.2
+- V10.1.1
+- V10.2.1
+- V10.2.2
+- V10.2.3
+- V10.2.4
+- V10.2.5
+- V10.2.6
+- V10.3.1
+- V10.3.2
+- V10.3.3
+- V11.1.1
+- V11.1.2
+- V11.1.3
+- V11.1.4
+- V11.1.5
+- V11.1.6
+- V11.1.7
+- V11.1.8
+- V12.1.1
+- V12.1.2
+- V12.1.3
+- V12.2.1
+- V12.3.1
+- V12.3.2
+- V12.3.3
+- V12.3.4
+- V12.3.5
+- V12.3.6
+- V12.4.1
+- V12.4.2
+- V12.5.1
+- V12.5.2
+- V12.6.1
+- V13.1.1
+- V13.1.3
+- V13.1.4
+- V13.1.5
+- V13.2.1
+- V13.2.2
+- V13.2.3
+- V13.2.5
+- V13.2.6
+- V13.3.1
+- V13.3.2
+- V13.4.1
+- V13.4.2
+- V14.1.1
+- V14.1.2
+- V14.1.3
+- V14.1.4
+- V14.1.5
+- V14.2.1
+- V14.2.2
+- V14.2.3
+- V14.2.4
+- V14.2.5
+- V14.2.6
+- V14.3.2
+- V14.3.3
+- V14.4.1
+- V14.4.2
+- V14.4.3
+- V14.4.4
+- V14.4.5
+- V14.4.6
+- V14.4.7
+- V14.5.1
+- V14.5.2
+- V14.5.3
+- V14.5.4
+- V2.1.1
+- V2.1.10
+- V2.1.11
+- V2.1.12
+- V2.1.2
+- V2.1.3
+- V2.1.4
+- V2.1.5
+- V2.1.6
+- V2.1.7
+- V2.1.8
+- V2.1.9
+- V2.10.1
+- V2.10.2
+- V2.10.3
+- V2.10.4
+- V2.2.1
+- V2.2.2
+- V2.2.3
+- V2.2.4
+- V2.2.5
+- V2.2.6
+- V2.2.7
+- V2.3.1
+- V2.3.2
+- V2.3.3
+- V2.4.1
+- V2.4.2
+- V2.4.3
+- V2.4.4
+- V2.4.5
+- V2.5.1
+- V2.5.2
+- V2.5.3
+- V2.5.4
+- V2.5.5
+- V2.5.6
+- V2.5.7
+- V2.6.1
+- V2.6.2
+- V2.6.3
+- V2.7.1
+- V2.7.2
+- V2.7.3
+- V2.7.4
+- V2.7.5
+- V2.7.6
+- V2.8.1
+- V2.8.2
+- V2.8.3
+- V2.8.4
+- V2.8.5
+- V2.8.6
+- V2.8.7
+- V2.9.1
+- V2.9.2
+- V2.9.3
+- V3.1.1
+- V3.2.1
+- V3.2.2
+- V3.2.3
+- V3.2.4
+- V3.3.1
+- V3.3.2
+- V3.3.3
+- V3.3.4
+- V3.4.1
+- V3.4.2
+- V3.4.3
+- V3.4.4
+- V3.4.5
+- V3.5.1
+- V3.5.2
+- V3.5.3
+- V3.6.1
+- V3.6.2
+- V3.7.1
+- V4.1.1
+- V4.1.2
+- V4.1.3
+- V4.1.5
+- V4.2.1
+- V4.2.2
+- V4.3.1
+- V4.3.2
+- V4.3.3
+- V5.1.1
+- V5.1.2
+- V5.1.3
+- V5.1.4
+- V5.1.5
+- V5.2.1
+- V5.2.2
+- V5.2.3
+- V5.2.4
+- V5.2.5
+- V5.2.6
+- V5.2.7
+- V5.2.8
+- V5.3.1
+- V5.3.10
+- V5.3.2
+- V5.3.3
+- V5.3.4
+- V5.3.5
+- V5.3.6
+- V5.3.7
+- V5.3.8
+- V5.3.9
+- V5.4.1
+- V5.4.2
+- V5.4.3
+- V5.5.1
+- V5.5.2
+- V5.5.3
+- V5.5.4
+- V6.1.1
+- V6.1.2
+- V6.1.3
+- V6.2.1
+- V6.2.2
+- V6.2.3
+- V6.2.4
+- V6.2.5
+- V6.2.6
+- V6.2.7
+- V6.2.8
+- V6.3.1
+- V6.3.2
+- V6.3.3
+- V6.4.1
+- V6.4.2
+- V7.1.1
+- V7.1.2
+- V7.1.3
+- V7.1.4
+- V7.2.1
+- V7.2.2
+- V7.3.1
+- V7.3.3
+- V7.3.4
+- V7.4.1
+- V7.4.2
+- V7.4.3
+- V8.1.1
+- V8.1.2
+- V8.1.3
+- V8.1.4
+- V8.1.5
+- V8.1.6
+- V8.2.1
+- V8.2.2
+- V8.2.3
+- V8.3.1
+- V8.3.2
+- V8.3.3
+- V8.3.4
+- V8.3.5
+- V8.3.6
+- V8.3.7
+- V8.3.8
+- V9.1.1
+- V9.1.2
+- V9.1.3
+- V9.2.1
+- V9.2.2
+- V9.2.3
+- V9.2.4
+- V9.2.5
+- AC-1 POLICY AND PROCEDURES
+- AC-10 CONCURRENT SESSION CONTROL
+- AC-11 DEVICE LOCK
+- AC-12 SESSION TERMINATION
+- AC-14 PERMITTED ACTIONS WITHOUT IDENTIFICATION OR AUTHENTICATION
+- AC-16 Security and Privacy Attributes
+- AC-17 Remote Access
+- AC-18 Wireless Access
+- AC-19 Access Control for Mobile Devices
+- AC-2 ACCOUNT MANAGEMENT
+- AC-20 Use of External Systems
+- AC-21 Information Sharing
+- AC-22 Publicly Accessible Content
+- AC-23 Data Mining Protection
+- AC-24 Access Control Decisions
+- AC-25 Reference Monitor
+- AC-3 ACCESS ENFORCEMENT
+- AC-4 Information Flow Enforcement
+- AC-5 SEPARATION OF DUTIES
+- AC-6 LEAST PRIVILEGE
+- AC-7 UNSUCCESSFUL LOGON ATTEMPTS
+- AC-8 SYSTEM USE NOTIFICATION
+- AC-9 PREVIOUS LOGON NOTIFICATION
+- AT-1 Policy and Procedures
+- AT-2 Literacy Training and Awareness
+- AT-3 Role-based Training
+- AT-4 Training Records
+- AT-6 Training Feedback
+- AU-1 Policy and Procedures
+- AU-10 Non-repudiation
+- AU-11 Audit Record Retention
+- AU-12 Audit Record Generation
+- AU-13 Monitoring for Information Disclosure
+- AU-14 Session Audit
+- AU-16 Cross-organizational Audit Logging
+- AU-2 Event Logging
+- AU-3 Content of Audit Records
+- AU-4 Audit Log Storage Capacity
+- AU-5 Response to Audit Logging Process Failures
+- AU-6 Audit Record Review, Analysis, and Reporting
+- AU-7 Audit Record Reduction and Report Generation
+- AU-8 Time Stamps
+- AU-9 Protection of Audit Information
+- CA-1 Policy and Procedures
+- CA-2 Control Assessments
+- CA-3 Information Exchange
+- CA-5 Plan of Action and Milestones
+- CA-6 Authorization
+- CA-7 Continuous Monitoring
+- CA-8 Penetration Testing
+- CA-9 Internal System Connections
+- CM-1 Policy and Procedures
+- CM-10 Software Usage Restrictions
+- CM-11 User-installed Software
+- CM-12 Information Location
+- CM-13 Data Action Mapping
+- CM-14 Signed Components
+- CM-2 BASELINE CONFIGURATION
+- CM-3 Configuration Change Control
+- CM-4 Impact Analyses
+- CM-5 Access Restrictions for Change
+- CM-6 Configuration Settings
+- CM-7 Least Functionality
+- CM-8 System Component Inventory
+- CM-9 Configuration Management Plan
+- CP-1 Policy and Procedures
+- CP-10 System Recovery and Reconstitution
+- CP-11 Alternate Communications Protocols
+- CP-12 Safe Mode
+- CP-13 Alternative Security Mechanisms
+- CP-2 Contingency Plan
+- CP-3 Contingency Training
+- CP-4 Contingency Plan Testing
+- CP-6 Alternate Storage Site
+- CP-7 Alternate Processing Site
+- CP-8 Telecommunications Services
+- CP-9 System Backup
+- IA-1 Policy and Procedures
+- IA-10 Adaptive Authentication
+- IA-11 RE-AUTHENTICATION
+- IA-12 Identity Proofing
+- IA-2 Identification and Authentication (organizational Users)
+- IA-3 Device Identification and Authentication
+- IA-4 Identifier Management
+- IA-5 AUTHENTICATOR MANAGEMENT
+- IA-6 Authentication Feedback
+- IA-7 Cryptographic Module Authentication
+- IA-8 Identification and Authentication (non-organizational Users)
+- IA-9 Service Identification and Authentication
+- IR-1 Policy and Procedures
+- IR-2 Incident Response Training
+- IR-3 Incident Response Testing
+- IR-4 Incident Handling
+- IR-5 Incident Monitoring
+- IR-6 Incident Reporting
+- IR-7 Incident Response Assistance
+- IR-8 Incident Response Plan
+- IR-9 Information Spillage Response
+- MA-1 Policy and Procedures
+- MA-2 Controlled Maintenance
+- MA-3 Maintenance Tools
+- MA-4 Nonlocal Maintenance
+- MA-5 Maintenance Personnel
+- MA-6 Timely Maintenance
+- MA-7 Field Maintenance
+- MP-1 Policy and Procedures
+- MP-2 Media Access
+- MP-3 Media Marking
+- MP-4 Media Storage
+- MP-5 Media Transport
+- MP-6 Media Sanitization
+- MP-7 Media Use
+- MP-8 Media Downgrading
+- PE-1 Policy and Procedures
+- PE-10 Emergency Shutoff
+- PE-11 Emergency Power
+- PE-12 Emergency Lighting
+- PE-13 Fire Protection
+- PE-14 Environmental Controls
+- PE-15 Water Damage Protection
+- PE-16 Delivery and Removal
+- PE-17 Alternate Work Site
+- PE-18 Location of System Components
+- PE-19 Information Leakage
+- PE-2 Physical Access Authorizations
+- PE-20 Asset Monitoring and Tracking
+- PE-21 Electromagnetic Pulse Protection
+- PE-22 Component Marking
+- PE-23 Facility Location
+- PE-3 Physical Access Control
+- PE-4 Access Control for Transmission
+- PE-5 Access Control for Output Devices
+- PE-6 Monitoring Physical Access
+- PE-8 Visitor Access Records
+- PE-9 Power Equipment and Cabling
+- PL-1 Policy and Procedures
+- PL-10 Baseline Selection
+- PL-11 Baseline Tailoring
+- PL-2 System Security and Privacy Plans
+- PL-4 Rules of Behavior
+- PL-7 CONCEPT OF OPERATIONS
+- PL-8 SECURITY AND PRIVACY ARCHITECTURES
+- PL-9 Central Management
+- PM-1 Information Security Program Plan
+- PM-10 Authorization Process
+- PM-11 Mission and Business Process Definition
+- PM-12 Insider Threat Program
+- PM-13 Security and Privacy Workforce
+- PM-14 Testing, Training, and Monitoring
+- PM-15 Security and Privacy Groups and Associations
+- PM-16 Threat Awareness Program
+- PM-17 Protecting Controlled Unclassified Information on External Systems
+- PM-18 Privacy Program Plan
+- PM-19 Privacy Program Leadership Role
+- PM-2 Information Security Program Leadership Role
+- PM-20 Dissemination of Privacy Program Information
+- PM-21 Accounting of Disclosures
+- PM-22 Personally Identifiable Information Quality Management
+- PM-23 Data Governance Body
+- PM-24 Data Integrity Board
+- PM-25 Minimization of Personally Identifiable Information Used in Testing, Training,
+  and Research
+- PM-26 Complaint Management
+- PM-27 Privacy Reporting
+- PM-28 Risk Framing
+- PM-29 Risk Management Program Leadership Roles
+- PM-3 Information Security and Privacy Resources
+- PM-30 Supply Chain Risk Management Strategy
+- PM-31 Continuous Monitoring Strategy
+- PM-32 Purposing
+- PM-4 Plan of Action and Milestones Process
+- PM-5 System Inventory
+- PM-6 Measures of Performance
+- PM-7 Enterprise Architecture
+- PM-8 Critical Infrastructure Plan
+- PM-9 Risk Management Strategy
+- PS-1 Policy and Procedures
+- PS-2 Position Risk Designation
+- PS-3 Personnel Screening
+- PS-4 Personnel Termination
+- PS-5 Personnel Transfer
+- PS-6 Access Agreements
+- PS-7 External Personnel Security
+- PS-8 Personnel Sanctions
+- PS-9 Position Descriptions
+- PT-1 Policy and Procedures
+- PT-2 Authority to Process Personally Identifiable Information
+- PT-3 Personally Identifiable Information Processing Purposes
+- PT-4 Consent
+- PT-5 Privacy Notice
+- PT-6 System of Records Notice
+- PT-7 Specific Categories of Personally Identifiable Information
+- PT-8 Computer Matching Requirements
+- RA-1 Policy and Procedures
+- RA-10 Threat Hunting
+- RA-2 Security Categorization
+- RA-3 Risk Assessment
+- RA-5 Vulnerability Monitoring and Scanning
+- RA-6 Technical Surveillance Countermeasures Survey
+- RA-7 Risk Response
+- RA-8 Privacy Impact Assessments
+- RA-9 Criticality Analysis
+- SA-1 Policy and Procedures
+- SA-10 Developer Configuration Management
+- SA-11 Developer Testing and Evaluation
+- SA-15 Development Process, Standards, and Tools
+- SA-16 Developer-provided Training
+- SA-17 Developer Security and Privacy Architecture and Design
+- SA-2 Allocation of Resources
+- SA-20 Customized Development of Critical Components
+- SA-21 Developer Screening
+- SA-22 Unsupported System Components
+- SA-23 Specialization
+- SA-3 System Development Life Cycle
+- SA-4 Acquisition Process
+- SA-5 System Documentation
+- SA-8 Security and Privacy Engineering Principles
+- SA-9 External System Services
+- SC-1 Policy and Procedures
+- SC-10 NETWORK DISCONNECT
+- SC-11 Trusted Path
+- SC-12 CRYPTOGRAPHIC KEY ESTABLISHMENT AND MANAGEMENT
+- SC-13 Cryptographic Protection
+- SC-15 Collaborative Computing Devices and Applications
+- SC-16 Transmission of Security and Privacy Attributes
+- SC-17 Public Key Infrastructure Certificates
+- SC-18 Mobile Code
+- SC-2 Separation of System and User Functionality
+- SC-20 Secure Name/address Resolution Service (authoritative Source)
+- SC-21 Secure Name/address Resolution Service (recursive or Caching Resolver)
+- SC-22 Architecture and Provisioning for Name/address Resolution Service
+- SC-23 SESSION AUTHENTICITY
+- SC-23(1)
+- SC-23(3)
+- SC-24 Fail in Known State
+- SC-25 Thin Nodes
+- SC-26 Decoys
+- SC-27 Platform-independent Applications
+- SC-28 PROTECTION OF INFORMATION AT REST
+- SC-29 Heterogeneity
+- SC-3 Security Function Isolation
+- SC-30 Concealment and Misdirection
+- SC-31 Covert Channel Analysis
+- SC-32 System Partitioning
+- SC-34 Non-modifiable Executable Programs
+- SC-35 External Malicious Code Identification
+- SC-36 Distributed Processing and Storage
+- SC-37 Out-of-band Channels
+- SC-38 Operations Security
+- SC-39 Process Isolation
+- SC-4 Information in Shared System Resources
+- SC-40 Wireless Link Protection
+- SC-41 Port and I/O Device Access
+- SC-42 Sensor Capability and Data
+- SC-43 Usage Restrictions
+- SC-44 Detonation Chambers
+- SC-45 System Time Synchronization
+- SC-46 Cross Domain Policy Enforcement
+- SC-47 Alternate Communications Paths
+- SC-48 Sensor Relocation
+- SC-49 Hardware-enforced Separation and Policy Enforcement
+- SC-5 DENIAL-OF-SERVICE PROTECTION
+- SC-50 Software-enforced Separation and Policy Enforcement
+- SC-51 Hardware-based Protection
+- SC-6 Resource Availability
+- SC-7 Boundary Protection
+- SC-8 TRANSMISSION CONFIDENTIALITY AND INTEGRITY
+- SI-1 Policy and Procedures
+- SI-10 INFORMATION INPUT VALIDATION
+- SI-11 Error Handling
+- SI-12 Information Management and Retention
+- SI-13 Predictable Failure Prevention
+- SI-14 Non-persistence
+- SI-15 Information Output Filtering
+- SI-16 Memory Protection
+- SI-17 Fail-safe Procedures
+- SI-18 Personally Identifiable Information Quality Operations
+- SI-19 De-identification
+- SI-2 Flaw Remediation
+- SI-20 Tainting
+- SI-21 Information Refresh
+- SI-22 Information Diversity
+- SI-23 Information Fragmentation
+- SI-3 Malicious Code Protection
+- SI-4 System Monitoring
+- SI-5 Security Alerts, Advisories, and Directives
+- SI-6 Security and Privacy Function Verification
+- SI-7 Software, Firmware, and Information Integrity
+- SI-8 Spam Protection
+- SR-1 Policy and Procedures
+- SR-10 Inspection of Systems or Components
+- SR-11 Component Authenticity
+- SR-12 Component Disposal
+- SR-2 Supply Chain Risk Management Plan
+- SR-3 Supply Chain Controls and Processes
+- SR-4 Provenance
+- SR-5 Acquisition Strategies, Tools, and Methods
+- SR-6 Supplier Assessments and Reviews
+- SR-7 Supply Chain Operations Security
+- SR-8 Notification Agreements
+- SR-9 Tamper Resistance and Detection
+- Acceptable use of information and other associated assets
+- Access control
+- Access rights
+- Access to source code
+- Addressing information security within supplier agreements
+- Application security requirements
+- Assessment and decision on information security events
+- Authentication information
+- Cabling security
+- Capacity management
+- Change management
+- Classification of information
+- Clear desk and clear screen
+- Clock synchronization
+- Collection of evidence
+- Compliance with policies, rules and standards for information security
+- Confidentiality or non-disclosure agreements
+- Configuration management
+- Contact with authorities
+- Contact with special interest groups
+- Data leakage prevention
+- Data masking
+- Disciplinary process
+- Documented operating procedures
+- Equipment maintenance
+- Equipment siting and protection
+- ICT readiness for business continuity
+- Identity management
+- Independent review of information security
+- Information access restriction
+- Information backup
+- Information deletion
+- Information security awareness, education and training
+- Information security during disruption
+- Information security event reporting
+- Information security for use of cloud services
+- Information security in project management
+- Information security in supplier relationships
+- Information security incident management planning and preparation
+- Information security roles and responsibilities
+- Information transfer
+- Installation of software on operational systems
+- Intellectual property rights
+- Inventory of information and other associated assets
+- Labelling of information
+- Learning from information security incidents
+- Legal, statutory, regulatory and contractual requirements
+- Logging
+- Management of technical vulnerabilities
+- Management responsibilities
+- Managing information security in the information and communication technology (ICT)
+  supply chain
+- Monitoring activities
+- Monitoring, review and change management of supplier services
+- Networks security
+- Outsourced development
+- Physical entry
+- Physical security monitoring
+- Physical security perimeters
+- Policies for information security
+- Privacy and protection of personal identifiable information (PII)
+- Privileged access rights
+- Protecting against physical and environmental threats
+- Protection against malware
+- Protection of information systems during audit testing
+- Protection of records
+- Redundancy of information processing facilities
+- Remote working
+- Response to information security incidents
+- Responsibilities after termination or change of employment
+- Return of assets
+- Screening
+- Secure authentication
+- Secure coding
+- Secure development life cycle
+- Secure disposal or re-use of equipment
+- Secure system architecture and engineering principles
+- Securing offices, rooms and facilities
+- Security of assets off-premises
+- Security of network services
+- Security testing in development and acceptance
+- Segregation of duties
+- Segregation of networks
+- Separation of development, test and production environments
+- Storage media
+- Supporting utilities
+- Terms and conditions of employment
+- Test information
+- Threat intelligence
+- Use of cryptography
+- Use of privileged utility programs
+- User end point devices
+- Web filtering
+- Working in secure areas
+SF-STRIDE-LM-TYPE:
+- Denial of Service
+- Elevation of Privilege
+- Information Disclosure
+- Lateral Movement
+- Repudiation
+- Spoofing
+- Tampering

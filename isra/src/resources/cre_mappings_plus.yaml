@@ -1,0 +1,5025 @@
+002-630:
+  ASVS:
+  - V3.2.1
+  CWE:
+  - '384'
+  NIST 800-53 v5:
+  - SC-23(3)
+  NIST 800-63:
+  - '7.1'
+  NIST CSF v1.1:
+  - 'PR.PT-4: Communications and control networks are protected'
+  OWASP Cheat Sheets:
+  - Session Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-03
+  PCI DSS v3.2.1:
+  - '1'
+  - '2'
+002-801:
+  ASVS:
+  - V2.9.3
+  CWE:
+  - '327'
+  NIST 800-63:
+  - 5.1.7.2
+  OWASP Cheat Sheets:
+  - Cryptographic Storage Cheat Sheet
+  - Key Management Cheat Sheet
+004-517:
+  Cloud Controls Matrix:
+  - Application Security Baseline Requirements
+  FedRAMP:
+  - High
+  - Moderate
+  ISO 27001:
+  - Application security requirements
+  - Information transfer
+  NIST 800-53 v5:
+  - SC-18 Mobile Code
+  NIST CSF v1.1:
+  - 'DE.CM-5: Unauthorized mobile code is detected'
+  NIST SSDF:
+  - PO.1.2
+  PCI DSS v3.2.1:
+  - '5'
+  SAMM:
+  - Policy & Standards
+  - Software Requirements
+007-274:
+  SAMM:
+  - Patching and Updating
+013-021:
+  CCPA:
+  - Training (a)
+  ISO 27001:
+  - Information security roles and responsibilities
+  NIST 800-53 v5:
+  - PM-13 Security and Privacy Workforce
+  - PM-2 Information Security Program Leadership Role
+  - PM-29 Risk Management Program Leadership Roles
+  NIST CSF v1.1:
+  - 'ID.AM-6: Cybersecurity roles and responsibilities for the entire workforce and
+    third-party stakeholders (e.g., suppliers, customers, partners) are established'
+  - 'ID.GV-2: Cybersecurity roles and responsibilities are coordinated and aligned
+    with internal roles and external partners'
+  - 'PR.AT-1: All users are informed and trained'
+  - 'PR.AT-2: Privileged users understand their roles and responsibilities'
+  - 'PR.AT-4: Senior executives understand their roles and responsibilities'
+  - 'PR.AT-5: Physical and cybersecurity personnel understand their roles and responsibilities'
+  NIST SSDF:
+  - PO.2.1
+  PCI DSS v3.2.1:
+  - 1.1.5
+  - '12.4'
+  - '12.5'
+  - '12.6'
+  - '12.8'
+  - '12.9'
+  - '6.7'
+  - '7.1'
+  - '7.2'
+  - '7.3'
+  - '8.4'
+  - 9.9.3
+015-063:
+  ASVS:
+  - V8.3.5
+  CWE:
+  - '532'
+026-280:
+  ASVS:
+  - V1.7.2
+  OWASP Cheat Sheets:
+  - Logging Cheat Sheet
+  OWASP Proactive Controls:
+  - C9
+027-210:
+  ASVS:
+  - V6.3.2
+  CWE:
+  - '338'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-04
+027-555:
+  ASVS:
+  - V2.1.1
+  CWE:
+  - '521'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Credential Stuffing Prevention Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-07
+028-254:
+  ASVS:
+  - V10.3.1
+  CWE:
+  - '16'
+  OWASP Cheat Sheets:
+  - Docker Security Cheat Sheet
+028-727:
+  OWASP Top 10 2021:
+  - Server Side Request Forgery (SSRF)
+031-447:
+  ASVS:
+  - V5.1.3
+  CWE:
+  - '20'
+  OWASP Cheat Sheets:
+  - Input Validation Cheat Sheet
+  - Mass Assignment Cheat Sheet
+  OWASP Proactive Controls:
+  - C5
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-00
+032-213:
+  ASVS:
+  - V6.4.2
+  CWE:
+  - '320'
+  OWASP Cheat Sheets:
+  - Key Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C8
+036-147:
+  ASVS:
+  - V14.4.5
+  CWE:
+  - '523'
+  OWASP Cheat Sheets:
+  - Content Security Policy Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CONF-07
+036-275:
+  ASVS:
+  - V1.1.7
+  CWE:
+  - '637'
+  ISO 27001:
+  - Secure coding
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  - Attack Surface Analysis Cheat Sheet
+  - Threat Modeling Cheat Sheet
+036-725:
+  ASVS:
+  - V14.4.1
+  CWE:
+  - '173'
+  OWASP Cheat Sheets:
+  - Content Security Policy Cheat Sheet
+036-810:
+  ASVS:
+  - V6.2.1
+  CWE:
+  - '310'
+  OWASP Cheat Sheets:
+  - Cryptographic Storage Cheat Sheet
+  - Key Management Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-02
+042-550:
+  ASVS:
+  - V5.1.2
+  CWE:
+  - '915'
+  OWASP Cheat Sheets:
+  - Input Validation Cheat Sheet
+  - Mass Assignment Cheat Sheet
+  OWASP Proactive Controls:
+  - C5
+046-257:
+  ASVS:
+  - V8.2.3
+  CWE:
+  - '922'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CLNT-12
+048-612:
+  ASVS:
+  - V7.3.1
+  CWE:
+  - '117'
+  OWASP Cheat Sheets:
+  - Logging Cheat Sheet
+  OWASP Proactive Controls:
+  - C9
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-BUSL-03
+052-821:
+  ASVS:
+  - V3.6.2
+  CWE:
+  - '613'
+  NIST 800-63:
+  - 7.2.1
+053-751:
+  ASVS:
+  - V1.14.3
+  CWE:
+  - '1104'
+058-083:
+  CCPA:
+  - Verification for Password-Protected Accounts (b)
+  Cloud Controls Matrix:
+  - Logging and Monitoring
+  D3FEND:
+  - Network Traffic Analysis
+  - Operating System Monitoring
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Monitoring activities
+  NIST 800-53 v5:
+  - SI-4 System Monitoring
+  NIST CSF v1.1:
+  - 'DE.AE-1: A baseline of network operations and expected data flows for users and
+    systems is established and managed'
+  - 'DE.AE-2: Detected events are analyzed to understand attack targets and methods'
+  - 'DE.AE-3: Event data are collected and correlated from multiple sources and sensors'
+  - 'DE.AE-4: Impact of events is determined'
+  - 'DE.CM-1: The network is monitored to detect potential cybersecurity events'
+  - 'DE.CM-4: Malicious code is detected'
+  - 'DE.CM-5: Unauthorized mobile code is detected'
+  - 'DE.CM-6: External service provider activity is monitored to detect potential
+    cybersecurity events'
+  - 'DE.CM-7: Monitoring for unauthorized personnel, connections, devices, and software
+    is performed'
+  - 'DE.DP-2: Detection activities comply with all applicable requirements'
+  - 'DE.DP-3: Detection processes are tested'
+  - 'DE.DP-4: Event detection information is communicated'
+  - 'DE.DP-5: Detection processes are continuously improved'
+  - 'ID.RA-1: Asset vulnerabilities are identified and documented'
+  - 'PR.DS-5: Protections against data leaks are implemented'
+  - 'PR.IP-8: Effectiveness of protection technologies is shared'
+  - 'RS.AN-1: Notifications from detection systems are investigated'
+  PCI DSS v3.2.1:
+  - 1.1.1
+  - 1.1.2
+  - 1.1.3
+  - '10.1'
+  - '10.6'
+  - 10.6.1
+  - 10.6.2
+  - 10.6.3
+  - '10.9'
+  - '11.1'
+  - '11.2'
+  - '11.3'
+  - '11.4'
+  - '11.5'
+  - 11.5.1
+  - '12.10'
+  - 12.10.1
+  - 12.10.5
+  - 12.10.6
+  - '12.2'
+  - 12.5.2
+  - '5'
+  - '6.1'
+  - 8.1.5
+  SAMM:
+  - Incident Detection
+058-527:
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  NIST 800-53 v5:
+  - SC-20 Secure Name/address Resolution Service (authoritative Source)
+  - SC-21 Secure Name/address Resolution Service (recursive or Caching Resolver)
+  NIST CSF v1.1:
+  - 'PR.AC-5: Network integrity is protected (e.g., network segregation, network segmentation)'
+  - 'PR.PT-4: Communications and control networks are protected'
+  PCI DSS v3.2.1:
+  - '1'
+  - '1.1'
+  - '1.2'
+  - '1.3'
+  - '10.8'
+  - '11.3'
+  - '2'
+  - '2.2'
+  - '6.2'
+060-472:
+  ASVS:
+  - V4.2.2
+  CWE:
+  - '352'
+  OWASP Cheat Sheets:
+  - Authorization Testing Automation Cheat Sheet
+  - Cross-Site Request Forgery Prevention Cheat Sheet
+  - Insecure Direct Object Reference Prevention Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-05
+061-186:
+  ASVS:
+  - V13.1.1
+  CWE:
+  - '116'
+  OWASP Cheat Sheets:
+  - Server Side Request Forgery Prevention Cheat Sheet
+  - Web Service Security Cheat Sheet
+064-808:
+  ASVS:
+  - V5.3.5
+  CWE:
+  - '89'
+  OWASP Cheat Sheets:
+  - Bean Validation Cheat Sheet
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - File Upload Cheat Sheet
+  - HTML5 Security Cheat Sheet
+  - Injection Prevention Cheat Sheet
+  - Injection Prevention in Java Cheat Sheet
+  - Input Validation Cheat Sheet
+  - LDAP Injection Prevention Cheat Sheet
+  - OS Command Injection Defense Cheat Sheet
+  - Query Parameterization Cheat Sheet
+  - SQL Injection Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  - XML External Entity Prevention Cheat Sheet
+  - XML Security Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-05
+065-183:
+  ASVS:
+  - V2.10.2
+  CWE:
+  - '255'
+  NIST 800-63:
+  - 5.1.1.1
+065-388:
+  ASVS:
+  - V14.4.4
+  CWE:
+  - '116'
+  OWASP Cheat Sheets:
+  - Content Security Policy Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-01; WSTG-INPV-02; WSTG-CLNT-01
+065-782:
+  ASVS:
+  - V3.3.2
+  CWE:
+  - '613'
+  NIST 800-63:
+  - '7.2'
+  OWASP Cheat Sheets:
+  - Session Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-07
+067-050:
+  ASVS:
+  - V7.1.1
+  CWE:
+  - '532'
+  OWASP Cheat Sheets:
+  - Logging Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CONF-02
+068-102:
+  ASVS:
+  - V1.1.5
+  CWE:
+  - '1059'
+  NIST 800-53 v5:
+  - SC-31 Covert Channel Analysis
+  NIST CSF v1.1:
+  - 'PR.PT-4: Communications and control networks are protected'
+  NIST SSDF:
+  - PW.1.1
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  - Attack Surface Analysis Cheat Sheet
+  - Threat Modeling Cheat Sheet
+  OWASP Proactive Controls:
+  - C1
+  PCI DSS v3.2.1:
+  - '1'
+  - '2'
+  SAMM:
+  - Threat modeling
+072-713:
+  SAMM:
+  - Technology Management
+074-873:
+  ISO 27001:
+  - Information deletion
+  NIST 800-53 v5:
+  - PM-17 Protecting Controlled Unclassified Information on External Systems
+  - PM-23 Data Governance Body
+  SAMM:
+  - Data Protection
+076-470:
+  ASVS:
+  - V2.8.7
+  CWE:
+  - '308'
+  NIST 800-63:
+  - 5.2.3
+077-781:
+  ASVS:
+  - V2.4.5
+  CWE:
+  - '916'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Password Storage Cheat Sheet
+078-427:
+  ASVS:
+  - V2.4.4
+  CWE:
+  - '916'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Password Storage Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+080-466:
+  D3FEND:
+  - Firmware Verification
+  - Platform Hardening
+  FedRAMP:
+  - High
+  - Moderate
+  ISO 27001:
+  - Access to source code
+  NIST 800-53 v5:
+  - SA-10 Developer Configuration Management
+  NIST CSF v1.1:
+  - 'PR.DS-8: Integrity checking mechanisms are used to verify hardware integrity'
+  - 'PR.IP-1: A baseline configuration of information technology/industrial control
+    systems is created and maintained incorporating security principles (e.g. concept
+    of least functionality)'
+  - 'PR.IP-2: A System Development Life Cycle to manage systems is implemented'
+  - 'PR.IP-3: Configuration change control processes are in place'
+  NIST SSDF:
+  - PS.1.1
+  PCI DSS v3.2.1:
+  - '1.2'
+  - '2.2'
+  - '6.3'
+  - '6.4'
+  - '6.5'
+  - '6.6'
+  - '6.7'
+  - 9.9.2
+082-327:
+  ASVS:
+  - V8.3.3
+  CWE:
+  - '285'
+082-530:
+  ASVS:
+  - V2.4.2
+  CWE:
+  - '916'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Password Storage Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+088-377:
+  NIST SSDF:
+  - PW.8.2
+101-217:
+  ASVS:
+  - V2.6.1
+  CWE:
+  - '308'
+  NIST 800-63:
+  - 5.1.2.2
+102-811:
+  ASVS:
+  - V2.7.4
+  CWE:
+  - '523'
+  NIST 800-63:
+  - 5.1.3.2
+  OWASP Cheat Sheets:
+  - Forgot Password Cheat Sheet
+103-707:
+  ASVS:
+  - V2.1.4
+  CWE:
+  - '521'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Credential Stuffing Prevention Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-07
+112-273:
+  ASVS:
+  - V12.4.2
+  CWE:
+  - '509'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-BUSL-09
+112-648:
+  Cloud Controls Matrix:
+  - Change Control and Configuration Management
+  ISO 27001:
+  - Change management
+113-133:
+  ASVS:
+  - V1.2.3
+  CWE:
+  - '306'
+114-853:
+  CCPA:
+  - Personal Information Security Breaches (a)(1)(2)
+  D3FEND:
+  - Local Account Monitoring
+  - Software Update
+  - User Account Permissions
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Equipment maintenance
+  - Secure disposal or re-use of equipment
+  NIST 800-53 v5:
+  - MA-1 Policy and Procedures
+  - MA-2 Controlled Maintenance
+  - MA-3 Maintenance Tools
+  - MA-4 Nonlocal Maintenance
+  - MA-5 Maintenance Personnel
+  - MA-6 Timely Maintenance
+  - MA-7 Field Maintenance
+  NIST CSF v1.1:
+  - 'PR.MA-1: Maintenance and repair of organizational assets are performed and logged,
+    with approved and controlled tools'
+  - 'PR.MA-2: Remote maintenance of organizational assets is approved, logged, and
+    performed in a manner that prevents unauthorized access'
+  PCI DSS v3.2.1:
+  - 12.3.8
+  - 12.3.9
+  - '6.2'
+  - 8.1.5
+  - '8.3'
+  - 8.5.1
+  - 9.9.3
+117-371:
+  ASVS:
+  - V1.4.4
+  CWE:
+  - '284'
+  OWASP Proactive Controls:
+  - C7
+118-602:
+  ASVS:
+  - V7.4.3
+  CWE:
+  - '431'
+  OWASP Cheat Sheets:
+  - Error Handling Cheat Sheet
+  OWASP Proactive Controls:
+  - C10
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ERRH-02
+118-775:
+  SAMM:
+  - Organization and Culture
+122-287:
+  ASVS:
+  - V6.2.4
+  CWE:
+  - '326'
+  OWASP Cheat Sheets:
+  - Cryptographic Storage Cheat Sheet
+  - Key Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C8
+123-124:
+  CCPA:
+  - Personal Information Security Breaches (a)(1)(2)
+  - Record-Keeping (d)
+  D3FEND:
+  - Hardware-based Process Isolation
+  - Local Account Monitoring
+  - Local File Permissions
+  - Mandatory Access Control
+  - System Configuration Permissions
+  - User Account Permissions
+  - User Behavior Analysis
+  FedRAMP:
+  - High
+  - Moderate
+  NIST 800-53 v5:
+  - AC-6 LEAST PRIVILEGE
+  NIST CSF v1.1:
+  - 'PR.AC-4: Access permissions and authorizations are managed, incorporating the
+    principles of least privilege and separation of duties'
+  - 'PR.DS-5: Protections against data leaks are implemented'
+  PCI DSS v3.2.1:
+  - '10.6'
+  - 6.4.2
+  - '7.1'
+  - '7.2'
+  - '8.7'
+  - '9.3'
+124-564:
+  CCPA:
+  - Requests to Limit Use and Disclosure of Sensitive Personal Information (m)(8)
+  D3FEND:
+  - Driver Load Integrity Checking
+  - Executable Allowlisting
+  - Executable Denylisting
+  - Local Account Monitoring
+  - Mandatory Access Control
+  - Message Authentication
+  - System Configuration Permissions
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Configuration management
+  NIST 800-53 v5:
+  - CM-1 Policy and Procedures
+  - CM-10 Software Usage Restrictions
+  - CM-11 User-installed Software
+  - CM-12 Information Location
+  - CM-13 Data Action Mapping
+  - CM-14 Signed Components
+  - CM-3 Configuration Change Control
+  - CM-4 Impact Analyses
+  - CM-5 Access Restrictions for Change
+  - CM-7 Least Functionality
+  - CM-8 System Component Inventory
+  - CM-9 Configuration Management Plan
+  NIST CSF v1.1:
+  - 'DE.CM-1: The network is monitored to detect potential cybersecurity events'
+  - 'DE.CM-3: Personnel activity is monitored to detect potential cybersecurity events'
+  - 'DE.CM-7: Monitoring for unauthorized personnel, connections, devices, and software
+    is performed'
+  - 'ID.AM-1: Physical devices and systems within the organization are inventoried'
+  - 'ID.AM-2: Software platforms and applications within the organization are inventoried'
+  - 'PR.DS-3: Assets are formally managed throughout removal, transfers, and disposition'
+  - 'PR.IP-1: A baseline configuration of information technology/industrial control
+    systems is created and maintained incorporating security principles (e.g. concept
+    of least functionality)'
+  - 'PR.IP-3: Configuration change control processes are in place'
+  - 'PR.PT-3: The principle of least functionality is incorporated by configuring
+    systems to provide only essential capabilities'
+  PCI DSS v3.2.1:
+  - '1.2'
+  - '10.1'
+  - 10.6.1
+  - 10.6.2
+  - '11.1'
+  - 11.1.1
+  - '11.4'
+  - '11.5'
+  - 12.10.5
+  - 12.3.3
+  - 12.3.7
+  - '2.2'
+  - '2.4'
+  - '6.4'
+  - '7.1'
+  - '7.2'
+  - 9.1.1
+  - '9.3'
+  - '9.5'
+  - '9.6'
+  - '9.7'
+  - '9.8'
+  - '9.9'
+126-668:
+  OWASP Top 10 2021:
+  - Insecure Design
+128-128:
+  CCPA:
+  - Personal Information Security Breaches (a)(1)(2)
+  D3FEND:
+  - Executable Allowlisting
+  - Executable Denylisting
+  - Mandatory Access Control
+  - System Call Filtering
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  NIST 800-53 v5:
+  - AC-3 ACCESS ENFORCEMENT
+  NIST CSF v1.1:
+  - 'PR.AC-4: Access permissions and authorizations are managed, incorporating the
+    principles of least privilege and separation of duties'
+  - 'PR.PT-3: The principle of least functionality is incorporated by configuring
+    systems to provide only essential capabilities'
+  PCI DSS v3.2.1:
+  - '2.2'
+  - 6.4.2
+  - '7.1'
+  - '7.2'
+  - '8.7'
+  - '9.3'
+132-146:
+  Cloud Controls Matrix:
+  - Network Defense
+134-207:
+  ASVS:
+  - V5.3.10
+  CWE:
+  - '643'
+  OWASP Cheat Sheets:
+  - Bean Validation Cheat Sheet
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - File Upload Cheat Sheet
+  - HTML5 Security Cheat Sheet
+  - Injection Prevention Cheat Sheet
+  - Injection Prevention in Java Cheat Sheet
+  - Input Validation Cheat Sheet
+  - LDAP Injection Prevention Cheat Sheet
+  - OS Command Injection Defense Cheat Sheet
+  - Query Parameterization Cheat Sheet
+  - SQL Injection Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  - XML External Entity Prevention Cheat Sheet
+  - XML Security Cheat Sheet
+  OWASP Proactive Controls:
+  - C4
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-07; WSTG-INPV-09
+134-412:
+  ASVS:
+  - V11.1.6
+  CWE:
+  - '367'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+138-448:
+  ASVS:
+  - V2.3.3
+  CWE:
+  - '287'
+  NIST 800-63:
+  - 6.1.4
+141-555:
+  FedRAMP:
+  - High
+  NIST 800-53 v5:
+  - SC-24 Fail in Known State
+  - SI-17 Fail-safe Procedures
+145-310:
+  ASVS:
+  - V5.2.7
+  CWE:
+  - '159'
+  OWASP Cheat Sheets:
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - Server Side Request Forgery Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+146-706:
+  ASVS:
+  - V13.2.2
+  CWE:
+  - '20'
+  OWASP Cheat Sheets:
+  - Cross-Site Request Forgery Prevention Cheat Sheet
+  - REST Assessment Cheat Sheet
+  - REST Security Cheat Sheet
+148-227:
+  Cloud Controls Matrix:
+  - Universal Endpoint Management
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Clock synchronization
+  - Installation of software on operational systems
+  - Remote working
+  - User end point devices
+  NIST 800-53 v5:
+  - PL-2 System Security and Privacy Plans
+  - SC-25 Thin Nodes
+  - SC-45 System Time Synchronization
+  - SC-49 Hardware-enforced Separation and Policy Enforcement
+  - SC-51 Hardware-based Protection
+  - SI-8 Spam Protection
+  NIST CSF v1.1:
+  - 'DE.CM-4: Malicious code is detected'
+  - 'DE.DP-5: Detection processes are continuously improved'
+  - 'PR.IP-7: Protection processes are improved'
+  PCI DSS v3.2.1:
+  - '10.8'
+  - 12.10.6
+  - '12.11'
+  - '5'
+148-420:
+  D3FEND:
+  - Driver Load Integrity Checking
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  NIST 800-53 v5:
+  - AU-10 Non-repudiation
+  - AU-8 Time Stamps
+  - AU-9 Protection of Audit Information
+  OWASP Top 10 2021:
+  - Logging and Monitoring Failures
+148-853:
+  NIST SSDF:
+  - PO.1.1
+  - PO.3.1
+  - PO.3.2
+  - PO.5.1
+  - PO.5.2
+152-725:
+  CWE:
+  - '419'
+  OWASP Cheat Sheets:
+  - Server Side Request Forgery Prevention Cheat Sheet
+  - Web Service Security Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHZ-02
+154-031:
+  ASVS:
+  - V10.2.6
+  CWE:
+  - '507'
+155-155:
+  OWASP Top 10 2021:
+  - Insecure Design
+157-430:
+  ASVS:
+  - V8.1.2
+  CWE:
+  - '524'
+157-587:
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Equipment siting and protection
+  - Security of assets off-premises
+  NIST 800-53 v5:
+  - SC-15 Collaborative Computing Devices and Applications
+  - SC-41 Port and I/O Device Access
+  NIST CSF v1.1:
+  - 'PR.AC-3: Remote access is managed'
+  PCI DSS v3.2.1:
+  - 12.3.10
+  - 12.3.8
+  - 12.3.9
+  - '2.3'
+  - 8.1.5
+  - '8.3'
+  - 8.5.1
+158-874:
+  ASVS:
+  - V2.1.2
+  CWE:
+  - '521'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Credential Stuffing Prevention Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-07
+161-451:
+  NIST 800-53 v5:
+  - SI-15 Information Output Filtering
+162-655:
+  ASVS:
+  - V1.11.1
+  CWE:
+  - '1059'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+163-518:
+  ASVS:
+  - V12.1.2
+  CWE:
+  - '409'
+  OWASP Cheat Sheets:
+  - File Upload Cheat Sheet
+163-776:
+  ISO 27001:
+  - Information backup
+166-151:
+  ASVS:
+  - V4.1.5
+  CWE:
+  - '285'
+  OWASP Cheat Sheets:
+  - Access Control Cheat Sheet
+  - Authorization Testing Automation Cheat Sheet
+  OWASP Proactive Controls:
+  - C10
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ERRH-01
+168-186:
+  ASVS:
+  - V2.7.3
+  CWE:
+  - '287'
+  NIST 800-63:
+  - 5.1.3.2
+  OWASP Cheat Sheets:
+  - Forgot Password Cheat Sheet
+170-772:
+  Cloud Controls Matrix:
+  - Cryptography, Encryption & Key Management
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Use of cryptography
+  NIST 800-53 v5:
+  - SC-12 CRYPTOGRAPHIC KEY ESTABLISHMENT AND MANAGEMENT
+  - SC-13 Cryptographic Protection
+  - SC-17 Public Key Infrastructure Certificates
+  OWASP Top 10 2021:
+  - Cryptographic Failures
+171-222:
+  ASVS:
+  - V1.14.2
+  CWE:
+  - '494'
+172-101:
+  CCPA:
+  - Contract Requirements for Third Parties (b)
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Confidentiality or non-disclosure agreements
+  - Disciplinary process
+  - Management responsibilities
+  - Responsibilities after termination or change of employment
+  - Return of assets
+  - Screening
+  - Terms and conditions of employment
+  NIST 800-53 v5:
+  - PS-1 Policy and Procedures
+  - PS-2 Position Risk Designation
+  - PS-3 Personnel Screening
+  - PS-4 Personnel Termination
+  - PS-5 Personnel Transfer
+  - PS-6 Access Agreements
+  - PS-7 External Personnel Security
+  - PS-8 Personnel Sanctions
+  - PS-9 Position Descriptions
+  - SA-21 Developer Screening
+  NIST CSF v1.1:
+  - 'DE.CM-6: External service provider activity is monitored to detect potential
+    cybersecurity events'
+  - 'ID.AM-6: Cybersecurity roles and responsibilities for the entire workforce and
+    third-party stakeholders (e.g., suppliers, customers, partners) are established'
+  - 'ID.GV-2: Cybersecurity roles and responsibilities are coordinated and aligned
+    with internal roles and external partners'
+  - 'ID.SC-4: Suppliers and third-party partners are routinely assessed using audits,
+    test results, or other forms of evaluations to confirm they are meeting their
+    contractual obligations.'
+  - 'PR.AC-6: Identities are proofed and bound to credentials and asserted in interactions'
+  - 'PR.AT-3: Third-party stakeholders (e.g., suppliers, customers, partners) understand
+    their roles and responsibilities'
+  - 'PR.DS-5: Protections against data leaks are implemented'
+  - 'PR.IP-11: Cybersecurity is included in human resources practices (e.g., deprovisioning,
+    personnel screening)'
+  PCI DSS v3.2.1:
+  - '10.6'
+  - '12.4'
+  - '12.5'
+  - '12.7'
+  - '12.8'
+  - 12.8.2
+  - '12.9'
+  - 7.1.4
+  - '8.1'
+  - 8.1.3
+  - 8.1.5
+  - 8.2.2
+  - '9.3'
+175-235:
+  ASVS:
+  - V12.2.1
+  CWE:
+  - '434'
+  OWASP Cheat Sheets:
+  - File Upload Cheat Sheet
+  - Third Party Javascript Management Cheat Sheet
+176-154:
+  ASVS:
+  - V8.1.4
+  CWE:
+  - '770'
+177-260:
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  NIST 800-53 v5:
+  - AC-10 CONCURRENT SESSION CONTROL
+  - IA-11 RE-AUTHENTICATION
+  - SC-23 SESSION AUTHENTICITY
+  NIST CSF v1.1:
+  - 'PR.AC-1: Identities and credentials are issued, managed, verified, revoked, and
+    audited for authorized devices, users and processes'
+  - 'PR.AC-5: Network integrity is protected (e.g., network segregation, network segmentation)'
+  - 'PR.AC-7: Users, devices, and other assets are authenticated (e.g., single-factor,
+    multi-factor) commensurate with the risk of the transaction (e.g., individuals''
+    security and privacy risks and other organizational risks)'
+  - 'PR.PT-4: Communications and control networks are protected'
+  OWASP Top 10 2021:
+  - Broken Access Controls
+  - Identification and Authentication Failures
+  PCI DSS v3.2.1:
+  - '1'
+  - '1.1'
+  - '1.2'
+  - '1.3'
+  - '10.8'
+  - '11.3'
+  - '12.3'
+  - '2'
+  - '2.1'
+  - '2.2'
+  - '6.2'
+  - '8.1'
+  - '8.2'
+  - '8.3'
+  - '8.5'
+  - '8.6'
+180-488:
+  ASVS:
+  - V14.1.3
+  CWE:
+  - '16'
+  NIST SSDF:
+  - PW.9.1
+  - PW.9.2
+  OWASP Cheat Sheets:
+  - Docker Security Cheat Sheet
+184-284:
+  ASVS:
+  - V7.1.3
+  CWE:
+  - '778'
+  OWASP Cheat Sheets:
+  - Logging Cheat Sheet
+186-540:
+  ASVS:
+  - V8.3.1
+  CWE:
+  - '319'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-03
+201-246:
+  ASVS:
+  - V4.3.1
+  CWE:
+  - '419'
+  OWASP Cheat Sheets:
+  - REST Assessment Cheat Sheet
+206-254:
+  ASVS:
+  - V2.7.6
+  CWE:
+  - '310'
+  NIST 800-63:
+  - 5.1.3.2
+  OWASP Cheat Sheets:
+  - Forgot Password Cheat Sheet
+208-355:
+  ASVS:
+  - V14.1.4
+  OWASP Cheat Sheets:
+  - Docker Security Cheat Sheet
+208-805:
+  ASVS:
+  - V14.3.2
+  CWE:
+  - '497'
+  OWASP Cheat Sheets:
+  - Error Handling Cheat Sheet
+208-830:
+  FedRAMP:
+  - High
+  - Moderate
+  NIST 800-53 v5:
+  - SC-4 Information in Shared System Resources
+217-112:
+  ASVS:
+  - V8.1.3
+  CWE:
+  - '233'
+217-168:
+  Cloud Controls Matrix:
+  - Audit & Assurance
+  D3FEND:
+  - Local Account Monitoring
+  ISO 27001:
+  - Protection of information systems during audit testing
+  NIST 800-53 v5:
+  - AU-13 Monitoring for Information Disclosure
+  - AU-14 Session Audit
+  NIST CSF v1.1:
+  - 'DE.CM-3: Personnel activity is monitored to detect potential cybersecurity events'
+  - 'PR.DS-5: Protections against data leaks are implemented'
+  - 'PR.PT-1: Audit/log records are determined, documented, implemented, and reviewed
+    in accordance with policy'
+  PCI DSS v3.2.1:
+  - '10.1'
+  - '10.2'
+  - '10.3'
+  - '10.4'
+  - '10.5'
+  - '10.6'
+  - 10.6.1
+  - 10.6.2
+  - '10.7'
+  - 9.1.1
+223-780:
+  Cheat_sheets:
+  - Secrets Management Cheat Sheet
+  SAMM:
+  - Secret Management
+224-321:
+  ASVS:
+  - V6.1.2
+  CWE:
+  - '311'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  - User Privacy Protection Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-04
+227-045:
+  ASVS:
+  - V8.3.4
+  CCPA:
+  - Notice at Collection of Personal Information (e)(4)
+  - Record-Keeping (e)
+  - Requests to Delete (b)(2)
+  - Requests to Delete (e)
+  - Requests to Opt-Out of Sale/Sharing (c)
+  CWE:
+  - '200'
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Intellectual property rights
+  - Protection of records
+  NIST 800-53 v5:
+  - SI-12 Information Management and Retention
+  OWASP Proactive Controls:
+  - C8
+232-034:
+  ASVS:
+  - V3.4.4
+  CWE:
+  - '16'
+  NIST 800-63:
+  - 7.1.1
+  OWASP Cheat Sheets:
+  - Cross-Site Request Forgery Prevention Cheat Sheet
+  - Session Management Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-02
+232-217:
+  ASVS:
+  - V5.1.5
+  CWE:
+  - '601'
+  OWASP Cheat Sheets:
+  - Input Validation Cheat Sheet
+  - Mass Assignment Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CLNT-04
+232-325:
+  ASVS:
+  - V1.6.4
+  CWE:
+  - '320'
+233-748:
+  SAMM:
+  - Configuration Hardening
+234-282:
+  CCPA:
+  - Requests to Limit Use and Disclosure of Sensitive Personal Information (m)(4)
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Cabling security
+  - Clear desk and clear screen
+  - Physical entry
+  - Physical security monitoring
+  - Physical security perimeters
+  - Protecting against physical and environmental threats
+  - Securing offices, rooms and facilities
+  - Supporting utilities
+  - Working in secure areas
+  NIST 800-53 v5:
+  - PE-1 Policy and Procedures
+  - PE-10 Emergency Shutoff
+  - PE-11 Emergency Power
+  - PE-12 Emergency Lighting
+  - PE-13 Fire Protection
+  - PE-14 Environmental Controls
+  - PE-15 Water Damage Protection
+  - PE-16 Delivery and Removal
+  - PE-17 Alternate Work Site
+  - PE-18 Location of System Components
+  - PE-19 Information Leakage
+  - PE-2 Physical Access Authorizations
+  - PE-20 Asset Monitoring and Tracking
+  - PE-21 Electromagnetic Pulse Protection
+  - PE-22 Component Marking
+  - PE-23 Facility Location
+  - PE-3 Physical Access Control
+  - PE-4 Access Control for Transmission
+  - PE-5 Access Control for Output Devices
+  - PE-6 Monitoring Physical Access
+  - PE-8 Visitor Access Records
+  - PE-9 Power Equipment and Cabling
+  NIST CSF v1.1:
+  - 'DE.CM-2: The physical environment is monitored to detect potential cybersecurity
+    events'
+  - 'DE.CM-7: Monitoring for unauthorized personnel, connections, devices, and software
+    is performed'
+  - 'ID.BE-4: Dependencies and critical functions for delivery of critical services
+    are established'
+  - 'PR.AC-2: Physical access to assets is managed and protected'
+  - 'PR.AC-6: Identities are proofed and bound to credentials and asserted in interactions'
+  - 'PR.DS-3: Assets are formally managed throughout removal, transfers, and disposition'
+  - 'PR.DS-4: Adequate capacity to ensure availability is maintained'
+  - 'PR.DS-5: Protections against data leaks are implemented'
+  - 'PR.IP-5: Policy and regulations regarding the physical operating environment
+    for organizational assets are met'
+  - 'PR.PT-5: Mechanisms (e.g., failsafe, load balancing, hot swap) are implemented
+    to achieve resilience requirements in normal and adverse situations'
+  - 'RS.AN-1: Notifications from detection systems are investigated'
+  - 'RS.CO-4: Coordination with stakeholders occurs consistent with response plans'
+  PCI DSS v3.2.1:
+  - '10.1'
+  - '10.6'
+  - 10.6.1
+  - 10.6.3
+  - '11.1'
+  - '11.4'
+  - '11.5'
+  - 11.5.1
+  - 12.10.1
+  - 12.10.5
+  - 12.5.2
+  - '2.4'
+  - 7.1.4
+  - '8.1'
+  - 8.2.2
+  - '9'
+  - '9.1'
+  - 9.1.1
+  - '9.10'
+  - '9.2'
+  - '9.3'
+  - '9.4'
+  - '9.5'
+  - '9.6'
+  - '9.7'
+  - '9.8'
+  - '9.9'
+235-658:
+  ASVS:
+  - V2.5.5
+  CWE:
+  - '304'
+  NIST 800-63:
+  - 6.1.2.3
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-02
+238-346:
+  ASVS:
+  - V3.3.3
+  CWE:
+  - '613'
+  OWASP Cheat Sheets:
+  - Session Management Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-06
+240-274:
+  ASVS:
+  - V7.1.2
+  CWE:
+  - '532'
+  OWASP Cheat Sheets:
+  - Logging Cheat Sheet
+  OWASP Proactive Controls:
+  - C9
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CONF-02
+240-464:
+  Cloud Controls Matrix:
+  - Business Continuity Management and Operational Resilience
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - ICT readiness for business continuity
+  - Information security during disruption
+  - Redundancy of information processing facilities
+  NIST 800-53 v5:
+  - CP-1 Policy and Procedures
+  - CP-10 System Recovery and Reconstitution
+  - CP-11 Alternate Communications Protocols
+  - CP-12 Safe Mode
+  - CP-13 Alternative Security Mechanisms
+  - CP-2 Contingency Plan
+  - CP-3 Contingency Training
+  - CP-4 Contingency Plan Testing
+  - CP-6 Alternate Storage Site
+  - CP-7 Alternate Processing Site
+  - CP-8 Telecommunications Services
+  - CP-9 System Backup
+  - SI-13 Predictable Failure Prevention
+  NIST CSF v1.1:
+  - 'DE.AE-3: Event data are collected and correlated from multiple sources and sensors'
+  - 'DE.AE-4: Impact of events is determined'
+  - 'ID.AM-5: Resources (e.g., hardware, devices, data, time, personnel, and software)
+    are prioritized based on their classification, criticality, and business value'
+  - 'ID.AM-6: Cybersecurity roles and responsibilities for the entire workforce and
+    third-party stakeholders (e.g., suppliers, customers, partners) are established'
+  - 'ID.BE-4: Dependencies and critical functions for delivery of critical services
+    are established'
+  - 'ID.BE-5: Resilience requirements to support delivery of critical services are
+    established for all operating states (e.g. under duress/attack, during recovery,
+    normal operations)'
+  - 'ID.RA-4: Potential business impacts and likelihoods are identified'
+  - 'ID.SC-5: Response and recovery planning and testing are conducted with suppliers
+    and third-party providers'
+  - 'PR.AT-5: Physical and cybersecurity personnel understand their roles and responsibilities'
+  - 'PR.DS-4: Adequate capacity to ensure availability is maintained'
+  - 'PR.IP-10: Response and recovery plans are tested'
+  - 'PR.IP-4: Backups of information are conducted, maintained, and tested'
+  - 'PR.IP-7: Protection processes are improved'
+  - 'PR.IP-8: Effectiveness of protection technologies is shared'
+  - 'PR.IP-9: Response plans (Incident Response and Business Continuity) and recovery
+    plans (Incident Recovery and Disaster Recovery) are in place and managed'
+  - 'PR.PT-4: Communications and control networks are protected'
+  - 'PR.PT-5: Mechanisms (e.g., failsafe, load balancing, hot swap) are implemented
+    to achieve resilience requirements in normal and adverse situations'
+  - 'RC.CO-3: Recovery activities are communicated to internal and external stakeholders
+    as well as executive and management teams'
+  - 'RC.IM-1: Recovery plans incorporate lessons learned'
+  - 'RC.IM-2: Recovery strategies are updated'
+  - 'RC.RP-1: Recovery plan is executed during or after a cybersecurity incident'
+  - 'RS.AN-2: The impact of the incident is understood'
+  - 'RS.AN-4: Incidents are categorized consistent with response plans'
+  - 'RS.CO-1: Personnel know their roles and order of operations when a response is
+    needed'
+  - 'RS.CO-3: Information is shared consistent with response plans'
+  - 'RS.CO-4: Coordination with stakeholders occurs consistent with response plans'
+  - 'RS.IM-1: Response plans incorporate lessons learned'
+  - 'RS.IM-2: Response strategies are updated'
+  - 'RS.RP-1: Response plan is executed during or after an incident'
+  PCI DSS v3.2.1:
+  - '1'
+  - '10.1'
+  - '10.6'
+  - 10.6.3
+  - '10.8'
+  - 11.1.2
+  - 11.5.1
+  - '12.10'
+  - 12.10.1
+  - 12.10.2
+  - 12.10.5
+  - 12.10.6
+  - '12.11'
+  - '12.2'
+  - '12.4'
+  - '12.5'
+  - 12.5.2
+  - 12.5.3
+  - '12.8'
+  - '12.9'
+  - '2'
+  - 2.10.6
+  - '6.1'
+  - 9.5.1
+  - 9.6.1
+244-750:
+  FedRAMP:
+  - High
+  NIST 800-53 v5:
+  - SA-16 Developer-provided Training
+  NIST SSDF:
+  - PO.2.2
+  SAMM:
+  - Training and Awareness
+247-250:
+  CCPA:
+  - Authorized Agents (d)
+  - General Rules Regarding Verification (c)(1)
+  - General Rules Regarding Verification (c)(2)
+  - General Rules Regarding Verification (c)(3)
+  - Methods for Submitting Requests to Delete Requests to Correct and Requests to
+    Know (c)
+  - Methods for Submitting Requests to Delete Requests to Correct and Requests to
+    Know (d)
+  - Notice at Collection of Personal Information (a)(b)(c)
+  - Notice at Collection of Personal Information (g)(1)
+  - Notice at Collection of Personal Information (g)(2)
+  - Opt-Out Preference Signals (c)(6)
+  - Opt-Out Preference Signals (d)
+  - Personal Information Security Breaches (a)(1)(2)
+  - Privacy Policy (e)(1)(I)
+  - Privacy Policy (e)(2)
+  - Privacy Policy (e)(3)(E)
+  - Privacy Policy (e)(3)(G)
+  - Requests to Correct (k)
+  - Requests to Delete (b)(3)
+  - Requests to Limit Use and Disclosure of Sensitive Personal Information (a)
+  - Requests to Opt-Out of Sale/Sharing (a)
+  - Requests to Opt-Out of Sale/Sharing (d)
+  - Requests to Opt-Out of Sale/Sharing (f)
+  - Requests to Opt-Out of Sale/Sharing (g)
+  - Requests to Opt-Out of Sale/Sharing (h)
+  - Requests to Opt-Out of Sale/Sharing (j)
+  - Requests to Opt-Out of Sale/Sharing (k)
+  - Restrictions on the Collection and Use of Personal Information (b)(5)
+  - Restrictions on the Collection and Use of Personal Information (c)(3)
+  - Service Providers and Contractors (a)(5)
+  Cloud Controls Matrix:
+  - Identity & Access Management
+  D3FEND:
+  - Domain Trust Policy
+  - File Content Rules
+  - Inbound Traffic Filtering
+  - Job Function Access Pattern Analysis
+  - Local Account Monitoring
+  - Outbound Traffic Filtering
+  - Resource Access Pattern Analysis
+  - User Data Transfer Analysis
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Access control
+  - Access rights
+  - Identity management
+  - Information access restriction
+  - Segregation of duties
+  NIST 800-53 v5:
+  - AC-1 POLICY AND PROCEDURES
+  - AC-20 Use of External Systems
+  - AC-21 Information Sharing
+  - AC-22 Publicly Accessible Content
+  - AC-23 Data Mining Protection
+  - AC-4 Information Flow Enforcement
+  - PM-10 Authorization Process
+  NIST CSF v1.1:
+  - 'DE.AE-1: A baseline of network operations and expected data flows for users and
+    systems is established and managed'
+  - 'ID.AM-3: Organizational communication and data flows are mapped'
+  - 'ID.AM-4: External information systems are catalogued'
+  - 'ID.GV-4: Governance and risk management processes address cybersecurity risks'
+  - 'PR.AC-3: Remote access is managed'
+  - 'PR.AC-4: Access permissions and authorizations are managed, incorporating the
+    principles of least privilege and separation of duties'
+  - 'PR.AC-5: Network integrity is protected (e.g., network segregation, network segmentation)'
+  - 'PR.DS-5: Protections against data leaks are implemented'
+  - 'PR.IP-8: Effectiveness of protection technologies is shared'
+  PCI DSS v3.2.1:
+  - '1.1'
+  - 1.1.1
+  - 1.1.2
+  - 1.1.3
+  - '1.2'
+  - '1.3'
+  - '1.5'
+  - '10.6'
+  - '10.8'
+  - '11.3'
+  - '11.6'
+  - '12.1'
+  - '12.2'
+  - 12.3.10
+  - 12.3.8
+  - 12.3.9
+  - '2.2'
+  - '2.3'
+  - '2.4'
+  - '2.5'
+  - '3.7'
+  - '4.3'
+  - '5.4'
+  - '6.2'
+  - 6.4.2
+  - '6.7'
+  - '7.1'
+  - '7.2'
+  - '7.3'
+  - 8.1.5
+  - '8.3'
+  - 8.5.1
+  - '8.7'
+  - '8.8'
+  - '9.10'
+  - '9.3'
+248-646:
+  ASVS:
+  - V9.1.3
+  CWE:
+  - '326'
+  OWASP Cheat Sheets:
+  - HTTP Strict Transport Security Cheat Sheet
+  - TLS Cipher String Cheat Sheet
+  - Transport Layer Protection Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-01
+251-446:
+  NIST SSDF:
+  - PO.2.3
+253-452:
+  ASVS:
+  - V14.1.1
+  OWASP Cheat Sheets:
+  - Docker Security Cheat Sheet
+257-117:
+  ASVS:
+  - V8.1.5
+  CWE:
+  - '19'
+257-668:
+  ASVS:
+  - V14.4.3
+  CWE:
+  - '1021'
+  OWASP Cheat Sheets:
+  - Content Security Policy Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-01; WSTG-INPV-02; WSTG-CLNT-01
+260-200:
+  ASVS:
+  - V1.7.1
+  CWE:
+  - '1009'
+  OWASP Cheat Sheets:
+  - Logging Cheat Sheet
+  OWASP Proactive Controls:
+  - C9
+261-010:
+  Cloud Controls Matrix:
+  - Application and Interface Security Policy and Procedures
+263-184:
+  ASVS:
+  - V1.14.4
+265-800:
+  ASVS:
+  - V10.2.5
+  CWE:
+  - '511'
+267-031:
+  NIST 800-53 v5:
+  - SC-6 Resource Availability
+  NIST CSF v1.1:
+  - 'ID.AM-5: Resources (e.g., hardware, devices, data, time, personnel, and software)
+    are prioritized based on their classification, criticality, and business value'
+  - 'PR.PT-5: Mechanisms (e.g., failsafe, load balancing, hot swap) are implemented
+    to achieve resilience requirements in normal and adverse situations'
+  PCI DSS v3.2.1:
+  - '12.2'
+  - 9.6.1
+267-468:
+  ASVS:
+  - V6.1.3
+  CWE:
+  - '311'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  - User Privacy Protection Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-04
+268-088:
+  ASVS:
+  - V13.4.1
+  CWE:
+  - '770'
+268-100:
+  ASVS:
+  - V14.4.6
+  CWE:
+  - '116'
+  OWASP Cheat Sheets:
+  - Content Security Policy Cheat Sheet
+268-272:
+  ASVS:
+  - V8.3.8
+  CWE:
+  - '285'
+270-568:
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  NIST 800-53 v5:
+  - IA-6 Authentication Feedback
+  - IA-7 Cryptographic Module Authentication
+  - IA-9 Service Identification and Authentication
+  NIST CSF v1.1:
+  - 'PR.AC-1: Identities and credentials are issued, managed, verified, revoked, and
+    audited for authorized devices, users and processes'
+  - 'PR.AC-7: Users, devices, and other assets are authenticated (e.g., single-factor,
+    multi-factor) commensurate with the risk of the transaction (e.g., individuals''
+    security and privacy risks and other organizational risks)'
+  PCI DSS v3.2.1:
+  - '12.3'
+  - '2.1'
+  - '8.1'
+  - '8.2'
+  - '8.3'
+  - '8.5'
+  - '8.6'
+270-634:
+  ASVS:
+  - V2.5.1
+  CWE:
+  - '640'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-01
+273-600:
+  ASVS:
+  - V1.14.1
+  CWE:
+  - '923'
+  Cloud Controls Matrix:
+  - Network Architecture Documentation
+278-413:
+  ASVS:
+  - V1.2.2
+  CWE:
+  - '306'
+  OWASP Proactive Controls:
+  - C3
+278-646:
+  CCPA:
+  - Opt-Out Preference Signals (c)(2)
+  - Opt-Out Preference Signals (g)
+  - Verification for Password-Protected Accounts (a)
+  - Verification for Password-Protected Accounts (b)
+  D3FEND:
+  - Executable Denylisting
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  NIST 800-53 v5:
+  - AC-17 Remote Access
+  - AC-18 Wireless Access
+  - CA-3 Information Exchange
+  - CA-9 Internal System Connections
+  - SC-11 Trusted Path
+  - SC-16 Transmission of Security and Privacy Attributes
+  - SC-8 TRANSMISSION CONFIDENTIALITY AND INTEGRITY
+  NIST CSF v1.1:
+  - 'DE.AE-1: A baseline of network operations and expected data flows for users and
+    systems is established and managed'
+  - 'ID.AM-3: Organizational communication and data flows are mapped'
+  - 'PR.AC-3: Remote access is managed'
+  - 'PR.DS-2: Data-in-transit is protected'
+  - 'PR.PT-4: Communications and control networks are protected'
+  PCI DSS v3.2.1:
+  - '1'
+  - 1.1.1
+  - 1.1.2
+  - 1.1.3
+  - 12.3.10
+  - 12.3.8
+  - 12.3.9
+  - '2'
+  - '2.3'
+  - '4'
+  - 8.1.5
+  - 8.2.1
+  - '8.3'
+  - 8.5.1
+284-521:
+  ASVS:
+  - V4.3.3
+  CWE:
+  - '732'
+  OWASP Cheat Sheets:
+  - REST Assessment Cheat Sheet
+286-500:
+  Cloud Controls Matrix:
+  - OS Hardening and Base Controls
+287-251:
+  ASVS:
+  - V2.9.2
+  CWE:
+  - '330'
+  NIST 800-63:
+  - 5.1.7.2
+  OWASP Cheat Sheets:
+  - Cryptographic Storage Cheat Sheet
+  - Key Management Cheat Sheet
+287-305:
+  ASVS:
+  - V1.6.1
+  CWE:
+  - '320'
+  OWASP Cheat Sheets:
+  - Cryptographic Storage Cheat Sheet
+  - Key Management Cheat Sheet
+287-823:
+  CCPA:
+  - Requests to Know (k)(1)
+  - Restrictions on the Collection and Use of Personal Information (c)(2)
+  - Restrictions on the Collection and Use of Personal Information (f)
+  ISO 27001:
+  - Inventory of information and other associated assets
+  NIST 800-53 v5:
+  - PM-5 System Inventory
+  NIST CSF v1.1:
+  - 'ID.AM-1: Physical devices and systems within the organization are inventoried'
+  - 'ID.AM-4: External information systems are catalogued'
+  PCI DSS v3.2.1:
+  - 1.1.1
+  - 1.1.2
+  - 1.1.3
+  - 11.1.1
+  - 12.3.3
+  - '2.4'
+  - '9.9'
+304-667:
+  ASVS:
+  - V4.2.1
+  CWE:
+  - '639'
+  OWASP Cheat Sheets:
+  - Authorization Testing Automation Cheat Sheet
+  - Cross-Site Request Forgery Prevention Cheat Sheet
+  - Insecure Direct Object Reference Prevention Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHZ-04
+307-111:
+  ASVS:
+  - V12.4.1
+  CWE:
+  - '552'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-BUSL-09
+307-242:
+  CCPA:
+  - Authorized Agents (a)
+  - Authorized Agents (d)
+  - Consumers Less Than Under 13 Years of Age (c)
+  - Contract Requirements for Third Parties (b)
+  - General Rules Regarding Verification (a)
+  - General Rules Regarding Verification (c)(1)
+  - General Rules Regarding Verification (c)(2)
+  - General Rules Regarding Verification (c)(3)
+  - General Rules Regarding Verification (h)
+  - Personal Information Security Breaches (a)(1)(2)
+  - Requests to Correct (a)
+  - Requests to Know (a)
+  - Requests to Know (b)
+  - Requests to Limit Use and Disclosure of Sensitive Personal Information (m)(8)
+  - Requirements for Businesses Collecting Large Amounts of Personal Information (a)(1)
+  - Third Parties (b)
+  - Verification for Non-Accountholders (b)
+  - Verification for Non-Accountholders (c)
+  - Verification for Password-Protected Accounts (a)
+  D3FEND:
+  - Decoy Environment
+  - Decoy Object
+  - Executable Allowlisting
+  - Executable Denylisting
+  - File Analysis
+  - Identifier Analysis
+  - Message Analysis
+  - Network Traffic Analysis
+  - Platform Hardening
+  - Platform Monitoring
+  - Process Analysis
+  - User Behavior Analysis
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  NIST 800-53 v5:
+  - PM-11 Mission and Business Process Definition
+  - PM-28 Risk Framing
+  - PM-8 Critical Infrastructure Plan
+  - PM-9 Risk Management Strategy
+  - RA-1 Policy and Procedures
+  - RA-2 Security Categorization
+  - RA-3 Risk Assessment
+  - RA-5 Vulnerability Monitoring and Scanning
+  - RA-6 Technical Surveillance Countermeasures Survey
+  - RA-7 Risk Response
+  - RA-8 Privacy Impact Assessments
+  - RA-9 Criticality Analysis
+  NIST CSF v1.1:
+  - 'DE.AE-2: Detected events are analyzed to understand attack targets and methods'
+  - 'DE.AE-4: Impact of events is determined'
+  - 'DE.CM-8: Vulnerability scans are performed'
+  - 'DE.DP-4: Event detection information is communicated'
+  - 'DE.DP-5: Detection processes are continuously improved'
+  - 'ID.AM-5: Resources (e.g., hardware, devices, data, time, personnel, and software)
+    are prioritized based on their classification, criticality, and business value'
+  - 'ID.BE-2: The organization''s place in critical infrastructure and its industry
+    sector is identified and communicated'
+  - 'ID.BE-3: Priorities for organizational mission, objectives, and activities are
+    established and communicated'
+  - 'ID.BE-4: Dependencies and critical functions for delivery of critical services
+    are established'
+  - 'ID.BE-5: Resilience requirements to support delivery of critical services are
+    established for all operating states (e.g. under duress/attack, during recovery,
+    normal operations)'
+  - 'ID.GV-4: Governance and risk management processes address cybersecurity risks'
+  - 'ID.RA-1: Asset vulnerabilities are identified and documented'
+  - 'ID.RA-3: Threats, both internal and external, are identified and documented'
+  - 'ID.RA-4: Potential business impacts and likelihoods are identified'
+  - 'ID.RA-5: Threats, vulnerabilities, likelihoods, and impacts are used to determine
+    risk'
+  - 'ID.RA-6: Risk responses are identified and prioritized'
+  - 'ID.RM-1: Risk management processes are established, managed, and agreed to by
+    organizational stakeholders'
+  - 'ID.RM-2: Organizational risk tolerance is determined and clearly expressed'
+  - 'ID.RM-3: The organization''s determination of risk tolerance is informed by its
+    role in critical infrastructure and sector specific risk analysis'
+  - 'ID.SC-2: Suppliers and third party partners of information systems, components,
+    and services are identified, prioritized, and assessed using a cyber supply chain
+    risk assessment process'
+  - 'PR.IP-12: A vulnerability management plan is developed and implemented'
+  - 'RS.AN-1: Notifications from detection systems are investigated'
+  - 'RS.AN-2: The impact of the incident is understood'
+  - 'RS.AN-4: Incidents are categorized consistent with response plans'
+  - 'RS.AN-5: Processes are established to receive, analyze and respond to vulnerabilities
+    disclosed to the organization from internal and external sources (e.g. internal
+    testing, security bulletins, or security researchers)'
+  - 'RS.MI-3: Newly identified vulnerabilities are mitigated or documented as accepted
+    risks'
+  PCI DSS v3.2.1:
+  - '1.5'
+  - '10.6'
+  - 10.6.3
+  - '10.8'
+  - '11.2'
+  - '11.3'
+  - 11.5.1
+  - '11.6'
+  - '12.1'
+  - '12.10'
+  - 12.10.1
+  - 12.10.5
+  - 12.10.6
+  - '12.2'
+  - 12.5.2
+  - '12.8'
+  - '2.5'
+  - '3.7'
+  - '4.3'
+  - '5.4'
+  - '6.1'
+  - '6.2'
+  - '6.5'
+  - '6.7'
+  - '7.3'
+  - '8.8'
+  - '9.10'
+  - 9.6.1
+  SAMM:
+  - Application risk profile
+307-507:
+  ASVS:
+  - V10.3.2
+  CWE:
+  - '353'
+  NIST SSDF:
+  - PS.2.1
+  OWASP Cheat Sheets:
+  - Docker Security Cheat Sheet
+314-131:
+  ASVS:
+  - V14.1.2
+  CWE:
+  - '120'
+  NIST SSDF:
+  - PW.6.1
+  - PW.6.2
+  OWASP Cheat Sheets:
+  - Docker Security Cheat Sheet
+314-701:
+  ASVS:
+  - V12.5.1
+  CWE:
+  - '552'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-BUSL-08
+316-272:
+  ASVS:
+  - V14.5.3
+  CWE:
+  - '346'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CLNT-07
+317-743:
+  ASVS:
+  - V5.2.4
+  CWE:
+  - '95'
+  OWASP Cheat Sheets:
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - Server Side Request Forgery Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CLNT-02
+326-704:
+  CCPA:
+  - Authorized Agents (c)
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Secure system architecture and engineering principles
+  NIST 800-53 v5:
+  - PL-8 SECURITY AND PRIVACY ARCHITECTURES
+  - SA-17 Developer Security and Privacy Architecture and Design
+  - SA-20 Customized Development of Critical Components
+  - SA-23 Specialization
+  - SC-27 Platform-independent Applications
+  - SC-29 Heterogeneity
+  NIST CSF v1.1:
+  - 'ID.AM-3: Organizational communication and data flows are mapped'
+  - 'ID.AM-5: Resources (e.g., hardware, devices, data, time, personnel, and software)
+    are prioritized based on their classification, criticality, and business value'
+  - 'ID.BE-4: Dependencies and critical functions for delivery of critical services
+    are established'
+  - 'ID.BE-5: Resilience requirements to support delivery of critical services are
+    established for all operating states (e.g. under duress/attack, during recovery,
+    normal operations)'
+  - 'PR.PT-5: Mechanisms (e.g., failsafe, load balancing, hot swap) are implemented
+    to achieve resilience requirements in normal and adverse situations'
+  PCI DSS v3.2.1:
+  - 1.1.2
+  - 1.1.3
+  - '12.2'
+  - 9.6.1
+  SAMM:
+  - Architecture Design
+327-505:
+  ASVS:
+  - V2.1.6
+  CWE:
+  - '620'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Credential Stuffing Prevention Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-07
+330-281:
+  ASVS:
+  - V1.2.1
+  CWE:
+  - '250'
+  OWASP Proactive Controls:
+  - C3
+333-858:
+  ASVS:
+  - V2.2.4
+  CWE:
+  - '308'
+  NIST 800-63:
+  - 5.2.5
+  OWASP Cheat Sheets:
+  - Authentication Cheat Sheet
+  - TLS Cipher String Cheat Sheet
+  - Transport Layer Protection Cheat Sheet
+333-888:
+  ASVS:
+  - V13.1.3
+  CWE:
+  - '598'
+  OWASP Cheat Sheets:
+  - Server Side Request Forgery Prevention Cheat Sheet
+  - Web Service Security Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-04
+336-512:
+  ASVS:
+  - V10.3.3
+  CWE:
+  - '350'
+  Cloud Controls Matrix:
+  - Production and Non-Production Environments
+  ISO 27001:
+  - Networks security
+  OWASP Cheat Sheets:
+  - Docker Security Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CONF-10
+338-370:
+  ASVS:
+  - V2.1.10
+  CWE:
+  - '263'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Credential Stuffing Prevention Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-07
+340-375:
+  ASVS:
+  - V6.4.1
+  CWE:
+  - '798'
+  OWASP Cheat Sheets:
+  - Key Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C8
+342-055:
+  ASVS:
+  - V3.4.3
+  CWE:
+  - '1275'
+  NIST 800-63:
+  - are g
+  OWASP Cheat Sheets:
+  - Cross-Site Request Forgery Prevention Cheat Sheet
+  - Session Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-02
+342-764:
+  ASVS:
+  - V2.7.5
+  CWE:
+  - '256'
+  NIST 800-63:
+  - 5.1.3.2
+  OWASP Cheat Sheets:
+  - Forgot Password Cheat Sheet
+344-611:
+  ASVS:
+  - V1.1.6
+  CWE:
+  - '637'
+  NIST SSDF:
+  - PW.1.3
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  - Attack Surface Analysis Cheat Sheet
+  - Threat Modeling Cheat Sheet
+  OWASP Proactive Controls:
+  - C10
+346-640:
+  ASVS:
+  - V2.6.2
+  CWE:
+  - '330'
+  NIST 800-63:
+  - 5.1.2.2
+347-352:
+  ASVS:
+  - V14.1.5
+  OWASP Cheat Sheets:
+  - Docker Security Cheat Sheet
+354-752:
+  ASVS:
+  - V2.2.2
+  - V2.7.1
+  CWE:
+  - '287'
+  - '304'
+  NIST 800-63:
+  - 5.1.3.2
+  - 5.2.10
+  OWASP Cheat Sheets:
+  - Authentication Cheat Sheet
+  - Forgot Password Cheat Sheet
+  - TLS Cipher String Cheat Sheet
+  - Transport Layer Protection Cheat Sheet
+356-282:
+  NIST 800-53 v5:
+  - SI-21 Information Refresh
+358-860:
+  ASVS:
+  - V2.5.7
+  CWE:
+  - '308'
+  NIST 800-63:
+  - 6.1.2.3
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Forgot Password Cheat Sheet
+362-550:
+  ISO 27001:
+  - Privacy and protection of personal identifiable information (PII)
+366-835:
+  ASVS:
+  - V5.3.3
+  CWE:
+  - '79'
+  OWASP Cheat Sheets:
+  - Bean Validation Cheat Sheet
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - File Upload Cheat Sheet
+  - HTML5 Security Cheat Sheet
+  - Injection Prevention Cheat Sheet
+  - Injection Prevention in Java Cheat Sheet
+  - Input Validation Cheat Sheet
+  - LDAP Injection Prevention Cheat Sheet
+  - OS Command Injection Defense Cheat Sheet
+  - Query Parameterization Cheat Sheet
+  - SQL Injection Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  - XML External Entity Prevention Cheat Sheet
+  - XML Security Cheat Sheet
+  OWASP Proactive Controls:
+  - C4
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-01
+368-633:
+  ASVS:
+  - V4.1.3
+  CWE:
+  - '285'
+  ISO 27001:
+  - Privileged access rights
+  OWASP Cheat Sheets:
+  - Access Control Cheat Sheet
+  - Authorization Testing Automation Cheat Sheet
+  OWASP Proactive Controls:
+  - C7
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-IDNT-01
+377-680:
+  ASVS:
+  - V13.1.5
+  CWE:
+  - '434'
+  OWASP Cheat Sheets:
+  - Server Side Request Forgery Prevention Cheat Sheet
+  - Web Service Security Cheat Sheet
+380-540:
+  ASVS:
+  - V1.11.3
+  CWE:
+  - '367'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+384-344:
+  ASVS:
+  - V1.12.2
+  CWE:
+  - '646'
+387-848:
+  ASVS:
+  - V5.5.4
+  CWE:
+  - '95'
+  OWASP Cheat Sheets:
+  - Deserialization Cheat Sheet
+  - XML External Entity Prevention Cheat Sheet
+  - XML Security Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CLNT-02
+402-133:
+  ASVS:
+  - V3.1.1
+  CWE:
+  - '598'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-04
+402-706:
+  CCPA:
+  - Record-Keeping (a)
+  - Record-Keeping (b)
+  D3FEND:
+  - Local Account Monitoring
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  NIST 800-53 v5:
+  - AU-2 Event Logging
+  - AU-3 Content of Audit Records
+  NIST CSF v1.1:
+  - 'PR.PT-1: Audit/log records are determined, documented, implemented, and reviewed
+    in accordance with policy'
+  OWASP Top 10 2021:
+  - Logging and Monitoring Failures
+  PCI DSS v3.2.1:
+  - '10.1'
+  - '10.2'
+  - '10.3'
+  - '10.4'
+  - '10.5'
+  - 10.6.1
+  - 10.6.2
+  - '10.7'
+404-126:
+  ASVS:
+  - V2.8.4
+  CWE:
+  - '287'
+  NIST 800-63:
+  - 5.1.4.2
+  - 5.1.5.2
+405-411:
+  ASVS:
+  - V14.5.2
+  CWE:
+  - '346'
+411-684:
+  NIST SSDF:
+  - PW.7.1
+  - PW.7.2
+417-342:
+  NIST SSDF:
+  - PW.4.2
+418-525:
+  ASVS:
+  - V10.2.4
+  CWE:
+  - '511'
+418-853:
+  ASVS:
+  - V11.1.7
+  CWE:
+  - '754'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  OWASP Proactive Controls:
+  - C9
+421-513:
+  ASVS:
+  - V12.3.4
+  CWE:
+  - '641'
+422-005:
+  ASVS:
+  - V5.2.5
+  CWE:
+  - '94'
+  OWASP Cheat Sheets:
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - Server Side Request Forgery Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-18
+424-242:
+  SAMM:
+  - System Decommissioning / Legacy Management
+426-842:
+  ASVS:
+  - V13.2.6
+  CWE:
+  - '345'
+  OWASP Cheat Sheets:
+  - Cross-Site Request Forgery Prevention Cheat Sheet
+  - REST Assessment Cheat Sheet
+  - REST Security Cheat Sheet
+427-113:
+  Cloud Controls Matrix:
+  - Human Resources
+428-544:
+  CCPA:
+  - Privacy Policy (e)(3)(J)
+  - Training (a)
+  - Training (b)
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Information security awareness, education and training
+  NIST 800-53 v5:
+  - AT-1 Policy and Procedures
+  - AT-2 Literacy Training and Awareness
+  - AT-3 Role-based Training
+  - AT-4 Training Records
+  - AT-6 Training Feedback
+  NIST CSF v1.1:
+  - 'PR.AT-1: All users are informed and trained'
+  - 'PR.AT-2: Privileged users understand their roles and responsibilities'
+  - 'PR.AT-3: Third-party stakeholders (e.g., suppliers, customers, partners) understand
+    their roles and responsibilities'
+  - 'PR.AT-4: Senior executives understand their roles and responsibilities'
+  - 'PR.AT-5: Physical and cybersecurity personnel understand their roles and responsibilities'
+  PCI DSS v3.2.1:
+  - 1.1.5
+  - '12.4'
+  - '12.5'
+  - '12.6'
+  - 12.8.2
+  - '12.9'
+  - '6.7'
+  - '7.1'
+  - '7.2'
+  - '7.3'
+  - '8.4'
+  - 9.9.3
+430-636:
+  ASVS:
+  - V9.2.1
+  CWE:
+  - '295'
+433-122:
+  ASVS:
+  - V6.2.6
+  CWE:
+  - '326'
+  OWASP Cheat Sheets:
+  - Cryptographic Storage Cheat Sheet
+  - Key Management Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-04
+433-442:
+  Cloud Controls Matrix:
+  - Automated Application Security Testing
+  - Supply Chain Management, Transparency, and Accountability
+  D3FEND:
+  - Application Hardening
+  FedRAMP:
+  - High
+  - Moderate
+  ISO 27001:
+  - Security testing in development and acceptance
+  - Test information
+  NIST 800-53 v5:
+  - SA-11 Developer Testing and Evaluation
+  NIST CSF v1.1:
+  - 'ID.RA-1: Asset vulnerabilities are identified and documented'
+  - 'ID.SC-4: Suppliers and third-party partners are routinely assessed using audits,
+    test results, or other forms of evaluations to confirm they are meeting their
+    contractual obligations.'
+  - 'PR.IP-2: A System Development Life Cycle to manage systems is implemented'
+  NIST SSDF:
+  - PO.4.1
+  - PO.4.2
+  - RV.1.2
+  PCI DSS v3.2.1:
+  - '11.2'
+  - '11.3'
+  - '12.2'
+  - '12.8'
+  - '6.1'
+  - '6.3'
+  - '6.4'
+  - '6.5'
+  - '6.6'
+  - '6.7'
+  SAMM:
+  - Control verification
+  - Deep understanding
+  - Misuse/Abuse Testing
+  - Scalable Baseline
+440-361:
+  ASVS:
+  - V2.8.6
+  CWE:
+  - '613'
+  NIST 800-63:
+  - 5.2.1
+441-132:
+  ASVS:
+  - V6.2.5
+  CWE:
+  - '326'
+  OWASP Cheat Sheets:
+  - Cryptographic Storage Cheat Sheet
+  - Key Management Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-04
+443-447:
+  ASVS:
+  - V7.2.2
+  CWE:
+  - '285'
+  OWASP Cheat Sheets:
+  - Logging Cheat Sheet
+455-358:
+  ASVS:
+  - V3.2.3
+  CWE:
+  - '539'
+  NIST 800-63:
+  - '7.1'
+  OWASP Cheat Sheets:
+  - Session Management Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-02; WSTG-CLNT-12
+456-535:
+  ASVS:
+  - V11.1.2
+  CWE:
+  - '799'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-BUSL-$$
+456-636:
+  ASVS:
+  - V13.3.2
+  CWE:
+  - '345'
+  OWASP Cheat Sheets:
+  - XML Security Cheat Sheet
+457-165:
+  ASVS:
+  - V3.3.1
+  CWE:
+  - '613'
+  NIST 800-53 v5:
+  - SC-23(1)
+  NIST 800-63:
+  - '7.1'
+  NIST CSF v1.1:
+  - 'PR.PT-4: Communications and control networks are protected'
+  OWASP Cheat Sheets:
+  - Session Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-06
+  PCI DSS v3.2.1:
+  - '1'
+  - '2'
+461-680:
+  NIST SSDF:
+  - PS.3.1
+462-245:
+  ASVS:
+  - V14.2.2
+  CWE:
+  - '1002'
+  OWASP Cheat Sheets:
+  - Docker Security Cheat Sheet
+  - Vulnerable Dependency Management Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CONF-04
+463-577:
+  CCPA:
+  - Requests to Limit Use and Disclosure of Sensitive Personal Information (m)(3)
+  - Sworn Complaints Filed with the Agency (a)(b)
+  Cloud Controls Matrix:
+  - Security Incident Management, E-Discovery, & Cloud Forensics
+  D3FEND:
+  - Decoy Environment
+  - Decoy Object
+  - Dynamic Analysis
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Assessment and decision on information security events
+  - Collection of evidence
+  - Information security event reporting
+  - Information security incident management planning and preparation
+  - Learning from information security incidents
+  - Response to information security incidents
+  NIST 800-53 v5:
+  - IR-1 Policy and Procedures
+  - IR-2 Incident Response Training
+  - IR-3 Incident Response Testing
+  - IR-4 Incident Handling
+  - IR-5 Incident Monitoring
+  - IR-6 Incident Reporting
+  - IR-7 Incident Response Assistance
+  - IR-8 Incident Response Plan
+  - IR-9 Information Spillage Response
+  NIST CSF v1.1:
+  - 'DE.AE-2: Detected events are analyzed to understand attack targets and methods'
+  - 'DE.AE-3: Event data are collected and correlated from multiple sources and sensors'
+  - 'DE.AE-4: Impact of events is determined'
+  - 'DE.AE-5: Incident alert thresholds are established'
+  - 'ID.SC-5: Response and recovery planning and testing are conducted with suppliers
+    and third-party providers'
+  - 'PR.AT-5: Physical and cybersecurity personnel understand their roles and responsibilities'
+  - 'PR.IP-10: Response and recovery plans are tested'
+  - 'PR.IP-7: Protection processes are improved'
+  - 'PR.IP-8: Effectiveness of protection technologies is shared'
+  - 'PR.IP-9: Response plans (Incident Response and Business Continuity) and recovery
+    plans (Incident Recovery and Disaster Recovery) are in place and managed'
+  - 'RC.CO-1: Public relations are managed'
+  - 'RC.CO-2: Reputation is repaired after an incident'
+  - 'RC.CO-3: Recovery activities are communicated to internal and external stakeholders
+    as well as executive and management teams'
+  - 'RC.IM-1: Recovery plans incorporate lessons learned'
+  - 'RC.IM-2: Recovery strategies are updated'
+  - 'RC.RP-1: Recovery plan is executed during or after a cybersecurity incident'
+  - 'RS.AN-1: Notifications from detection systems are investigated'
+  - 'RS.AN-2: The impact of the incident is understood'
+  - 'RS.AN-3: Forensics are performed'
+  - 'RS.AN-4: Incidents are categorized consistent with response plans'
+  - 'RS.CO-1: Personnel know their roles and order of operations when a response is
+    needed'
+  - 'RS.CO-2: Incidents are reported consistent with established criteria'
+  - 'RS.CO-3: Information is shared consistent with response plans'
+  - 'RS.CO-4: Coordination with stakeholders occurs consistent with response plans'
+  - 'RS.IM-1: Response plans incorporate lessons learned'
+  - 'RS.IM-2: Response strategies are updated'
+  - 'RS.MI-1: Incidents are contained'
+  - 'RS.MI-2: Incidents are mitigated'
+  - 'RS.RP-1: Response plan is executed during or after an incident'
+  NIST SSDF:
+  - RV.1.3
+  PCI DSS v3.2.1:
+  - '10.1'
+  - '10.6'
+  - 10.6.3
+  - '10.8'
+  - 11.1.2
+  - 11.5.1
+  - '12.10'
+  - 12.10.1
+  - 12.10.2
+  - 12.10.5
+  - 12.10.6
+  - '12.11'
+  - '12.4'
+  - '12.5'
+  - 12.5.2
+  - 12.5.3
+  - 2.10.6
+  SAMM:
+  - Incident Response
+463-820:
+  ASVS:
+  - V12.1.3
+  CWE:
+  - '770'
+  OWASP Cheat Sheets:
+  - File Upload Cheat Sheet
+464-084:
+  ASVS:
+  - V13.2.3
+  CWE:
+  - '352'
+  OWASP Cheat Sheets:
+  - Cross-Site Request Forgery Prevention Cheat Sheet
+  - REST Assessment Cheat Sheet
+  - REST Security Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-05
+464-513:
+  Cloud Controls Matrix:
+  - Application Security Metrics
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  NIST 800-53 v5:
+  - CA-1 Policy and Procedures
+  - CA-2 Control Assessments
+  - CA-5 Plan of Action and Milestones
+  - CA-6 Authorization
+  - CA-7 Continuous Monitoring
+  - CA-8 Penetration Testing
+  - PM-31 Continuous Monitoring Strategy
+  - PM-6 Measures of Performance
+  - SI-20 Tainting
+  - SI-5 Security Alerts, Advisories, and Directives
+  NIST CSF v1.1:
+  - 'DE.AE-2: Detected events are analyzed to understand attack targets and methods'
+  - 'DE.AE-3: Event data are collected and correlated from multiple sources and sensors'
+  - 'DE.CM-1: The network is monitored to detect potential cybersecurity events'
+  - 'DE.CM-2: The physical environment is monitored to detect potential cybersecurity
+    events'
+  - 'DE.CM-3: Personnel activity is monitored to detect potential cybersecurity events'
+  - 'DE.CM-6: External service provider activity is monitored to detect potential
+    cybersecurity events'
+  - 'DE.CM-7: Monitoring for unauthorized personnel, connections, devices, and software
+    is performed'
+  - 'DE.DP-1: Roles and responsibilities for detection are well defined to ensure
+    accountability'
+  - 'DE.DP-2: Detection activities comply with all applicable requirements'
+  - 'DE.DP-3: Detection processes are tested'
+  - 'DE.DP-4: Event detection information is communicated'
+  - 'DE.DP-5: Detection processes are continuously improved'
+  - 'ID.RA-1: Asset vulnerabilities are identified and documented'
+  - 'ID.RA-2: Cyber threat intelligence is received from information sharing forums
+    and sources'
+  - 'ID.RA-3: Threats, both internal and external, are identified and documented'
+  - 'ID.RA-5: Threats, vulnerabilities, likelihoods, and impacts are used to determine
+    risk'
+  - 'ID.RA-6: Risk responses are identified and prioritized'
+  - 'ID.SC-4: Suppliers and third-party partners are routinely assessed using audits,
+    test results, or other forms of evaluations to confirm they are meeting their
+    contractual obligations.'
+  - 'PR.IP-7: Protection processes are improved'
+  - 'PR.IP-8: Effectiveness of protection technologies is shared'
+  - 'RS.AN-1: Notifications from detection systems are investigated'
+  - 'RS.AN-5: Processes are established to receive, analyze and respond to vulnerabilities
+    disclosed to the organization from internal and external sources (e.g. internal
+    testing, security bulletins, or security researchers)'
+  - 'RS.CO-5: Voluntary information sharing occurs with external stakeholders to achieve
+    broader cybersecurity situational awareness'
+  - 'RS.MI-3: Newly identified vulnerabilities are mitigated or documented as accepted
+    risks'
+  NIST SSDF:
+  - PO.3.3
+  PCI DSS v3.2.1:
+  - '10.1'
+  - '10.6'
+  - 10.6.1
+  - 10.6.2
+  - 10.6.3
+  - '10.8'
+  - '10.9'
+  - '11.1'
+  - '11.2'
+  - '11.3'
+  - '11.4'
+  - '11.5'
+  - 11.5.1
+  - '12.10'
+  - 12.10.1
+  - 12.10.5
+  - 12.10.6
+  - '12.11'
+  - '12.2'
+  - 12.5.2
+  - '12.8'
+  - '6.1'
+  - '6.2'
+  - 8.1.5
+  - 9.1.1
+  - 9.9.3
+467-784:
+  CCPA:
+  - Opt-Out Preference Signals (b)
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Security of network services
+  - Web filtering
+  NIST 800-53 v5:
+  - SC-22 Architecture and Provisioning for Name/address Resolution Service
+  - SC-7 Boundary Protection
+  NIST CSF v1.1:
+  - 'DE.CM-1: The network is monitored to detect potential cybersecurity events'
+  - 'PR.AC-5: Network integrity is protected (e.g., network segregation, network segmentation)'
+  - 'PR.DS-5: Protections against data leaks are implemented'
+  - 'PR.PT-4: Communications and control networks are protected'
+  PCI DSS v3.2.1:
+  - '1'
+  - '1.1'
+  - '1.2'
+  - '1.3'
+  - '10.6'
+  - 10.6.1
+  - 10.6.2
+  - '10.8'
+  - '11.3'
+  - '11.4'
+  - '2'
+  - '2.2'
+  - '6.2'
+470-731:
+  FedRAMP:
+  - High
+  - Moderate
+  NIST 800-53 v5:
+  - AC-11 DEVICE LOCK
+  - AC-12 SESSION TERMINATION
+  - SC-10 NETWORK DISCONNECT
+  NIST CSF v1.1:
+  - 'PR.AC-5: Network integrity is protected (e.g., network segregation, network segmentation)'
+  - 'PR.PT-4: Communications and control networks are protected'
+  PCI DSS v3.2.1:
+  - '1'
+  - '1.1'
+  - '1.2'
+  - '1.3'
+  - '10.8'
+  - '11.3'
+  - '2'
+  - '2.2'
+  - '6.2'
+473-177:
+  Cloud Controls Matrix:
+  - Automated Secure Application Deployment
+  NIST 800-53 v5:
+  - SC-34 Non-modifiable Executable Programs
+  SAMM:
+  - Build Process
+  - Deployment Process
+473-758:
+  ASVS:
+  - V8.2.1
+  CWE:
+  - '525'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-06
+480-071:
+  ASVS:
+  - V14.4.7
+  CWE:
+  - '1021'
+  OWASP Cheat Sheets:
+  - Content Security Policy Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CLNT-09
+482-771:
+  ASVS:
+  - V5.4.3
+  CWE:
+  - '190'
+482-866:
+  ASVS:
+  - V6.1.1
+  CWE:
+  - '311'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  - User Privacy Protection Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-04
+483-715:
+  ASVS:
+  - V14.5.1
+  CWE:
+  - '749'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CONF-06
+483-883:
+  ASVS:
+  - V3.5.3
+  CWE:
+  - '345'
+  OWASP Cheat Sheets:
+  - JSON Web Token for Java Cheat Sheet
+  - REST Security Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-04
+486-813:
+  D3FEND:
+  - Application Configuration Hardening
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  NIST 800-53 v5:
+  - CM-2 BASELINE CONFIGURATION
+  - CM-6 Configuration Settings
+  NIST CSF v1.1:
+  - 'DE.AE-1: A baseline of network operations and expected data flows for users and
+    systems is established and managed'
+  - 'PR.DS-7: The development and testing environment(s) are separate from the production
+    environment'
+  - 'PR.IP-1: A baseline configuration of information technology/industrial control
+    systems is created and maintained incorporating security principles (e.g. concept
+    of least functionality)'
+  OWASP Top 10 2021:
+  - Security Misconfiguration
+  PCI DSS v3.2.1:
+  - 1.1.1
+  - 1.1.2
+  - 1.1.3
+  - '1.2'
+  - '2.2'
+  - 6.4.1
+  - 6.4.2
+487-305:
+  ASVS:
+  - V2.1.12
+  CWE:
+  - '521'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Credential Stuffing Prevention Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-07
+503-455:
+  FedRAMP:
+  - High
+  - Moderate
+  NIST 800-53 v5:
+  - SI-10 INFORMATION INPUT VALIDATION
+  NIST CSF v1.1:
+  - 'PR.DS-6: Integrity checking mechanisms are used to verify software, firmware,
+    and information integrity'
+  PCI DSS v3.2.1:
+  - '11.5'
+504-340:
+  ASVS:
+  - V8.3.7
+  CWE:
+  - '327'
+  OWASP Proactive Controls:
+  - C8
+508-702:
+  ASVS:
+  - V1.6.2
+  CWE:
+  - '320'
+  OWASP Cheat Sheets:
+  - Cryptographic Storage Cheat Sheet
+  - Key Management Cheat Sheet
+510-324:
+  ISO 27001:
+  - Compliance with policies, rules and standards for information security
+  - Contact with authorities
+  - Independent review of information security
+  SAMM:
+  - Compliance Management
+513-845:
+  ASVS:
+  - V2.6.3
+  CWE:
+  - '310'
+  NIST 800-63:
+  - 5.1.2.2
+515-021:
+  ASVS:
+  - V1.14.5
+  CWE:
+  - '265'
+  Cloud Controls Matrix:
+  - Segmentation and Segregation
+  ISO 27001:
+  - Segregation of networks
+  OWASP Proactive Controls:
+  - C5
+522-616:
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Storage media
+  NIST 800-53 v5:
+  - MP-1 Policy and Procedures
+  - MP-2 Media Access
+  - MP-3 Media Marking
+  - MP-4 Media Storage
+  - MP-5 Media Transport
+  - MP-6 Media Sanitization
+  - MP-7 Media Use
+  - MP-8 Media Downgrading
+  NIST CSF v1.1:
+  - 'PR.DS-1: Data-at-rest is protected'
+  - 'PR.DS-3: Assets are formally managed throughout removal, transfers, and disposition'
+  - 'PR.IP-6: Data is destroyed according to policy'
+  - 'PR.PT-2: Removable media is protected and its use restricted according to policy'
+  PCI DSS v3.2.1:
+  - '12.3'
+  - 12.3.10
+  - '2.4'
+  - '3'
+  - '3.1'
+  - '3.4'
+  - 8.2.1
+  - '9.5'
+  - '9.6'
+  - '9.7'
+  - '9.8'
+  - '9.9'
+524-446:
+  ASVS:
+  - V2.2.6
+  CWE:
+  - '308'
+  NIST 800-63:
+  - 5.2.8
+  OWASP Cheat Sheets:
+  - Authentication Cheat Sheet
+  - TLS Cipher String Cheat Sheet
+  - Transport Layer Protection Cheat Sheet
+524-603:
+  ASVS:
+  - V4.1.2
+  CWE:
+  - '639'
+  OWASP Cheat Sheets:
+  - Access Control Cheat Sheet
+  - Authorization Testing Automation Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHZ-02
+525-361:
+  ASVS:
+  - V2.2.7
+  CWE:
+  - '308'
+  NIST 800-63:
+  - 5.2.9
+  OWASP Cheat Sheets:
+  - Authentication Cheat Sheet
+  - TLS Cipher String Cheat Sheet
+  - Transport Layer Protection Cheat Sheet
+527-034:
+  ASVS:
+  - V1.9.1
+  CWE:
+  - '319'
+  OWASP Cheat Sheets:
+  - TLS Cipher String Cheat Sheet
+  - Transport Layer Protection Cheat Sheet
+  OWASP Proactive Controls:
+  - C3
+530-671:
+  ASVS:
+  - V1.9.2
+  CWE:
+  - '295'
+  OWASP Cheat Sheets:
+  - TLS Cipher String Cheat Sheet
+  - Transport Layer Protection Cheat Sheet
+531-558:
+  ASVS:
+  - V5.3.7
+  CWE:
+  - '90'
+  OWASP Cheat Sheets:
+  - Bean Validation Cheat Sheet
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - File Upload Cheat Sheet
+  - HTML5 Security Cheat Sheet
+  - Injection Prevention Cheat Sheet
+  - Injection Prevention in Java Cheat Sheet
+  - Input Validation Cheat Sheet
+  - LDAP Injection Prevention Cheat Sheet
+  - OS Command Injection Defense Cheat Sheet
+  - Query Parameterization Cheat Sheet
+  - SQL Injection Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  - XML External Entity Prevention Cheat Sheet
+  - XML Security Cheat Sheet
+  OWASP Proactive Controls:
+  - C4
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-06
+532-878:
+  ASVS:
+  - V13.2.1
+  CWE:
+  - '650'
+  OWASP Cheat Sheets:
+  - Cross-Site Request Forgery Prevention Cheat Sheet
+  - REST Assessment Cheat Sheet
+  - REST Security Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-03
+533-516:
+  ASVS:
+  - V5.3.2
+  CWE:
+  - '176'
+  OWASP Cheat Sheets:
+  - Bean Validation Cheat Sheet
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - File Upload Cheat Sheet
+  - HTML5 Security Cheat Sheet
+  - Injection Prevention Cheat Sheet
+  - Injection Prevention in Java Cheat Sheet
+  - Input Validation Cheat Sheet
+  - LDAP Injection Prevention Cheat Sheet
+  - OS Command Injection Defense Cheat Sheet
+  - Query Parameterization Cheat Sheet
+  - SQL Injection Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  - XML External Entity Prevention Cheat Sheet
+  - XML Security Cheat Sheet
+  OWASP Proactive Controls:
+  - C4
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-APPE-D
+534-605:
+  ASVS:
+  - V11.1.1
+  CWE:
+  - '841'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-BUSL-$$
+537-367:
+  ASVS:
+  - V9.2.4
+  CWE:
+  - '299'
+538-446:
+  ASVS:
+  - V5.2.2
+  CWE:
+  - '138'
+  OWASP Cheat Sheets:
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - Server Side Request Forgery Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-00
+540-566:
+  ASVS:
+  - V10.2.2
+  CWE:
+  - '272'
+  ISO 27001:
+  - Use of privileged utility programs
+542-445:
+  ASVS:
+  - V5.2.1
+  CWE:
+  - '116'
+  OWASP Cheat Sheets:
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - Server Side Request Forgery Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  OWASP Proactive Controls:
+  - C5
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CLNT-03
+542-488:
+  ASVS:
+  - V6.3.1
+  CWE:
+  - '338'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-04
+543-428:
+  ASVS:
+  - V2.8.2
+  CWE:
+  - '320'
+  NIST 800-63:
+  - 5.1.4.2
+  - 5.1.5.2
+543-512:
+  ASVS:
+  - V13.2.5
+  CWE:
+  - '436'
+  OWASP Cheat Sheets:
+  - Cross-Site Request Forgery Prevention Cheat Sheet
+  - REST Assessment Cheat Sheet
+  - REST Security Cheat Sheet
+543-621:
+  ASVS:
+  - V2.5.3
+  CWE:
+  - '640'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+545-243:
+  ASVS:
+  - V12.5.2
+  CWE:
+  - '434'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-BUSL-09
+547-283:
+  ASVS:
+  - V5.3.9
+  CWE:
+  - '829'
+  OWASP Cheat Sheets:
+  - Bean Validation Cheat Sheet
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - File Upload Cheat Sheet
+  - HTML5 Security Cheat Sheet
+  - Injection Prevention Cheat Sheet
+  - Injection Prevention in Java Cheat Sheet
+  - Input Validation Cheat Sheet
+  - LDAP Injection Prevention Cheat Sheet
+  - OS Command Injection Defense Cheat Sheet
+  - Query Parameterization Cheat Sheet
+  - SQL Injection Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  - XML External Entity Prevention Cheat Sheet
+  - XML Security Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-11
+551-054:
+  ASVS:
+  - V3.5.2
+  CWE:
+  - '798'
+  OWASP Cheat Sheets:
+  - JSON Web Token for Java Cheat Sheet
+  - REST Security Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-01
+551-400:
+  ASVS:
+  - V3.5.1
+  CWE:
+  - '290'
+  NIST 800-63:
+  - 7.1.2
+  OWASP Cheat Sheets:
+  - JSON Web Token for Java Cheat Sheet
+  - REST Security Cheat Sheet
+553-413:
+  ASVS:
+  - V2.3.2
+  CWE:
+  - '308'
+  NIST 800-63:
+  - 6.1.3
+555-048:
+  ASVS:
+  - V7.1.4
+  CWE:
+  - '778'
+  OWASP Cheat Sheets:
+  - Logging Cheat Sheet
+  OWASP Proactive Controls:
+  - C9
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CONF-02
+558-807:
+  ASVS:
+  - V2.2.5
+  CWE:
+  - '319'
+  NIST 800-63:
+  - 5.2.6
+  OWASP Cheat Sheets:
+  - Authentication Cheat Sheet
+  - TLS Cipher String Cheat Sheet
+  - Transport Layer Protection Cheat Sheet
+560-224:
+  Cloud Controls Matrix:
+  - Capacity and Resource Planning
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Capacity management
+  NIST 800-53 v5:
+  - PL-1 Policy and Procedures
+  - PL-10 Baseline Selection
+  - PL-11 Baseline Tailoring
+  - PL-4 Rules of Behavior
+  - PM-3 Information Security and Privacy Resources
+  - SA-2 Allocation of Resources
+  NIST CSF v1.1:
+  - 'ID.GV-4: Governance and risk management processes address cybersecurity risks'
+  PCI DSS v3.2.1:
+  - '1.5'
+  - '10.8'
+  - '11.6'
+  - '12.1'
+  - '12.2'
+  - '2.5'
+  - '3.7'
+  - '4.3'
+  - '5.4'
+  - '6.7'
+  - '7.3'
+  - '8.8'
+  - '9.10'
+570-487:
+  NIST SSDF:
+  - PW.8.1
+571-271:
+  CCPA:
+  - Agency Audits (b)
+  - Privacy Policy (e)(3)(J)
+  - Sworn Complaints Filed with the Agency (a)(b)
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Acceptable use of information and other associated assets
+  - Information security in project management
+  - Policies for information security
+  NIST 800-53 v5:
+  - PL-9 Central Management
+  - PM-1 Information Security Program Plan
+  - PM-12 Insider Threat Program
+  - PM-14 Testing, Training, and Monitoring
+  - PM-26 Complaint Management
+  - PM-32 Purposing
+  - PM-4 Plan of Action and Milestones Process
+  - SC-1 Policy and Procedures
+  - SI-1 Policy and Procedures
+  NIST CSF v1.1:
+  - 'DE.DP-1: Roles and responsibilities for detection are well defined to ensure
+    accountability'
+  - 'DE.DP-2: Detection activities comply with all applicable requirements'
+  - 'DE.DP-3: Detection processes are tested'
+  - 'DE.DP-5: Detection processes are continuously improved'
+  - 'ID.GV-2: Cybersecurity roles and responsibilities are coordinated and aligned
+    with internal roles and external partners'
+  - 'ID.RA-1: Asset vulnerabilities are identified and documented'
+  - 'ID.RA-3: Threats, both internal and external, are identified and documented'
+  - 'ID.RA-6: Risk responses are identified and prioritized'
+  - 'PR.AT-1: All users are informed and trained'
+  - 'PR.IP-10: Response and recovery plans are tested'
+  - 'RS.AN-5: Processes are established to receive, analyze and respond to vulnerabilities
+    disclosed to the organization from internal and external sources (e.g. internal
+    testing, security bulletins, or security researchers)'
+  PCI DSS v3.2.1:
+  - 10.6.1
+  - '10.9'
+  - '11.2'
+  - '11.3'
+  - '11.4'
+  - '12.10'
+  - 12.10.1
+  - 12.10.2
+  - 12.10.6
+  - '12.2'
+  - '12.4'
+  - '12.5'
+  - 12.5.2
+  - '12.6'
+  - '12.8'
+  - '12.9'
+  - '6.1'
+  - '6.2'
+  - '6.7'
+  - '7.3'
+  - '8.4'
+  - 9.9.3
+571-640:
+  CCPA:
+  - Alternative Opt-Out Link (a)
+  - Consumers Less Than Under 13 Years of Age (a)
+  - Consumers at Least 13 Years of Age and Less Than 16 Years of Age (a)
+  - Contract Requirements for Third Parties (a)
+  - General Rules Regarding Verification (a)
+  - General Rules Regarding Verification (c)(1)
+  - "Notice of Right to Limit and the \u201CLimit the Use of My Sensitive Personal\
+    \ Information\u201D Link (f)(2)"
+  - "Notice of Right to Opt-Out of Sale/Sharing and the \u201CDo Not Sell or Share\
+    \ My Personal Information\u201D Link (a)"
+  - Notices to Consumers Less Than 16 Years of Age (a)
+  - Opt-Out Preference Signals (c)(3)
+  - Overview of Required Disclosures (a)
+  - Overview of Required Disclosures (b)
+  - Privacy Policy (e)(3)(B)
+  - Privacy Policy (e)(3)(J)
+  - Privacy Policy (e)(5)
+  - Record-Keeping (e)
+  - Requests to Correct (b)
+  - Requests to Correct (j)
+  - Requests to Delete (b)(1)
+  - Requests to Delete (b)(2)
+  - Requests to Know (k)(3)
+  - Requests to Know (k)(6)
+  - Requests to Limit Use and Disclosure of Sensitive Personal Information (a)
+  - Requests to Limit Use and Disclosure of Sensitive Personal Information (m)(1)
+  - Requests to Opt-In After Opting-Out of the Sale or Sharing of Personal Information
+    (a)
+  - Requests to Opt-In After Opting-Out of the Sale or Sharing of Personal Information
+    (b)
+  - Requests to Opt-Out of Sale/Sharing (a)
+  - Requests to Opt-Out of Sale/Sharing (c)
+  - Requests to Opt-Out of Sale/Sharing (d)
+  - Requests to Opt-Out of Sale/Sharing (f)
+  - Requests to Opt-Out of Sale/Sharing (g)
+  - Requests to Opt-Out of Sale/Sharing (h)
+  - Requests to Opt-Out of Sale/Sharing (j)
+  - Requests to Opt-Out of Sale/Sharing (k)
+  - Requirements for Businesses Collecting Large Amounts of Personal Information (a)(2)
+  - Restrictions on the Collection and Use of Personal Information (a)
+  - Restrictions on the Collection and Use of Personal Information (b)(1)
+  - Restrictions on the Collection and Use of Personal Information (b)(2)
+  - Restrictions on the Collection and Use of Personal Information (e)
+  - Service Providers and Contractors (a)(3)
+  - Service Providers and Contractors (c)
+  - Service Providers and Contractors (d)
+  - Service Providers and Contractors (e)
+  - Service Providers and Contractors (g)
+  - Timelines for Responding to Requests to Delete Requests to Correct and Requests
+    to Know (a)
+  - Timelines for Responding to Requests to Delete Requests to Correct and Requests
+    to Know (b)
+  - Verification for Non-Accountholders (d)
+  Cloud Controls Matrix:
+  - Data Security and Privacy Lifecycle Management
+  NIST 800-53 v5:
+  - PM-18 Privacy Program Plan
+  - PM-19 Privacy Program Leadership Role
+  - PM-20 Dissemination of Privacy Program Information
+  - PM-21 Accounting of Disclosures
+  - PM-22 Personally Identifiable Information Quality Management
+  - PM-24 Data Integrity Board
+  - PM-25 Minimization of Personally Identifiable Information Used in Testing, Training,
+    and Research
+  - PM-27 Privacy Reporting
+  - PT-1 Policy and Procedures
+  - PT-2 Authority to Process Personally Identifiable Information
+  - PT-3 Personally Identifiable Information Processing Purposes
+  - PT-4 Consent
+  - PT-5 Privacy Notice
+  - PT-6 System of Records Notice
+  - PT-7 Specific Categories of Personally Identifiable Information
+  - PT-8 Computer Matching Requirements
+  - SI-18 Personally Identifiable Information Quality Operations
+  - SI-19 De-identification
+576-042:
+  ASVS:
+  - V1.2.4
+  CWE:
+  - '306'
+576-651:
+  ASVS:
+  - V2.1.7
+  CWE:
+  - '521'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Credential Stuffing Prevention Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-07
+577-260:
+  ASVS:
+  - V14.2.3
+  CWE:
+  - '829'
+  OWASP Cheat Sheets:
+  - Docker Security Cheat Sheet
+  - Vulnerable Dependency Management Cheat Sheet
+581-525:
+  ASVS:
+  - V2.5.6
+  CWE:
+  - '640'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-09
+582-541:
+  ASVS:
+  - V3.7.1
+  CWE:
+  - '306'
+  OWASP Cheat Sheets:
+  - Session Management Cheat Sheet
+  - Transaction Authorization Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-01
+586-842:
+  OWASP Top 10 2021:
+  - Identification and Authentication Failures
+604-025:
+  ASVS:
+  - V2.1.8
+  CWE:
+  - '521'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Credential Stuffing Prevention Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-07
+605-735:
+  ASVS:
+  - V9.2.3
+  CWE:
+  - '287'
+607-671:
+  ASVS:
+  - V5.3.6
+  CWE:
+  - '830'
+  OWASP Cheat Sheets:
+  - Bean Validation Cheat Sheet
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - File Upload Cheat Sheet
+  - HTML5 Security Cheat Sheet
+  - Injection Prevention Cheat Sheet
+  - Injection Prevention in Java Cheat Sheet
+  - Input Validation Cheat Sheet
+  - LDAP Injection Prevention Cheat Sheet
+  - OS Command Injection Defense Cheat Sheet
+  - Query Parameterization Cheat Sheet
+  - SQL Injection Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  - XML External Entity Prevention Cheat Sheet
+  - XML Security Cheat Sheet
+  OWASP Proactive Controls:
+  - C4
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CLNT-01
+611-051:
+  ASVS:
+  - V13.3.1
+  CWE:
+  - '20'
+  OWASP Cheat Sheets:
+  - XML Security Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-07
+611-158:
+  ASVS:
+  - V10.1.1
+  CWE:
+  - '749'
+  OWASP Cheat Sheets:
+  - Third Party Javascript Management Cheat Sheet
+612-252:
+  ASVS:
+  - V13.4.2
+  CWE:
+  - '285'
+612-435:
+  ASVS:
+  - V7.4.1
+  CWE:
+  - '210'
+  OWASP Cheat Sheets:
+  - Error Handling Cheat Sheet
+  OWASP Proactive Controls:
+  - C10
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ERRH-02
+613-285:
+  CCPA:
+  - Contract Requirements for Service Providers and Contractors (b)
+  - Contract Requirements for Third Parties (b)
+  - Requests to Know (k)(2)
+  - Restrictions on the Collection and Use of Personal Information (b)(3)
+  - Service Providers and Contractors (a)(1)
+  - Service Providers and Contractors (a)(2)
+  - Third Parties (a)
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Addressing information security within supplier agreements
+  - Information security for use of cloud services
+  - Information security in supplier relationships
+  - Managing information security in the information and communication technology
+    (ICT) supply chain
+  - Monitoring, review and change management of supplier services
+  - Outsourced development
+  NIST 800-53 v5:
+  - PM-30 Supply Chain Risk Management Strategy
+  - SA-1 Policy and Procedures
+  - SA-22 Unsupported System Components
+  - SA-4 Acquisition Process
+  - SA-9 External System Services
+  - SR-1 Policy and Procedures
+  - SR-10 Inspection of Systems or Components
+  - SR-11 Component Authenticity
+  - SR-12 Component Disposal
+  - SR-2 Supply Chain Risk Management Plan
+  - SR-3 Supply Chain Controls and Processes
+  - SR-4 Provenance
+  - SR-5 Acquisition Strategies, Tools, and Methods
+  - SR-6 Supplier Assessments and Reviews
+  - SR-7 Supply Chain Operations Security
+  - SR-8 Notification Agreements
+  - SR-9 Tamper Resistance and Detection
+  NIST CSF v1.1:
+  - 'DE.CM-6: External service provider activity is monitored to detect potential
+    cybersecurity events'
+  - 'DE.DP-2: Detection activities comply with all applicable requirements'
+  - 'ID.AM-4: External information systems are catalogued'
+  - 'ID.BE-1: The organization''s role in the supply chain is identified and communicated'
+  - 'ID.BE-4: Dependencies and critical functions for delivery of critical services
+    are established'
+  - 'ID.SC-1: Cyber supply chain risk management processes are identified, established,
+    assessed, managed, and agreed to by organizational stakeholders'
+  - 'ID.SC-2: Suppliers and third party partners of information systems, components,
+    and services are identified, prioritized, and assessed using a cyber supply chain
+    risk assessment process'
+  - 'ID.SC-3: Contracts with suppliers and third-party partners are used to implement
+    appropriate measures designed to meet the objectives of an organization''s cybersecurity
+    program and Cyber Supply Chain Risk Management Plan.'
+  - 'ID.SC-4: Suppliers and third-party partners are routinely assessed using audits,
+    test results, or other forms of evaluations to confirm they are meeting their
+    contractual obligations.'
+  - 'PR.AT-3: Third-party stakeholders (e.g., suppliers, customers, partners) understand
+    their roles and responsibilities'
+  - 'PR.IP-2: A System Development Life Cycle to manage systems is implemented'
+  - 'PR.IP-6: Data is destroyed according to policy'
+  - 'RS.AN-5: Processes are established to receive, analyze and respond to vulnerabilities
+    disclosed to the organization from internal and external sources (e.g. internal
+    testing, security bulletins, or security researchers)'
+  NIST SSDF:
+  - PO.1.3
+  - PW.4.1
+  - PW.4.4
+  PCI DSS v3.2.1:
+  - 1.1.1
+  - 1.1.2
+  - 1.1.3
+  - '10.6'
+  - '10.9'
+  - '11.2'
+  - '11.3'
+  - '11.4'
+  - 12.10.1
+  - '12.2'
+  - '12.8'
+  - 12.8.2
+  - '12.9'
+  - '2.4'
+  - '3.1'
+  - '6.1'
+  - '6.2'
+  - '6.3'
+  - '6.4'
+  - '6.5'
+  - '6.6'
+  - '6.7'
+  - 8.1.5
+  - '9.8'
+  SAMM:
+  - Supplier security
+613-286:
+  NIST SSDF:
+  - RV.1.1
+  OWASP Top 10 2021:
+  - Vulnerable and Outdated Components
+  SAMM:
+  - Software Dependencies
+613-287:
+  OWASP Top 10 2021:
+  - Software and Data Integrity Failures
+614-353:
+  ASVS:
+  - V8.1.6
+  CWE:
+  - '19'
+615-744:
+  ASVS:
+  - V4.3.2
+  CWE:
+  - '548'
+  OWASP Cheat Sheets:
+  - REST Assessment Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CONF-03
+616-305:
+  ASVS:
+  - V1.1.1
+  CCPA:
+  - Personal Information Security Breaches (a)(1)(2)
+  Cloud Controls Matrix:
+  - Secure Application Design and Development
+  D3FEND:
+  - Domain Account Monitoring
+  - Dynamic Analysis
+  - Encrypted Tunnels
+  - File Analysis
+  - Local File Permissions
+  - Mandatory Access Control
+  - Network Traffic Analysis
+  - Platform Monitoring
+  - Process Analysis
+  - System Configuration Permissions
+  - User Behavior Analysis
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Secure development life cycle
+  NIST 800-53 v5:
+  - SA-15 Development Process, Standards, and Tools
+  - SA-3 System Development Life Cycle
+  - SA-8 Security and Privacy Engineering Principles
+  - SI-3 Malicious Code Protection
+  NIST CSF v1.1:
+  - 'DE.CM-4: Malicious code is detected'
+  - 'DE.DP-3: Detection processes are tested'
+  - 'ID.BE-5: Resilience requirements to support delivery of critical services are
+    established for all operating states (e.g. under duress/attack, during recovery,
+    normal operations)'
+  - 'ID.SC-2: Suppliers and third party partners of information systems, components,
+    and services are identified, prioritized, and assessed using a cyber supply chain
+    risk assessment process'
+  - 'PR.IP-2: A System Development Life Cycle to manage systems is implemented'
+  OWASP Proactive Controls:
+  - C1
+  PCI DSS v3.2.1:
+  - 10.6.1
+  - '10.9'
+  - '11.2'
+  - '11.3'
+  - '12.10'
+  - '12.2'
+  - '12.8'
+  - '5'
+  - '6.3'
+  - '6.4'
+  - '6.5'
+  - '6.6'
+  - '6.7'
+617-524:
+  ASVS:
+  - V8.2.2
+  CWE:
+  - '922'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CLNT-12
+618-403:
+  ASVS:
+  - V3.6.1
+  CWE:
+  - '613'
+  NIST 800-63:
+  - 7.2.1
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-01
+620-101:
+  ASVS:
+  - V5.3.1
+  CWE:
+  - '116'
+  OWASP Cheat Sheets:
+  - Bean Validation Cheat Sheet
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - File Upload Cheat Sheet
+  - HTML5 Security Cheat Sheet
+  - Injection Prevention Cheat Sheet
+  - Injection Prevention in Java Cheat Sheet
+  - Input Validation Cheat Sheet
+  - LDAP Injection Prevention Cheat Sheet
+  - OS Command Injection Defense Cheat Sheet
+  - Query Parameterization Cheat Sheet
+  - SQL Injection Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  - XML External Entity Prevention Cheat Sheet
+  - XML Security Cheat Sheet
+  OWASP Proactive Controls:
+  - C4
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-APPE-D
+622-203:
+  ASVS:
+  - V2.4.1
+  CWE:
+  - '916'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Password Storage Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+622-835:
+  ASVS:
+  - V2.3.1
+  CWE:
+  - '330'
+  NIST 800-63:
+  - 5.1.1.2
+  - A.3
+623-347:
+  ASVS:
+  - V2.5.4
+  CWE:
+  - '16'
+  NIST 800-63:
+  - 5.1.1.2
+  - A.3
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Forgot Password Cheat Sheet
+623-550:
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  NIST 800-53 v5:
+  - SC-5 DENIAL-OF-SERVICE PROTECTION
+  NIST CSF v1.1:
+  - 'DE.CM-1: The network is monitored to detect potential cybersecurity events'
+  - 'PR.DS-4: Adequate capacity to ensure availability is maintained'
+  - 'PR.PT-4: Communications and control networks are protected'
+  PCI DSS v3.2.1:
+  - '1'
+  - 10.6.1
+  - 10.6.2
+  - '11.4'
+  - '2'
+626-250:
+  FedRAMP:
+  - High
+  - Moderate
+  NIST 800-53 v5:
+  - SI-6 Security and Privacy Function Verification
+  - SI-7 Software, Firmware, and Information Integrity
+  NIST CSF v1.1:
+  - 'PR.DS-6: Integrity checking mechanisms are used to verify software, firmware,
+    and information integrity'
+  NIST SSDF:
+  - PW.2.1
+  PCI DSS v3.2.1:
+  - '11.5'
+  SAMM:
+  - Achitecture mitigation
+  - Achitecture validation
+630-573:
+  ASVS:
+  - V11.1.4
+  CWE:
+  - '770'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-BUSL-$$
+630-577:
+  ASVS:
+  - V2.1.11
+  CWE:
+  - '521'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Credential Stuffing Prevention Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-07
+633-428:
+  CCPA:
+  - Authorized Agents (a)
+  - Authorized Agents (d)
+  - Consumers Less Than Under 13 Years of Age (c)
+  - General Rules Regarding Verification (a)
+  - General Rules Regarding Verification (c)(1)
+  - General Rules Regarding Verification (c)(2)
+  - General Rules Regarding Verification (h)
+  - Requests to Correct (a)
+  - Requests to Know (a)
+  - Requests to Know (b)
+  - Verification for Non-Accountholders (b)
+  - Verification for Non-Accountholders (c)
+  - Verification for Password-Protected Accounts (a)
+  D3FEND:
+  - Account Locking
+  - Local Account Monitoring
+  - Multi-factor Authentication
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Authentication information
+  - Secure authentication
+  NIST 800-53 v5:
+  - AC-7 UNSUCCESSFUL LOGON ATTEMPTS
+  - AC-8 SYSTEM USE NOTIFICATION
+  - AC-9 PREVIOUS LOGON NOTIFICATION
+  - IA-1 Policy and Procedures
+  - IA-10 Adaptive Authentication
+  - IA-12 Identity Proofing
+  - IA-2 Identification and Authentication (organizational Users)
+  - IA-3 Device Identification and Authentication
+  - IA-4 Identifier Management
+  - IA-5 AUTHENTICATOR MANAGEMENT
+  - IA-8 Identification and Authentication (non-organizational Users)
+  NIST CSF v1.1:
+  - 'PR.AC-1: Identities and credentials are issued, managed, verified, revoked, and
+    audited for authorized devices, users and processes'
+  - 'PR.AC-6: Identities are proofed and bound to credentials and asserted in interactions'
+  - 'PR.AC-7: Users, devices, and other assets are authenticated (e.g., single-factor,
+    multi-factor) commensurate with the risk of the transaction (e.g., individuals''
+    security and privacy risks and other organizational risks)'
+  OWASP Top 10 2021:
+  - Identification and Authentication Failures
+  PCI DSS v3.2.1:
+  - '12.3'
+  - '2.1'
+  - 7.1.4
+  - '8.1'
+  - '8.2'
+  - 8.2.2
+  - '8.3'
+  - '8.5'
+  - '8.6'
+635-851:
+  NIST SSDF:
+  - RV.3.4
+  SAMM:
+  - Create and Promote
+  - Measure and Improve
+636-347:
+  OWASP Secure Headers Project:
+  - configuration
+636-660:
+  NIST SSDF:
+  - PW.5.1
+636-854:
+  ASVS:
+  - V9.2.2
+  CWE:
+  - '319'
+640-364:
+  ASVS:
+  - V1.4.1
+  CWE:
+  - '602'
+  OWASP Cheat Sheets:
+  - Docker Security Cheat Sheet
+646-227:
+  ASVS:
+  - V2.8.5
+  CWE:
+  - '287'
+  NIST 800-63:
+  - 5.1.5.2
+646-462:
+  ASVS:
+  - V5.2.8
+  CWE:
+  - '94'
+  OWASP Cheat Sheets:
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - Server Side Request Forgery Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CLNT-05
+650-560:
+  ASVS:
+  - V4.1.1
+  CWE:
+  - '602'
+  OWASP Cheat Sheets:
+  - Access Control Cheat Sheet
+  - Authorization Testing Automation Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHZ-02
+653-242:
+  ASVS:
+  - V5.1.4
+  CWE:
+  - '20'
+  OWASP Cheat Sheets:
+  - Input Validation Cheat Sheet
+  - Mass Assignment Cheat Sheet
+  OWASP Proactive Controls:
+  - C5
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-00
+657-084:
+  ASVS:
+  - V5.2.6
+  CWE:
+  - '918'
+  OWASP Cheat Sheets:
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - Server Side Request Forgery Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-11
+660-052:
+  ASVS:
+  - V12.1.1
+  CWE:
+  - '400'
+  OWASP Cheat Sheets:
+  - File Upload Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-BUSL-09
+660-867:
+  ASVS:
+  - V11.1.5
+  CWE:
+  - '841'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-BUSL-$$
+664-080:
+  ASVS:
+  - V13.1.4
+  CWE:
+  - '285'
+  OWASP Cheat Sheets:
+  - Server Side Request Forgery Prevention Cheat Sheet
+  - Web Service Security Cheat Sheet
+664-571:
+  ASVS:
+  - V6.3.3
+  CWE:
+  - '338'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-04
+668-364:
+  ASVS:
+  - V9.2.5
+  CCPA:
+  - Personal Information Security Breaches (a)(1)(2)
+  CWE:
+  - '544'
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  NIST 800-53 v5:
+  - SC-28 PROTECTION OF INFORMATION AT REST
+  NIST CSF v1.1:
+  - 'PR.DS-1: Data-at-rest is protected'
+  PCI DSS v3.2.1:
+  - '3'
+  - 8.2.1
+670-660:
+  ASVS:
+  - V1.11.2
+  CWE:
+  - '362'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+673-475:
+  ASVS:
+  - V1.14.6
+  CWE:
+  - '477'
+673-736:
+  ASVS:
+  - V3.3.4
+  CWE:
+  - '613'
+  NIST 800-63:
+  - '7.1'
+  OWASP Cheat Sheets:
+  - Session Management Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-06
+674-425:
+  ASVS:
+  - V6.2.3
+  CWE:
+  - '326'
+  OWASP Cheat Sheets:
+  - Cryptographic Storage Cheat Sheet
+  - Key Management Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-04
+675-168:
+  ASVS:
+  - V12.3.1
+  CWE:
+  - '22'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHZ-01
+681-823:
+  ASVS:
+  - V2.8.1
+  CWE:
+  - '613'
+  NIST 800-63:
+  - 5.1.4.2
+  - 5.1.5.2
+683-036:
+  NIST 800-53 v5:
+  - SC-40 Wireless Link Protection
+683-722:
+  ASVS:
+  - V12.3.5
+  CWE:
+  - '78'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-12
+688-081:
+  ASVS:
+  - V3.4.1
+  CWE:
+  - '614'
+  NIST 800-63:
+  - 7.1.1
+  OWASP Cheat Sheets:
+  - Cross-Site Request Forgery Prevention Cheat Sheet
+  - Session Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-02
+704-530:
+  ASVS:
+  - V3.2.2
+  CWE:
+  - '331'
+  NIST 800-63:
+  - '7.1'
+  OWASP Cheat Sheets:
+  - Session Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-01
+705-182:
+  ASVS:
+  - V3.4.5
+  CWE:
+  - '16'
+  NIST 800-63:
+  - 7.1.1
+  OWASP Cheat Sheets:
+  - Cross-Site Request Forgery Prevention Cheat Sheet
+  - Session Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-02
+708-355:
+  D3FEND:
+  - Execution Isolation
+  - Network Isolation
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  NIST 800-53 v5:
+  - SC-3 Security Function Isolation
+  - SC-32 System Partitioning
+  - SC-39 Process Isolation
+  - SC-44 Detonation Chambers
+  - SI-14 Non-persistence
+  - SI-22 Information Diversity
+  - SI-23 Information Fragmentation
+  NIST CSF v1.1:
+  - 'DE.CM-4: Malicious code is detected'
+  - 'DE.CM-5: Unauthorized mobile code is detected'
+  PCI DSS v3.2.1:
+  - '5'
+713-683:
+  ASVS:
+  - V7.3.3
+  CWE:
+  - '200'
+  OWASP Cheat Sheets:
+  - Logging Cheat Sheet.htmlhttps://cheatsheetseries.owasp.org/cheatsheets/Logging
+    Cheat Sheet
+  OWASP Proactive Controls:
+  - C9
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHZ-03
+715-223:
+  ASVS:
+  - V14.2.4
+  CWE:
+  - '829'
+  OWASP Cheat Sheets:
+  - Docker Security Cheat Sheet
+  - Vulnerable Dependency Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C2
+715-304:
+  ASVS:
+  - V8.3.6
+  CWE:
+  - '226'
+715-334:
+  ASVS:
+  - V14.2.1
+  CWE:
+  - '1026'
+  OWASP Cheat Sheets:
+  - Docker Security Cheat Sheet
+  - Vulnerable Dependency Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C2
+715-681:
+  ASVS:
+  - V2.1.3
+  CWE:
+  - '521'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Credential Stuffing Prevention Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-07
+724-770:
+  CCPA:
+  - General Rules Regarding Verification (c)(1)
+  - General Rules Regarding Verification (c)(2)
+  - General Rules Regarding Verification (c)(3)
+  - Opt-Out Preference Signals (c)(5)
+  - Requests to Limit Use and Disclosure of Sensitive Personal Information (m)(2)
+  D3FEND:
+  - Account Locking
+  - Domain Account Monitoring
+  - Local File Permissions
+  - Mandatory Access Control
+  - Multi-factor Authentication
+  - System Configuration Permissions
+  - User Account Permissions
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  NIST 800-53 v5:
+  - AC-14 PERMITTED ACTIONS WITHOUT IDENTIFICATION OR AUTHENTICATION
+  - AC-16 Security and Privacy Attributes
+  - AC-19 Access Control for Mobile Devices
+  - AC-2 ACCOUNT MANAGEMENT
+  - AC-24 Access Control Decisions
+  - AC-25 Reference Monitor
+  - AC-5 SEPARATION OF DUTIES
+  - SC-2 Separation of System and User Functionality
+  NIST CSF v1.1:
+  - 'DE.CM-3: Personnel activity is monitored to detect potential cybersecurity events'
+  - 'PR.AC-3: Remote access is managed'
+  - 'PR.AC-4: Access permissions and authorizations are managed, incorporating the
+    principles of least privilege and separation of duties'
+  - 'PR.AC-6: Identities are proofed and bound to credentials and asserted in interactions'
+  - 'PR.AC-7: Users, devices, and other assets are authenticated (e.g., single-factor,
+    multi-factor) commensurate with the risk of the transaction (e.g., individuals''
+    security and privacy risks and other organizational risks)'
+  - 'PR.DS-5: Protections against data leaks are implemented'
+  OWASP Top 10 2021:
+  - Broken Access Controls
+  PCI DSS v3.2.1:
+  - '10.6'
+  - 12.3.10
+  - 12.3.8
+  - 12.3.9
+  - '2.3'
+  - 6.4.2
+  - '7.1'
+  - 7.1.4
+  - '7.2'
+  - '8.1'
+  - 8.1.5
+  - '8.2'
+  - 8.2.2
+  - '8.3'
+  - 8.5.1
+  - '8.7'
+  - 9.1.1
+  - '9.3'
+725-682:
+  ASVS:
+  - V11.1.8
+  CWE:
+  - '390'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+727-043:
+  ASVS:
+  - V3.2.4
+  CWE:
+  - '331'
+  NIST 800-63:
+  - '7.1'
+  OWASP Cheat Sheets:
+  - Session Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-01
+731-120:
+  ASVS:
+  - V1.8.2
+  ISO 27001:
+  - Labelling of information
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  - User Privacy Protection Cheat Sheet
+732-148:
+  CCPA:
+  - Agency Audits (b)
+  - Contract Requirements for Service Providers and Contractors (a)
+  Cloud Controls Matrix:
+  - Application Vulnerability Remediation
+  - Threat & Vulnerability Management
+  D3FEND:
+  - Firmware Verification
+  - Peripheral Firmware Verification
+  - Software Update
+  - System Firmware Verification
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Management of technical vulnerabilities
+  NIST 800-53 v5:
+  - SI-2 Flaw Remediation
+  NIST CSF v1.1:
+  - 'ID.RA-1: Asset vulnerabilities are identified and documented'
+  - 'PR.IP-12: A vulnerability management plan is developed and implemented'
+  NIST SSDF:
+  - RV.1.1
+  - RV.2.1
+  - RV.2.2
+  - RV.3.1
+  - RV.3.2
+  - RV.3.3
+  PCI DSS v3.2.1:
+  - '11.2'
+  - '11.3'
+  - '12.2'
+  - '6.1'
+  - '6.2'
+  - '6.5'
+  SAMM:
+  - Defect Tracking
+  - Metrics and Feedback
+732-873:
+  ASVS:
+  - V5.3.4
+  CWE:
+  - '89'
+  OWASP Cheat Sheets:
+  - Bean Validation Cheat Sheet
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - File Upload Cheat Sheet
+  - HTML5 Security Cheat Sheet
+  - Injection Prevention Cheat Sheet
+  - Injection Prevention in Java Cheat Sheet
+  - Input Validation Cheat Sheet
+  - LDAP Injection Prevention Cheat Sheet
+  - OS Command Injection Defense Cheat Sheet
+  - Query Parameterization Cheat Sheet
+  - SQL Injection Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  - XML External Entity Prevention Cheat Sheet
+  - XML Security Cheat Sheet
+  OWASP Proactive Controls:
+  - C3
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-05
+736-237:
+  ASVS:
+  - V14.4.2
+  CWE:
+  - '116'
+  OWASP Cheat Sheets:
+  - Content Security Policy Cheat Sheet
+736-554:
+  ASVS:
+  - V1.5.2
+  CWE:
+  - '502'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  - Deserialization Cheat Sheet
+737-086:
+  ASVS:
+  - V12.3.2
+  CWE:
+  - '73'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHZ-01
+742-056:
+  ASVS:
+  - V12.3.3
+  CWE:
+  - '98'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHZ-01
+742-431:
+  ASVS:
+  - V6.2.2
+  CWE:
+  - '327'
+  OWASP Cheat Sheets:
+  - Cryptographic Storage Cheat Sheet
+  - Key Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C8
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-04
+743-110:
+  ASVS:
+  - V14.3.3
+  CWE:
+  - '200'
+  OWASP Cheat Sheets:
+  - Error Handling Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INFO-##
+743-237:
+  ASVS:
+  - V5.1.1
+  CWE:
+  - '235'
+  OWASP Cheat Sheets:
+  - Input Validation Cheat Sheet
+  - Mass Assignment Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-04
+745-045:
+  ASVS:
+  - V9.1.1
+  CWE:
+  - '319'
+  OWASP Cheat Sheets:
+  - HTTP Strict Transport Security Cheat Sheet
+  - TLS Cipher String Cheat Sheet
+  - Transport Layer Protection Cheat Sheet
+  OWASP Proactive Controls:
+  - C8
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-01
+745-356:
+  NIST SSDF:
+  - PO.3.3
+746-705:
+  ASVS:
+  - V11.1.3
+  CWE:
+  - '770'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-BUSL-$$
+751-176:
+  ASVS:
+  - V2.1.5
+  CWE:
+  - '620'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Credential Stuffing Prevention Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-07
+757-271:
+  ASVS:
+  - V1.10.1
+  CWE:
+  - '284'
+  OWASP Cheat Sheets:
+  - Third Party Javascript Management Cheat Sheet
+  - Virtual Patching Cheat Sheet
+760-764:
+  OWASP Top 10 2021:
+  - Injection
+762-451:
+  ASVS:
+  - V8.3.2
+  CWE:
+  - '212'
+762-616:
+  ASVS:
+  - V5.5.1
+  CWE:
+  - '502'
+  OWASP Cheat Sheets:
+  - Deserialization Cheat Sheet
+  - XML External Entity Prevention Cheat Sheet
+  - XML Security Cheat Sheet
+  OWASP Proactive Controls:
+  - C5
+764-507:
+  ASVS:
+  - V5.5.2
+  CWE:
+  - '611'
+  OWASP Cheat Sheets:
+  - Deserialization Cheat Sheet
+  - XML External Entity Prevention Cheat Sheet
+  - XML Security Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-07
+765-788:
+  ASVS:
+  - V1.8.1
+  ISO 27001:
+  - Classification of information
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  - User Privacy Protection Cheat Sheet
+766-162:
+  Cloud Controls Matrix:
+  - Governance, Risk and Compliance
+  NIST 800-53 v5:
+  - PM-7 Enterprise Architecture
+  NIST CSF v1.1:
+  - 'ID.GV-4: Governance and risk management processes address cybersecurity risks'
+  PCI DSS v3.2.1:
+  - '1.5'
+  - '10.8'
+  - '11.6'
+  - '12.1'
+  - '12.2'
+  - '2.5'
+  - '3.7'
+  - '4.3'
+  - '5.4'
+  - '6.7'
+  - '7.3'
+  - '8.8'
+  - '9.10'
+767-435:
+  ASVS:
+  - V2.4.3
+  CWE:
+  - '916'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Password Storage Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+767-701:
+  ASVS:
+  - V9.1.2
+  CWE:
+  - '326'
+  OWASP Cheat Sheets:
+  - HTTP Strict Transport Security Cheat Sheet
+  - TLS Cipher String Cheat Sheet
+  - Transport Layer Protection Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-01
+770-361:
+  ASVS:
+  - V7.3.4
+  OWASP Cheat Sheets:
+  - Logging Cheat Sheet.htmlhttps://cheatsheetseries.owasp.org/cheatsheets/Logging
+    Cheat Sheet
+  OWASP Proactive Controls:
+  - C9
+772-358:
+  ASVS:
+  - V2.5.2
+  CWE:
+  - '640'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-08
+774-888:
+  ASVS:
+  - V2.10.4
+  CWE:
+  - '798'
+777-470:
+  ASVS:
+  - V12.3.6
+  CWE:
+  - '829'
+782-234:
+  ASVS:
+  - V1.5.1
+  CWE:
+  - '1029'
+  ISO 27001:
+  - Legal, statutory, regulatory and contractual requirements
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  - Deserialization Cheat Sheet
+783-255:
+  ASVS:
+  - V2.9.1
+  CWE:
+  - '320'
+  NIST 800-63:
+  - 5.1.7.2
+  OWASP Cheat Sheets:
+  - Cryptographic Storage Cheat Sheet
+  - Key Management Cheat Sheet
+786-224:
+  ASVS:
+  - V6.2.7
+  CWE:
+  - '326'
+  OWASP Cheat Sheets:
+  - Cryptographic Storage Cheat Sheet
+  - Key Management Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-CRYP-04
+801-310:
+  ASVS:
+  - V1.4.5
+  CWE:
+  - '275'
+  OWASP Cheat Sheets:
+  - Docker Security Cheat Sheet
+  OWASP Proactive Controls:
+  - C7
+802-056:
+  ASVS:
+  - V2.2.1
+  CWE:
+  - '307'
+  NIST 800-63:
+  - 5.1.1.2
+  - 5.1.4.2
+  - 5.1.5.2
+  - 5.2.2
+  OWASP Cheat Sheets:
+  - Authentication Cheat Sheet
+  - TLS Cipher String Cheat Sheet
+  - Transport Layer Protection Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-03
+804-220:
+  ASVS:
+  - V3.4.2
+  CWE:
+  - '1004'
+  NIST 800-63:
+  - 7.1.1
+  OWASP Cheat Sheets:
+  - Cross-Site Request Forgery Prevention Cheat Sheet
+  - Session Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-SESS-02
+806-367:
+  ASVS:
+  - V1.5.4
+  CWE:
+  - '116'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  - Deserialization Cheat Sheet
+  OWASP Proactive Controls:
+  - C4
+807-565:
+  ASVS:
+  - V2.1.9
+  CWE:
+  - '521'
+  NIST 800-63:
+  - 5.1.1.2
+  OWASP Cheat Sheets:
+  - Choosing and Using Security Questions Cheat Sheet
+  - Credential Stuffing Prevention Cheat Sheet
+  - Forgot Password Cheat Sheet
+  OWASP Proactive Controls:
+  - C6
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ATHN-07
+808-425:
+  ASVS:
+  - V2.2.3
+  CWE:
+  - '620'
+  OWASP Cheat Sheets:
+  - Authentication Cheat Sheet
+  - TLS Cipher String Cheat Sheet
+  - Transport Layer Protection Cheat Sheet
+813-610:
+  ASVS:
+  - V2.10.1
+  CWE:
+  - '287'
+  NIST 800-63:
+  - 5.1.1.1
+814-322:
+  ASVS:
+  - V12.6.1
+  CWE:
+  - '918'
+  OWASP Cheat Sheets:
+  - Server Side Request Forgery Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-BUSL-09
+816-631:
+  ASVS:
+  - V2.7.2
+  CWE:
+  - '287'
+  NIST 800-63:
+  - 5.1.3.2
+  OWASP Cheat Sheets:
+  - Forgot Password Cheat Sheet
+817-808:
+  CWE:
+  - '276'
+  OWASP Cheat Sheets:
+  - Access Control Cheat Sheet
+  - Authorization Testing Automation Cheat Sheet
+  OWASP Proactive Controls:
+  - C7
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-IDNT-01
+820-421:
+  ASVS:
+  - V14.5.4
+  CWE:
+  - '306'
+820-877:
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  NIST 800-53 v5:
+  - PL-7 CONCEPT OF OPERATIONS
+  - SA-5 System Documentation
+  NIST CSF v1.1:
+  - 'ID.RA-1: Asset vulnerabilities are identified and documented'
+  NIST SSDF:
+  - PW.1.2
+  PCI DSS v3.2.1:
+  - '11.2'
+  - '11.3'
+  - '12.2'
+  - '6.1'
+820-878:
+  ASVS:
+  - V1.1.4
+  CWE:
+  - '1059'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  - Attack Surface Analysis Cheat Sheet
+  - Threat Modeling Cheat Sheet
+821-832:
+  ASVS:
+  - V1.6.3
+  CWE:
+  - '320'
+  OWASP Cheat Sheets:
+  - Cryptographic Storage Cheat Sheet
+  - Key Management Cheat Sheet
+822-100:
+  ASVS:
+  - V1.1.3
+  CWE:
+  - '1110'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  - Attack Surface Analysis Cheat Sheet
+  - Threat Modeling Cheat Sheet
+824-732:
+  ASVS:
+  - V5.4.2
+  CWE:
+  - '134'
+831-563:
+  ASVS:
+  - V5.5.3
+  CWE:
+  - '502'
+  OWASP Cheat Sheets:
+  - Deserialization Cheat Sheet
+  - XML External Entity Prevention Cheat Sheet
+  - XML Security Cheat Sheet
+831-570:
+  ASVS:
+  - V5.4.1
+  CWE:
+  - '120'
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-13
+833-030:
+  CCPA:
+  - Training (a)
+  ISO 27001:
+  - Contact with special interest groups
+  NIST 800-53 v5:
+  - PM-15 Security and Privacy Groups and Associations
+  NIST CSF v1.1:
+  - 'ID.RA-1: Asset vulnerabilities are identified and documented'
+  - 'ID.RA-2: Cyber threat intelligence is received from information sharing forums
+    and sources'
+  - 'RS.AN-5: Processes are established to receive, analyze and respond to vulnerabilities
+    disclosed to the organization from internal and external sources (e.g. internal
+    testing, security bulletins, or security researchers)'
+  - 'RS.CO-5: Voluntary information sharing occurs with external stakeholders to achieve
+    broader cybersecurity situational awareness'
+  PCI DSS v3.2.1:
+  - '11.2'
+  - '11.3'
+  - '12.2'
+  - '6.1'
+  - '6.2'
+834-645:
+  ASVS:
+  - V10.2.1
+  CWE:
+  - '359'
+836-068:
+  OWASP Top 10 2021:
+  - Software and Data Integrity Failures
+838-636:
+  ASVS:
+  - V10.2.3
+  CWE:
+  - '507'
+841-710:
+  ASVS:
+  - V7.2.1
+  CWE:
+  - '778'
+  OWASP Cheat Sheets:
+  - Logging Cheat Sheet
+841-757:
+  ASVS:
+  - V2.8.3
+  CWE:
+  - '326'
+  NIST 800-63:
+  - 5.1.4.2
+  - 5.1.5.2
+842-876:
+  CCPA:
+  - Record-Keeping (a)
+  D3FEND:
+  - Local Account Monitoring
+  FedRAMP:
+  - High
+  - Low
+  - Moderate
+  ISO 27001:
+  - Logging
+  NIST 800-53 v5:
+  - AU-1 Policy and Procedures
+  - AU-11 Audit Record Retention
+  - AU-12 Audit Record Generation
+  - AU-16 Cross-organizational Audit Logging
+  - AU-4 Audit Log Storage Capacity
+  - AU-5 Response to Audit Logging Process Failures
+  - AU-6 Audit Record Review, Analysis, and Reporting
+  - AU-7 Audit Record Reduction and Report Generation
+  - SI-11 Error Handling
+  NIST CSF v1.1:
+  - 'DE.AE-2: Detected events are analyzed to understand attack targets and methods'
+  - 'DE.AE-3: Event data are collected and correlated from multiple sources and sensors'
+  - 'DE.CM-1: The network is monitored to detect potential cybersecurity events'
+  - 'DE.CM-3: Personnel activity is monitored to detect potential cybersecurity events'
+  - 'DE.CM-7: Monitoring for unauthorized personnel, connections, devices, and software
+    is performed'
+  - 'DE.DP-4: Event detection information is communicated'
+  - 'ID.SC-4: Suppliers and third-party partners are routinely assessed using audits,
+    test results, or other forms of evaluations to confirm they are meeting their
+    contractual obligations.'
+  - 'PR.DS-4: Adequate capacity to ensure availability is maintained'
+  - 'PR.PT-1: Audit/log records are determined, documented, implemented, and reviewed
+    in accordance with policy'
+  - 'RS.AN-1: Notifications from detection systems are investigated'
+  - 'RS.AN-3: Forensics are performed'
+  - 'RS.CO-2: Incidents are reported consistent with established criteria'
+  PCI DSS v3.2.1:
+  - '10.1'
+  - '10.2'
+  - '10.3'
+  - '10.4'
+  - '10.5'
+  - '10.6'
+  - 10.6.1
+  - 10.6.2
+  - 10.6.3
+  - '10.7'
+  - '10.8'
+  - '11.1'
+  - '11.4'
+  - '11.5'
+  - 11.5.1
+  - '12.10'
+  - 12.10.5
+  - 12.5.2
+  - '12.8'
+  - 9.1.1
+843-841:
+  OWASP Top 10 2021:
+  - Logging and Monitoring Failures
+846-302:
+  ASVS:
+  - V8.1.1
+  CWE:
+  - '524'
+847-247:
+  Cloud Controls Matrix:
+  - Interoperability and portability policy and procedures
+848-711:
+  ASVS:
+  - V1.5.3
+  CWE:
+  - '602'
+  OWASP Cheat Sheets:
+  - Abuse Case Cheat Sheet
+  - Deserialization Cheat Sheet
+  OWASP Proactive Controls:
+  - C5
+850-376:
+  Cloud Controls Matrix:
+  - Datacenter security
+854-643:
+  ISO 27001:
+  - Data leakage prevention
+  - Data masking
+857-718:
+  ASVS:
+  - V5.3.8
+  CWE:
+  - '78'
+  OWASP Cheat Sheets:
+  - Bean Validation Cheat Sheet
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - File Upload Cheat Sheet
+  - HTML5 Security Cheat Sheet
+  - Injection Prevention Cheat Sheet
+  - Injection Prevention in Java Cheat Sheet
+  - Input Validation Cheat Sheet
+  - LDAP Injection Prevention Cheat Sheet
+  - OS Command Injection Defense Cheat Sheet
+  - Query Parameterization Cheat Sheet
+  - SQL Injection Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  - XML External Entity Prevention Cheat Sheet
+  - XML Security Cheat Sheet
+  OWASP Proactive Controls:
+  - C4
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-12
+860-084:
+  ASVS:
+  - V14.2.6
+  CWE:
+  - '265'
+  OWASP Cheat Sheets:
+  - Docker Security Cheat Sheet
+  - Vulnerable Dependency Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C2
+862-452:
+  CCPA:
+  - Opt-Out Preference Signals (c)(1)
+  - Requests to Limit Use and Disclosure of Sensitive Personal Information (m)(7)
+  Cloud Controls Matrix:
+  - Infrastructure and Virtualization Security Policy and Procedures
+  ISO 27001:
+  - Documented operating procedures
+  - Information security for use of cloud services
+  - Separation of development, test and production environments
+  NIST 800-53 v5:
+  - SC-26 Decoys
+  - SC-30 Concealment and Misdirection
+  - SC-35 External Malicious Code Identification
+  - SC-36 Distributed Processing and Storage
+  - SC-37 Out-of-band Channels
+  - SC-38 Operations Security
+  - SC-42 Sensor Capability and Data
+  - SC-43 Usage Restrictions
+  - SC-46 Cross Domain Policy Enforcement
+  - SC-47 Alternate Communications Paths
+  - SC-48 Sensor Relocation
+  - SC-50 Software-enforced Separation and Policy Enforcement
+  NIST CSF v1.1:
+  - 'PR.PT-4: Communications and control networks are protected'
+  PCI DSS v3.2.1:
+  - '1'
+  - '2'
+863-521:
+  ASVS:
+  - V14.2.5
+  NIST SSDF:
+  - PS.3.2
+  OWASP Cheat Sheets:
+  - Docker Security Cheat Sheet
+  - Vulnerable Dependency Management Cheat Sheet
+  OWASP Proactive Controls:
+  - C2
+863-636:
+  ASVS:
+  - V7.4.2
+  CWE:
+  - '544'
+  OWASP Cheat Sheets:
+  - Error Handling Cheat Sheet
+  OWASP Proactive Controls:
+  - C10
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-ERRH-02
+866-553:
+  FedRAMP:
+  - High
+  - Moderate
+  NIST 800-53 v5:
+  - SI-16 Memory Protection
+872-574:
+  ISO 27001:
+  - Protection against malware
+878-880:
+  ASVS:
+  - V6.2.8
+  CWE:
+  - '385'
+  OWASP Cheat Sheets:
+  - Cryptographic Storage Cheat Sheet
+  - Key Management Cheat Sheet
+881-321:
+  ASVS:
+  - V2.10.3
+  CWE:
+  - '522'
+  NIST 800-63:
+  - 5.1.1.1
+881-434:
+  ASVS:
+  - V5.2.3
+  CWE:
+  - '147'
+  OWASP Cheat Sheets:
+  - Cross Site Scripting Prevention Cheat Sheet
+  - DOM based XSS Prevention Cheat Sheet
+  - Server Side Request Forgery Prevention Cheat Sheet
+  - Unvalidated Redirects and Forwards Cheat Sheet
+  OWASP Web Security Testing Guide (WSTG):
+  - WSTG-INPV-10
+888-770:
+  ISO 27001:
+  - Threat intelligence
+  NIST 800-53 v5:
+  - PM-16 Threat Awareness Program
+  - RA-10 Threat Hunting
+  NIST CSF v1.1:
+  - 'ID.RA-2: Cyber threat intelligence is received from information sharing forums
+    and sources'
+  - 'ID.RA-3: Threats, both internal and external, are identified and documented'
+  - 'ID.RA-5: Threats, vulnerabilities, likelihoods, and impacts are used to determine
+    risk'
+  PCI DSS v3.2.1:
+  - '12.2'
+  - '6.1'
