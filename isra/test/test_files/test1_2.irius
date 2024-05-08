@@ -1,0 +1,415 @@
+{
+    "usecases": {
+        "General": {
+            "ref": "General",
+            "name": "General",
+            "desc": ""
+        },
+        "UC-STRIDE-ELEVATION-OF-PRIVILEGE": {
+            "ref": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+            "name": "Elevation of Privilege",
+            "desc": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data."
+        },
+        "UC-STRIDE-INFORMATION-DISCLOSURE": {
+            "ref": "UC-STRIDE-INFORMATION-DISCLOSURE",
+            "name": "Information Disclosure",
+            "desc": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property."
+        },
+        "UC-STRIDE-SPOOFING": {
+            "ref": "UC-STRIDE-SPOOFING",
+            "name": "Spoofing",
+            "desc": "Spoofing involves an attacker pretending to be someone else by falsifying data or identity. This can include spoofing email addresses, IP addresses, or user identities to gain unauthorized access to systems or information."
+        },
+        "UC-STRIDE-TAMPERING": {
+            "ref": "UC-STRIDE-TAMPERING",
+            "name": "Tampering",
+            "desc": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system."
+        }
+    },
+    "threats": {
+        "T-ATTACKERS-BYPASS-IFRAME-SANDBOX": {
+            "ref": "T-ATTACKERS-BYPASS-IFRAME-SANDBOX",
+            "name": "Attackers bypass iFrame sandbox",
+            "desc": "<p>iFrames are widely used in web development to embed external resources within a web page. To enhance security, the sandbox attribute can be applied to iFrames, imposing strict restrictions on the content's behavior to prevent malicious activities. These restrictions include blocking forms submissions, preventing script execution, and disabling plugins, which are essential in safeguarding against various attack vectors, including cross-site scripting (XSS) and clickjacking.</p>\n<p>However, an <strong>iFrame Sandbox Escape</strong> threat emerges when an attacker successfully exploits vulnerabilities within the iFrame, the web page, or the browser itself to bypass these sandbox restrictions. Such an exploit can lead to unauthorized actions being performed with potentially elevated privileges. Consequences may include:</p>\n<ul>\n <li>Executing arbitrary JavaScript code within the context of the host page.</li>\n <li>Accessing sensitive information from the host page that was supposed to be isolated.</li>\n <li>Performing actions on behalf of the user without their consent or knowledge.</li>\n</ul>\n<p>This threat represents a significant security risk, as it can lead to data breaches, compromised user sessions, and unauthorized access to application functionalities.</p>",
+            "riskRating": {
+                "C": "75",
+                "I": "75",
+                "A": "25",
+                "EE": "50"
+            },
+            "references": [
+                {
+                    "name": "Understanding iFrame Sandbox and Security",
+                    "url": "https://html.spec.whatwg.org/multipage/iframe-embed-object.html#attr-iframe-sandbox"
+                }
+            ],
+            "customFields": {
+                "attack_enterprise_technique": "ATT&CK Enterprise - T1059.007 - JavaScript||ATT&CK Enterprise - T1068 - Exploitation for Privilege Escalation||ATT&CK Enterprise - T1190 - Exploit Public-Facing Application||ATT&CK Enterprise - T1553.005 - Mark-of-the-Web Bypass",
+                "attack_ics_technique": "",
+                "attack_mobile_technique": "",
+                "atlas_technique": "",
+                "stride_lm": "Elevation of Privilege"
+            }
+        },
+        "T-SENSITIVE-INFORMATION-LEAKAGE-THROUGH-IFRAME": {
+            "ref": "T-SENSITIVE-INFORMATION-LEAKAGE-THROUGH-IFRAME",
+            "name": "Sensitive information leakage through iFrame",
+            "desc": "<p>iFrames are commonly used in web development to embed external content within a webpage. While they provide a convenient method to include videos, forms, or other webpages, iFrames also pose a potential security risk if not properly configured or if they load content from untrusted sources. Confidential data, such as user personal information, session tokens, or sensitive operational data, might be inadvertently exposed through an iFrame. This exposure can occur in several ways:</p>\n<ul>\n <li><strong>Misconfiguration:</strong> Incorrectly configured iFrame attributes or improper handling of the content security policy (CSP) can inadvertently grant embedded content access to sensitive data on the parent page.</li>\n <li><strong>Inclusion of Third-party Resources:</strong> Embedding content from third-party sources without adequate security controls can lead to situations where embedded content has unintended access to information or introduces vulnerabilities that can be exploited to leak data.</li>\n</ul>",
+            "riskRating": {
+                "C": "100",
+                "I": "25",
+                "A": "25",
+                "EE": "50"
+            },
+            "references": [
+                {
+                    "name": "Preventing Information Leakage in iFrame",
+                    "url": "https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy"
+                }
+            ],
+            "customFields": {
+                "attack_enterprise_technique": "ATT&CK Enterprise - T1059.007 - JavaScript||ATT&CK Enterprise - T1557 - Adversary-in-the-Middle||ATT&CK Enterprise - T1566.002 - Spearphishing Link",
+                "attack_ics_technique": "",
+                "attack_mobile_technique": "",
+                "atlas_technique": "",
+                "stride_lm": "Information Disclosure"
+            }
+        },
+        "T-CROSS-SITE-REQUEST-FORGERY-CSRF-VIA-IFRAME": {
+            "ref": "T-CROSS-SITE-REQUEST-FORGERY-CSRF-VIA-IFRAME",
+            "name": "Cross-Site Request Forgery (CSRF) via iFrame",
+            "desc": "<p>CSRF attacks exploit the trust that a web application has in the user's browser. In the context of iFrames, these attacks become particularly insidious as malicious websites can embed hidden iFrames within their pages. These iFrames, in turn, can silently perform actions on another website where the user is currently authenticated, all without the user's knowledge or consent.</p>\n<p>This type of attack leverages the user's authenticated session cookies to execute unauthorized actions, effectively \"spoofing\" the identity of the authenticated user. For instance, if a user is logged into a banking application and subsequently visits a malicious site that contains a hidden iFrame targeting the banking application, the iFrame could execute a transaction without the user's awareness, exploiting the user's authenticated session with the bank.</p>\n<p>The danger of CSRF attacks via iFrames lies in their ability to silently carry out state-changing operations, such as posting data or transferring funds, under the guise of the user's authenticated session. This can lead to unauthorized actions being performed without triggering typical security alarms, as the requests appear legitimate from the perspective of the targeted web application.</p>",
+            "riskRating": {
+                "C": "25",
+                "I": "75",
+                "A": "25",
+                "EE": "75"
+            },
+            "references": [
+                {
+                    "name": "CSRF Prevention Cheat Sheet",
+                    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html"
+                }
+            ],
+            "customFields": {
+                "attack_enterprise_technique": "ATT&CK Enterprise - T1189 - Drive-by Compromise||ATT&CK Enterprise - T1190 - Exploit Public-Facing Application",
+                "attack_ics_technique": "",
+                "attack_mobile_technique": "",
+                "atlas_technique": "",
+                "stride_lm": "Spoofing"
+            }
+        },
+        "T-ATTACKER-COMPROMISE-CONTENT-BY-THIRD-PARTY-VULNERABILITIES": {
+            "ref": "T-ATTACKER-COMPROMISE-CONTENT-BY-THIRD-PARTY-VULNERABILITIES",
+            "name": "Attacker compromise content by Third-Party Vulnerabilities",
+            "desc": "<p>When web applications use iFrames to include resources from third-party sources, such as libraries, frameworks, videos, or any external content, they inherently trust that these resources have not been compromised. However, without proper integrity checks, there is a significant risk that these third-party resources could be tampered with, potentially introducing malicious content into your application. This tampering can lead to a variety of security issues, including but not limited to:</p>\n<ul>\n    <li><strong>Cross-Site Scripting (XSS) Attacks:</strong> Malicious scripts inserted into compromised resources can execute within the context of your application, leading to data breaches.</li>\n    <li><strong>Data Theft:</strong> Maliciously modified resources could include scripts designed to steal sensitive information from your users.</li>\n    <li><strong>Malware Distribution:</strong> Compromised third-party content could serve as a vehicle for distributing malware to your users, damaging trust and potentially leading to legal repercussions.</li>\n</ul>\n<p>To mitigate the risks associated with loading third-party content in iFrames, developers should adopt the following practices:</p>\n<ol>\n    <li><strong>Implement Subresource Integrity (SRI):</strong> SRI allows developers to specify cryptographic hashes that a fetched resource must match. By adding an integrity attribute to your resource tags, you ensure that browsers will only execute or apply the resource if its hash matches the expected value.</li>\n    <li><strong>Utilize Content Security Policy (CSP):</strong> CSP can be used to specify allowed sources for resources, reducing the risk of loading compromised content from unauthorized locations. Specific directives within CSP, such as <code>default-src</code>, <code>script-src</code>, and <code>style-src</code>, can be tailored to enforce strict loading rules for content within iFrames.</li>\n    <li><strong>Vet Third-Party Sources:</strong> Only load resources from reputable, well-maintained third-party sources. Regularly review the security practices of these sources to ensure they align with your application's security standards.</li>\n</ol>\n<p>By understanding the threat posed by compromised third-party content and implementing these countermeasures, developers can significantly reduce the risk to their web applications and protect their users from potential harm.</p>\n",
+            "riskRating": {
+                "C": "50",
+                "I": "100",
+                "A": "25",
+                "EE": "50"
+            },
+            "references": [],
+            "customFields": {
+                "attack_enterprise_technique": "ATT&CK Enterprise - T1195 - Supply Chain Compromise||ATT&CK Enterprise - T1553.002 - Code Signing",
+                "attack_ics_technique": "",
+                "attack_mobile_technique": "",
+                "atlas_technique": "",
+                "stride_lm": "Tampering"
+            }
+        },
+        "T-ATTACKERS-TAKE-ADVANTAGE-OF-UNPROTECTED-IFRAMES": {
+            "ref": "T-ATTACKERS-TAKE-ADVANTAGE-OF-UNPROTECTED-IFRAMES",
+            "name": "Attackers take advantage of unprotected iFrames",
+            "desc": "<h1>Securing iFrames Against Web Attacks</h1>\n<h2>Threat Overview</h2>\n<p>Attackers take advantages of unprotected iFrames, exploiting vulnerabilities to execute unauthorized scripts, steal data, and compromise user interactions.</p>\n\n<h2>Objective</h2>\n<p>Implement a security strategy to protect web applications from XSS attacks, iFrame vulnerabilities, and CSP bypass techniques.</p>\n\n<h2>Actionable Steps for Developers</h2>\n<ol>\n    <li><strong>Validate Input Strictly:</strong> \n        <ul>\n            <li>Check all incoming data for type, length, format, and range.</li>\n            <li>Reject any input that does not meet the specified criteria.</li>\n        </ul>\n    </li>\n    <li><strong>Sanitize and Encode Data:</strong>\n        <ul>\n            <li>Remove or replace potentially harmful elements in the data before it's used within your application.</li>\n            <li>Encode data before displaying it in web pages to prevent malicious HTML/JavaScript from executing.</li>\n        </ul>\n    </li>\n    <li><strong>Implement Content Security Policy (CSP):</strong>\n        <ul>\n            <li>Define a CSP header in your web application's responses.</li>\n            <li>Specify which domains can load content, effectively blocking malicious scripts and resources from unknown sources.</li>\n        </ul>\n    </li>\n    <li><strong>Secure iFrames with the Sandbox Attribute:</strong>\n        <ul>\n            <li>Use the <code>sandbox</code> attribute in your iFrames to apply restrictions on the content.</li>\n            <li>Limit functionalities like form submission, script execution, and top-level navigation unless explicitly allowed.</li>\n        </ul>\n    </li>\n    <li><strong>Continuous Security Review:</strong>\n        <ul>\n            <li>Regularly conduct code reviews and security testing, including penetration testing, to identify and remediate vulnerabilities.</li>\n            <li>Consider automated tools to help in identifying potential security flaws.</li>\n        </ul>\n    </li>\n</ol>\n\n<h2>Benefits</h2>\n<p>By following these steps, developers can protect their applications from a broad spectrum of web-based attacks, ensuring the security and integrity of both the application and its user data.</p>\n",
+            "riskRating": {
+                "C": "75",
+                "I": "75",
+                "A": "25",
+                "EE": "50"
+            },
+            "references": [
+                {
+                    "name": "Content Security Policy Reference",
+                    "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP"
+                },
+                {
+                    "name": "OWASP Clickjacking Defense Cheat Sheet",
+                    "url": "https://owasp.org/www-community/attacks/Clickjacking"
+                },
+                {
+                    "name": "OWASP XSS Prevention Cheat Sheet",
+                    "url": "https://owasp.org/www-project-cheat-sheets/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+                }
+            ],
+            "customFields": {
+                "attack_enterprise_technique": "ATT&CK Enterprise - T1059.007 - JavaScript||ATT&CK Enterprise - T1190 - Exploit Public-Facing Application||ATT&CK Enterprise - T1203 - Exploitation for Client Execution||ATT&CK Enterprise - T1553 - Subvert Trust Controls||ATT&CK Enterprise - T1608.001 - Upload Malware",
+                "attack_ics_technique": "",
+                "attack_mobile_technique": "",
+                "atlas_technique": "",
+                "stride_lm": "Elevation of Privilege||Spoofing||Tampering"
+            }
+        }
+    },
+    "weaknesses": {
+        "CWE-693": {
+            "ref": "CWE-693",
+            "name": "CWE-693",
+            "desc": "CWE:\nCWE-693: Protection Mechanism Failure\nThe product does not use or incorrectly uses a protection mechanism that provides sufficient defense against directed attacks against the product.\nThis weakness covers three distinct situations. A \"missing\" protection mechanism occurs when the application does not define any mechanism against a certain class of attack. An \"insufficient\" protection mechanism might provide some defenses - for example, against the most common attacks - but it does not protect against everything that is intended. Finally, an \"ignored\" mechanism occurs when a mechanism is available and in active use within the product, but the developer has not applied it in some code path.",
+            "impact": "100"
+        },
+        "CWE-200": {
+            "ref": "CWE-200",
+            "name": "CWE-200",
+            "desc": "CWE:\nCWE-200: Exposure of Sensitive Information to an Unauthorized Actor\nThe product exposes sensitive information to an actor that is not explicitly authorized to have access to that information.\n\n\t\t\t\t",
+            "impact": "75"
+        },
+        "CWE-346": {
+            "ref": "CWE-346",
+            "name": "CWE-346",
+            "desc": "CWE:\nCWE-346: Origin Validation Error\nThe product does not properly verify that the source of data or communication is valid.\n",
+            "impact": "100"
+        },
+        "CWE-352": {
+            "ref": "CWE-352",
+            "name": "CWE-352",
+            "desc": "CWE:\nCWE-352: Cross-Site Request Forgery (CSRF)\nThe web application does not, or can not, sufficiently verify whether a well-formed, valid, consistent request was intentionally provided by the user who submitted the request.\nWhen a web server is designed to receive a request from a client without any mechanism for verifying that it was intentionally sent, then it might be possible for an attacker to trick a client into making an unintentional request to the web server which will be treated as an authentic request. This can be done via a URL, image load, XMLHttpRequest, etc. and can result in exposure of data or unintended code execution.",
+            "impact": "50"
+        },
+        "CWE-494": {
+            "ref": "CWE-494",
+            "name": "CWE-494",
+            "desc": "CWE:\nCWE-494: Download of Code Without Integrity Check\nThe product downloads source code or an executable from a remote location and executes the code without sufficiently verifying the origin and integrity of the code.\nAn attacker can execute malicious code by compromising the host server, performing DNS spoofing, or modifying the code in transit.",
+            "impact": "50"
+        },
+        "CWE-79": {
+            "ref": "CWE-79",
+            "name": "CWE-79",
+            "desc": "CWE:\nCWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nThe product does not neutralize or incorrectly neutralizes user-controllable input before it is placed in output that is used as a web page that is served to other users.\n\n\t\t\t\t",
+            "impact": "75"
+        }
+    },
+    "controls": {
+        "C-REGULAR-SECURITY-AUDITS-AND-PATCHING": {
+            "ref": "C-REGULAR-SECURITY-AUDITS-AND-PATCHING",
+            "name": "Configure regular security audits and patching",
+            "desc": "<p>Regular security audits and patching are essential practices to ensure the security and integrity of web applications, especially when employing iFrames to include third-party content or functionalities. This countermeasure involves a systematic examination of the application to detect vulnerabilities, misconfigurations, and security flaws within both the application's code and its dependencies, including third-party libraries and components used in iFrames.</p>\n<p>The primary goals of this countermeasure are to:</p>\n<ul>\n <li><strong>Identify Vulnerabilities:</strong> Discover security weaknesses that could be exploited by attackers to perform unauthorized actions, such as sandbox escapes where content within an iFrame breaks out of its intended restrictions.</li>\n <li><strong>Assess Browser Compatibility:</strong> Ensure that security features and restrictions applied to iFrames are consistently enforced across different web browsers and versions. This includes verifying the correct implementation of the sandbox attribute and other security mechanisms.</li>\n <li><strong>Update and Patch:</strong> Apply updates and patches to the web application and its dependencies promptly. This includes updating third-party libraries used within iFrames to their latest, most secure versions to address known vulnerabilities.</li>\n</ul>\n<p>To effectively implement this countermeasure, developers should:</p>\n<ol>\n <li><strong>Establish a Regular Audit Schedule:</strong> Define a periodic schedule for conducting security audits. The frequency should reflect the application's complexity, its use of third-party components, and the evolving threat landscape.</li>\n <li><strong>Use Automated Scanning Tools:</strong> Leverage automated vulnerability scanning tools to identify known security issues and vulnerabilities within the application and its dependencies, including those affecting iFrames.</li>\n <li><strong>Perform Manual Review:</strong> Complement automated tools with manual code review and testing, particularly focusing on custom implementations of iFrames and the integration of third-party content.</li>\n <li><strong>Stay Informed:</strong> Keep up-to-date with the latest security advisories and patch releases for third-party libraries and browsers. Subscribe to relevant security bulletins and communities.</li>\n <li><strong>Document and Remediate:</strong> Thoroughly document identified vulnerabilities and prioritize their remediation based on risk. Implement patches and updates in a timely manner, following best practices for change management to avoid introducing new issues.</li>\n</ol>",
+            "cost": "1",
+            "customFields": {
+                "attack_enterprise_mitigation": "ATT&CK Enterprise - M1051 - Update Software",
+                "attack_ics_mitigation": "",
+                "attack_mobile_mitigation": "",
+                "atlas_mitigation": "",
+                "baseline_standard_ref": "NIST 800-53 v5",
+                "baseline_standard_section": "SI-2 Flaw Remediation||RA-5 Vulnerability Monitoring and Scanning||CM-3 Configuration Change Control||CA-2 Control Assessments",
+                "scope": "Application Security"
+            },
+            "references": [
+                {
+                    "name": "Regular Security Audits for Web Applications",
+                    "url": "https://owasp.org/www-project-web-security-testing-guide/"
+                }
+            ],
+            "question": "",
+            "question_desc": "",
+            "dataflow_tags": [],
+            "standards": []
+        },
+        "C-USE-THE-SANDBOX-ATTRIBUTE-FOR-IFRAMES": {
+            "ref": "C-USE-THE-SANDBOX-ATTRIBUTE-FOR-IFRAMES",
+            "name": "Use the sandbox attribute for iFrames",
+            "desc": "<p>The sandbox attribute is a powerful tool provided by HTML5 that enhances the security of web applications by applying a set of extra restrictions on the content loaded within an iFrame. When you embed an external webpage or content within your web application using an iFrame, it inherently comes with certain risks, especially if the content is from a third-party source. The sandbox attribute allows you to mitigate these risks by controlling what the content within the iFrame can do.</p>\n<p>Applying the sandbox attribute without any values imposes the strictest restrictions, including:</p>\n<ul>\n <li>Blocking form submissions</li>\n <li>Preventing script execution</li>\n <li>Disabling plugins (e.g., Flash)</li>\n <li>Preventing links from targeting other browsing contexts</li>\n <li>Blocking automatically triggered features (e.g., automatically playing videos or audio)</li>\n</ul>\n<p>However, you can selectively enable certain capabilities by specifying values with the sandbox attribute, such as:</p>\n<ul>\n <li>allow-forms: Allows form submissions from the iFrame.</li>\n <li>allow-scripts: Allows scripts to be executed within the iFrame.</li>\n <li>allow-same-origin: Allows the iFrame content to be treated as being from the same origin as the containing document.</li>\n <li>allow-popups: Allows popups (such as window.open, showModalDialog, target=\"_blank\").</li>\n <li>allow-top-navigation: Allows the iFrame to navigate (redirect) the top-level browsing context.</li>\n</ul>\n<p>To effectively use the sandbox attribute in iFrames:</p>\n<ol>\n <li>Start with applying the sandbox attribute without any values to enforce the maximum level of restrictions.</li>\n <li>Carefully consider which permissions are absolutely necessary for the embedded content to function as intended and only allow specific actions by adding the appropriate values to the sandbox attribute.</li>\n <li>Regularly review and assess the necessity of the enabled permissions, especially when updating the content or functionality of the iFrame, to maintain a secure embedding environment.</li>\n</ol>",
+            "cost": "1",
+            "customFields": {
+                "attack_enterprise_mitigation": "ATT&CK Enterprise - M1021 - Restrict Web-Based Content",
+                "attack_ics_mitigation": "",
+                "attack_mobile_mitigation": "",
+                "atlas_mitigation": "",
+                "baseline_standard_ref": "NIST 800-53 v5",
+                "baseline_standard_section": "SC-39 Process Isolation",
+                "scope": "Application Security"
+            },
+            "references": [
+                {
+                    "name": "iFrame sandbox Attribute",
+                    "url": "https://html.com/attributes/iframe-sandbox/"
+                }
+            ],
+            "question": "Has the 'sandbox' attribute been configured on all iFrames to limit their capabilities and prevent information leakage?",
+            "question_desc": "",
+            "dataflow_tags": [],
+            "standards": []
+        },
+        "C-ENFORCE-SAME-ORIGIN-POLICY-ON-IFRAMES": {
+            "ref": "C-ENFORCE-SAME-ORIGIN-POLICY-ON-IFRAMES",
+            "name": "Enforce Same-Origin policy on iFrames",
+            "desc": "<p>The <i>Same-Origin Policy (SOP)</i> is a critical security mechanism that restricts how a document or script loaded from one origin can interact with a resource from another origin. It is a foundational security principle in the web application security model, aiming to protect user data from potentially malicious documents.</p>\n<p>When applying SOP to iFrames, the policy ensures that content loaded within an iFrame can only interact with resources from the same origin unless explicitly allowed. This restriction helps in safeguarding against a variety of web-based attacks, including:</p>\n<ul>\n <li><strong>Cross-Site Scripting (XSS):</strong> Prevents malicious scripts from another origin from running in the context of your page.</li>\n <li><strong>Cross-Site Request Forgery (CSRF):</strong> Restricts the ability of malicious websites to perform actions on behalf of a user without their consent by leveraging the user's authenticated session.</li>\n <li><strong>Clickjacking:</strong> Limits the attacker's capability to trick a user into clicking on something different than what the user perceives, protecting against UI redressing attacks.</li>\n</ul>\n<p>To effectively enforce SOP on iFrames, developers can utilize the following practices:</p>\n<ol>\n <li><strong>Setting the sandbox attribute on iFrames:</strong> This attribute enables extra restrictions on the content contained within the iFrame. By default, it blocks forms submission, script execution, and prevents top-level navigation without explicit allowances.</li>\n <li><strong>Using Content Security Policy (CSP):</strong> Implement CSP headers such as frame-ancestors to control which parent sites can embed your content in an iFrame and frame-src to specify allowable sources for iFrames embedded in your site.</li>\n <li><strong>Applying X-Frame-Options Header:</strong> Use this HTTP response header to indicate whether or not a browser should be allowed to render a page in a frame, iframe, embed or object. Options such as DENY, SAMEORIGIN, and ALLOW-FROM can be used to restrict framing activities and mitigate clickjacking attacks.</li>\n</ol>",
+            "cost": "1",
+            "customFields": {
+                "attack_enterprise_mitigation": "ATT&CK Enterprise - M1021 - Restrict Web-Based Content||ATT&CK Enterprise - M1054 - Software Configuration",
+                "attack_ics_mitigation": "",
+                "attack_mobile_mitigation": "",
+                "atlas_mitigation": "",
+                "baseline_standard_ref": "ASVS",
+                "baseline_standard_section": "V14.4.6",
+                "scope": "Application Security"
+            },
+            "references": [
+                {
+                    "name": "HTML5 Security Guide on iFrames",
+                    "url": "https://html.spec.whatwg.org/multipage/origin.html#origin"
+                }
+            ],
+            "question": "Are 'same-origin' policies or sandbox attributes with 'allow-same-origin' restrictions enforced for iFrames?",
+            "question_desc": "",
+            "dataflow_tags": [],
+            "standards": []
+        },
+        "C-IMPLEMENT-ANTI-CSRF-TOKENS": {
+            "ref": "C-IMPLEMENT-ANTI-CSRF-TOKENS",
+            "name": "Implement anti-CSRF tokens",
+            "desc": "<p>Anti-Cross-Site Request Forgery (CSRF) tokens are crucial security measures used to protect web applications from CSRF attacks. These attacks exploit the trust a site has in the user's browser, allowing an attacker to perform unwanted actions on a web application where the user is authenticated.</p>\n<p>In the context of iFrames, which are often used to embed external resources or content within a webpage, ensuring the security of state-changing requests becomes even more critical. This is because iFrames can potentially be manipulated to execute unauthorized actions without proper safeguards.</p>\n<p>To mitigate this risk, it is recommended to implement anti-CSRF tokens in the following manner:</p>\n<ol>\n <li><strong>Generate a Unique Token:</strong> For every user session, generate a unique anti-CSRF token on the server side. This token should be securely associated with the user's session and have sufficient entropy to prevent prediction.</li>\n <li><strong>Include the Token in Forms:</strong> Embed the generated token within hidden form fields of forms that perform state-changing operations and are accessible within iFrames. This practice ensures that each form submission is accompanied by the unique token, verifying the request's authenticity.</li>\n <li><strong>Validate the Token on the Server:</strong> Upon receiving a form submission, validate the included anti-CSRF token against the one stored in the user's session. Only process the request if the tokens match, indicating that the request originated from a legitimate source.</li>\n</ol>",
+            "cost": "1",
+            "customFields": {
+                "attack_enterprise_mitigation": "ATT&CK Enterprise - M1050 - Exploit Protection",
+                "attack_ics_mitigation": "",
+                "attack_mobile_mitigation": "",
+                "atlas_mitigation": "",
+                "baseline_standard_ref": "ASVS",
+                "baseline_standard_section": "V4.2.2",
+                "scope": "Application Security"
+            },
+            "references": [
+                {
+                    "name": "Implementing Anti-CSRF Tokens",
+                    "url": "https://owasp.org/www-project-cheat-sheets/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html"
+                }
+            ],
+            "question": "Has the application implemented anti-CSRF tokens for all forms and state-changing operations accessible via iFrames?",
+            "question_desc": "",
+            "dataflow_tags": [],
+            "standards": []
+        },
+        "C-IMPLEMENT-SUBRESOURCE-INTEGRITY-SRI": {
+            "ref": "C-IMPLEMENT-SUBRESOURCE-INTEGRITY-SRI",
+            "name": "Implement Subresource Integrity (SRI)",
+            "desc": "<p>Subresource Integrity (SRI) is a security feature that allows developers to protect web applications from the risks associated with loading resources, such as JavaScript files and CSS stylesheets, from external sources. SRI works by allowing developers to specify a cryptographic hash that a fetched resource must match. This ensures that the content has not been tampered with or altered in transit, providing an added layer of security against certain types of attacks, including third-party compromise and content manipulation.</p>\n<p>In the context of iFrames, which are often used to embed content from external websites or resources, implementing SRI becomes crucial. iFrames can potentially introduce vulnerabilities if the external content they load is compromised. By applying SRI to scripts and stylesheets loaded within iFrames, developers can:</p>\n<ul>\n <li><strong>Ensure Integrity:</strong> Guarantee that the content loaded within the iFrame has not been altered, ensuring that only the intended, untampered content is executed or rendered.</li>\n <li><strong>Prevent Manipulation:</strong> Protect against the risk that external content could be manipulated to include malicious scripts or styles, which could lead to Cross-Site Scripting (XSS) attacks or other security breaches.</li>\n <li><strong>Maintain Security:</strong> Maintain the overall security posture of the web application by ensuring that all externally loaded resources, including those within iFrames, are verified for integrity.</li>\n</ul>\n<p>To implement SRI for resources loaded within iFrames, developers should follow these steps:</p>\n<ol>\n <li>Generate a hash (SHA-256, SHA-384, or SHA-512) of the external resource (e.g., a JavaScript or CSS file).</li>\n <li>Include the hash in the integrity attribute of the script or link tag used to load the resource. For example: &lt;script src=\"https://example.com/script.js\" integrity=\"sha384-Base64EncodedHash\" crossorigin=\"anonymous\"&gt;&lt;/script&gt;.</li>\n <li>Ensure the crossorigin attribute is set appropriately to match the CORS settings of the resource being loaded. This is necessary for the browser to perform the integrity check when loading the resource from a different origin.</li>\n</ol>",
+            "cost": "1",
+            "customFields": {
+                "attack_enterprise_mitigation": "ATT&CK Enterprise - M1021 - Restrict Web-Based Content",
+                "attack_ics_mitigation": "",
+                "attack_mobile_mitigation": "",
+                "atlas_mitigation": "",
+                "baseline_standard_ref": "ASVS",
+                "baseline_standard_section": "V14.2.3",
+                "scope": "Application Security"
+            },
+            "references": [
+                {
+                    "name": "Ensuring the Integrity of Third-Party Content with SRI",
+                    "url": "https://www.w3.org/TR/SRI/"
+                }
+            ],
+            "question": "Has SRI been implemented for all third-party scripts and stylesheets included via iFrames?",
+            "question_desc": "",
+            "dataflow_tags": [],
+            "standards": []
+        },
+        "C-COMPREHENSIVE-SECURITY-STRATEGY-INCORPORATING-CSP-INPUT-HANDLING-AND-IFRAME-SANDBOXING": {
+            "ref": "C-COMPREHENSIVE-SECURITY-STRATEGY-INCORPORATING-CSP-INPUT-HANDLING-AND-IFRAME-SANDBOXING",
+            "name": "Incorporate CSP, input handling, and iFrame sandboxing",
+            "desc": "<p>Comprehensive iFrame Security Strategy Guide</p>\n<p>This guide outlines a comprehensive security strategy for developers to mitigate risks associated with Cross-Site Scripting (XSS) and related vulnerabilities in web applications that utilize iFrames.</p>\n<p>Step 1: Implement Strict Content Security Policies (CSP)</p>\n<ul>\n <li>Define CSP headers in your web application to control which resources can be loaded.</li>\n <li>Ensure CSP rules do not include 'unsafe-inline' or 'unsafe-eval' directives to prevent XSS attacks.</li>\n <li>Specify 'frame-src' directive to control the origins from which iFrames can load content.</li>\n</ul>\n<p>Step 2: Secure Handling of User Inputs</p>\n<ul>\n <li><strong>Validation:</strong> Verify all user inputs for correct type, length, and format before processing. Reject any inputs that do not meet your criteria.</li>\n <li><strong>Sanitization:</strong> Remove or replace harmful elements from user inputs to neutralize potential threats.</li>\n <li><strong>Encoding:</strong> Encode user inputs before rendering them on web pages to ensure special characters do not trigger script execution.</li>\n</ul>\n<p>Step 3: Utilize iFrame Sandboxing</p>\n<ul>\n <li>Add the sandbox attribute to your iFrames to apply a restrictive execution environment.</li>\n <li>Enable specific permissions within the sandbox as necessary, such as allowing forms or scripts, by adding flags (e.g., allow-forms, allow-scripts).</li>\n</ul>\n<p>Step 4: Conduct Regular Security Reviews</p>\n<ul>\n <li>Perform code reviews focusing on security best practices and the integration points of iFrames within your application.</li>\n <li>Carry out penetration testing to identify and fix vulnerabilities related to iFrame usage and content security.</li>\n <li>Update security policies and practices based on the latest threats and vulnerabilities.</li>\n</ul>",
+            "cost": "1",
+            "customFields": {
+                "attack_enterprise_mitigation": "ATT&CK Enterprise - M1021 - Restrict Web-Based Content||ATT&CK Enterprise - M1035 - Limit Access to Resource Over Network||ATT&CK Enterprise - M1038 - Execution Prevention||ATT&CK Enterprise - M1054 - Software Configuration||ATT&CK Enterprise - M1056 - Pre-compromise",
+                "attack_ics_mitigation": "",
+                "attack_mobile_mitigation": "",
+                "atlas_mitigation": "",
+                "baseline_standard_ref": "NIST 800-53 v5",
+                "baseline_standard_section": "SI-10 INFORMATION INPUT VALIDATION",
+                "scope": "Application Security||Data Security"
+            },
+            "references": [
+                {
+                    "name": "Content Security Policy (CSP) Best Practices",
+                    "url": "https://www.w3.org/TR/CSP3/"
+                },
+                {
+                    "name": "OWASP Secure Coding Practices",
+                    "url": "https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/"
+                }
+            ],
+            "question": "",
+            "question_desc": "",
+            "dataflow_tags": [],
+            "standards": []
+        }
+    },
+    "relations": [
+        {
+            "riskPattern": "RP-V2-TEST-COMPONENT",
+            "usecase": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+            "threat": "T-ATTACKERS-BYPASS-IFRAME-SANDBOX",
+            "weakness": "CWE-693",
+            "control": "C-REGULAR-SECURITY-AUDITS-AND-PATCHING",
+            "mitigation": "100"
+        },
+        {
+            "riskPattern": "RP-V2-TEST-COMPONENT",
+            "usecase": "UC-STRIDE-INFORMATION-DISCLOSURE",
+            "threat": "T-SENSITIVE-INFORMATION-LEAKAGE-THROUGH-IFRAME",
+            "weakness": "CWE-200",
+            "control": "C-USE-THE-SANDBOX-ATTRIBUTE-FOR-IFRAMES",
+            "mitigation": "100"
+        },
+        {
+            "riskPattern": "RP-V2-TEST-COMPONENT",
+            "usecase": "UC-STRIDE-SPOOFING",
+            "threat": "T-CROSS-SITE-REQUEST-FORGERY-CSRF-VIA-IFRAME",
+            "weakness": "CWE-346",
+            "control": "C-ENFORCE-SAME-ORIGIN-POLICY-ON-IFRAMES",
+            "mitigation": "50"
+        },
+        {
+            "riskPattern": "RP-V2-TEST-COMPONENT",
+            "usecase": "UC-STRIDE-SPOOFING",
+            "threat": "T-CROSS-SITE-REQUEST-FORGERY-CSRF-VIA-IFRAME",
+            "weakness": "CWE-352",
+            "control": "C-IMPLEMENT-ANTI-CSRF-TOKENS",
+            "mitigation": "50"
+        },
+        {
+            "riskPattern": "RP-V2-TEST-COMPONENT",
+            "usecase": "UC-STRIDE-TAMPERING",
+            "threat": "T-ATTACKER-COMPROMISE-CONTENT-BY-THIRD-PARTY-VULNERABILITIES",
+            "weakness": "CWE-494",
+            "control": "C-IMPLEMENT-SUBRESOURCE-INTEGRITY-SRI",
+            "mitigation": "100"
+        },
+        {
+            "riskPattern": "RP-V2-TEST-COMPONENT",
+            "usecase": "UC-STRIDE-TAMPERING",
+            "threat": "T-ATTACKERS-TAKE-ADVANTAGE-OF-UNPROTECTED-IFRAMES",
+            "weakness": "CWE-79",
+            "control": "C-COMPREHENSIVE-SECURITY-STRATEGY-INCORPORATING-CSP-INPUT-HANDLING-AND-IFRAME-SANDBOXING",
+            "mitigation": "100"
+        }
+    ],
+    "rules": [],
+    "standards": [],
+    "component": {
+        "ref": "CD-V2-TEST-COMPONENT",
+        "name": "TEST COMPONENT",
+        "desc": "A TEST COMPONENT CREATED BY ISRA",
+        "categoryRef": "service-side",
+        "visible": "true",
+        "riskPatternRefs": [
+            "RP-V2-TEST-COMPONENT"
+        ]
+    },
+    "riskPattern": {
+        "ref": "RP-V2-TEST-COMPONENT",
+        "name": "TEST COMPONENT",
+        "desc": "A TEST COMPONENT CREATED BY ISRA"
+    }
+}

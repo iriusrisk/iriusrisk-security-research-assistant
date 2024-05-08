@@ -845,6 +845,12 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
                 else:
                     std_element.attrib["ref"] = item["standard-section"]
 
+    # Now we have to remove those controls that are not in the template but are present in the XML
+    # This is only valid for upload operation
+    for control in risk_pattern.find("countermeasures").iter("countermeasure"):
+        if control.attrib["ref"] not in template["controls"]:
+            risk_pattern.find("countermeasures").remove(control)
+
     original_cwe_weaknesses = get_original_cwe_weaknesses()
     for weakness in template["weaknesses"].values():
         if weakness["ref"] in [item["weakness"] for item in template["relations"]]:
@@ -856,6 +862,11 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
             new_weakness.attrib["name"] = weakness["name"]
             new_weakness.find("desc").text = get_cwe_description(original_cwe_weaknesses, weakness["ref"].split(" "))
             new_weakness.attrib["impact"] = weakness["impact"]
+
+    # We remove weaknesses not present in the template
+    for weakness in risk_pattern.find("weaknesses").iter("weakness"):
+        if weakness.attrib["ref"] not in template["weaknesses"]:
+            risk_pattern.find("weaknesses").remove(weakness)
 
     # Then we add the use cases
     for relation in template["relations"]:
@@ -920,6 +931,15 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
             else:
                 cf_element.attrib["ref"] = ref
                 cf_element.attrib["value"] = value
+
+    # We remove use cases not present in the template
+    for usecase in risk_pattern.find("usecases").iter("usecase"):
+        if usecase.attrib["ref"] not in template["usecases"]:
+            risk_pattern.find("usecases").remove(usecase)
+        else:
+            for threat in usecase.find("threats").iter("threat"):
+                if threat.attrib["ref"] not in template["threats"]:
+                    usecase.find("threats").remove(threat)
 
     # Finally we add weaknesses and countermeasures inside the threats
 

@@ -54,4 +54,4 @@ def about():
 
 if __name__ == "__main__":
     config.initialize_properties_file()
-    app(["about"])
+    app(["component", "upload"])
