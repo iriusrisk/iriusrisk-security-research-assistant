@@ -187,7 +187,7 @@ def get_allowed_system_field_values():
 
 
 def compare_elements(elem1, elem2, path=""):
-    if type(elem1) != type(elem2):
+    if type(elem1) is not type(elem2):
         print(f"Data type mismatch at path: {path}")
         return False
 

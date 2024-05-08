@@ -11,8 +11,7 @@ from openai import OpenAI, OpenAIError
 from rich import print
 from rich.table import Table
 
-from isra.src.config.constants import APP_NAME, SYSTEM_FIELD_VALUES, IR_SF_C_STANDARD_BASELINES, \
-    IR_SF_C_STANDARD_SECTION, IR_SF_C_SCOPE
+from isra.src.config.constants import APP_NAME, SYSTEM_FIELD_VALUES
 from isra.src.utils.questionary_wrapper import qselect, qtext, qpath
 
 app = typer.Typer(no_args_is_help=True, add_help_option=False)

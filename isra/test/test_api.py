@@ -23,8 +23,8 @@ class CLITests(unittest.TestCase):
         result = self.runner.invoke(app, ["component", "restart", "--force"])
         assert_process(result)
 
-    def run_component_load(self, input):
-        result = self.runner.invoke(app, ["component", "load"], input=input)
+    def run_component_load(self, input_commands):
+        result = self.runner.invoke(app, ["component", "load"], input=input_commands)
         assert_process(result)
 
     def run_component_upload(self):
@@ -52,6 +52,3 @@ class CLITests(unittest.TestCase):
         print(template2)
         result = compare_elements(template1, template2)
         assert result
-
-
-

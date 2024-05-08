@@ -582,7 +582,7 @@ def threat_generator():
     :return:
     """
 
-    new_threat = {
+    new_threat_dict = {
         "ref": "",
         "name": "",
         "desc": "",
@@ -606,7 +606,7 @@ def threat_generator():
         if answer is None:
             raise typer.Exit(-1)
         elif answer:
-            new_threat["name"] = chatgpt_answer
+            new_threat_dict["name"] = chatgpt_answer
             break
         elif not answer:
             print("Let's try again")
@@ -616,14 +616,14 @@ def threat_generator():
     while True:
         extra = "" if extra is None else extra
 
-        chatgpt_answer = get_threat_description(new_threat["name"], extra)
+        chatgpt_answer = get_threat_description(new_threat_dict["name"], extra)
         print(f"ChatGPT says: [blue]{chatgpt_answer}")
         answer = qconfirm("What do you think?")
 
         if answer is None:
             raise typer.Exit(-1)
         elif answer:
-            new_threat["desc"] = chatgpt_answer
+            new_threat_dict["desc"] = chatgpt_answer
             break
         elif not answer:
             extra = qtext("Add more information if needed for the next time: ", default=extra)
@@ -637,8 +637,8 @@ def threat_generator():
     # Number of manual threats until now + 1
     i = sum(1 for t in template["threats"] if "-MANUAL-" in t) + 1
 
-    new_threat["ref"] = f"{PREFIX_THREAT}{component_ref_nocd}-MANUAL-T{i}"
-    template["threats"][new_threat["ref"]] = new_threat
+    new_threat_dict["ref"] = f"{PREFIX_THREAT}{component_ref_nocd}-MANUAL-T{i}"
+    template["threats"][new_threat_dict["ref"]] = new_threat_dict
 
     save_results = qconfirm("Do you want to save?")
     if save_results:
@@ -659,7 +659,7 @@ def control_generator():
     selected_threat = qselect("Choose a threat to find a countermeasure", choices=template["threats"].keys())
     threat_item = template["threats"][selected_threat]
 
-    new_control = {
+    new_control_dict = {
         "ref": "",
         "name": "",
         "desc": "",
@@ -682,7 +682,7 @@ def control_generator():
         if answer is None:
             raise typer.Exit(-1)
         elif answer:
-            new_control["name"] = chatgpt_answer
+            new_control_dict["name"] = chatgpt_answer
             break
         elif not answer:
             print("Let's try again")
@@ -692,14 +692,14 @@ def control_generator():
     while True:
         extra = "" if extra is None else extra
 
-        chatgpt_answer = get_control_description(new_control["name"], extra)
+        chatgpt_answer = get_control_description(new_control_dict["name"], extra)
         print(f"ChatGPT says: [blue]{chatgpt_answer}")
         answer = qconfirm("What do you think?")
 
         if answer is None:
             raise typer.Exit(-1)
         elif answer:
-            new_control["desc"] = chatgpt_answer
+            new_control_dict["desc"] = chatgpt_answer
             break
         elif not answer:
             extra = qtext("Add more information if needed for the next time: ", default=extra)
@@ -709,15 +709,15 @@ def control_generator():
 
     i = sum(1 for t in template["controls"] if "-MANUAL-" in t) + 1
 
-    new_control["ref"] = f"{PREFIX_COUNTERMEASURE}{component_ref_nocd}-MANUAL-C{i}"
-    template["controls"][new_control["ref"]] = new_control
+    new_control_dict["ref"] = f"{PREFIX_COUNTERMEASURE}{component_ref_nocd}-MANUAL-C{i}"
+    template["controls"][new_control_dict["ref"]] = new_control_dict
 
     new_relation = {
         "riskPattern": template["riskPattern"]["ref"],
         "usecase": "General",
         "threat": threat_item["ref"],
         "weakness": "",
-        "control": new_control["ref"]
+        "control": new_control_dict["ref"]
     }
     template["relations"].append(new_relation)
 

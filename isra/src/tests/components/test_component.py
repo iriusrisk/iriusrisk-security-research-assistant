@@ -9,6 +9,8 @@ from isra.src.tests.integrity_tests_component import *
 
 class TestComponent(unittest.TestCase):
     maxDiff = None
+    components = []
+    roots = dict()
 
     @classmethod
     def setUpClass(cls):

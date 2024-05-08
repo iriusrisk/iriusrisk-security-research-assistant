@@ -119,7 +119,8 @@ def check_duplicated_taxonomies(root):
                 for value, count in values_counter.items():
                     if count > 1:
                         errors.append(
-                            f"Countermeasure: {countermeasure['ref']} Key: {key} -> Value: {value} appears {count} times")
+                            f"Countermeasure: {countermeasure['ref']} Key: {key} "
+                            f"-> Value: {value} appears {count} times")
 
     return errors
 
