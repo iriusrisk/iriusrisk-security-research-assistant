@@ -236,3 +236,16 @@ def check_inconsistent_stride_values(root):
                               "STRIDE category doesn't appear in the custom field")
 
     return errors
+
+
+def check_trailing_whitespaces(root):
+    errors = []
+
+    yaml_fields = ["name"]
+    items_found = collect_field_values_from_yaml_data(root, yaml_fields)
+    for i, item in enumerate(items_found):
+        if item[-1] == " " or item[0] == " ":
+            errors.append(f"Component: {root['component']['ref']} --> Name: '{item}' -> "
+                          "Trailing whitespaces")
+
+    return errors

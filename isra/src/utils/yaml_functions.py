@@ -34,7 +34,7 @@ def load_yaml_file(component):
         risk_pattern = component["risk_pattern"]
         template["component"] = {
             "ref": component["ref"],
-            "name": component["name"],
+            "name": component["name"].rstrip(),
             "desc": component["description"],
             "categoryRef": component["category"],
             "visible": "true",
@@ -42,7 +42,7 @@ def load_yaml_file(component):
         }
         template["riskPattern"] = {
             "ref": risk_pattern["ref"],
-            "name": risk_pattern["name"],
+            "name": risk_pattern["name"].rstrip(),
             "desc": risk_pattern["description"]
         }
 
@@ -70,7 +70,7 @@ def load_yaml_file(component):
 
             new_threat = {
                 "ref": th["ref"],
-                "name": th["name"],
+                "name": th["name"].rstrip(),
                 "desc": th["description"],
                 "riskRating": {
                     "C": th["risk_score"]["confidentiality"],
@@ -113,7 +113,7 @@ def load_yaml_file(component):
 
                 new_control = {
                     "ref": c["ref"],
-                    "name": c["name"],
+                    "name": c["name"].rstrip(),
                     "desc": c["description"],
                     "cost": c.get("cost", "2"),
                     "customFields": {
@@ -126,7 +126,7 @@ def load_yaml_file(component):
                         CUSTOM_FIELD_SCOPE: scope
                     },
                     "references": references_c,
-                    "question": c.get("question", ""),
+                    "question": c.get("question", "").rstrip(),
                     "question_desc": c.get("question_desc", ""),
                     "dataflow_tags": c.get("dataflow_tags", []),
                     "standards": standards

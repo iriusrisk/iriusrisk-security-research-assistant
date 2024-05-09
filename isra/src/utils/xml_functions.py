@@ -538,7 +538,7 @@ def import_content_into_template(template, xml_text=None, root=None):
 
             template["component"] = {
                 "ref": cd.attrib["ref"],
-                "name": cd.attrib["name"],
+                "name": cd.attrib["name"].rstrip(),
                 "desc": cd.attrib["desc"],
                 "categoryRef": cd.attrib["categoryRef"],
                 "visible": cd.attrib["visible"],
@@ -552,7 +552,7 @@ def import_content_into_template(template, xml_text=None, root=None):
         if rp.attrib["ref"] in rps:
             template["riskPattern"] = {
                 "ref": rp.attrib["ref"],
-                "name": rp.attrib["name"],
+                "name": rp.attrib["name"].rstrip(),
                 "desc": rp.attrib["desc"]
             }
 
@@ -561,7 +561,7 @@ def import_content_into_template(template, xml_text=None, root=None):
 
                 template["weaknesses"][weakness.attrib["ref"]] = {
                     "ref": weakness.attrib["ref"],
-                    "name": weakness.attrib["name"],
+                    "name": weakness.attrib["name"].rstrip(),
                     "desc": weaknessdesc,
                     "impact": weakness.attrib["impact"]
                 }
@@ -593,7 +593,7 @@ def import_content_into_template(template, xml_text=None, root=None):
 
                 template["controls"][control.attrib["ref"]] = {
                     "ref": control.attrib["ref"],
-                    "name": control.attrib["name"],
+                    "name": control.attrib["name"].rstrip(),
                     "desc": controldesc,
                     "cost": control.attrib["cost"],
                     "customFields": customfields,
@@ -632,7 +632,7 @@ def import_content_into_template(template, xml_text=None, root=None):
 
                     template["threats"][threat.attrib["ref"]] = {
                         "ref": threat.attrib["ref"],
-                        "name": threat.attrib["name"],
+                        "name": threat.attrib["name"].rstrip(),
                         "desc": desc,
                         "customFields": customfields,
                         "references": references_th,

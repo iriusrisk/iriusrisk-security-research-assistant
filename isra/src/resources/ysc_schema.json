@@ -496,6 +496,7 @@
                           "title": "Cwe",
                           "type": "string",
                           "default": "",
+                          "pattern": "(CWE-\\d{1,5}){1,3}",
                           "examples": [
                             "CWE-770"
                           ]

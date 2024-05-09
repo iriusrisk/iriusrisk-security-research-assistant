@@ -28,8 +28,9 @@ class TestComponent(unittest.TestCase):
     def test_yaml_schema(self):
         """Check if the YAML file component is consistent with the JSON schema"""
         for component in self.components:
-            errors = yaml_validator(component)
-            self.assertCountEqual(errors, [])
+            with self.subTest(component=component):
+                errors = yaml_validator(component)
+                self.assertCountEqual(errors, [])
 
     def test_duplicated_standards_sections_per_control(self):
         """Check that there are no countermeasures with duplicated standards"""
@@ -100,6 +101,11 @@ class TestComponent(unittest.TestCase):
                 errors = check_inconsistent_stride_values(self.roots[component])
                 self.assertCountEqual(errors, [])
 
+    def test_trailing_whitespaces(self):
+        for component in self.components:
+            with self.subTest(component=component):
+                errors = check_trailing_whitespaces(self.roots[component])
+                self.assertCountEqual(errors, [])
 
 if __name__ == "__main__":
     unittest.main()

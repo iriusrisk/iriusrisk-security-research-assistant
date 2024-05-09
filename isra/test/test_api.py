@@ -1,4 +1,5 @@
 import unittest
+from time import sleep
 
 import pytest
 from typer.testing import CliRunner
@@ -45,7 +46,7 @@ class CLITests(unittest.TestCase):
         self.run_component_upload()
         template1 = get_template()
         print(template1)
-
+        sleep(30)
         self.run_component_pull()
         self.run_standards_expand()
         template2 = get_template()
