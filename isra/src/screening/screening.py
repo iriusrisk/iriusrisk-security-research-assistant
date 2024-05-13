@@ -450,7 +450,7 @@ def save_complete_control(to_update):
 
         template["controls"][k]["question"] = values["question"]
         template["controls"][k]["question_desc"] = ''  # values["question_desc"]
-        template["controls"][k]["cost"] = values["cost"]
+        template["controls"][k]["cost"] = str(values["cost"])
         template["controls"][k]["customFields"][CUSTOM_FIELD_BASELINE_STANDARD_REF] \
             = check_valid_value(values["baseline"], IR_SF_C_STANDARD_BASELINES)
         template["controls"][k]["customFields"][CUSTOM_FIELD_BASELINE_STANDARD_SECTION] \

@@ -115,7 +115,7 @@ def load_yaml_file(component):
                     "ref": c["ref"],
                     "name": c["name"].rstrip(),
                     "desc": c["description"],
-                    "cost": c.get("cost", "2"),
+                    "cost": str(c.get("cost", "2")),
                     "customFields": {
                         CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION: attack_mit,
                         CUSTOM_FIELD_ATTACK_ICS_MITIGATION: attack_ics_mit,
