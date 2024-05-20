@@ -17,6 +17,7 @@ from isra.src.utils.api_functions import upload_xml, add_to_batch, release_compo
 from isra.src.utils.decorators import get_time
 from isra.src.utils.gpt_functions import query_chatgpt, get_prompt
 from isra.src.utils.questionary_wrapper import qconfirm, qselect, qtext
+from isra.src.utils.structure_functions import build_tree_hierarchy
 from isra.src.utils.text_functions import extract_json, get_company_name_prefix, get_allowed_system_field_values
 from isra.src.utils.xml_functions import *
 from isra.src.utils.yaml_functions import load_yaml_file, save_yaml_file, validate_yaml

@@ -224,6 +224,20 @@ def check_problematic_characters_in_questions(root):
     return errors
 
 
+def check_countermeasure_without_question(root):
+    errors = []
+
+    yaml_fields = ["countermeasures"]
+    countermeasures_fields_found = collect_field_values_from_yaml_data(root, yaml_fields)
+    for i, countermeasures in enumerate(countermeasures_fields_found):
+        for j, countermeasure in enumerate(countermeasures):
+            if not countermeasure['question']:
+                errors.append(f"Component: {root['component']['ref']} --> Countermeasure ref: {countermeasure['ref']} "
+                              f"has an empty question")
+
+    return errors
+
+
 def check_inconsistent_stride_values(root):
     errors = []
 

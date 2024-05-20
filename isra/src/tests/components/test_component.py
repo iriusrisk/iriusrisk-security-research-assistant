@@ -95,6 +95,13 @@ class TestComponent(unittest.TestCase):
                 errors = check_problematic_characters_in_questions(self.roots[component])
                 self.assertCountEqual(errors, [])
 
+    def test_countermeasure_without_question(self):
+        """Check that there are no countermeasures with empty descriptions"""
+        for component in self.components:
+            with self.subTest(component=component):
+                errors = check_countermeasure_without_question(self.roots[component])
+                self.assertCountEqual(errors, [])
+
     def test_inconsistent_stride_values(self):
         for component in self.components:
             with self.subTest(component=component):
@@ -106,6 +113,7 @@ class TestComponent(unittest.TestCase):
             with self.subTest(component=component):
                 errors = check_trailing_whitespaces(self.roots[component])
                 self.assertCountEqual(errors, [])
+
 
 if __name__ == "__main__":
     unittest.main()
