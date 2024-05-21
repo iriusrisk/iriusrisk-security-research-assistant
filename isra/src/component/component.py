@@ -16,8 +16,7 @@ from isra.src.utils.api_functions import upload_xml, add_to_batch, release_compo
     pull_remote_component_xml
 from isra.src.utils.decorators import get_time
 from isra.src.utils.gpt_functions import query_chatgpt, get_prompt
-from isra.src.utils.questionary_wrapper import qconfirm, qselect, qtext
-from isra.src.utils.structure_functions import build_tree_hierarchy
+from isra.src.utils.questionary_wrapper import qconfirm, qselect, qtext, qmulti
 from isra.src.utils.text_functions import extract_json, get_company_name_prefix, get_allowed_system_field_values
 from isra.src.utils.xml_functions import *
 from isra.src.utils.yaml_functions import load_yaml_file, save_yaml_file, validate_yaml
@@ -398,41 +397,128 @@ def save(format: Annotated[str, typer.Option(help="Indicate the file format of t
 
 
 @app.command()
-def info(full: Annotated[bool, typer.Option(help="Shows all properties")] = False):
+def info(full: Annotated[bool, typer.Option(help="Shows all properties")] = False,
+         parameter: Annotated[bool, typer.Option(help="Shows parameter information")] = False):
     """
     Shows current component status
     """
     template = read_current_component()
 
-    if not full:
-        # Here we remove everything we don't want to see
-        for c in template["controls"].values():
-            del c["desc"]
-        for t in template["threats"].values():
-            del t["desc"]
-        for w in template["weaknesses"].values():
-            del w["desc"]
-        for uc in template["usecases"].values():
-            del uc["desc"]
+    if parameter:
 
-    print(f"[red]Use cases ({len(template['usecases'])}):")
-    print(yaml.dump(template["usecases"]))
-    print(f"[red]Threats ({len(template['threats'])}):")
-    print(yaml.dump(template["threats"]))
-    print(f"[red]Weaknesses ({len(template['weaknesses'])}):")
-    print(yaml.dump(template["weaknesses"]))
-    print(f"[red]Countermeasures ({len(template['controls'])}):")
-    print(yaml.dump(template["controls"]))
-    print("[red]Component:")
-    print(yaml.dump(template["component"]))
-    print("[red]Risk pattern:")
-    print(yaml.dump(template["riskPattern"]))
-    print(f"[red]Relations ({len(template['relations'])}):")
-    table = Table("Risk Pattern", "Use case", "Threat", "Weakness", "Control", "Mitigation")
-    for item in template["relations"]:
-        table.add_row(item["riskPattern"], item["usecase"], item["threat"], item["weakness"], item["control"],
-                      item.get("mitigation", "Not defined"))
-    print(table)
+        params = qmulti("Select parameter:", choices=[
+            "name",
+            "desc",
+            "cost",
+            "question",
+            "question_desc",
+            "dataflow_tags",
+            "attack_enterprise_mitigation",
+            "attack_ics_mitigation",
+            "attack_mobile_mitigation",
+            "atlas_mitigation",
+            "baseline_standard_ref",
+            "baseline_standard_section",
+            "scope",
+            "cwe",
+            "references",
+            "standards",
+            "riskRating",
+            "attack_enterprise_technique",
+            "attack_ics_technique",
+            "attack_mobile_technique",
+            "atlas_technique",
+            "stride_lm",
+            "categoryRef"
+        ])
+
+        if params is None:
+            raise typer.Exit(-1)
+
+        headers = ["Element"] + params
+        table = Table(*headers)
+
+        for item, item_val in template["component"].items():
+            param_map = dict()
+            for param in params:
+                if param == item:
+                    param_map[param] = item_val
+            if len(param_map) != 0:
+                table.add_row(template["component"]["ref"], *param_map.values())
+
+        for item, item_val in template["riskPattern"].items():
+            param_map = dict()
+            for param in params:
+                if param == item:
+                    param_map[param] = item_val
+            if len(param_map) != 0:
+                table.add_row(template["riskPattern"]["ref"], *param_map.values())
+
+        for item in template["threats"].values():
+            param_map = dict()
+            for param in params:
+                if param in item:
+                    if param in ["riskRating", "references"]:
+                        param_map[param] = str(item[param])
+                    else:
+                        param_map[param] = item[param]
+                for cf, cfvalue in item["customFields"].items():
+                    if param == cf:
+                        param_map[param] = cfvalue
+
+            if len(param_map) != 0:
+                table.add_row(item["ref"], *param_map.values())
+
+        for item in template["controls"].values():
+            param_map = dict()
+            for param in params:
+                if param in item:
+                    if param in ["standards", "references", "dataflow_tags"]:
+                        param_map[param] = str(item[param])
+                    else:
+                        param_map[param] = item[param]
+                if param == "cwe":
+                    for rel in template["relations"]:
+                        if rel["control"] == item["ref"]:
+                            param_map[param] = rel["weakness"]
+                for cf, cfvalue in item["customFields"].items():
+                    if param == cf:
+                        param_map[param] = cfvalue
+            if len(param_map) != 0:
+                table.add_row(item["ref"], *param_map.values())
+
+        print(table)
+
+    else:
+        if not full:
+            # Here we remove everything we don't want to see
+            for c in template["controls"].values():
+                del c["desc"]
+            for t in template["threats"].values():
+                del t["desc"]
+            for w in template["weaknesses"].values():
+                del w["desc"]
+            for uc in template["usecases"].values():
+                del uc["desc"]
+
+        print(f"[red]Use cases ({len(template['usecases'])}):")
+        print(yaml.dump(template["usecases"]))
+        print(f"[red]Threats ({len(template['threats'])}):")
+        print(yaml.dump(template["threats"]))
+        print(f"[red]Weaknesses ({len(template['weaknesses'])}):")
+        print(yaml.dump(template["weaknesses"]))
+        print(f"[red]Countermeasures ({len(template['controls'])}):")
+        print(yaml.dump(template["controls"]))
+        print("[red]Component:")
+        print(yaml.dump(template["component"]))
+        print("[red]Risk pattern:")
+        print(yaml.dump(template["riskPattern"]))
+        print(f"[red]Relations ({len(template['relations'])}):")
+        table = Table("Risk Pattern", "Use case", "Threat", "Weakness", "Control", "Mitigation")
+        for item in template["relations"]:
+            table.add_row(item["riskPattern"], item["usecase"], item["threat"], item["weakness"], item["control"],
+                          item.get("mitigation", "Not defined"))
+        print(table)
 
 
 @app.command()

@@ -36,6 +36,21 @@ def qselect(question_text, choices):
     return answer
 
 
+def qmulti(question_text, choices):
+    try:
+        if len(choices) > 36:
+            print("Too many choices! Please input the answer manually.")
+            answer = input(question_text + " " + str(choices))
+        else:
+            answer = questionary.checkbox(message=question_text,
+                                          choices=choices).ask()
+    except NoConsoleScreenBufferError:
+        answer = input(question_text + " " + str(choices))
+        answer = [answer]
+
+    return answer
+
+
 def qtext(question_text, default=""):
     try:
         answer = questionary.text(question_text, default=default).ask()

@@ -51,8 +51,6 @@ EMPTY_TEMPLATE = '''{
     "weaknesses": {},
     "controls": {},
     "relations": [],
-    "rules": [],
-    "standards": [],
     "component": {},
     "riskPattern": {}
 }'''

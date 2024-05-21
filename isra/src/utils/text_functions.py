@@ -23,7 +23,9 @@ def extract_json(json_string):
     json_object = json_string[start_index:end_index + 1].replace("\'", "\"")
 
     # Parse the JSON object and return it
+
     result = json.loads(json_object)
+
     return result
 
 
@@ -60,6 +62,8 @@ def check_valid_value(result, system_field):
             "Apparently ChatGPT's answer is not valid, please choose the best match. "
             "If there are no valid matches select None and modify it manually",
             choices=["None"] + possible_matches)
+        if result == "None":
+            result = ""
     return result
 
 
