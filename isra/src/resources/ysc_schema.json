@@ -681,6 +681,12 @@
                           "title": "Base_standard",
                           "type": "string",
                           "default": "",
+                          "enum": [
+                            "NIST 800-53 v5",
+                            "ISO 27001",
+                            "ASVS",
+                            ""
+                          ],
                           "examples": [
                             "ASVS"
                           ]
