@@ -270,70 +270,45 @@ def pull_component():
     write_current_component(template)
 
 
-# def fix_component():
-#     template = read_current_component()
-#     print("Analyzing...")
-#
-#     for th in template["threats"].values():
-#         k = th["ref"]
-#         print(f'[blue]Threat: {th["name"]}')
-#
-#         risk_rating = ["C", "I", "A", "EE"]
-#
-#         if th["customFields"][CUSTOM_FIELD_STRIDE] not in get_sf_values(IR_SF_T_STRIDE):
-#             print(f'Value {th["customFields"][CUSTOM_FIELD_STRIDE]} is not in the list')
-#             action = qselect("What do you want to do?",
-#                              choices=["Replace with allowed value from list",
-#                                       "Set new value manually",
-#                                       "Do nothing",
-#                                       "Find alternatives"])
-#             if "Replace" in action:
-#                 options = qmulti("Select:", choices=get_sf_values(IR_SF_T_STRIDE))
-#                 th["customFields"][CUSTOM_FIELD_STRIDE] = options.join("||")
-#                 new_stride = qselect("Which one will be used to group the threat?:", choices=options)
-#                 for relation in template["relations"]:
-#                     threat_custom_fields = template["threats"][relation["threat"]]["customFields"]
-#                     if CUSTOM_FIELD_STRIDE in threat_custom_fields and len(
-#                             threat_custom_fields[CUSTOM_FIELD_STRIDE]) > 0:
-#                         if to_update is not None and relation["threat"] in to_update:
-#                             stride_category_initial = to_update[relation["threat"]][0]
-#                         else:
-#                             stride_category_initial = threat_custom_fields[CUSTOM_FIELD_STRIDE][0]
-#
-#                         relation["usecase"] = STRIDE_LIST[stride_category_initial]["ref"]
-#                         if relation["usecase"] not in template["usecases"]:
-#                             template["usecases"][relation["usecase"]] = STRIDE_LIST[stride_category_initial]
-#
-#             elif "manually" in action:
-#                 pass
-#             elif "alternatives":
-#                 pass
+def fix_component():
+    template = read_current_component()
+    print("Analyzing...")
 
-        # check_valid_value(th["customFields"][CUSTOM_FIELD_STRIDE], IR_SF_T_STRIDE)
-        # check_valid_value(th["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE], IR_SF_T_MITRE)
-        # check_valid_value(th["customFields"][CUSTOM_FIELD_ATTACK_ICS_TECHNIQUE], IR_SF_T_MITRE)
-        # check_valid_value(th["customFields"][CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE], IR_SF_T_MITRE)
-        # check_valid_value(th["customFields"][CUSTOM_FIELD_ATLAS_TECHNIQUE], IR_SF_T_MITRE)
+    for th in template["threats"].values():
+        k = th["ref"]
+        print(f'[blue]Threat: {th["name"]}')
 
-    # for c in template["controls"].values():
-    #     k = c["ref"]
-    #     print(f'[blue]Countermeasure: {c["name"]}')
-    #
-    #
-    #     for var in ["question", "question_desc", "cost"]:
-    #
-    #     control_custom_fields = [CUSTOM_FIELD_BASELINE_STANDARD_REF,
-    #                              CUSTOM_FIELD_BASELINE_STANDARD_SECTION,
-    #                              CUSTOM_FIELD_SCOPE,
-    #                              CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION,
-    #                              CUSTOM_FIELD_ATTACK_ICS_MITIGATION,
-    #                              CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION,
-    #                              CUSTOM_FIELD_ATLAS_MITIGATION]
+        risk_rating = ["C", "I", "A", "EE"]
 
-    # save_results = qconfirm("Do you want to save?")
-    # if save_results:
-    #     write_current_component(template)
-    #     print("Saved")
+        if th["customFields"][CUSTOM_FIELD_STRIDE] not in get_sf_values(IR_SF_T_STRIDE):
+            print(f'Value {th["customFields"][CUSTOM_FIELD_STRIDE]} is not in the list')
+            action = qselect("What do you want to do?",
+                             choices=["Replace with allowed value from list",
+                                      "Set new value manually",
+                                      "Do nothing",
+                                      "Find alternatives"])
+            if "Replace" in action:
+                options = qmulti("Select:", choices=get_sf_values(IR_SF_T_STRIDE))
+                th["customFields"][CUSTOM_FIELD_STRIDE] = options.join("||")
+                new_stride = qselect("Which one will be used to group the threat?:", choices=options)
+                for relation in template["relations"]:
+                    threat_custom_fields = template["threats"][relation["threat"]]["customFields"]
+                    if CUSTOM_FIELD_STRIDE in threat_custom_fields:
+                        stride_category_initial = new_stride[0]
+                        relation["usecase"] = STRIDE_LIST[stride_category_initial]["ref"]
+                        if relation["usecase"] not in template["usecases"]:
+                            template["usecases"][relation["usecase"]] = STRIDE_LIST[stride_category_initial]
+
+            elif "manually" in action:
+                pass
+            elif "alternatives":
+                pass
+
+
+    save_results = qconfirm("Do you want to save?")
+    if save_results:
+        write_current_component(template)
+        print("Saved")
 
 
 # Commands
@@ -739,9 +714,9 @@ def pull():
     pull_component()
 
 
-# @app.command()
-# def fix():
-#     """
-#     Tries to fix anything that doesn't fit the YSC schema
-#     """
-#     fix_component()
+@app.command(hidden=True)
+def fix():
+    """
+    Tries to fix anything that doesn't fit the YSC schema
+    """
+    fix_component()

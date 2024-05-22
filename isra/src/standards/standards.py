@@ -12,18 +12,7 @@ from isra.src.config.constants import OPENCRE_PLUS, CRE_MAPPING_NAME, CUSTOM_FIE
 app = typer.Typer(no_args_is_help=True, add_help_option=False)
 
 
-@app.callback()
-def callback():
-    """
-    Standard mapping processes
-    """
-
-
-@app.command()
-def expand():
-    """
-    This function will expand the standard set of a countermeasure by using the base standard
-    """
+def expand_init():
     template = read_current_component()
 
     mappings_yaml = get_resource(OPENCRE_PLUS)
@@ -92,12 +81,7 @@ def expand():
     write_current_component(template)
 
 
-@app.command()
-def show(standard_name: Annotated[str, typer.Option(help="Filter by standard name")] = "",
-         standard_section: Annotated[str, typer.Option(help="Filter by standard section")] = ""):
-    """
-    Shows the current standard mapping used to propagate standards
-    """
+def show_init(standard_name, standard_section):
     table = Table("OpenCRE ID", "Standard", "Section")
 
     mappings_yaml = get_resource(OPENCRE_PLUS)
@@ -108,3 +92,27 @@ def show(standard_name: Annotated[str, typer.Option(help="Filter by standard nam
                 if any(standard_section.lower() in s for s in li):
                     table.add_row(k, k2, str(sorted(v2)))
     print(table)
+
+
+@app.callback()
+def callback():
+    """
+    Standard mapping processes
+    """
+
+
+@app.command()
+def expand():
+    """
+    This function will expand the standard set of a countermeasure by using the base standard
+    """
+    expand_init()
+
+
+@app.command()
+def show(standard_name: Annotated[str, typer.Option(help="Filter by standard name")] = "",
+         standard_section: Annotated[str, typer.Option(help="Filter by standard section")] = ""):
+    """
+    Shows the current standard mapping used to propagate standards
+    """
+    show_init(standard_name, standard_section)

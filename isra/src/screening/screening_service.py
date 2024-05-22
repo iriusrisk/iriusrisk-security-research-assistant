@@ -259,7 +259,7 @@ def get_complete_control(item, feedback):
     return query_chatgpt(messages)
 
 
-def get_complete_threat_auto(item, feedback):
+def get_complete_threat_auto(item):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
         {"role": "system", "content": get_prompt("get_complete_threat_auto")},
@@ -269,7 +269,7 @@ def get_complete_threat_auto(item, feedback):
     return query_chatgpt(messages)
 
 
-def get_complete_control_auto(item, feedback):
+def get_complete_control_auto(item):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
         {"role": "system", "content": get_prompt("get_complete_control_auto")},

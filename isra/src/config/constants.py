@@ -14,7 +14,6 @@ SYSTEM_FIELD_VALUES = "output_system_fields_values.yaml"
 
 CUSTOM_FIELD_STRIDE = "stride_lm"
 CUSTOM_FIELD_SCOPE = "scope"
-CUSTOM_FIELD_AUDIENCE = "audience"
 CUSTOM_FIELD_BASELINE_STANDARD_REF = "baseline_standard_ref"
 CUSTOM_FIELD_BASELINE_STANDARD_SECTION = "baseline_standard_section"
 CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE = "attack_enterprise_technique"
