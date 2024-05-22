@@ -230,3 +230,32 @@ def compare_elements(elem1, elem2, path=""):
             print(f"Data value mismatch at path: {path}")
             return False
         return True
+
+
+def set_value(variable_name, variable, value, action):
+    if action == "init":
+        if variable == "":
+            variable = value
+            print(f"Setting {value} on {variable_name} for the first time")
+    elif action == "replace":
+        if str(variable) != str(value):
+            print(f"Replacing {variable} with {value} on {variable_name}")
+            variable = value
+    elif action == "append":
+        if isinstance(variable, list):
+            if value.lower() not in [x.lower() for x in variable] and value != "":
+                variable.append(value)
+                print(f"Appending {value} to {variable_name} (list)")
+        elif isinstance(variable, str):
+            if value.lower() not in variable.lower():
+                if variable != "" and value != "":
+                    variable += "||" + value
+                    print(f"Appending {value} to {variable_name} (string)")
+                elif variable == "":
+                    variable = value
+                    print(f"Appending {value} to {variable_name} (string)")
+
+        else:
+            print("Type is not accepted to be appended")
+
+    return variable

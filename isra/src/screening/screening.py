@@ -10,12 +10,14 @@ from isra.src.config.constants import CUSTOM_FIELD_STRIDE, CUSTOM_FIELD_SCOPE, \
     CUSTOM_FIELD_BASELINE_STANDARD_REF, CUSTOM_FIELD_BASELINE_STANDARD_SECTION, \
     STRIDE_LIST, CUSTOM_FIELD_AUDIENCE, CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE, \
     CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION, PREFIX_COMPONENT_DEFINITION, PREFIX_THREAT, PREFIX_COUNTERMEASURE, \
-    IR_SF_C_STANDARD_BASELINES, IR_SF_T_STRIDE, IR_SF_C_SCOPE, IR_SF_C_MITRE, IR_SF_T_MITRE, IR_SF_C_STANDARD_SECTION
+    IR_SF_C_STANDARD_BASELINES, IR_SF_T_STRIDE, IR_SF_C_SCOPE, IR_SF_C_MITRE, IR_SF_T_MITRE, IR_SF_C_STANDARD_SECTION, \
+    CUSTOM_FIELD_ATTACK_ICS_TECHNIQUE, CUSTOM_FIELD_ATLAS_TECHNIQUE, CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE, \
+    CUSTOM_FIELD_ATTACK_ICS_MITIGATION, CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION, CUSTOM_FIELD_ATLAS_MITIGATION
 from isra.src.utils.cwe_functions import get_original_cwe_weaknesses, get_cwe_description, get_cwe_impact
 from isra.src.utils.gpt_functions import query_chatgpt, get_prompt
 from isra.src.utils.questionary_wrapper import qselect, qconfirm, qtext
 from isra.src.utils.text_functions import extract_json, closest_number, beautify, get_company_name_prefix, \
-    check_valid_value
+    check_valid_value, set_value
 
 warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
@@ -63,20 +65,22 @@ def get_control_description(text, extra):
     return query_chatgpt(messages)
 
 
-def get_question_description(text):
+def get_question_description(text, feedback):
     messages = [
         {"role": "system", "content": get_prompt("create_description_for_question")},
-        {"role": "user", "content": text}
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
     ]
 
     return query_chatgpt(messages)
 
 
-def get_question(item):
+def get_question(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
         {"role": "system", "content": get_prompt("generate_question")},
-        {"role": "user", "content": text}
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
     ]
 
     result = query_chatgpt(messages)
@@ -88,73 +92,79 @@ def get_question(item):
     return result
 
 
-def get_stride_category(item):
+def get_stride_category(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
         {"role": "system", "content": get_prompt("stride_category")},
-        {"role": "user", "content": text}
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
     ]
 
     result = query_chatgpt(messages)
     return check_valid_value(result, IR_SF_T_STRIDE)
 
 
-def get_attack_technique(item):
+def get_attack_technique(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
         {"role": "system",
          "content": get_prompt("attack_technique")},
-        {"role": "user", "content": text}
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
     ]
 
     result = query_chatgpt(messages)
     return check_valid_value(result, IR_SF_T_MITRE)
 
 
-def get_attack_mitigation(item):
+def get_attack_mitigation(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
         {"role": "system", "content": get_prompt("attack_mitigation")},
-        {"role": "user", "content": text}
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
     ]
 
     result = query_chatgpt(messages)
     return check_valid_value(result, IR_SF_C_MITRE)
 
 
-def get_intended_scope(item):
+def get_intended_scope(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
         {"role": "system", "content": get_prompt("intended_scope")},
-        {"role": "user", "content": text}
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
     ]
 
     result = query_chatgpt(messages)
     return check_valid_value(result, IR_SF_C_SCOPE)
 
 
-def get_intended_audience(item):
+def get_intended_audience(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
         {"role": "system", "content": get_prompt("intended_audience")},
-        {"role": "user", "content": text}
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
     ]
 
     return query_chatgpt(messages)
 
 
-def get_baseline_standard_ref(item):
+def get_baseline_standard_ref(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
         {"role": "system", "content": get_prompt("standard_baseline")},
-        {"role": "user", "content": text}
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
     ]
 
     result = query_chatgpt(messages)
     return check_valid_value(result, IR_SF_C_STANDARD_BASELINES)
 
 
-def get_baseline_standard_section(item):
+def get_baseline_standard_section(item, feedback):
     template = read_current_component()
     control_ref = item["ref"]
     standard_reference = template["controls"][control_ref]["customFields"][CUSTOM_FIELD_BASELINE_STANDARD_REF]
@@ -162,38 +172,42 @@ def get_baseline_standard_section(item):
     messages = [
         {"role": "system", "content": get_prompt("standard_baseline_section")},
         {"role": "user", "content": f"This is the countermeasure description: {item['desc']}"},
-        {"role": "user", "content": f"This is the assigned security standard: {standard_reference}"}
+        {"role": "user", "content": f"This is the assigned security standard: {standard_reference}"},
+        {"role": "user", "content": feedback}
     ]
 
     result = query_chatgpt(messages)
     return check_valid_value(result, IR_SF_C_STANDARD_SECTION)
 
 
-def get_cia_triad(item):
+def get_cia_triad(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
         {"role": "system", "content": get_prompt("cia_values")},
-        {"role": "user", "content": text}
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
     ]
 
     return query_chatgpt(messages)
 
 
-def get_proper_cost(item):
+def get_proper_cost(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
         {"role": "system", "content": get_prompt("get_proper_cost")},
-        {"role": "user", "content": text}
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
     ]
 
     return query_chatgpt(messages)
 
 
-def get_proper_cwe(item):
+def get_proper_cwe(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
         {"role": "system", "content": get_prompt("cwe_weakness")},
-        {"role": "user", "content": text}
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
     ]
 
     return query_chatgpt(messages)
@@ -239,7 +253,7 @@ def get_all_controls(field=""):
     return controls
 
 
-def get_complete_threat(item):
+def get_complete_threat(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
         {"role": "system", "content": get_prompt("get_complete_threat")},
@@ -249,7 +263,7 @@ def get_complete_threat(item):
     return query_chatgpt(messages)
 
 
-def get_complete_control(item):
+def get_complete_control(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
         {"role": "system", "content": get_prompt("get_complete_control")},
@@ -259,9 +273,29 @@ def get_complete_control(item):
     return query_chatgpt(messages)
 
 
+def get_complete_threat_auto(item, feedback):
+    text = item["name"] + ": " + beautify(item["desc"])
+    messages = [
+        {"role": "system", "content": get_prompt("get_complete_threat_auto")},
+        {"role": "user", "content": text}
+    ]
+
+    return query_chatgpt(messages)
+
+
+def get_complete_control_auto(item, feedback):
+    text = item["name"] + ": " + beautify(item["desc"])
+    messages = [
+        {"role": "system", "content": get_prompt("get_complete_control_auto")},
+        {"role": "user", "content": text}
+    ]
+
+    return query_chatgpt(messages)
+
+
 # Save functions
 
-def save_threats_custom_fields(field, to_update):
+def save_threats_custom_fields(field, to_update, action="init"):
     """
     :param field: the custom field to add or update
     :param to_update: a dictionary that contains the threat/control ref and the value for the custom field
@@ -283,7 +317,7 @@ def save_threats_custom_fields(field, to_update):
     write_current_component(template)
 
 
-def save_controls_custom_fields(field, to_update):
+def save_controls_custom_fields(field, to_update, action="init"):
     """
     :param field: the custom field to add or update
     :param to_update: a dictionary that contains the threat/control ref and the value for the custom field
@@ -322,36 +356,36 @@ def save_threats_to_stride_usecase(to_update=None):
     write_current_component(template)
 
 
-def save_stride_category(to_update):
-    save_threats_custom_fields(CUSTOM_FIELD_STRIDE, to_update)
+def save_stride_category(to_update, action="init"):
+    save_threats_custom_fields(CUSTOM_FIELD_STRIDE, to_update, action)
     save_threats_to_stride_usecase(to_update)
 
 
-def save_attack_technique(to_update):
-    save_threats_custom_fields(CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE, to_update)
+def save_attack_technique(to_update, action="init"):
+    save_threats_custom_fields(CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE, to_update, action)
 
 
-def save_attack_mitigation(to_update):
-    save_controls_custom_fields(CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION, to_update)
+def save_attack_mitigation(to_update, action="init"):
+    save_controls_custom_fields(CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION, to_update, action)
 
 
-def save_intended_scope(to_update):
-    save_controls_custom_fields(CUSTOM_FIELD_SCOPE, to_update)
+def save_intended_scope(to_update, action="init"):
+    save_controls_custom_fields(CUSTOM_FIELD_SCOPE, to_update, action)
 
 
-def save_intended_audience(to_update):
-    save_controls_custom_fields(CUSTOM_FIELD_AUDIENCE, to_update)
+def save_intended_audience(to_update, action="init"):
+    save_controls_custom_fields(CUSTOM_FIELD_AUDIENCE, to_update, action)
 
 
-def save_baseline_standard_ref(to_update):
-    save_controls_custom_fields(CUSTOM_FIELD_BASELINE_STANDARD_REF, to_update)
+def save_baseline_standard_ref(to_update, action="init"):
+    save_controls_custom_fields(CUSTOM_FIELD_BASELINE_STANDARD_REF, to_update, action)
 
 
-def save_baseline_standard_section(to_update):
-    save_controls_custom_fields(CUSTOM_FIELD_BASELINE_STANDARD_SECTION, to_update)
+def save_baseline_standard_section(to_update, action="init"):
+    save_controls_custom_fields(CUSTOM_FIELD_BASELINE_STANDARD_SECTION, to_update, action)
 
 
-def save_cia_triad(to_update):
+def save_cia_triad(to_update, action="init"):
     template = read_current_component()
 
     for k, v in to_update.items():
@@ -365,7 +399,7 @@ def save_cia_triad(to_update):
     write_current_component(template)
 
 
-def save_proper_cost(to_update):
+def save_proper_cost(to_update, action="init"):
     template = read_current_component()
     for control_ref, cost_value in to_update.items():
         control_item = template["controls"][control_ref]
@@ -373,7 +407,7 @@ def save_proper_cost(to_update):
     write_current_component(template)
 
 
-def save_proper_cwe(to_update):
+def save_proper_cwe(to_update, action="init"):
     template = read_current_component()
 
     # TODO: This could be improved by creating a script that generates a file with all the information
@@ -408,25 +442,35 @@ def save_proper_cwe(to_update):
     write_current_component(template)
 
 
-def save_question(to_update):
+def save_question(to_update, action="init"):
     template = read_current_component()
 
     for control_ref, question_text in to_update.items():
         control_item = template["controls"][control_ref]
-
         question_desc = ""  # create_description_for_question(question_text)
 
-        control_item["question"] = question_text
-        control_item["question_desc"] = question_desc
+        if action == "init":
+            if control_item["question"] == "":
+                control_item["question"] = question_text
+                control_item["question_desc"] = question_desc
+        elif action == "append":
+            pass
+        elif action == "replace":
+            control_item["question"] = question_text
+            control_item["question_desc"] = question_desc
 
     write_current_component(template)
 
 
-def save_complete_threat(to_update):
+def save_complete_threat(to_update, action="init"):
     template = read_current_component()
 
     for k, v in to_update.items():
-        values = extract_json(to_update[k])
+        try:
+            values = extract_json(to_update[k])
+        except:
+            print("A problem happened when extracting json")
+            continue
 
         template["threats"][k]["riskRating"]["C"] = closest_number(values["C"])
         template["threats"][k]["riskRating"]["I"] = closest_number(values["I"])
@@ -441,12 +485,16 @@ def save_complete_threat(to_update):
     save_threats_to_stride_usecase()
 
 
-def save_complete_control(to_update):
+def save_complete_control(to_update, action="init"):
     template = read_current_component()
     original_cwe_weaknesses = get_original_cwe_weaknesses()
 
     for k, v in to_update.items():
-        values = extract_json(to_update[k])
+        try:
+            values = extract_json(to_update[k])
+        except:
+            print("A problem happened when extracting json")
+            continue
 
         template["controls"][k]["question"] = values["question"]
         template["controls"][k]["question_desc"] = ''  # values["question_desc"]
@@ -462,7 +510,7 @@ def save_complete_control(to_update):
 
         cwe_id, cwe_name = values["CWE"].split(":")
         for rel in template["relations"]:
-            if rel["control"] == k and rel["weakness"] == "" and cwe_id in original_cwe_weaknesses:
+            if rel["control"] == k and cwe_id in original_cwe_weaknesses:
                 rel["weakness"] = f"CWE-{cwe_id}"
 
                 final_desc = get_cwe_description(original_cwe_weaknesses, [rel["weakness"]])
@@ -506,14 +554,24 @@ def screening(items, ask_function, save_function, choices=None):
     if len(items) <= 0:
         print("No items found to do screening")
     else:
+        screening_choices = {
+            "I want to set values only where I haven't set them yet": "init",
+            "I want to replace anything with new values": "replace",
+            "I want to append new values to the existing ones": "append"
+        }
+        action_choice = qselect("Define the purpose of the screening:", choices=screening_choices.keys())
+        action = screening_choices[action_choice]
+
         print(f"[red]Starting screening process for {len(items)} items")
         print("Press 'y' or 'n' and then press Enter")
         print("Press 'again' to ask ChatGPT again and hope for a different answer")
         print("Press 'skip' to skip item")
+        print("Press 'manual' to add a value manually")
         print("Press 'exit' to stop the screening process without saving any values")
         print("Press 'save' to stop the screening process and save values")
 
         to_update = dict()
+        feedback = ""
 
         for index, item in enumerate(items):
             # First we check if the element is valid
@@ -527,7 +585,7 @@ def screening(items, ask_function, save_function, choices=None):
             while True:
                 print(f"Item {index + 1}/{len(items)}: {item}")
                 print(f"Description: [bright_cyan]{items[item]['desc']}")
-                chatgpt_answer = ask_function(items[item])
+                chatgpt_answer = ask_function(items[item], feedback)
                 print(f"ChatGPT says: [blue]{chatgpt_answer}")
 
                 screening_item_result = qselect("Is it correct?", choices=[
@@ -535,6 +593,7 @@ def screening(items, ask_function, save_function, choices=None):
                     "n",
                     "skip",
                     "again",
+                    "manual",
                     "exit",
                     "save"
                 ])
@@ -542,38 +601,39 @@ def screening(items, ask_function, save_function, choices=None):
                 if screening_item_result is None:
                     raise typer.Exit(-1)
                 elif screening_item_result == "y":
-                    print("And another one bites the dust")
                     to_update[item] = chatgpt_answer
                     break
                 elif screening_item_result == "n":
                     if choices is not None:
                         manual_answer = qselect("Set manually:", choices=choices)
                         if manual_answer is None:
-                            raise typer.Exit(-1)
+                            continue
                         to_update[item] = manual_answer
-                        print("And another one bites the dust")
-                    else:
-                        print("And another one gone")
                     break
                 elif screening_item_result == "again":
-                    # We don't do anything
-                    pass
+                    feedback = qtext("Add some feedback for ChatGPT:")
+                    if feedback is None:
+                        feedback = ""
                 elif screening_item_result == "skip":
-                    print("And another one gone")
+                    break
+                elif screening_item_result == "manual":
+                    manual_answer = qtext("Set manually (text input):")
+                    if manual_answer is None:
+                        continue
+                    to_update[item] = manual_answer
                     break
                 elif screening_item_result == "exit":
                     print("Stopping the screening process")
-                    # Add something to manually decide
                     return
                 elif screening_item_result == "save":
                     print("Saving screening results")
-                    save_function(to_update)
+                    save_function(to_update, action=action)
                     return
 
         save_results = qconfirm("No more items. Do you want to save?")
         if save_results:
             print("Saving screening results")
-            save_function(to_update)
+            save_function(to_update, action=action)
 
 
 def threat_generator():
@@ -728,6 +788,121 @@ def control_generator():
         balance_mitigation_values()
 
 
+def autoscreening_init():
+    template = read_current_component()
+
+    parameter_config = {
+        "cost": "replace",
+        "question": "init",
+        "question_desc": "ignore",
+        "dataflow_tags": "append",
+        "attack_enterprise_mitigation": "append",
+        "attack_ics_mitigation": "ignore",
+        "attack_mobile_mitigation": "ignore",
+        "atlas_mitigation": "ignore",
+        "baseline_standard_ref": "init",
+        "baseline_standard_section": "append",
+        "scope": "append",
+        "cwe": "init",
+        "riskRating": "replace",
+        "stride_lm": "append",
+        "attack_enterprise_technique": "append",
+        "attack_ics_technique": "ignore",
+        "attack_mobile_technique": "ignore",
+        "atlas_technique": "ignore"
+    }
+
+    component_ref = template["component"]["ref"]
+    print(f"Starting autoscreening for {component_ref}")
+
+    assert len(template["threats"]) > 0, "No threats found"
+    assert len(template["controls"]) > 0, "No controls found"
+
+    original_cwe_weaknesses = get_original_cwe_weaknesses()
+
+    for th in template["threats"].values():
+        k = th["ref"]
+        print(f'[blue]Threat: {th["name"]}')
+        values = extract_json(get_complete_threat_auto(th))
+
+        risk_rating = ["C", "I", "A", "EE"]
+        for category in risk_rating:
+            template["threats"][k]["riskRating"][category] = set_value(category,
+                                                                       template["threats"][k]["riskRating"][category],
+                                                                       closest_number(values.get(category, "100")),
+                                                                       parameter_config["riskRating"])
+
+        threat_custom_fields = [CUSTOM_FIELD_STRIDE,
+                                CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE,
+                                CUSTOM_FIELD_ATTACK_ICS_TECHNIQUE,
+                                CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE,
+                                CUSTOM_FIELD_ATLAS_TECHNIQUE]
+        for custom_field in threat_custom_fields:
+            template["threats"][k]["customFields"][custom_field] = \
+                set_value(custom_field,
+                          template["threats"][k]["customFields"][custom_field],
+                          values.get(custom_field, None),
+                          parameter_config[custom_field])
+
+    for c in template["controls"].values():
+        k = c["ref"]
+        print(f'[blue]Countermeasure: {c["name"]}')
+
+        values = extract_json(get_complete_control_auto(c))
+        for var in ["question", "question_desc", "cost"]:
+            template["controls"][k][var] = set_value(var,
+                                                     template["controls"][k][var],
+                                                     values.get(var, None),
+                                                     parameter_config[var])
+
+        control_custom_fields = [CUSTOM_FIELD_BASELINE_STANDARD_REF,
+                                 CUSTOM_FIELD_BASELINE_STANDARD_SECTION,
+                                 CUSTOM_FIELD_SCOPE,
+                                 CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION,
+                                 CUSTOM_FIELD_ATTACK_ICS_MITIGATION,
+                                 CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION,
+                                 CUSTOM_FIELD_ATLAS_MITIGATION]
+        for custom_field in control_custom_fields:
+            template["controls"][k]["customFields"][custom_field] = \
+                set_value(custom_field,
+                          template["controls"][k]["customFields"][custom_field],
+                          values.get(custom_field, None),
+                          parameter_config[custom_field])
+
+        val = values["cwe"]
+
+        cwe_id, cwe_name = val.split(":")
+
+        for rel in template["relations"]:
+            if rel["control"] == k and cwe_id in original_cwe_weaknesses:
+                rel["weakness"] = f"CWE-{cwe_id}"
+
+                final_desc = get_cwe_description(original_cwe_weaknesses, [rel["weakness"]])
+                final_impact = get_cwe_impact(original_cwe_weaknesses, cwe_id)
+
+                template["weaknesses"][rel["weakness"]] = {
+                    "ref": rel["weakness"],
+                    "name": rel["weakness"],  # Before: class_base_weaknesses[cwe_id].attrib["Name"],
+                    "desc": final_desc,
+                    "impact": final_impact
+                }
+                print(f"{rel['weakness']} set")
+            elif rel["control"] == k and cwe_id not in original_cwe_weaknesses:
+                print(f"Weakness {cwe_id} has not been found in the internal CWE list")
+
+    # Cleaning unused weaknesses
+    available_weaknesses = set(rel["weakness"] for rel in template["relations"])
+    template["weaknesses"] = {w: template["weaknesses"][w] for w in template["weaknesses"] if
+                              w in available_weaknesses}
+
+    print("Autoscreening finished!")
+    save_results = qconfirm("Do you want to save?")
+    if save_results:
+        print("Saving generated results")
+        write_current_component(template)
+        balance_mitigation_values()
+
+
 # Commands
 
 @app.callback()
@@ -875,3 +1050,11 @@ def control_screening():
     """
     items = get_all_controls()
     screening(items, get_complete_control, save_complete_control)
+
+
+@app.command()
+def autoscreening():
+    """
+    Automated screening process
+    """
+    autoscreening_init()

@@ -1,9 +1,21 @@
 # Changelog
 
+## 2.1.0 - 20240527
+
+### Features
+
+* Added new 'isra screening autoscreening' that does an automatic screening without any kind of user input
+* Added new 'isra component info --parameter' to be able to see at a glance the attibutes of the elements
+
+### Enhancements
+
+* Added option to include feedback when asking ChatGPT to think again in a screening
+* Added option to set different behaviors to set the values when doing the screening
+* Added option to manually enter an input in case the value returned by ChatGPT is not correct
 
 ## 2.0.0 - 20240507
 
-## Features
+### Features
 
 * ISRA repository will be moved to GitHub
 * Added new 'isra screening cost' to calculate the cost of implementing a countermeasure
