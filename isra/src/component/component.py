@@ -330,10 +330,10 @@ def pull_component():
     #                              CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION,
     #                              CUSTOM_FIELD_ATLAS_MITIGATION]
 
-    save_results = qconfirm("Do you want to save?")
-    if save_results:
-        write_current_component(template)
-        print("Saved")
+    # save_results = qconfirm("Do you want to save?")
+    # if save_results:
+    #     write_current_component(template)
+    #     print("Saved")
 
 
 # Commands
