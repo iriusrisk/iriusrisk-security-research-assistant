@@ -559,8 +559,9 @@ def screening(items, ask_function, save_function, choices=None):
             "I want to replace anything with new values": "replace",
             "I want to append new values to the existing ones": "append"
         }
-        action_choice = qselect("Define the purpose of the screening:", choices=screening_choices.keys())
-        action = screening_choices[action_choice]
+        # action_choice = qselect("Define the purpose of the screening:", choices=screening_choices.keys())
+        # action = screening_choices[action_choice]
+        action = "init"
 
         print(f"[red]Starting screening process for {len(items)} items")
         print("Press 'y' or 'n' and then press Enter")
