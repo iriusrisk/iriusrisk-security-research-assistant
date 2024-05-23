@@ -3,7 +3,7 @@
 APP_NAME = "ISRA"
 
 CWE_SOURCE_FILE = "cwec_v4.13.xml"
-PROMPTS_FILE = "prompts.yaml"
+PROMPTS_DIR = "prompts"
 ILE_JAR_FILE = "editor-1.0.7-SNAPSHOT.jar"
 TEMPLATE_FILE = "temp.irius"
 THREAT_MODEL_FILE = "threat_model.json"

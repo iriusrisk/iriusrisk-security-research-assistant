@@ -94,7 +94,7 @@ def get_resource(resource, filetype="yaml"):
     """
     Return the parsed resource, ready to use. By default it parses YAML
     :param resource: the resource to get
-    :param filetype: the file type of the resource: [json, yaml, path].
+    :param filetype: the file type of the resource: [json, yaml, path, text].
     :return:
     """
     resource_path = files('isra.src.resources').joinpath(resource)
@@ -103,6 +103,9 @@ def get_resource(resource, filetype="yaml"):
             result = json.load(f)
     elif filetype == "path":
         result = resource_path
+    elif filetype == "text":
+        with open(str(resource_path), 'r', encoding="utf8") as f:
+            result = str(f.read())
     else:
         with open(str(resource_path), 'r', encoding="utf8") as yml:
             result = yaml.safe_load(yml)

@@ -69,6 +69,42 @@ def get_original_cwe_weaknesses():
     return class_base_weaknesses
 
 
+def set_weakness(template, control_ref, cwe_id, action="init"):
+    original_cwe_weaknesses = get_original_cwe_weaknesses()
+    if cwe_id not in original_cwe_weaknesses:
+        print(f"Weakness {cwe_id} has not been found in the internal CWE list")
+    else:
+        for rel in template["relations"]:
+            if action == "init":
+                if rel["control"] == control_ref and rel["weakness"] == "" and cwe_id in original_cwe_weaknesses:
+                    rel["weakness"] = f"CWE-{cwe_id}"
+
+                    final_desc = get_cwe_description(original_cwe_weaknesses, [rel["weakness"]])
+                    final_impact = get_cwe_impact(original_cwe_weaknesses, cwe_id)
+
+                    template["weaknesses"][rel["weakness"]] = {
+                        "ref": rel["weakness"],
+                        "name": rel["weakness"],  # Before: class_base_weaknesses[cwe_id].attrib["Name"],
+                        "desc": final_desc,
+                        "impact": final_impact
+                    }
+            elif action == "replace":
+                if rel["control"] == control_ref and cwe_id in original_cwe_weaknesses:
+                    rel["weakness"] = f"CWE-{cwe_id}"
+
+                    final_desc = get_cwe_description(original_cwe_weaknesses, [rel["weakness"]])
+                    final_impact = get_cwe_impact(original_cwe_weaknesses, cwe_id)
+
+                    template["weaknesses"][rel["weakness"]] = {
+                        "ref": rel["weakness"],
+                        "name": rel["weakness"],  # Before: class_base_weaknesses[cwe_id].attrib["Name"],
+                        "desc": final_desc,
+                        "impact": final_impact
+                    }
+            else:
+                pass
+
+
 def generate_cwe_jsonl():
     cwe_xml_path = get_resource(CWE_SOURCE_FILE, filetype="path")
     tree = etree.parse(cwe_xml_path)

@@ -5,6 +5,7 @@ from bs4 import MarkupResemblesLocatorWarning
 from rich import print
 
 from isra.src.component.component import read_current_component, write_current_component, balance_mitigation_values
+from isra.src.config.config import get_sf_values
 from isra.src.config.constants import CUSTOM_FIELD_STRIDE, CUSTOM_FIELD_SCOPE, \
     CUSTOM_FIELD_BASELINE_STANDARD_REF, CUSTOM_FIELD_BASELINE_STANDARD_SECTION, \
     STRIDE_LIST, CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE, \
@@ -12,9 +13,10 @@ from isra.src.config.constants import CUSTOM_FIELD_STRIDE, CUSTOM_FIELD_SCOPE, \
     IR_SF_C_STANDARD_BASELINES, IR_SF_T_STRIDE, IR_SF_C_SCOPE, IR_SF_C_MITRE, IR_SF_T_MITRE, IR_SF_C_STANDARD_SECTION, \
     CUSTOM_FIELD_ATTACK_ICS_TECHNIQUE, CUSTOM_FIELD_ATLAS_TECHNIQUE, CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE, \
     CUSTOM_FIELD_ATTACK_ICS_MITIGATION, CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION, CUSTOM_FIELD_ATLAS_MITIGATION
-from isra.src.utils.cwe_functions import get_original_cwe_weaknesses, get_cwe_description, get_cwe_impact
+from isra.src.utils.cwe_functions import get_original_cwe_weaknesses, get_cwe_description, get_cwe_impact, set_weakness
 from isra.src.utils.gpt_functions import query_chatgpt, get_prompt
-from isra.src.utils.questionary_wrapper import qselect, qconfirm, qtext
+from isra.src.utils.questionary_wrapper import qselect, qconfirm, qtext, qmulti
+from isra.src.utils.structure_functions import build_new_threat, build_new_control
 from isra.src.utils.text_functions import extract_json, closest_number, beautify, get_company_name_prefix, \
     check_valid_value, set_value
 
@@ -22,49 +24,20 @@ warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
 
 # Get functions
-def get_threat():
+def generate_threat():
     template = read_current_component()
 
     messages = [
-        {"role": "system", "content": get_prompt("generate_threat")},
+        {"role": "system", "content": get_prompt("generate_threat.md")},
         {"role": "user", "content": template["component"]["name"] + ":" + template["component"]["desc"]}
     ]
 
     return query_chatgpt(messages)
 
 
-def get_threat_description(text, extra):
+def generate_threat_description(text, feedback):
     messages = [
-        {"role": "system", "content": get_prompt("generate_threat_description")},
-        {"role": "user", "content": text},
-        {"role": "user", "content": extra}
-    ]
-
-    return query_chatgpt(messages)
-
-
-def get_control(threat_base):
-    messages = [
-        {"role": "system", "content": get_prompt("generate_control")},
-        {"role": "user", "content": threat_base["name"] + ":" + threat_base["desc"]}
-    ]
-
-    return query_chatgpt(messages)
-
-
-def get_control_description(text, extra):
-    messages = [
-        {"role": "system", "content": get_prompt("generate_control_description")},
-        {"role": "user", "content": text},
-        {"role": "user", "content": extra}
-    ]
-
-    return query_chatgpt(messages)
-
-
-def get_question_description(text, feedback):
-    messages = [
-        {"role": "system", "content": get_prompt("create_description_for_question")},
+        {"role": "system", "content": get_prompt("generate_threat_description.md")},
         {"role": "user", "content": text},
         {"role": "user", "content": feedback}
     ]
@@ -72,10 +45,39 @@ def get_question_description(text, feedback):
     return query_chatgpt(messages)
 
 
-def get_question(item, feedback):
+def generate_control(threat_base):
+    messages = [
+        {"role": "system", "content": get_prompt("generate_control.md")},
+        {"role": "user", "content": threat_base["name"] + ":" + threat_base["desc"]}
+    ]
+
+    return query_chatgpt(messages)
+
+
+def generate_control_description(text, feedback):
+    messages = [
+        {"role": "system", "content": get_prompt("generate_control_description.md")},
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
+    ]
+
+    return query_chatgpt(messages)
+
+
+def create_description_for_question(text, feedback):
+    messages = [
+        {"role": "system", "content": get_prompt("create_description_for_question.md")},
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
+    ]
+
+    return query_chatgpt(messages)
+
+
+def generate_question(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
-        {"role": "system", "content": get_prompt("generate_question")},
+        {"role": "system", "content": get_prompt("generate_question.md")},
         {"role": "user", "content": text},
         {"role": "user", "content": feedback}
     ]
@@ -92,7 +94,7 @@ def get_question(item, feedback):
 def get_stride_category(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
-        {"role": "system", "content": get_prompt("stride_category")},
+        {"role": "system", "content": get_prompt("get_stride_category.md")},
         {"role": "user", "content": text},
         {"role": "user", "content": feedback}
     ]
@@ -105,7 +107,7 @@ def get_attack_technique(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
         {"role": "system",
-         "content": get_prompt("attack_technique")},
+         "content": get_prompt("get_attack_technique.md")},
         {"role": "user", "content": text},
         {"role": "user", "content": feedback}
     ]
@@ -117,7 +119,7 @@ def get_attack_technique(item, feedback):
 def get_attack_mitigation(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
-        {"role": "system", "content": get_prompt("attack_mitigation")},
+        {"role": "system", "content": get_prompt("get_attack_mitigation.md")},
         {"role": "user", "content": text},
         {"role": "user", "content": feedback}
     ]
@@ -129,7 +131,7 @@ def get_attack_mitigation(item, feedback):
 def get_intended_scope(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
-        {"role": "system", "content": get_prompt("intended_scope")},
+        {"role": "system", "content": get_prompt("get_intended_scope.md")},
         {"role": "user", "content": text},
         {"role": "user", "content": feedback}
     ]
@@ -141,7 +143,7 @@ def get_intended_scope(item, feedback):
 def get_baseline_standard_ref(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
-        {"role": "system", "content": get_prompt("standard_baseline")},
+        {"role": "system", "content": get_prompt("get_baseline_standard_ref.md")},
         {"role": "user", "content": text},
         {"role": "user", "content": feedback}
     ]
@@ -156,7 +158,7 @@ def get_baseline_standard_section(item, feedback):
     standard_reference = template["controls"][control_ref]["customFields"][CUSTOM_FIELD_BASELINE_STANDARD_REF]
     print(f"Standard reference for countermeasure is: {standard_reference}")
     messages = [
-        {"role": "system", "content": get_prompt("standard_baseline_section")},
+        {"role": "system", "content": get_prompt("get_baseline_standard_section.md")},
         {"role": "user", "content": f"This is the countermeasure description: {item['desc']}"},
         {"role": "user", "content": f"This is the assigned security standard: {standard_reference}"},
         {"role": "user", "content": feedback}
@@ -169,7 +171,7 @@ def get_baseline_standard_section(item, feedback):
 def get_cia_triad(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
-        {"role": "system", "content": get_prompt("cia_values")},
+        {"role": "system", "content": get_prompt("get_cia_triad.md")},
         {"role": "user", "content": text},
         {"role": "user", "content": feedback}
     ]
@@ -180,7 +182,7 @@ def get_cia_triad(item, feedback):
 def get_proper_cost(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
-        {"role": "system", "content": get_prompt("get_proper_cost")},
+        {"role": "system", "content": get_prompt("get_proper_cost.md")},
         {"role": "user", "content": text},
         {"role": "user", "content": feedback}
     ]
@@ -191,13 +193,57 @@ def get_proper_cost(item, feedback):
 def get_proper_cwe(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
-        {"role": "system", "content": get_prompt("cwe_weakness")},
+        {"role": "system", "content": get_prompt("get_proper_cwe.md")},
         {"role": "user", "content": text},
         {"role": "user", "content": feedback}
     ]
 
     return query_chatgpt(messages)
 
+
+def get_complete_threat(item, feedback):
+    text = item["name"] + ": " + beautify(item["desc"])
+    messages = [
+        {"role": "system", "content": get_prompt("get_complete_threat.md")},
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
+    ]
+
+    return query_chatgpt(messages)
+
+
+def get_complete_control(item, feedback):
+    text = item["name"] + ": " + beautify(item["desc"])
+    messages = [
+        {"role": "system", "content": get_prompt("get_complete_control.md")},
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
+    ]
+
+    return query_chatgpt(messages)
+
+
+def get_complete_threat_auto(item):
+    text = item["name"] + ": " + beautify(item["desc"])
+    messages = [
+        {"role": "system", "content": get_prompt("get_complete_threat_auto.md")},
+        {"role": "user", "content": text}
+    ]
+
+    return query_chatgpt(messages)
+
+
+def get_complete_control_auto(item):
+    text = item["name"] + ": " + beautify(item["desc"])
+    messages = [
+        {"role": "system", "content": get_prompt("get_complete_control_auto.md")},
+        {"role": "user", "content": text}
+    ]
+
+    return query_chatgpt(messages)
+
+
+# Getters
 
 def get_all_threats(field=""):
     """This function returns all threats.
@@ -239,275 +285,157 @@ def get_all_controls(field=""):
     return controls
 
 
-def get_complete_threat(item, feedback):
-    text = item["name"] + ": " + beautify(item["desc"])
-    messages = [
-        {"role": "system", "content": get_prompt("get_complete_threat")},
-        {"role": "user", "content": text}
-    ]
-
-    return query_chatgpt(messages)
-
-
-def get_complete_control(item, feedback):
-    text = item["name"] + ": " + beautify(item["desc"])
-    messages = [
-        {"role": "system", "content": get_prompt("get_complete_control")},
-        {"role": "user", "content": text}
-    ]
-
-    return query_chatgpt(messages)
-
-
-def get_complete_threat_auto(item):
-    text = item["name"] + ": " + beautify(item["desc"])
-    messages = [
-        {"role": "system", "content": get_prompt("get_complete_threat_auto")},
-        {"role": "user", "content": text}
-    ]
-
-    return query_chatgpt(messages)
-
-
-def get_complete_control_auto(item):
-    text = item["name"] + ": " + beautify(item["desc"])
-    messages = [
-        {"role": "system", "content": get_prompt("get_complete_control_auto")},
-        {"role": "user", "content": text}
-    ]
-
-    return query_chatgpt(messages)
-
-
 # Save functions
 
-def save_threats_custom_fields(field, to_update, action="init"):
-    """
-    :param field: the custom field to add or update
-    :param to_update: a dictionary that contains the threat/control ref and the value for the custom field
-    """
-    template = read_current_component()
-
+def save_threats_custom_fields(template, field, to_update, action="init"):
     for k, v in to_update.items():
-
-        threat_custom_fields = template["threats"][k]["customFields"]
-        if field in threat_custom_fields:
-            if threat_custom_fields[field] == "":
-                threat_custom_fields[field] = v
-            else:
-                if v not in threat_custom_fields[field]:
-                    threat_custom_fields[field] = threat_custom_fields[field] + "||" + v
-        else:
-            threat_custom_fields[field] = v
-
-    write_current_component(template)
+        if field not in template["threats"][k]["customFields"]:
+            template["threats"][k]["customFields"][field] = ""
+        template["threats"][k]["customFields"][field] \
+            = set_value(field, template["threats"][k]["customFields"][field], v, action)
 
 
-def save_controls_custom_fields(field, to_update, action="init"):
-    """
-    :param field: the custom field to add or update
-    :param to_update: a dictionary that contains the threat/control ref and the value for the custom field
-    """
-    template = read_current_component()
-
+def save_controls_custom_fields(template, field, to_update, action="init"):
     for k, v in to_update.items():
-        control_custom_fields = template["controls"][k]["customFields"]
-        if field in control_custom_fields:
-            if control_custom_fields[field] == "":
-                control_custom_fields[field] = v
-            else:
-                if v not in control_custom_fields[field]:
-                    control_custom_fields[field] = control_custom_fields[field] + "||" + v
-        else:
-            control_custom_fields[field] = v
-
-    write_current_component(template)
+        if field not in template["controls"][k]["customFields"]:
+            template["controls"][k]["customFields"][field] = ""
+        template["controls"][k]["customFields"][field] \
+            = set_value(field, template["controls"][k]["customFields"][field], v, action)
 
 
-def save_threats_to_stride_usecase(to_update=None):
-    template = read_current_component()
-
-    for relation in template["relations"]:
-        threat_custom_fields = template["threats"][relation["threat"]]["customFields"]
-        if CUSTOM_FIELD_STRIDE in threat_custom_fields and len(threat_custom_fields[CUSTOM_FIELD_STRIDE]) > 0:
-            if to_update is not None and relation["threat"] in to_update:
-                stride_category_initial = to_update[relation["threat"]][0]
-            else:
-                stride_category_initial = threat_custom_fields[CUSTOM_FIELD_STRIDE][0]
-
-            relation["usecase"] = STRIDE_LIST[stride_category_initial]["ref"]
-            if relation["usecase"] not in template["usecases"]:
-                template["usecases"][relation["usecase"]] = STRIDE_LIST[stride_category_initial]
-
-    write_current_component(template)
+def save_stride_category(template, to_update, action="init"):
+    save_threats_custom_fields(template, CUSTOM_FIELD_STRIDE, to_update, action)
+    save_threats_to_stride_usecase(template)
 
 
-def save_stride_category(to_update, action="init"):
-    save_threats_custom_fields(CUSTOM_FIELD_STRIDE, to_update, action)
-    save_threats_to_stride_usecase(to_update)
+def save_attack_technique(template, to_update, action="init"):
+    save_threats_custom_fields(template, CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE, to_update, action)
 
 
-def save_attack_technique(to_update, action="init"):
-    save_threats_custom_fields(CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE, to_update, action)
+def save_attack_mitigation(template, to_update, action="init"):
+    save_controls_custom_fields(template, CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION, to_update, action)
 
 
-def save_attack_mitigation(to_update, action="init"):
-    save_controls_custom_fields(CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION, to_update, action)
+def save_intended_scope(template, to_update, action="init"):
+    save_controls_custom_fields(template, CUSTOM_FIELD_SCOPE, to_update, action)
 
 
-def save_intended_scope(to_update, action="init"):
-    save_controls_custom_fields(CUSTOM_FIELD_SCOPE, to_update, action)
+def save_baseline_standard_ref(template, to_update, action="init"):
+    save_controls_custom_fields(template, CUSTOM_FIELD_BASELINE_STANDARD_REF, to_update, action)
 
 
-def save_baseline_standard_ref(to_update, action="init"):
-    save_controls_custom_fields(CUSTOM_FIELD_BASELINE_STANDARD_REF, to_update, action)
+def save_baseline_standard_section(template, to_update, action="init"):
+    save_controls_custom_fields(template, CUSTOM_FIELD_BASELINE_STANDARD_SECTION, to_update, action)
 
 
-def save_baseline_standard_section(to_update, action="init"):
-    save_controls_custom_fields(CUSTOM_FIELD_BASELINE_STANDARD_SECTION, to_update, action)
-
-
-def save_cia_triad(to_update, action="init"):
-    template = read_current_component()
-
+def save_cia_triad(template, to_update, action="init"):
     for k, v in to_update.items():
         values = extract_json(to_update[k])
 
-        template["threats"][k]["riskRating"]["C"] = closest_number(values["C"])
-        template["threats"][k]["riskRating"]["I"] = closest_number(values["I"])
-        template["threats"][k]["riskRating"]["A"] = closest_number(values["A"])
-        template["threats"][k]["riskRating"]["EE"] = closest_number(values["EE"])
-
-    write_current_component(template)
-
-
-def save_proper_cost(to_update, action="init"):
-    template = read_current_component()
-    for control_ref, cost_value in to_update.items():
-        control_item = template["controls"][control_ref]
-        control_item["cost"] = str(cost_value)
-    write_current_component(template)
+        if action in ["init", "replace"]:
+            risk_rating = ["C", "I", "A", "EE"]
+            for r in risk_rating:
+                template["threats"][k]["riskRating"][r] = set_value(r, template["threats"][k]["riskRating"][r],
+                                                                    closest_number(values[r]), action)
 
 
-def save_proper_cwe(to_update, action="init"):
-    template = read_current_component()
+def save_proper_cost(template, to_update, action="init"):
+    for k, v in to_update.items():
+        if action in ["init", "replace"]:
+            template["controls"][k]["cost"] = set_value("cost", template["controls"][k]["cost"], str(v), action)
 
+
+def save_proper_cwe(template, to_update, action="init"):
     # TODO: This could be improved by creating a script that generates a file with all the information
     # instead of querying the original document over and over
-    original_cwe_weaknesses = get_original_cwe_weaknesses()
 
     for k, val in to_update.items():
-
         cwe_id, cwe_name = val.split(":")
-
-        for rel in template["relations"]:
-            if rel["control"] == k and cwe_id in original_cwe_weaknesses:
-                rel["weakness"] = f"CWE-{cwe_id}"
-
-                final_desc = get_cwe_description(original_cwe_weaknesses, [rel["weakness"]])
-                final_impact = get_cwe_impact(original_cwe_weaknesses, cwe_id)
-
-                template["weaknesses"][rel["weakness"]] = {
-                    "ref": rel["weakness"],
-                    "name": rel["weakness"],  # Before: class_base_weaknesses[cwe_id].attrib["Name"],
-                    "desc": final_desc,
-                    "impact": final_impact
-                }
-
-            elif rel["control"] == k and cwe_id not in original_cwe_weaknesses:
-                print(f"Weakness {cwe_id} has not been found in the internal CWE list")
-
+        set_weakness(template, k, cwe_id, action)
     # Cleaning unused weaknesses
     available_weaknesses = set(rel["weakness"] for rel in template["relations"])
     template["weaknesses"] = {w: template["weaknesses"][w] for w in template["weaknesses"] if w in available_weaknesses}
 
-    write_current_component(template)
 
-
-def save_question(to_update, action="init"):
-    template = read_current_component()
-
+def save_question(template, to_update, action="init"):
     for control_ref, question_text in to_update.items():
         control_item = template["controls"][control_ref]
         question_desc = ""  # create_description_for_question(question_text)
 
-        if action == "init":
-            if control_item["question"] == "":
-                control_item["question"] = question_text
-                control_item["question_desc"] = question_desc
-        elif action == "append":
+        if action in ["init", "replace"]:
+            control_item["question"] = set_value("question", control_item["question"], question_text, action)
+            control_item["question_desc"] = set_value("question_desc", control_item["question_desc"], question_desc,
+                                                      action)
+
+
+# def save_complete_threat(template, to_update, action="init"):
+#     for k, v in to_update.items():
+#         try:
+#             values = extract_json(to_update[k])
+#         except:
+#             print("A problem happened when extracting json")
+#             continue
+#
+#         template["threats"][k]["riskRating"]["C"] = closest_number(values["C"])
+#         template["threats"][k]["riskRating"]["I"] = closest_number(values["I"])
+#         template["threats"][k]["riskRating"]["A"] = closest_number(values["A"])
+#         template["threats"][k]["riskRating"]["EE"] = closest_number(values["EE"])
+#         template["threats"][k]["customFields"][CUSTOM_FIELD_STRIDE] \
+#             = check_valid_value(values["stride"], IR_SF_T_STRIDE)
+#         template["threats"][k]["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE] \
+#             = check_valid_value(values["attack"], IR_SF_T_MITRE)
+#
+#     save_threats_to_stride_usecase(template, [])
+
+
+# def save_complete_control(template, to_update, action="init"):
+#
+#     for k, v in to_update.items():
+#         try:
+#             values = extract_json(to_update[k])
+#         except:
+#             print(f"A problem happened when extracting json for {k}")
+#             continue
+#
+#         template["controls"][k]["question"] = values["question"]
+#         template["controls"][k]["question_desc"] = ''  # values["question_desc"]
+#         template["controls"][k]["cost"] = str(values["cost"])
+#         template["controls"][k]["customFields"][CUSTOM_FIELD_BASELINE_STANDARD_REF] \
+#             = check_valid_value(values["baseline"], IR_SF_C_STANDARD_BASELINES)
+#         template["controls"][k]["customFields"][CUSTOM_FIELD_BASELINE_STANDARD_SECTION] \
+#             = check_valid_value(values["section"], IR_SF_C_STANDARD_SECTION)
+#         template["controls"][k]["customFields"][CUSTOM_FIELD_SCOPE] \
+#             = check_valid_value(values["scope"], IR_SF_C_SCOPE)
+#         template["controls"][k]["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION] \
+#             = check_valid_value(values["attack-mit"], IR_SF_C_MITRE)
+#
+#         cwe_id, cwe_name = values["CWE"].split(":")
+#         set_weakness(template, k, cwe_id)
+#
+#     # Cleaning unused weaknesses
+#     available_weaknesses = set(rel["weakness"] for rel in template["relations"])
+#     template["weaknesses"] = {w: template["weaknesses"][w] for w in template["weaknesses"] if
+#                               w in available_weaknesses}
+
+
+# Custom behavior for saving functions
+
+def save_threats_to_stride_usecase(template):
+    for relation in template["relations"]:
+        stride_cf = template["threats"][relation["threat"]]["customFields"].get(CUSTOM_FIELD_STRIDE, "")
+
+        if len(stride_cf) == 0:
             pass
-        elif action == "replace":
-            control_item["question"] = question_text
-            control_item["question_desc"] = question_desc
+        else:
+            stride_categories = stride_cf.split("||")
+            stride_category_initial = stride_categories[0][0]
+            if len(stride_categories) > 1:
+                stride_category = qselect("Choose STRIDE category to group threat:", choices=stride_categories)
+                stride_category_initial = stride_category[0]
 
-    write_current_component(template)
-
-
-def save_complete_threat(to_update, action="init"):
-    template = read_current_component()
-
-    for k, v in to_update.items():
-        try:
-            values = extract_json(to_update[k])
-        except:
-            print("A problem happened when extracting json")
-            continue
-
-        template["threats"][k]["riskRating"]["C"] = closest_number(values["C"])
-        template["threats"][k]["riskRating"]["I"] = closest_number(values["I"])
-        template["threats"][k]["riskRating"]["A"] = closest_number(values["A"])
-        template["threats"][k]["riskRating"]["EE"] = closest_number(values["EE"])
-        template["threats"][k]["customFields"][CUSTOM_FIELD_STRIDE] \
-            = check_valid_value(values["stride"], IR_SF_T_STRIDE)
-        template["threats"][k]["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE] \
-            = check_valid_value(values["attack"], IR_SF_T_MITRE)
-
-    write_current_component(template)
-    save_threats_to_stride_usecase()
-
-
-def save_complete_control(to_update, action="init"):
-    template = read_current_component()
-    original_cwe_weaknesses = get_original_cwe_weaknesses()
-
-    for k, v in to_update.items():
-        try:
-            values = extract_json(to_update[k])
-        except:
-            print("A problem happened when extracting json")
-            continue
-
-        template["controls"][k]["question"] = values["question"]
-        template["controls"][k]["question_desc"] = ''  # values["question_desc"]
-        template["controls"][k]["cost"] = str(values["cost"])
-        template["controls"][k]["customFields"][CUSTOM_FIELD_BASELINE_STANDARD_REF] \
-            = check_valid_value(values["baseline"], IR_SF_C_STANDARD_BASELINES)
-        template["controls"][k]["customFields"][CUSTOM_FIELD_BASELINE_STANDARD_SECTION] \
-            = check_valid_value(values["section"], IR_SF_C_STANDARD_SECTION)
-        template["controls"][k]["customFields"][CUSTOM_FIELD_SCOPE] \
-            = check_valid_value(values["scope"], IR_SF_C_SCOPE)
-        template["controls"][k]["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION] \
-            = check_valid_value(values["attack-mit"], IR_SF_C_MITRE)
-
-        cwe_id, cwe_name = values["CWE"].split(":")
-        for rel in template["relations"]:
-            if rel["control"] == k and cwe_id in original_cwe_weaknesses:
-                rel["weakness"] = f"CWE-{cwe_id}"
-
-                final_desc = get_cwe_description(original_cwe_weaknesses, [rel["weakness"]])
-                final_impact = get_cwe_impact(original_cwe_weaknesses, cwe_id)
-
-                template["weaknesses"][rel["weakness"]] = {
-                    "ref": rel["weakness"],
-                    "name": rel["weakness"],  # Before: class_base_weaknesses[cwe_id].attrib["Name"],
-                    "desc": final_desc,
-                    "impact": final_impact
-                }
-            elif rel["control"] == k and rel["weakness"] == "" and cwe_id not in original_cwe_weaknesses:
-                print(f"Weakness {cwe_id} has not been found in the internal CWE list")
-
-    write_current_component(template)
+            relation["usecase"] = STRIDE_LIST[stride_category_initial]["ref"]
+            if relation["usecase"] not in template["usecases"]:
+                template["usecases"][relation["usecase"]] = STRIDE_LIST[stride_category_initial]
 
 
 # Utils
@@ -533,6 +461,7 @@ def validate_item(item):
 # Main processes
 
 def screening(items, ask_function, save_function, choices=None):
+    template = read_current_component()
     if len(items) <= 0:
         print("No items found to do screening")
     else:
@@ -593,7 +522,7 @@ def screening(items, ask_function, save_function, choices=None):
                         to_update[item] = manual_answer
                     break
                 elif screening_item_result == "again":
-                    feedback = qtext("Add some feedback for ChatGPT:")
+                    feedback = qtext("Add some feedback for ChatGPT:", default=feedback)
                     if feedback is None:
                         feedback = ""
                 elif screening_item_result == "skip":
@@ -609,13 +538,15 @@ def screening(items, ask_function, save_function, choices=None):
                     return
                 elif screening_item_result == "save":
                     print("Saving screening results")
-                    save_function(to_update, action=action)
+                    save_function(template, to_update, action=action)
+                    write_current_component(template)
                     return
 
         save_results = qconfirm("No more items. Do you want to save?")
         if save_results:
             print("Saving screening results")
-            save_function(to_update, action=action)
+            save_function(template, to_update, action=action)
+            write_current_component(template)
 
 
 def threat_generator():
@@ -624,24 +555,12 @@ def threat_generator():
     :return:
     """
 
-    new_threat_dict = {
-        "ref": "",
-        "name": "",
-        "desc": "",
-        "customFields": {},
-        "references": [],
-        "riskRating": {
-            "C": "100",
-            "I": "100",
-            "A": "100",
-            "EE": "100"
-        }
-    }
+    new_threat_dict = build_new_threat()
 
     # Let's try to find a threat, we'll ask ChatGPT to generate a possible threat name
     while True:
 
-        chatgpt_answer = get_threat()
+        chatgpt_answer = generate_threat()
         print(f"ChatGPT says: [blue]{chatgpt_answer}")
         answer = qconfirm("What do you think?")
 
@@ -654,11 +573,11 @@ def threat_generator():
             print("Let's try again")
 
     # If the name sounds good, we'll ask ChatGPT to create a description and iterate until we are happy with it
-    extra = ""
+    feedback = ""
     while True:
-        extra = "" if extra is None else extra
+        feedback = "" if feedback is None else feedback
 
-        chatgpt_answer = get_threat_description(new_threat_dict["name"], extra)
+        chatgpt_answer = generate_threat_description(new_threat_dict["name"], feedback)
         print(f"ChatGPT says: [blue]{chatgpt_answer}")
         answer = qconfirm("What do you think?")
 
@@ -668,7 +587,7 @@ def threat_generator():
             new_threat_dict["desc"] = chatgpt_answer
             break
         elif not answer:
-            extra = qtext("Add more information if needed for the next time: ", default=extra)
+            feedback = qtext("Add more information if needed for the next time: ", default=feedback)
             print("Let's try again")
 
     # Finally we add the new threat to our threat collection, but we need a threat ref
@@ -701,23 +620,11 @@ def control_generator():
     selected_threat = qselect("Choose a threat to find a countermeasure", choices=template["threats"].keys())
     threat_item = template["threats"][selected_threat]
 
-    new_control_dict = {
-        "ref": "",
-        "name": "",
-        "desc": "",
-        "cost": "2",
-        "question": "",
-        "question_desc": "",
-        "dataflow_tags": [],
-        "customFields": dict(),
-        "references": [],
-        "standards": [],
-        "weaknesses": []
-    }
+    new_control_dict = build_new_control()
 
     # Let's try to find a threat, we'll ask ChatGPT to generate a possible control name
     while True:
-        chatgpt_answer = get_control(threat_item)
+        chatgpt_answer = generate_control(threat_item)
         print(f"ChatGPT says: [blue]{chatgpt_answer}")
         answer = qconfirm("What do you think?")
 
@@ -734,7 +641,7 @@ def control_generator():
     while True:
         extra = "" if extra is None else extra
 
-        chatgpt_answer = get_control_description(new_control_dict["name"], extra)
+        chatgpt_answer = generate_control_description(new_control_dict["name"], extra)
         print(f"ChatGPT says: [blue]{chatgpt_answer}")
         answer = qconfirm("What do you think?")
 
@@ -804,7 +711,7 @@ def autoscreening_init():
 
     for th in template["threats"].values():
         k = th["ref"]
-        print(f'[blue]Threat: {th["name"]}')
+        print(f'[blue]Threat: {th["ref"]} - {th["name"]}')
         values = extract_json(get_complete_threat_auto(th))
 
         risk_rating = ["C", "I", "A", "EE"]
@@ -828,7 +735,7 @@ def autoscreening_init():
 
     for c in template["controls"].values():
         k = c["ref"]
-        print(f'[blue]Countermeasure: {c["name"]}')
+        print(f'[blue]Countermeasure: {c["ref"]} - {c["name"]}')
 
         values = extract_json(get_complete_control_auto(c))
         for var in ["question", "question_desc", "cost"]:
@@ -883,3 +790,43 @@ def autoscreening_init():
         print("Saving generated results")
         write_current_component(template)
         balance_mitigation_values()
+
+
+def fix_component():
+    template = read_current_component()
+    print("Analyzing...")
+
+    for th in template["threats"].values():
+        k = th["ref"]
+        print(f'[blue]Threat: {th["name"]}')
+
+        risk_rating = ["C", "I", "A", "EE"]
+
+        if th["customFields"][CUSTOM_FIELD_STRIDE] not in get_sf_values(IR_SF_T_STRIDE):
+            print(f'Value {th["customFields"][CUSTOM_FIELD_STRIDE]} is not in the list')
+            action = qselect("What do you want to do?",
+                             choices=["Replace with allowed value from list",
+                                      "Set new value manually",
+                                      "Do nothing",
+                                      "Find alternatives"])
+            if "Replace" in action:
+                options = qmulti("Select:", choices=get_sf_values(IR_SF_T_STRIDE))
+                th["customFields"][CUSTOM_FIELD_STRIDE] = options.join("||")
+                new_stride = qselect("Which one will be used to group the threat?:", choices=options)
+                for relation in template["relations"]:
+                    threat_custom_fields = template["threats"][relation["threat"]]["customFields"]
+                    if CUSTOM_FIELD_STRIDE in threat_custom_fields:
+                        stride_category_initial = new_stride[0]
+                        relation["usecase"] = STRIDE_LIST[stride_category_initial]["ref"]
+                        if relation["usecase"] not in template["usecases"]:
+                            template["usecases"][relation["usecase"]] = STRIDE_LIST[stride_category_initial]
+
+            elif "manually" in action:
+                pass
+            elif "alternatives":
+                pass
+
+    save_results = qconfirm("Do you want to save?")
+    if save_results:
+        write_current_component(template)
+        print("Saved")

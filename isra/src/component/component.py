@@ -10,9 +10,8 @@ import yaml
 from rich import print
 from rich.table import Table
 
-from isra.src.config.config import get_sf_values
 from isra.src.config.constants import TEMPLATE_FILE, THREAT_MODEL_FILE, TM_SCHEMA, PREFIX_COMPONENT_DEFINITION, \
-    PREFIX_RISK_PATTERN, PREFIX_THREAT, PREFIX_COUNTERMEASURE, IR_SF_T_STRIDE, STRIDE_LIST
+    PREFIX_RISK_PATTERN, PREFIX_THREAT, PREFIX_COUNTERMEASURE
 from isra.src.utils.api_functions import upload_xml, add_to_batch, release_component_batch, \
     pull_remote_component_xml
 from isra.src.utils.decorators import get_time
@@ -28,7 +27,7 @@ app = typer.Typer(no_args_is_help=True, add_help_option=False)
 def generate_threat_model(text):
     messages = [
         {"role": "system",
-         "content": get_prompt("generate_threat_model")},
+         "content": get_prompt("generate_threat_model.md")},
         {"role": "user", "content": text}
     ]
 
@@ -38,7 +37,7 @@ def generate_threat_model(text):
 def generate_component_description(text):
     messages = [
         {"role": "system",
-         "content": get_prompt("component_description")
+         "content": get_prompt("generate_component_description.md")
          },
         {"role": "user", "content": text}
     ]
@@ -114,6 +113,7 @@ def balance_mitigation_values():
 def upload_component():
     # This should use the IR Python client to make requests to the API, but I'll use requests
     template = read_current_component()
+    balance_mitigation_values()
 
     try:
         # TODO: This function should be replaced at some point when the APIv2 is ready
@@ -266,49 +266,9 @@ def initialize_template():
 
 def pull_component():
     template = read_current_component()
+    balance_mitigation_values()
     pull_remote_component_xml(template)
     write_current_component(template)
-
-
-def fix_component():
-    template = read_current_component()
-    print("Analyzing...")
-
-    for th in template["threats"].values():
-        k = th["ref"]
-        print(f'[blue]Threat: {th["name"]}')
-
-        risk_rating = ["C", "I", "A", "EE"]
-
-        if th["customFields"][CUSTOM_FIELD_STRIDE] not in get_sf_values(IR_SF_T_STRIDE):
-            print(f'Value {th["customFields"][CUSTOM_FIELD_STRIDE]} is not in the list')
-            action = qselect("What do you want to do?",
-                             choices=["Replace with allowed value from list",
-                                      "Set new value manually",
-                                      "Do nothing",
-                                      "Find alternatives"])
-            if "Replace" in action:
-                options = qmulti("Select:", choices=get_sf_values(IR_SF_T_STRIDE))
-                th["customFields"][CUSTOM_FIELD_STRIDE] = options.join("||")
-                new_stride = qselect("Which one will be used to group the threat?:", choices=options)
-                for relation in template["relations"]:
-                    threat_custom_fields = template["threats"][relation["threat"]]["customFields"]
-                    if CUSTOM_FIELD_STRIDE in threat_custom_fields:
-                        stride_category_initial = new_stride[0]
-                        relation["usecase"] = STRIDE_LIST[stride_category_initial]["ref"]
-                        if relation["usecase"] not in template["usecases"]:
-                            template["usecases"][relation["usecase"]] = STRIDE_LIST[stride_category_initial]
-
-            elif "manually" in action:
-                pass
-            elif "alternatives":
-                pass
-
-
-    save_results = qconfirm("Do you want to save?")
-    if save_results:
-        write_current_component(template)
-        print("Saved")
 
 
 # Commands
@@ -647,10 +607,12 @@ def tm():
                     "name": control["countermeasure_name"],
                     "desc": control["description"],
                     "cost": "2",
+                    "question": "",
+                    "question_desc": "",
+                    "dataflow_tags": [],
                     "customFields": dict(),
-                    "references": list(),
-                    "standards": list(),
-                    "weaknesses": list()
+                    "references": [],
+                    "standards": []
                 }
 
                 template["controls"][new_control["ref"]] = new_control
@@ -714,9 +676,4 @@ def pull():
     pull_component()
 
 
-@app.command(hidden=True)
-def fix():
-    """
-    Tries to fix anything that doesn't fit the YSC schema
-    """
-    fix_component()
+

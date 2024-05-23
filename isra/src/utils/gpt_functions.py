@@ -10,7 +10,7 @@ from rich import print
 from rich.progress import Progress, TextColumn, SpinnerColumn
 
 from isra.src.config.config import get_property, get_resource
-from isra.src.config.constants import PROMPTS_FILE, TEST_ANSWERS_FILE, HINTS
+from isra.src.config.constants import TEST_ANSWERS_FILE, HINTS, PROMPTS_DIR
 from isra.src.utils.text_functions import replace_non_ascii
 
 
@@ -116,5 +116,5 @@ def query_chatgpt(messages):
 
 
 def get_prompt(prompt):
-    prompts_yaml = get_resource(PROMPTS_FILE)
-    return prompts_yaml[prompt]
+    prompts_text = get_resource(os.path.join(PROMPTS_DIR, prompt), filetype="text")
+    return prompts_text

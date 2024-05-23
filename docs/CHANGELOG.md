@@ -5,7 +5,10 @@
 ### Features
 
 * Added new 'isra screening autoscreening' that does an automatic screening without any kind of user input
+* Added new 'isra screening fix' that fixes the results obtained by the autoscreening
+* Removed 'isra screening threat-screening' and 'isra screening control-screening'. Replaced by autoscreening+fix
 * Added new 'isra component info --parameter' to be able to see at a glance the attibutes of the elements
+
 
 ### Enhancements
 

@@ -3,6 +3,37 @@ This script holds some functions that can be used to generate alternative data s
 """
 
 
+def build_new_threat():
+    return {
+        "ref": "",
+        "name": "",
+        "desc": "",
+        "customFields": {},
+        "references": [],
+        "riskRating": {
+            "C": "100",
+            "I": "100",
+            "A": "100",
+            "EE": "100"
+        }
+    }
+
+
+def build_new_control():
+    return {
+        "ref": "",
+        "name": "",
+        "desc": "",
+        "cost": "2",
+        "question": "",
+        "question_desc": "",
+        "dataflow_tags": [],
+        "customFields": dict(),
+        "references": [],
+        "standards": []
+    }
+
+
 def build_tree_hierarchy(objects):
     tree = {}
 
