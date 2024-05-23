@@ -8,7 +8,7 @@ from lxml import etree
 from isra.src.config.config import get_property, get_app_dir
 from isra.src.config.constants import OUTPUT_NAME, CATEGORIES_LIST, SF_C_MAP, SF_T_MAP, \
     CUSTOM_FIELD_SCOPE, \
-    CUSTOM_FIELD_BASELINE_STANDARD_REF, CUSTOM_FIELD_BASELINE_STANDARD_SECTION, \
+    CUSTOM_FIELD_STANDARD_BASELINE_REF, CUSTOM_FIELD_STANDARD_BASELINE_SECTION, \
     CUSTOM_FIELD_STRIDE, EMPTY_TEMPLATE
 from isra.src.utils.cwe_functions import get_original_cwe_weaknesses, get_cwe_description
 from isra.src.utils.text_functions import merge_custom_fields, split_mitre_custom_field_threats, \
@@ -577,9 +577,9 @@ def import_content_into_template(template, xml_text=None, root=None):
                         elif cf.attrib["ref"] == "SF-C-SCOPE":
                             customfields[CUSTOM_FIELD_SCOPE] = cf.attrib["value"]
                         elif cf.attrib["ref"] == "SF-C-STANDARD-BASELINE":
-                            customfields[CUSTOM_FIELD_BASELINE_STANDARD_REF] = cf.attrib["value"]
+                            customfields[CUSTOM_FIELD_STANDARD_BASELINE_REF] = cf.attrib["value"]
                         elif cf.attrib["ref"] == "SF-C-STANDARD-SECTION":
-                            customfields[CUSTOM_FIELD_BASELINE_STANDARD_SECTION] = cf.attrib["value"]
+                            customfields[CUSTOM_FIELD_STANDARD_BASELINE_SECTION] = cf.attrib["value"]
                         else:
                             print("Custom field not valid")
 

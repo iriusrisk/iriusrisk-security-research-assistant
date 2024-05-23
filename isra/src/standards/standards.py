@@ -6,8 +6,8 @@ from rich.table import Table
 
 from isra.src.component.component import read_current_component, write_current_component
 from isra.src.config.config import get_resource
-from isra.src.config.constants import OPENCRE_PLUS, CRE_MAPPING_NAME, CUSTOM_FIELD_BASELINE_STANDARD_REF, \
-    CUSTOM_FIELD_BASELINE_STANDARD_SECTION
+from isra.src.config.constants import OPENCRE_PLUS, CRE_MAPPING_NAME, CUSTOM_FIELD_STANDARD_BASELINE_REF, \
+    CUSTOM_FIELD_STANDARD_BASELINE_SECTION
 
 app = typer.Typer(no_args_is_help=True, add_help_option=False)
 
@@ -22,16 +22,16 @@ def expand_init():
         control["standards"] = list()
         # Get the baseline standard that should have been set
         try:
-            assert CUSTOM_FIELD_BASELINE_STANDARD_REF in control["customFields"], "No base standard"
-            assert control["customFields"][CUSTOM_FIELD_BASELINE_STANDARD_REF] != "", "Empty base standard"
-            assert CUSTOM_FIELD_BASELINE_STANDARD_SECTION in control["customFields"], "No base standard section"
-            assert control["customFields"][CUSTOM_FIELD_BASELINE_STANDARD_SECTION] != "", "Empty base standard section"
+            assert CUSTOM_FIELD_STANDARD_BASELINE_REF in control["customFields"], "No base standard"
+            assert control["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_REF] != "", "Empty base standard"
+            assert CUSTOM_FIELD_STANDARD_BASELINE_SECTION in control["customFields"], "No base standard section"
+            assert control["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_SECTION] != "", "Empty base standard section"
         except AssertionError as e:
             print(f"Control {control_ref} error: {e}. Skipping...")
             continue
 
-        baseline_ref = control["customFields"][CUSTOM_FIELD_BASELINE_STANDARD_REF]
-        baseline_sections = control["customFields"][CUSTOM_FIELD_BASELINE_STANDARD_SECTION].split("||")
+        baseline_ref = control["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_REF]
+        baseline_sections = control["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_SECTION].split("||")
 
         for baseline_section in baseline_sections:
 

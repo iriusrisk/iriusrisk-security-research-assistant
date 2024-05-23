@@ -78,6 +78,7 @@ def clean_exported_components(force):
         clean_components = True
     else:
         clean_components = qconfirm("Are you sure you want to clean all the component files?")
+
     if clean_components:
         properties_dir = get_app_dir()
         for file in os.listdir(properties_dir):
@@ -87,7 +88,6 @@ def clean_exported_components(force):
 
     else:
         print("Operation aborted")
-        raise typer.Exit(-1)
 
 
 def balance_mitigation_values():
@@ -191,8 +191,6 @@ def load_init(file):
             raise typer.Exit(-1)
         else:
             component_to_load = qselect("Which component do you want to load?", choices=choices)
-            if component_to_load is None:
-                raise typer.Exit(-1)
             component = str(os.path.join(input_folder, component_to_load))
 
     initialize_template()
@@ -293,17 +291,13 @@ def new():
     # We need a minimum information about the component that we are creating
     # Name
     component_name = qtext("Component name:")
-    if component_name is None:
-        raise typer.Exit(-1)
     component_ref = PREFIX_COMPONENT_DEFINITION + get_company_name_prefix() + component_name.upper()
     # Anything that is not a letter or a number will be replaced by dashes
     component_ref = re.sub(r"[^a-zA-Z0-9]+", "-", component_ref)
 
     # Description
     description = qtext("Description (leave empty to autocomplete):")
-    if description is None:
-        raise typer.Exit(-1)
-    elif description == "":
+    if description == "":
         component_desc = generate_component_description(component_name)
         # Remove trailing whitespaces and dots at the end
         component_desc = component_desc.strip().rstrip('.')
@@ -314,8 +308,6 @@ def new():
     # Category
     categories = sorted(CATEGORIES_LIST.keys())
     category = qselect("Which category will be used for this component?", choices=categories)
-    if category is None:
-        raise typer.Exit(-1)
     component_category = category
 
     # Now we start building the component in the temporal storage
@@ -369,7 +361,6 @@ def restart(force: Annotated[bool, typer.Option(help="Flag to remove temporal co
         print(f"Temporal component removed")
     else:
         print("Operation aborted")
-        raise typer.Exit(-1)
 
 
 @app.command()
@@ -435,9 +426,6 @@ def info(full: Annotated[bool, typer.Option(help="Shows all properties")] = Fals
             "stride_lm",
             "categoryRef"
         ])
-
-        if params is None:
-            raise typer.Exit(-1)
 
         # Idea: if I create an index map I could put the right value in the right column
         headers = ["Element"] + params
@@ -545,8 +533,6 @@ def tm():
     if os.path.exists(threat_model_path):
         print(f"[blue]Existing threat model found in {threat_model_path}")
         reuse_threat_model = qconfirm("Do you want to reuse previous threat model?")
-    if reuse_threat_model is None:
-        raise typer.Exit(-1)
 
     template["threats"] = dict()
     template["weaknesses"] = dict()
@@ -674,6 +660,3 @@ def pull():
     Pulls the name, descriptions and metadata of threats and countermeasure of a component from IriusRisk
     """
     pull_component()
-
-
-

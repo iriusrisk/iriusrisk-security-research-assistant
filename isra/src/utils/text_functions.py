@@ -12,7 +12,7 @@ from isra.src.config.constants import NON_ASCII_CODES, CUSTOM_FIELD_ATTACK_ENTER
     CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION, CUSTOM_FIELD_ATTACK_ICS_MITIGATION, \
     CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION, CUSTOM_FIELD_ATLAS_MITIGATION, IR_SF_C_STANDARD_BASELINES, \
     IR_SF_C_STANDARD_SECTION, IR_SF_C_SCOPE, IR_SF_C_MITRE, IR_SF_T_MITRE, IR_SF_T_STRIDE
-from isra.src.utils.questionary_wrapper import qselect
+from isra.src.utils.questionary_wrapper import qselect, qtext
 
 
 def extract_json(json_string):
@@ -59,10 +59,11 @@ def find_closest_match(input_word, word_list):
     return list(set(ret))
 
 
-def check_valid_value(result, system_field):
-    if result not in get_sf_values(system_field):
-        possible_matches = find_closest_match(result, get_sf_values(system_field))
-        print(f"ChatGPT answered this: {result}")
+def check_valid_value(answer, system_field):
+    result = answer
+    if answer not in get_sf_values(system_field):
+        possible_matches = find_closest_match(answer, get_sf_values(system_field))
+        print(f"ChatGPT answered this: {answer}")
         result = qselect(
             "Apparently ChatGPT's answer is not valid, please choose the best match. "
             "If there are no valid matches select None and modify it manually",
@@ -70,6 +71,32 @@ def check_valid_value(result, system_field):
         if result == "None":
             result = ""
     return result
+
+
+def check_valid_value2(value, allowed_values):
+    values = value.split("||")
+    new_values = list()
+
+    for value in values:
+        if value == "":
+            continue
+        if value not in allowed_values:
+            possible_matches = find_closest_match(value, allowed_values)
+            print(f"Current value: {value}")
+            new_value = qselect(
+                "This value is not allowed. Please choose the best match. "
+                "If there are no valid matches select None to skip and Manual to manually input a new value",
+                choices=["None", "Set empty", "Manual"] + possible_matches)
+            if new_value is None or new_value == "None":
+                continue
+            if new_value == "Set empty":
+                new_value = ""
+            if new_value == "Manual":
+                new_value = qtext("Write new value:")
+            new_values.append(new_value)
+        else:
+            new_values.append(value)
+    return "||".join(new_values)
 
 
 def beautify(text):

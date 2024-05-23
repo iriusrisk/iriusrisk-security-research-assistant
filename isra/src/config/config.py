@@ -259,8 +259,6 @@ def load():
         raise typer.Exit(-1)
     else:
         config_to_load = qselect("Which config do you want to load?", choices=choices)
-        if config_to_load is None:
-            raise typer.Exit(-1)
         config_to_load_path = str(os.path.join(properties_dir, config_to_load))
         initialize_properties_file()
         parser = get_parser()
@@ -284,7 +282,7 @@ def save(name: Annotated[str, typer.Option(help="Name of the new config file")] 
     """
     if name is None or name == "":
         name = qtext("Indicate name for new file:")
-    if name is None or name == "":
+    if name == "":
         raise typer.Exit(-1)
     if name == "isra":
         print("Name cannot be 'isra' since it's a reserved name")

@@ -53,7 +53,7 @@ def get_cwe_related_weaknesses(original_cwe_weaknesses, cwe_id):
             related[cwe_id] = list()
         related[cwe_id].append(related_weakness.attrib["CWE_ID"])
 
-    return related
+    return related[cwe_id]
 
 
 def get_original_cwe_weaknesses():

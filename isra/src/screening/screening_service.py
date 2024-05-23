@@ -1,14 +1,13 @@
 import warnings
 from json import JSONDecodeError
 
-import typer
 from bs4 import MarkupResemblesLocatorWarning
 from rich import print
 
 from isra.src.component.component import read_current_component, write_current_component, balance_mitigation_values
 from isra.src.config.config import get_sf_values
 from isra.src.config.constants import CUSTOM_FIELD_STRIDE, CUSTOM_FIELD_SCOPE, \
-    CUSTOM_FIELD_BASELINE_STANDARD_REF, CUSTOM_FIELD_BASELINE_STANDARD_SECTION, \
+    CUSTOM_FIELD_STANDARD_BASELINE_REF, CUSTOM_FIELD_STANDARD_BASELINE_SECTION, \
     STRIDE_LIST, CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE, \
     CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION, PREFIX_COMPONENT_DEFINITION, PREFIX_THREAT, PREFIX_COUNTERMEASURE, \
     IR_SF_C_STANDARD_BASELINES, IR_SF_T_STRIDE, IR_SF_C_SCOPE, IR_SF_C_MITRE, IR_SF_T_MITRE, IR_SF_C_STANDARD_SECTION, \
@@ -16,10 +15,10 @@ from isra.src.config.constants import CUSTOM_FIELD_STRIDE, CUSTOM_FIELD_SCOPE, \
     CUSTOM_FIELD_ATTACK_ICS_MITIGATION, CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION, CUSTOM_FIELD_ATLAS_MITIGATION
 from isra.src.utils.cwe_functions import get_original_cwe_weaknesses, get_cwe_description, get_cwe_impact, set_weakness
 from isra.src.utils.gpt_functions import query_chatgpt, get_prompt
-from isra.src.utils.questionary_wrapper import qselect, qconfirm, qtext, qmulti
+from isra.src.utils.questionary_wrapper import qselect, qconfirm, qtext
 from isra.src.utils.structure_functions import build_new_threat, build_new_control
 from isra.src.utils.text_functions import extract_json, closest_number, beautify, get_company_name_prefix, \
-    check_valid_value, set_value
+    check_valid_value, set_value, check_valid_value2
 
 warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
@@ -156,7 +155,7 @@ def get_baseline_standard_ref(item, feedback):
 def get_baseline_standard_section(item, feedback):
     template = read_current_component()
     control_ref = item["ref"]
-    standard_reference = template["controls"][control_ref]["customFields"][CUSTOM_FIELD_BASELINE_STANDARD_REF]
+    standard_reference = template["controls"][control_ref]["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_REF]
     print(f"Standard reference for countermeasure is: {standard_reference}")
     messages = [
         {"role": "system", "content": get_prompt("get_baseline_standard_section.md")},
@@ -322,11 +321,11 @@ def save_intended_scope(template, to_update, action="init"):
 
 
 def save_baseline_standard_ref(template, to_update, action="init"):
-    save_controls_custom_fields(template, CUSTOM_FIELD_BASELINE_STANDARD_REF, to_update, action)
+    save_controls_custom_fields(template, CUSTOM_FIELD_STANDARD_BASELINE_REF, to_update, action)
 
 
 def save_baseline_standard_section(template, to_update, action="init"):
-    save_controls_custom_fields(template, CUSTOM_FIELD_BASELINE_STANDARD_SECTION, to_update, action)
+    save_controls_custom_fields(template, CUSTOM_FIELD_STANDARD_BASELINE_SECTION, to_update, action)
 
 
 def save_cia_triad(template, to_update, action="init"):
@@ -513,9 +512,7 @@ def screening(items, ask_function, save_function, choices=None):
                     "save"
                 ])
 
-                if screening_item_result is None:
-                    raise typer.Exit(-1)
-                elif screening_item_result == "y":
+                if screening_item_result == "y":
                     to_update[item] = chatgpt_answer
                     break
                 elif screening_item_result == "n":
@@ -568,12 +565,10 @@ def threat_generator():
         print(f"ChatGPT says: [blue]{chatgpt_answer}")
         answer = qconfirm("What do you think?")
 
-        if answer is None:
-            raise typer.Exit(-1)
-        elif answer:
+        if answer:
             new_threat_dict["name"] = chatgpt_answer
             break
-        elif not answer:
+        else:
             print("Let's try again")
 
     # If the name sounds good, we'll ask ChatGPT to create a description and iterate until we are happy with it
@@ -585,12 +580,10 @@ def threat_generator():
         print(f"ChatGPT says: [blue]{chatgpt_answer}")
         answer = qconfirm("What do you think?")
 
-        if answer is None:
-            raise typer.Exit(-1)
-        elif answer:
+        if answer:
             new_threat_dict["desc"] = chatgpt_answer
             break
-        elif not answer:
+        else:
             feedback = qtext("Add more information if needed for the next time: ", default=feedback)
             print("Let's try again")
 
@@ -632,30 +625,26 @@ def control_generator():
         print(f"ChatGPT says: [blue]{chatgpt_answer}")
         answer = qconfirm("What do you think?")
 
-        if answer is None:
-            raise typer.Exit(-1)
-        elif answer:
+        if answer:
             new_control_dict["name"] = chatgpt_answer
             break
-        elif not answer:
+        else:
             print("Let's try again")
 
     # If the name sounds good, we'll ask ChatGPT to create a description and iterate until we are happy with it
-    extra = ""
+    feedback = ""
     while True:
-        extra = "" if extra is None else extra
+        feedback = "" if feedback is None else feedback
 
-        chatgpt_answer = generate_control_description(new_control_dict["name"], extra)
+        chatgpt_answer = generate_control_description(new_control_dict["name"], feedback)
         print(f"ChatGPT says: [blue]{chatgpt_answer}")
         answer = qconfirm("What do you think?")
 
-        if answer is None:
-            raise typer.Exit(-1)
-        elif answer:
+        if answer:
             new_control_dict["desc"] = chatgpt_answer
             break
-        elif not answer:
-            extra = qtext("Add more information if needed for the next time: ", default=extra)
+        else:
+            feedback = qtext("Add more information if needed for the next time: ", default=feedback)
             print("Let's try again")
 
     # Finally we add the new threat to our control collection, but we need a control ref
@@ -754,8 +743,8 @@ def autoscreening_init():
                                                      values.get(var, None),
                                                      parameter_config[var])
 
-        control_custom_fields = [CUSTOM_FIELD_BASELINE_STANDARD_REF,
-                                 CUSTOM_FIELD_BASELINE_STANDARD_SECTION,
+        control_custom_fields = [CUSTOM_FIELD_STANDARD_BASELINE_REF,
+                                 CUSTOM_FIELD_STANDARD_BASELINE_SECTION,
                                  CUSTOM_FIELD_SCOPE,
                                  CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION,
                                  CUSTOM_FIELD_ATTACK_ICS_MITIGATION,
@@ -806,35 +795,54 @@ def fix_component():
     template = read_current_component()
     print("Analyzing...")
 
+    allowed_standard_baselines = get_sf_values(IR_SF_C_STANDARD_BASELINES)
+    allowed_standard_sections = get_sf_values(IR_SF_C_STANDARD_SECTION)
+    allowed_scopes = get_sf_values(IR_SF_C_SCOPE)
+    allowed_mitre_mitigations = get_sf_values(IR_SF_C_MITRE)
+    allowed_mitre_techniques = get_sf_values(IR_SF_T_MITRE)
+    allowed_stride_categories = get_sf_values(IR_SF_T_STRIDE)
+
     for th in template["threats"].values():
-        k = th["ref"]
-        print(f'[blue]Threat: {th["name"]}')
+        print(f'[blue]Threat: {th["ref"]} - {th["name"]}')
 
         risk_rating = ["C", "I", "A", "EE"]
 
-        if th["customFields"][CUSTOM_FIELD_STRIDE] not in get_sf_values(IR_SF_T_STRIDE):
-            print(f'Value {th["customFields"][CUSTOM_FIELD_STRIDE]} is not in the list')
-            action = qselect("What do you want to do?",
-                             choices=["Replace with allowed value from list",
-                                      "Set new value manually",
-                                      "Do nothing",
-                                      "Find alternatives"])
-            if "Replace" in action:
-                options = qmulti("Select:", choices=get_sf_values(IR_SF_T_STRIDE))
-                th["customFields"][CUSTOM_FIELD_STRIDE] = options.join("||")
-                new_stride = qselect("Which one will be used to group the threat?:", choices=options)
-                for relation in template["relations"]:
-                    threat_custom_fields = template["threats"][relation["threat"]]["customFields"]
-                    if CUSTOM_FIELD_STRIDE in threat_custom_fields:
-                        stride_category_initial = new_stride[0]
-                        relation["usecase"] = STRIDE_LIST[stride_category_initial]["ref"]
-                        if relation["usecase"] not in template["usecases"]:
-                            template["usecases"][relation["usecase"]] = STRIDE_LIST[stride_category_initial]
+        for r in risk_rating:
+            th["riskRating"][r] = check_valid_value2(th["riskRating"][r], ["0", "25", "50", "75", "100"])
+        th["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE] \
+            = check_valid_value2(th["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE],
+                                 allowed_mitre_techniques)
+        th["customFields"][CUSTOM_FIELD_STRIDE] \
+            = check_valid_value2(th["customFields"][CUSTOM_FIELD_STRIDE],
+                                 allowed_stride_categories)
 
-            elif "manually" in action:
-                pass
-            elif "alternatives":
-                pass
+    for c in template["controls"].values():
+        print(f'[blue]Countermeasure: {c["ref"]} - {c["name"]}')
+
+        c["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_REF] \
+            = check_valid_value2(c["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_REF],
+                                 allowed_standard_baselines)
+        c["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_SECTION] \
+            = check_valid_value2(c["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_SECTION],
+                                 allowed_standard_sections)
+        c["customFields"][CUSTOM_FIELD_SCOPE] \
+            = check_valid_value2(c["customFields"][CUSTOM_FIELD_SCOPE],
+                                 allowed_scopes)
+        c["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION] \
+            = check_valid_value2(c["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION],
+                                 allowed_mitre_mitigations)
+        c["cost"] = check_valid_value2(c["cost"], ["0", "1", "2"])
+
+        if "\"" in c["question"]:
+            c["question"] = c["question"].replace("\"", "'")
+
+    original_cwe_weaknesses = get_original_cwe_weaknesses()
+    for relation in template["relations"]:
+        cwe_id = relation["weakness"].replace("CWE-", "")
+        if cwe_id not in original_cwe_weaknesses:
+            # TODO: This should return a list of related CWEs but we don't have that list :(
+            # related_weaknesses = get_cwe_related_weaknesses(original_cwe_weaknesses, cwe_id)
+            relation["weakness"] = check_valid_value2(relation["weakness"], [])
 
     save_results = qconfirm("Do you want to save?")
     if save_results:

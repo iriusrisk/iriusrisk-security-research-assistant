@@ -1,5 +1,6 @@
 import questionary
 import sys
+import typer
 
 if sys.platform == "win32":
     from prompt_toolkit.output.win32 import NoConsoleScreenBufferError
@@ -17,6 +18,9 @@ def qconfirm(question_text):
     except NoConsoleScreenBufferError:
         answer = input(question_text + " (y/n)") == "y"
 
+    if answer is None:
+        raise typer.Exit(-1)
+
     return answer
 
 
@@ -33,6 +37,9 @@ def qselect(question_text, choices):
     except NoConsoleScreenBufferError:
         answer = input(question_text + " " + str(choices))
 
+    if answer is None:
+        raise typer.Exit(-1)
+
     return answer
 
 
@@ -48,6 +55,9 @@ def qmulti(question_text, choices):
         answer = input(question_text + " " + str(choices))
         answer = [answer]
 
+    if answer is None:
+        raise typer.Exit(-1)
+
     return answer
 
 
@@ -57,6 +67,9 @@ def qtext(question_text, default=""):
     except NoConsoleScreenBufferError:
         answer = input(question_text)
 
+    if answer is None:
+        raise typer.Exit(-1)
+
     return answer
 
 
@@ -65,5 +78,8 @@ def qpath(question_text, default=""):
         answer = questionary.path(question_text, default=default).ask()
     except NoConsoleScreenBufferError:
         answer = input(question_text)
+
+    if answer is None:
+        raise typer.Exit(-1)
 
     return answer

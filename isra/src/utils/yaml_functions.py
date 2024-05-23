@@ -9,8 +9,8 @@ from rich import print
 from yaml.scanner import ScannerError
 
 from isra.src.config.config import get_resource
-from isra.src.config.constants import (CUSTOM_FIELD_SCOPE, CUSTOM_FIELD_STRIDE, CUSTOM_FIELD_BASELINE_STANDARD_REF,
-                                       CUSTOM_FIELD_BASELINE_STANDARD_SECTION,
+from isra.src.config.constants import (CUSTOM_FIELD_SCOPE, CUSTOM_FIELD_STRIDE, CUSTOM_FIELD_STANDARD_BASELINE_REF,
+                                       CUSTOM_FIELD_STANDARD_BASELINE_SECTION,
                                        STRIDE_LIST, YSC_SCHEMA, CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION,
                                        CUSTOM_FIELD_ATTACK_ICS_MITIGATION, CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION,
                                        CUSTOM_FIELD_ATLAS_MITIGATION, CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE,
@@ -121,8 +121,8 @@ def load_yaml_file(component):
                         CUSTOM_FIELD_ATTACK_ICS_MITIGATION: attack_ics_mit,
                         CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION: attack_mobile_mit,
                         CUSTOM_FIELD_ATLAS_MITIGATION: atlas_mit,
-                        CUSTOM_FIELD_BASELINE_STANDARD_REF: c.get("base_standard", ""),
-                        CUSTOM_FIELD_BASELINE_STANDARD_SECTION: "||".join(c.get("base_standard_section", [])),
+                        CUSTOM_FIELD_STANDARD_BASELINE_REF: c.get("base_standard", ""),
+                        CUSTOM_FIELD_STANDARD_BASELINE_SECTION: "||".join(c.get("base_standard_section", [])),
                         CUSTOM_FIELD_SCOPE: scope
                     },
                     "references": references_c,
@@ -184,7 +184,7 @@ def save_yaml_file(template):
                             cwe_impact = template["weaknesses"][w_key]["impact"]
 
                         base_standard_section = template["controls"][c_key]["customFields"].get(
-                            CUSTOM_FIELD_BASELINE_STANDARD_SECTION, "")
+                            CUSTOM_FIELD_STANDARD_BASELINE_SECTION, "")
                         if len(base_standard_section) == 0:
                             base_standard_section = []
                         else:
@@ -232,7 +232,7 @@ def save_yaml_file(template):
                                 "atlas_mitigation": atlas_mitigation
                             },
                             "base_standard": template["controls"][c_key]["customFields"].get(
-                                CUSTOM_FIELD_BASELINE_STANDARD_REF, ""),
+                                CUSTOM_FIELD_STANDARD_BASELINE_REF, ""),
                             "base_standard_section": base_standard_section,
                             "standards": standards
                         }
