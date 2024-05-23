@@ -28,8 +28,7 @@ def extract_json(json_string):
     try:
         result = json.loads(json_object)
     except JSONDecodeError as e:
-        print("Couldn't convert JSON answer")
-        print(json_object)
+        print(f"Couldn't convert JSON answer: {json_object}")
         raise e
 
     return result

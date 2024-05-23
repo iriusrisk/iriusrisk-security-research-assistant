@@ -1,4 +1,5 @@
 import warnings
+from json import JSONDecodeError
 
 import typer
 from bs4 import MarkupResemblesLocatorWarning
@@ -330,7 +331,10 @@ def save_baseline_standard_section(template, to_update, action="init"):
 
 def save_cia_triad(template, to_update, action="init"):
     for k, v in to_update.items():
-        values = extract_json(to_update[k])
+        try:
+            values = extract_json(to_update[k])
+        except JSONDecodeError:
+            continue
 
         if action in ["init", "replace"]:
             risk_rating = ["C", "I", "A", "EE"]
@@ -712,7 +716,10 @@ def autoscreening_init():
     for th in template["threats"].values():
         k = th["ref"]
         print(f'[blue]Threat: {th["ref"]} - {th["name"]}')
-        values = extract_json(get_complete_threat_auto(th))
+        try:
+            values = extract_json(get_complete_threat_auto(th))
+        except JSONDecodeError:
+            continue
 
         risk_rating = ["C", "I", "A", "EE"]
         for category in risk_rating:
@@ -736,8 +743,11 @@ def autoscreening_init():
     for c in template["controls"].values():
         k = c["ref"]
         print(f'[blue]Countermeasure: {c["ref"]} - {c["name"]}')
+        try:
+            values = extract_json(get_complete_control_auto(c))
+        except JSONDecodeError:
+            continue
 
-        values = extract_json(get_complete_control_auto(c))
         for var in ["question", "question_desc", "cost"]:
             template["controls"][k][var] = set_value(var,
                                                      template["controls"][k][var],
