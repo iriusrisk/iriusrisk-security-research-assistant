@@ -133,24 +133,6 @@ def new_control():
     control_generator()
 
 
-# @app.command()
-# def threat_screening():
-#     """
-#     Does all threat screenings at the same time
-#     """
-#     items = get_all_threats()
-#     screening(items, get_complete_threat, save_complete_threat)
-#
-#
-# @app.command()
-# def control_screening():
-#     """
-#     Does all countermeasure screenings at the same time
-#     """
-#     items = get_all_controls()
-#     screening(items, get_complete_control, save_complete_control)
-
-
 @app.command()
 def autoscreening():
     """
@@ -159,7 +141,7 @@ def autoscreening():
     autoscreening_init()
 
 
-@app.command(hidden=True)
+@app.command()
 def fix():
     """
     Tries to fix anything that doesn't fit the YSC schema

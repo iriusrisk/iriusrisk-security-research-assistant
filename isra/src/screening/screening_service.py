@@ -18,7 +18,7 @@ from isra.src.utils.gpt_functions import query_chatgpt, get_prompt
 from isra.src.utils.questionary_wrapper import qselect, qconfirm, qtext
 from isra.src.utils.structure_functions import build_new_threat, build_new_control
 from isra.src.utils.text_functions import extract_json, closest_number, beautify, get_company_name_prefix, \
-    check_valid_value, set_value, check_valid_value2
+    check_valid_value, set_value, fix_value
 
 warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
@@ -371,56 +371,6 @@ def save_question(template, to_update, action="init"):
                                                       action)
 
 
-# def save_complete_threat(template, to_update, action="init"):
-#     for k, v in to_update.items():
-#         try:
-#             values = extract_json(to_update[k])
-#         except:
-#             print("A problem happened when extracting json")
-#             continue
-#
-#         template["threats"][k]["riskRating"]["C"] = closest_number(values["C"])
-#         template["threats"][k]["riskRating"]["I"] = closest_number(values["I"])
-#         template["threats"][k]["riskRating"]["A"] = closest_number(values["A"])
-#         template["threats"][k]["riskRating"]["EE"] = closest_number(values["EE"])
-#         template["threats"][k]["customFields"][CUSTOM_FIELD_STRIDE] \
-#             = check_valid_value(values["stride"], IR_SF_T_STRIDE)
-#         template["threats"][k]["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE] \
-#             = check_valid_value(values["attack"], IR_SF_T_MITRE)
-#
-#     save_threats_to_stride_usecase(template, [])
-
-
-# def save_complete_control(template, to_update, action="init"):
-#
-#     for k, v in to_update.items():
-#         try:
-#             values = extract_json(to_update[k])
-#         except:
-#             print(f"A problem happened when extracting json for {k}")
-#             continue
-#
-#         template["controls"][k]["question"] = values["question"]
-#         template["controls"][k]["question_desc"] = ''  # values["question_desc"]
-#         template["controls"][k]["cost"] = str(values["cost"])
-#         template["controls"][k]["customFields"][CUSTOM_FIELD_BASELINE_STANDARD_REF] \
-#             = check_valid_value(values["baseline"], IR_SF_C_STANDARD_BASELINES)
-#         template["controls"][k]["customFields"][CUSTOM_FIELD_BASELINE_STANDARD_SECTION] \
-#             = check_valid_value(values["section"], IR_SF_C_STANDARD_SECTION)
-#         template["controls"][k]["customFields"][CUSTOM_FIELD_SCOPE] \
-#             = check_valid_value(values["scope"], IR_SF_C_SCOPE)
-#         template["controls"][k]["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION] \
-#             = check_valid_value(values["attack-mit"], IR_SF_C_MITRE)
-#
-#         cwe_id, cwe_name = values["CWE"].split(":")
-#         set_weakness(template, k, cwe_id)
-#
-#     # Cleaning unused weaknesses
-#     available_weaknesses = set(rel["weakness"] for rel in template["relations"])
-#     template["weaknesses"] = {w: template["weaknesses"][w] for w in template["weaknesses"] if
-#                               w in available_weaknesses}
-
-
 # Custom behavior for saving functions
 
 def save_threats_to_stride_usecase(template):
@@ -433,7 +383,7 @@ def save_threats_to_stride_usecase(template):
             stride_categories = stride_cf.split("||")
             stride_category_initial = stride_categories[0][0]
             if len(stride_categories) > 1:
-                stride_category = qselect("Choose STRIDE category to group threat:", choices=stride_categories)
+                stride_category = qselect(f"Choose STRIDE category to group threat {relation['threat']}:", choices=stride_categories)
                 stride_category_initial = stride_category[0]
 
             relation["usecase"] = STRIDE_LIST[stride_category_initial]["ref"]
@@ -723,11 +673,15 @@ def autoscreening_init():
                                 CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE,
                                 CUSTOM_FIELD_ATLAS_TECHNIQUE]
         for custom_field in threat_custom_fields:
+            if custom_field not in template["threats"][k]["customFields"]:
+                template["threats"][k]["customFields"][custom_field] = ""
             template["threats"][k]["customFields"][custom_field] = \
                 set_value(custom_field,
                           template["threats"][k]["customFields"][custom_field],
                           values.get(custom_field, None),
                           parameter_config[custom_field])
+
+    save_threats_to_stride_usecase(template)
 
     for c in template["controls"].values():
         k = c["ref"]
@@ -751,6 +705,8 @@ def autoscreening_init():
                                  CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION,
                                  CUSTOM_FIELD_ATLAS_MITIGATION]
         for custom_field in control_custom_fields:
+            if custom_field not in template["controls"][k]["customFields"]:
+                template["controls"][k]["customFields"][custom_field] = ""
             template["controls"][k]["customFields"][custom_field] = \
                 set_value(custom_field,
                           template["controls"][k]["customFields"][custom_field],
@@ -806,32 +762,42 @@ def fix_component():
         print(f'[blue]Threat: {th["ref"]} - {th["name"]}')
 
         risk_rating = ["C", "I", "A", "EE"]
-
         for r in risk_rating:
-            th["riskRating"][r] = check_valid_value2(th["riskRating"][r], ["0", "25", "50", "75", "100"])
+            th["riskRating"][r] = fix_value(th["riskRating"][r], ["1", "25", "50", "75", "100"])
+
+        th["customFields"].setdefault(CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE, "")
+        th["customFields"].setdefault(CUSTOM_FIELD_STRIDE, "")
+
         th["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE] \
-            = check_valid_value2(th["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE],
-                                 allowed_mitre_techniques)
+            = fix_value(th["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE],
+                        allowed_mitre_techniques)
         th["customFields"][CUSTOM_FIELD_STRIDE] \
-            = check_valid_value2(th["customFields"][CUSTOM_FIELD_STRIDE],
-                                 allowed_stride_categories)
+            = fix_value(th["customFields"][CUSTOM_FIELD_STRIDE],
+                        allowed_stride_categories)
+
+    save_threats_to_stride_usecase(template)
 
     for c in template["controls"].values():
         print(f'[blue]Countermeasure: {c["ref"]} - {c["name"]}')
 
+        c["customFields"].setdefault(CUSTOM_FIELD_STANDARD_BASELINE_REF, "")
+        c["customFields"].setdefault(CUSTOM_FIELD_STANDARD_BASELINE_SECTION, "")
+        c["customFields"].setdefault(CUSTOM_FIELD_SCOPE, "")
+        c["customFields"].setdefault(CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION, "")
+
         c["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_REF] \
-            = check_valid_value2(c["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_REF],
-                                 allowed_standard_baselines)
+            = fix_value(c["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_REF],
+                        allowed_standard_baselines)
         c["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_SECTION] \
-            = check_valid_value2(c["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_SECTION],
-                                 allowed_standard_sections)
+            = fix_value(c["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_SECTION],
+                        allowed_standard_sections)
         c["customFields"][CUSTOM_FIELD_SCOPE] \
-            = check_valid_value2(c["customFields"][CUSTOM_FIELD_SCOPE],
-                                 allowed_scopes)
+            = fix_value(c["customFields"][CUSTOM_FIELD_SCOPE],
+                        allowed_scopes)
         c["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION] \
-            = check_valid_value2(c["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION],
-                                 allowed_mitre_mitigations)
-        c["cost"] = check_valid_value2(c["cost"], ["0", "1", "2"])
+            = fix_value(c["customFields"][CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION],
+                        allowed_mitre_mitigations)
+        c["cost"] = fix_value(c["cost"], ["0", "1", "2"])
 
         if "\"" in c["question"]:
             c["question"] = c["question"].replace("\"", "'")
@@ -842,7 +808,7 @@ def fix_component():
         if cwe_id not in original_cwe_weaknesses:
             # TODO: This should return a list of related CWEs but we don't have that list :(
             # related_weaknesses = get_cwe_related_weaknesses(original_cwe_weaknesses, cwe_id)
-            relation["weakness"] = check_valid_value2(relation["weakness"], [])
+            relation["weakness"] = fix_value(relation["weakness"], [])
 
     save_results = qconfirm("Do you want to save?")
     if save_results:

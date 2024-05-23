@@ -18,7 +18,9 @@ def get_threat_answers():
     with open(template_path, "r") as f:
         template = json.loads(f.read())
 
-    answers = "".join(["y\n" for _ in range(0, len(template["threats"]))])
+    answers = "I want to replace anything with new values\n"
+
+    answers += "".join(["y\n" for _ in range(0, len(template["threats"]))])
     # Last answer is to save or not
     answers += "y\n"
 
@@ -31,7 +33,8 @@ def get_control_answers():
     with open(template_path, "r") as f:
         template = json.loads(f.read())
 
-    answers = "".join(["y\n" for _ in range(0, len(template["controls"]))])
+    answers = "I want to replace anything with new values\n"
+    answers += "".join(["y\n" for _ in range(0, len(template["controls"]))])
     # Last answer is to save or not
     answers += "y\n"
 
@@ -82,6 +85,10 @@ class CLITests(unittest.TestCase):
         result = self.runner.invoke(app, ["screening", screening], input=get_control_answers())
         assert_process(result)
 
+    def run_autoscreening(self):
+        result = self.runner.invoke(app, ["screening", "autoscreening"], input="y\n")
+        assert_process(result)
+
     def run_standards_expand(self):
         result = self.runner.invoke(app, ["standards", "expand"])
         assert_process(result)
@@ -109,6 +116,7 @@ class CLITests(unittest.TestCase):
         self.run_component_new()
         self.run_component_tm()
         self.run_threat_screening("stride")
+        self.run_control_screening("cwe")
         self.run_component_save("yaml")
 
     def test_component_load(self):
@@ -120,8 +128,7 @@ class CLITests(unittest.TestCase):
     def test_component_xml_yaml_have_same_info(self):
         self.run_component_new()
         self.run_component_tm()
-        self.run_control_screening("control-screening")
-        self.run_threat_screening("threat-screening")
+        self.run_autoscreening()
         self.run_control_screening("cwe")
         self.run_component_save("xml")
         self.run_component_save("yaml")

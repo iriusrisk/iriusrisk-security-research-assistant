@@ -21,15 +21,19 @@ def extract_json(json_string):
     end_index = json_string.rfind('}')
 
     # Extract the JSON object
-    json_object = json_string[start_index:end_index + 1].replace("\'", "\"")
+    json_object = json_string[start_index:end_index + 1]
 
     # Parse the JSON object and return it
 
     try:
         result = json.loads(json_object)
     except JSONDecodeError as e:
-        print(f"Couldn't convert JSON answer: {json_object}")
-        raise e
+        try:
+            result = json.loads(json_object.replace("'", "\""))
+        except JSONDecodeError as e:
+            print(json_string)
+            print(f"Couldn't convert JSON answer: {json_object}")
+            raise e
 
     return result
 
@@ -73,7 +77,7 @@ def check_valid_value(answer, system_field):
     return result
 
 
-def check_valid_value2(value, allowed_values):
+def fix_value(value, allowed_values):
     values = value.split("||")
     new_values = list()
 

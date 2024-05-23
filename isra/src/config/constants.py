@@ -454,5 +454,9 @@ HINTS = [
     "Save your current configuration using 'isra config save'",
     "Use --help on any command to see available options for the command",
     "Set a company name to append a prefix to the library that will be uploaded to IriusRisk if you need it",
-    "Use 'isra config info' to learn about the configurable parameters in ISRA"
+    "Use 'isra config info' to learn about the configurable parameters in ISRA",
+    "Use 'isra screening autoscreening' to perform an automatic screening, but don't forget to fix values later!",
+    "Use 'isra screening fix' to fix every value that might be wrong",
+    "The command 'isra standards show' will show you the whole list of supported standards",
+    ""
 ]
