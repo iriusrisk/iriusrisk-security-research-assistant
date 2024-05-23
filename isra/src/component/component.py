@@ -439,6 +439,7 @@ def info(full: Annotated[bool, typer.Option(help="Shows all properties")] = Fals
         if params is None:
             raise typer.Exit(-1)
 
+        # Idea: if I create an index map I could put the right value in the right column
         headers = ["Element"] + params
         table = Table(*headers)
 
@@ -449,7 +450,6 @@ def info(full: Annotated[bool, typer.Option(help="Shows all properties")] = Fals
                     param_map[param] = item_val
             if len(param_map) != 0:
                 table.add_row(template["component"]["ref"], *param_map.values())
-
         for item, item_val in template["riskPattern"].items():
             param_map = dict()
             for param in params:

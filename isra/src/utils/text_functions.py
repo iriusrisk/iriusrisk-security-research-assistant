@@ -240,6 +240,7 @@ def compare_elements(elem1, elem2, path=""):
 def set_value(variable_name, variable, value, action):
     message = ""
     log = True
+    value = str(value)
 
     if action == "init":
         if variable == "":
