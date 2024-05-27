@@ -456,7 +456,7 @@ HINTS = [
     "Set a company name to append a prefix to the library that will be uploaded to IriusRisk if you need it",
     "Use 'isra config info' to learn about the configurable parameters in ISRA",
     "Use 'isra screening autoscreening' to perform an automatic screening, but don't forget to fix values later!",
-    "Use 'isra screening fix' to fix every value that might be wrong",
+    "Use 'isra screening fix' to fix every value that might be wrong, especially after the autoscreening",
     "The command 'isra standards show' will show you the whole list of supported standards",
-    ""
+    "If the autoscreening doesn't do what you want you can modify its behavior by editing the config file"
 ]

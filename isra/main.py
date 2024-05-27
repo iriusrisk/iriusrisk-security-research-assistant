@@ -21,7 +21,7 @@ app.add_typer(screening.app, name="screening")
 app.add_typer(standards.app, name="standards")
 app.add_typer(component.app, name="component")
 
-config.initialize_properties_file()
+config.initialize_configuration()
 
 
 @app.callback()
@@ -53,5 +53,5 @@ def about():
 
 
 if __name__ == "__main__":
-    config.initialize_properties_file()
+    config.initialize_configuration()
     app(["screening", "autoscreening"])

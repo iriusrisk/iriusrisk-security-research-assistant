@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "isra"
-version = "2.0.0"
+version = "2.1.0"
 description = "IriusRisk Security Research Assistant: a tool to create components as code"
 authors = ["Alvaro Reyes <areyes@iriusrisk.com>"]
 readme = "README.md"
@@ -19,7 +19,7 @@ openpyxl = "^3.1.2"
 lxml = "^5.1.0"
 keyboard = "^0.13.5"
 openai = "^1.25.0"
-requests = "^2.31.0"
+requests = "^2.32.2"
 pyyaml = "^6.0.1"
 questionary = "^2.0.1"
 rich = "^13.7.1"

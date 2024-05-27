@@ -121,7 +121,16 @@ def get_sf_values(key=None):
         return system_field_values
 
 
-def initialize_properties_file():
+def initialize_configuration():
+
+    config_folder = Path(get_app_dir()) / "config"
+    if not os.path.exists(config_folder):
+        os.makedirs(config_folder, exist_ok=True)
+
+    backup_folder = Path(get_app_dir()) / "backup"
+    if not os.path.exists(backup_folder):
+        os.makedirs(backup_folder, exist_ok=True)
+
     default_properties = {k: "" for k, v in get_info().items()}
 
     parser = get_parser()
@@ -150,6 +159,43 @@ def list_assistants():
         print(f"Details: {e}")
 
     return result
+
+
+def read_autoscreening_config():
+
+    parameter_config_path = Path(get_app_dir()) / "config" / 'autoscreening.yaml'
+
+    if not os.path.exists(parameter_config_path):
+        default_parameter_config = {
+            "cost": "replace",
+            "question": "replace",
+            "question_desc": "ignore",
+            "dataflow_tags": "append",
+            "attack_enterprise_mitigation": "append",
+            "attack_ics_mitigation": "ignore",
+            "attack_mobile_mitigation": "ignore",
+            "atlas_mitigation": "ignore",
+            "baseline_standard_ref": "init",
+            "baseline_standard_section": "init",
+            "scope": "append",
+            "cwe": "init",
+            "riskRating": "replace",
+            "stride_lm": "append",
+            "attack_enterprise_technique": "append",
+            "attack_ics_technique": "ignore",
+            "attack_mobile_technique": "ignore",
+            "atlas_technique": "ignore"
+        }
+        with open(parameter_config_path, 'w') as f:
+            yaml.dump(default_parameter_config, f, default_flow_style=False, sort_keys=False)
+            print(f"Autoscreening parameters generated in {parameter_config_path}")
+
+        parameter_config = default_parameter_config
+    else:
+        with open(parameter_config_path, 'r') as f:
+            parameter_config = yaml.safe_load(f)
+
+    return parameter_config
 
 
 @app.callback()
@@ -241,7 +287,7 @@ def reset():
     """
     parser = get_parser()
     os.remove(parser.config_path)
-    initialize_properties_file()
+    initialize_configuration()
 
 
 @app.command()
@@ -249,7 +295,7 @@ def load():
     """
     Loads a configuration file
     """
-    properties_dir = get_app_dir()
+    properties_dir = Path(get_app_dir()) / "backup"
 
     choices = [file.name for file in os.scandir(properties_dir) if
                file.name.endswith(".properties") and file.name.startswith("backup")]
@@ -260,7 +306,7 @@ def load():
     else:
         config_to_load = qselect("Which config do you want to load?", choices=choices)
         config_to_load_path = str(os.path.join(properties_dir, config_to_load))
-        initialize_properties_file()
+        initialize_configuration()
         parser = get_parser()
         parser_backup = configparser.ConfigParser()
         parser_backup.read(config_to_load_path)
@@ -287,7 +333,7 @@ def save(name: Annotated[str, typer.Option(help="Name of the new config file")] 
     if name == "isra":
         print("Name cannot be 'isra' since it's a reserved name")
     else:
-        new_properties_file = Path(get_app_dir()) / f'backup_{name}.properties'
+        new_properties_file = Path(get_app_dir()) / "backup" / f'backup_{name}.properties'
         parser = get_parser()
         with open(new_properties_file, 'w') as configfile:
             parser.write(configfile)

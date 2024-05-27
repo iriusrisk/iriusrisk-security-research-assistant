@@ -5,7 +5,7 @@ from bs4 import MarkupResemblesLocatorWarning
 from rich import print
 
 from isra.src.component.component import read_current_component, write_current_component, balance_mitigation_values
-from isra.src.config.config import get_sf_values
+from isra.src.config.config import get_sf_values, read_autoscreening_config
 from isra.src.config.constants import CUSTOM_FIELD_STRIDE, CUSTOM_FIELD_SCOPE, \
     CUSTOM_FIELD_STANDARD_BASELINE_REF, CUSTOM_FIELD_STANDARD_BASELINE_SECTION, \
     STRIDE_LIST, CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE, \
@@ -383,7 +383,8 @@ def save_threats_to_stride_usecase(template):
             stride_categories = stride_cf.split("||")
             stride_category_initial = stride_categories[0][0]
             if len(stride_categories) > 1:
-                stride_category = qselect(f"Choose STRIDE category to group threat {relation['threat']}:", choices=stride_categories)
+                stride_category = qselect(f"Choose STRIDE category to group threat {relation['threat']}:",
+                                          choices=stride_categories)
                 stride_category_initial = stride_category[0]
 
             relation["usecase"] = STRIDE_LIST[stride_category_initial]["ref"]
@@ -419,8 +420,8 @@ def screening(items, ask_function, save_function, choices=None):
         print("No items found to do screening")
     else:
         screening_choices = {
-            "I want to set values only where I haven't set them yet": "init",
-            "I want to replace anything with new values": "replace",
+            "I want to set values only where they have not been set yet": "init",
+            "I want to replace existing values with new ones": "replace",
             "I want to append new values to the existing ones": "append"
         }
         action_choice = qselect("Define the purpose of the screening:", choices=screening_choices.keys())
@@ -623,26 +624,7 @@ def control_generator():
 def autoscreening_init():
     template = read_current_component()
 
-    parameter_config = {
-        "cost": "replace",
-        "question": "init",
-        "question_desc": "ignore",
-        "dataflow_tags": "append",
-        "attack_enterprise_mitigation": "append",
-        "attack_ics_mitigation": "ignore",
-        "attack_mobile_mitigation": "ignore",
-        "atlas_mitigation": "ignore",
-        "baseline_standard_ref": "init",
-        "baseline_standard_section": "append",
-        "scope": "append",
-        "cwe": "init",
-        "riskRating": "replace",
-        "stride_lm": "append",
-        "attack_enterprise_technique": "append",
-        "attack_ics_technique": "ignore",
-        "attack_mobile_technique": "ignore",
-        "atlas_technique": "ignore"
-    }
+    parameter_config = read_autoscreening_config()
 
     component_ref = template["component"]["ref"]
     print(f"Starting autoscreening for {component_ref}")

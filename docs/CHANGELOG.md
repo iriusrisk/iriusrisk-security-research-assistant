@@ -15,6 +15,8 @@
 * Added option to include feedback when asking ChatGPT to think again in a screening
 * Added option to set different behaviors to set the values when doing the screening
 * Added option to manually enter an input in case the value returned by ChatGPT is not correct
+* Backups are now stored in a "backup" folder in appdata. Backup files have to be moved into this new folder
+* Autoscreening can be configured by editing autoscreening.yaml in "config" folder in appdata if needed
 
 ## 2.0.0 - 20240507
 
