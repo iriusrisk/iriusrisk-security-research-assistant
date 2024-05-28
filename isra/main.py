@@ -4,7 +4,7 @@ import typer
 import typer.completion
 from typer._completion_shared import Shells
 
-from isra.src.component import component
+from isra.src.component import component, component2
 from isra.src.config import config
 from isra.src.ile import ile
 from isra.src.screening import screening
@@ -20,6 +20,7 @@ app.add_typer(ile.app, name="ile")
 app.add_typer(screening.app, name="screening")
 app.add_typer(standards.app, name="standards")
 app.add_typer(component.app, name="component")
+app.add_typer(component2.app, name="component2", hidden=True)
 
 config.initialize_configuration()
 
