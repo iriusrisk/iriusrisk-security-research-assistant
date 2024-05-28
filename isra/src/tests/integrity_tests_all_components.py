@@ -44,15 +44,12 @@ def collect_field_values_from_yaml_data(yaml_data, fields_to_collect):
     return collected_values
 
 
-def check_duplicated_components(path_components):
+def check_duplicated_components(roots):
     errors = []
     component_refs = list()
 
-    for root, dirs, components in os.walk(path_components):
-        for component in components:
-            if component.endswith(".yaml") and "to_review" not in root:
-                yaml_root = read_yaml(os.path.join(root, component))
-                component_refs.append(yaml_root["component"]["ref"])
+    for component_path, yaml_root in roots.items():
+        component_refs.append(yaml_root["component"]["ref"])
 
     counter = Counter(component_refs)
     for k, v in counter.items():

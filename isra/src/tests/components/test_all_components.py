@@ -18,7 +18,7 @@ class TestAllComponents(unittest.TestCase):
         cls.components = list()
         for root, dirs, files in os.walk(components_dir):
             for file in files:
-                if file.endswith(".yaml") and "to_review" not in root:
+                if file.endswith(".yaml") and "to_review" not in root and ".git" not in root:
                     cls.components.append(os.path.join(root, file))
         cls.roots = dict()
         for x in cls.components:
@@ -26,7 +26,7 @@ class TestAllComponents(unittest.TestCase):
 
     def test_duplicated_components(self):
         """Check that there are no duplicated components"""
-        errors = check_duplicated_components(self.path)
+        errors = check_duplicated_components(self.roots)
         self.assertCountEqual(errors, [])
 
     def test_duplicated_risk_pattern_refs(self):

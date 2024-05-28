@@ -19,7 +19,7 @@ class TestComponent(unittest.TestCase):
         cls.components = list()
         for root, dirs, files in os.walk(components_dir):
             for file in files:
-                if file.endswith(".yaml") and "to_review" not in root:
+                if file.endswith(".yaml") and "to_review" not in root and ".git" not in root:
                     cls.components.append(os.path.join(root, file))
         cls.roots = dict()
         for x in cls.components:
