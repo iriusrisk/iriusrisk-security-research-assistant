@@ -420,8 +420,8 @@ def screening(items, ask_function, save_function, choices=None):
         print("No items found to do screening")
     else:
         screening_choices = {
-            "I want to set values only where they have not been set yet": "init",
             "I want to replace existing values with new ones": "replace",
+            "I want to set values only where they have not been set yet": "init",
             "I want to append new values to the existing ones": "append"
         }
         action_choice = qselect("Define the purpose of the screening:", choices=screening_choices.keys())

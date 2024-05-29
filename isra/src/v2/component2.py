@@ -11,13 +11,15 @@ from rich import print
 from rich.table import Table
 from typing_extensions import Annotated
 
-from isra.src.config.constants2 import THREAT_MODEL_FILE, TM_SCHEMA, PREFIX_COMPONENT_DEFINITION, \
+from isra.src.v2.constants2 import THREAT_MODEL_FILE, TM_SCHEMA, PREFIX_COMPONENT_DEFINITION, \
     PREFIX_RISK_PATTERN, PREFIX_THREAT, PREFIX_COUNTERMEASURE, TEMPLATE_FILE
-from isra.src.models.Component import Component
-from isra.src.models.RiskPattern import RiskPattern
-from isra.src.models.Taxonomy import Taxonomy
-from isra.src.models.Template import Template
-from isra.src.models.Threat import Threat
+from isra.src.v2.Component import Component
+from isra.src.v2.Control import Control
+from isra.src.v2.Relation import Relation
+from isra.src.v2.RiskPattern import RiskPattern
+from isra.src.v2.Taxonomy import Taxonomy
+from isra.src.v2.Template import Template
+from isra.src.v2.Threat import Threat
 from isra.src.utils.api_functions import upload_xml, add_to_batch, release_component_batch, \
     pull_remote_component_xml
 from isra.src.utils.decorators import get_time
@@ -25,15 +27,14 @@ from isra.src.utils.gpt_functions import query_chatgpt, get_prompt
 from isra.src.utils.questionary_wrapper import qconfirm, qselect, qmulti, qtext
 from isra.src.utils.text_functions import extract_json, get_company_name_prefix, get_allowed_system_field_values
 from isra.src.utils.xml_functions import *
-from isra.src.utils.yaml_functions import load_yaml_file, save_yaml_file, validate_yaml
+from isra.src.v2.yaml_functions2 import load_yaml_file, save_yaml_file, validate_yaml
 
 app = typer.Typer(no_args_is_help=True, add_help_option=False)
 
 
 def generate_threat_model(text):
     messages = [
-        {"role": "system",
-         "content": get_prompt("generate_threat_model.md")},
+        {"role": "system", "content": get_prompt("generate_threat_model.md")},
         {"role": "user", "content": text}
     ]
 
@@ -42,9 +43,7 @@ def generate_threat_model(text):
 
 def generate_component_description(text):
     messages = [
-        {"role": "system",
-         "content": get_prompt("generate_component_description.md")
-         },
+        {"role": "system", "content": get_prompt("generate_component_description.md")},
         {"role": "user", "content": text}
     ]
 
@@ -66,14 +65,14 @@ def check_current_component(raise_if_not_exists=True):
 
 
 def read_current_component():
-    template_path = os.path.join(get_app_dir(), TEMPLATE_FILE)
+    template_path = check_current_component()
     with open(template_path, "r") as f:
         template = Template.from_dict(json.load(f))
     return template
 
 
 def write_current_component(template):
-    template_path = os.path.join(get_app_dir(), TEMPLATE_FILE)
+    template_path = check_current_component()
     with open(template_path, "w") as f:
         f.write(json.dumps(template.to_dict(), indent=4))
 
@@ -99,9 +98,9 @@ def clean_exported_components(force):
 def balance_mitigation_values():
     template = read_current_component()
 
-    threat_groups = defaultdict(list)
-    for item in template["relations"]:
-        threat_groups[item['threat']].append(item)
+    threat_groups = defaultdict(list[Relation])
+    for item in template.get_relations():
+        threat_groups[item.threat].append(item)
 
     for group in threat_groups.values():
         total_controls = len(group)
@@ -109,9 +108,9 @@ def balance_mitigation_values():
         remaining_mitigation = 100 % total_controls
         for i, item in enumerate(group):
             if i < remaining_mitigation:
-                item['mitigation'] = f"{mitigation_per_control + 1}"
+                item.set_mitigation(f"{mitigation_per_control + 1}")
             else:
-                item['mitigation'] = f"{mitigation_per_control}"
+                item.set_mitigation(f"{mitigation_per_control}")
 
     write_current_component(template)
 
@@ -135,7 +134,7 @@ def add_component_to_batch():
 
     try:
         add_to_batch(template)
-        print(f"Component {template['component']['ref']} added to batch successfully")
+        print(f"Component {template.get_component().get_ref()} added to batch successfully")
     except Exception as e:
         print(f"An error happened when adding the component to batch: {e}")
 
@@ -216,7 +215,7 @@ def load_init(file):
         raise typer.Exit(-1)
 
     template = read_current_component()
-    validate_custom_fields(template)
+    #validate_custom_fields(template)
 
 
 @get_time
@@ -224,7 +223,7 @@ def save_xml(preview):
     template = read_current_component()
 
     output_folder = get_property("component_output_path") or get_app_dir()
-    xml_template_path = os.path.join(output_folder, f"{template['component']['ref']}.xml")
+    xml_template_path = os.path.join(output_folder, f"{template.get_component().get_ref()}.xml")
     root = save_xml_file(template)
 
     if preview:
@@ -242,7 +241,7 @@ def save_yaml(preview):
     template = read_current_component()
 
     output_folder = get_property("component_output_path") or get_app_dir()
-    yaml_template_path = os.path.join(output_folder, f"{template['component']['ref']}.yaml")
+    yaml_template_path = os.path.join(output_folder, f"{template.get_component().get_ref()}.yaml")
     root = save_yaml_file(template)
 
     yaml_dump = yaml.dump(root, default_flow_style=False, sort_keys=False)
@@ -322,7 +321,7 @@ def new():
     th.ref = "fas"
     th.name = "saf"
     tx = Taxonomy()
-    tx.name = "scope"
+    tx.ref = "scope"
     tx.values = ["a", "b"]
     th.taxonomies.append(tx)
     template.threats.append(th)
@@ -528,19 +527,17 @@ def tm():
     properties_dir = get_app_dir()
     threat_model_path = os.path.join(properties_dir, THREAT_MODEL_FILE)
 
-    component_ref = template["component"]["ref"]
+    component_ref = template.get_component().get_ref()
     component_ref_nocd = component_ref.replace(PREFIX_COMPONENT_DEFINITION + get_company_name_prefix(), "")
-    component_desc = template["component"]["desc"]
+    component_desc = template.get_component().get_description()
 
     reuse_threat_model = False
     if os.path.exists(threat_model_path):
         print(f"[blue]Existing threat model found in {threat_model_path}")
         reuse_threat_model = qconfirm("Do you want to reuse previous threat model?")
 
-    template["threats"] = dict()
-    template["weaknesses"] = dict()
-    template["controls"] = dict()
-    template["relations"] = list()
+    template.clean()
+
     if not reuse_threat_model:
         max_iterations = 10
         generated_threat_model = ""
@@ -574,51 +571,32 @@ def tm():
             raise typer.Exit(-1)
 
         for threat in threat_model["security_threats"]:
-            new_threat = {
-                "ref": f"{PREFIX_THREAT}{component_ref_nocd}-{threat['threat_id'].upper()}",
-                "name": threat["threat_name"],
-                "desc": threat["description"],
-                "customFields": dict(),
-                "references": list(),
-                "riskRating": {
-                    "C": "100",
-                    "I": "100",
-                    "A": "100",
-                    "EE": "100"
-                }
-            }
-
-            template["threats"][new_threat["ref"]] = new_threat
+            new_threat = Threat(
+                ref=f"{PREFIX_THREAT}{component_ref_nocd}-{threat['threat_id'].upper()}",
+                name=threat["threat_name"],
+                description=threat["description"]
+            )
+            template.get_threats().append(new_threat)
 
             for control in threat["countermeasures"]:
-                new_control = {
-                    "ref": f"{PREFIX_COUNTERMEASURE}{component_ref_nocd}-{control['countermeasure_id'].upper()}",
-                    "name": control["countermeasure_name"],
-                    "desc": control["description"],
-                    "cost": "2",
-                    "question": "",
-                    "question_desc": "",
-                    "dataflow_tags": [],
-                    "customFields": dict(),
-                    "references": [],
-                    "standards": []
-                }
+                new_control = Control(
+                    ref=f"{PREFIX_COUNTERMEASURE}{component_ref_nocd}-{control['countermeasure_id'].upper()}",
+                    name=control["countermeasure_name"],
+                    description=control["description"]
+                )
+                template.get_controls().append(new_control)
 
-                template["controls"][new_control["ref"]] = new_control
-
-                new_relation = {
-                    "riskPattern": template["riskPattern"]["ref"],
-                    "usecase": "General",
-                    "threat": new_threat["ref"],
-                    "weakness": "",
-                    "control": new_control["ref"]
-                }
-
-                template["relations"].append(new_relation)
+                new_relation = Relation(
+                    risk_pattern=template.get_risk_pattern().get_ref(),
+                    use_case="General",
+                    threat=new_threat.get_ref(),
+                    control=new_control.get_ref()
+                )
+                template.get_relations().append(new_relation)
 
         print(threat_model)
-        print(f"Threats: {len(template['threats'])}")
-        print(f"Countermeasures: {len(template['controls'])}")
+        print(f"Threats: {len(template.get_threats())}")
+        print(f"Countermeasures: {len(template.get_controls())}")
 
         write_current_component(template)
 
