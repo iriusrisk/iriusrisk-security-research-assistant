@@ -203,9 +203,10 @@ def get_proper_cwe(item, feedback):
     ]
 
     result = query_chatgpt(messages)
+    original_cwe_weaknesses = get_original_cwe_weaknesses()
     if ":" in result:
         cwe_id, _ = result.split(":")
-        original_cwe_weaknesses = get_original_cwe_weaknesses()
+
         if cwe_id not in original_cwe_weaknesses:
             print(f"{cwe_id} is not a valid CWE. Try to avoid using CWE categories and pillars")
         else:
@@ -217,6 +218,14 @@ def get_proper_cwe(item, feedback):
         if rel["control"] == item["ref"]:
             current = rel["weakness"]
             break
+
+    if current != "":
+        _, cwe_id = current.split("-")
+
+        if cwe_id not in original_cwe_weaknesses:
+            print(f"{cwe_id} is not a valid CWE. Try to avoid using CWE categories and pillars")
+        else:
+            current = f"{cwe_id}:{original_cwe_weaknesses[cwe_id].attrib['Name']}"
 
     return result, current
 
@@ -450,13 +459,16 @@ def screening(items, ask_function, save_function, choices=None):
             # Any other value will break the loop
             while True:
                 print(f"Item {index + 1}/{len(items)}: {item}")
+                print(f"Name: [bright_cyan]{items[item]['name']}")
+                print(f"Description: [bright_cyan]{items[item]['desc']}")
+
                 chatgpt_answer, current_value = ask_function(items[item], feedback)
                 if current_value != "":
                     print(f"Current value is [green]{current_value}")
                 if current_value != "" and action == "init":
                     print("Item already has a value, skipping...")
                     break
-                print(f"Description: [bright_cyan]{items[item]['desc']}")
+
                 print(f"ChatGPT says: [blue]{chatgpt_answer}")
 
                 screening_item_result = qselect("Is it correct?", choices=[
