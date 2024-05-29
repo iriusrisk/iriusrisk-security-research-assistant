@@ -46,16 +46,6 @@ def get_cwe_description(weaknesses, ids):
     return final_desc
 
 
-def get_cwe_related_weaknesses(original_cwe_weaknesses, cwe_id):
-    related = dict()
-    for related_weakness in original_cwe_weaknesses[cwe_id].iter("Related_Weakness"):
-        if cwe_id not in related:
-            related[cwe_id] = list()
-        related[cwe_id].append(related_weakness.attrib["CWE_ID"])
-
-    return related[cwe_id]
-
-
 def get_original_cwe_weaknesses():
     cwe_xml_path = get_resource(CWE_SOURCE_FILE, filetype="path")
     tree = etree.parse(cwe_xml_path)
@@ -129,3 +119,15 @@ def generate_cwe_jsonl():
                     .replace("\"", "\'")
                     .replace("\\", "\\\\") + '"}')
                 f.write("\n")
+
+
+def get_allowed_cwe_ids():
+    original_cwe_weaknesses = get_original_cwe_weaknesses()
+
+    allowed_values = list()
+    for k, v in original_cwe_weaknesses.items():
+        if v.attrib["Status"] != "Obsolete":
+            allowed_values.append(k)
+
+    print(len(allowed_values))
+    print(str(allowed_values))

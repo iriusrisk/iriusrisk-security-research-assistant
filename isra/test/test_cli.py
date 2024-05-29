@@ -18,7 +18,7 @@ def get_threat_answers():
     with open(template_path, "r") as f:
         template = json.loads(f.read())
 
-    answers = "I want to replace anything with new values\n"
+    answers = "I want to replace existing values with new ones\n"
 
     answers += "".join(["y\n" for _ in range(0, len(template["threats"]))])
     # Last answer is to save or not
@@ -33,7 +33,7 @@ def get_control_answers():
     with open(template_path, "r") as f:
         template = json.loads(f.read())
 
-    answers = "I want to replace anything with new values\n"
+    answers = "I want to replace existing values with new ones\n"
     answers += "".join(["y\n" for _ in range(0, len(template["controls"]))])
     # Last answer is to save or not
     answers += "y\n"
@@ -176,3 +176,8 @@ class CLITests(unittest.TestCase):
         self.run_component_new()
         self.run_component_tm()
         self.run_threat_screening("attack")
+
+    def test_screening_scope(self):
+        self.run_component_new()
+        self.run_component_tm()
+        self.run_control_screening("scope")

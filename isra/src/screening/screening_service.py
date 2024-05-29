@@ -71,7 +71,7 @@ def create_description_for_question(text, feedback):
         {"role": "user", "content": feedback}
     ]
 
-    return query_chatgpt(messages)
+    return query_chatgpt(messages), ""
 
 
 def generate_question(item, feedback):
@@ -88,7 +88,7 @@ def generate_question(item, feedback):
         result = result.replace("\"", "'")
         print(f"Double quotes have been removed: {result}")
 
-    return result
+    return result, item["question"]
 
 
 def get_stride_category(item, feedback):
@@ -100,7 +100,7 @@ def get_stride_category(item, feedback):
     ]
 
     result = query_chatgpt(messages)
-    return check_valid_value(result, IR_SF_T_STRIDE)
+    return check_valid_value(result, IR_SF_T_STRIDE), item["customFields"].get(CUSTOM_FIELD_STRIDE, "")
 
 
 def get_attack_technique(item, feedback):
@@ -113,7 +113,8 @@ def get_attack_technique(item, feedback):
     ]
 
     result = query_chatgpt(messages)
-    return check_valid_value(result, IR_SF_T_MITRE)
+    return (check_valid_value(result, IR_SF_T_MITRE),
+            item["customFields"].get(CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE, ""))
 
 
 def get_attack_mitigation(item, feedback):
@@ -125,7 +126,8 @@ def get_attack_mitigation(item, feedback):
     ]
 
     result = query_chatgpt(messages)
-    return check_valid_value(result, IR_SF_C_MITRE)
+    return (check_valid_value(result, IR_SF_C_MITRE),
+            item["customFields"].get(CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION, ""))
 
 
 def get_intended_scope(item, feedback):
@@ -137,7 +139,7 @@ def get_intended_scope(item, feedback):
     ]
 
     result = query_chatgpt(messages)
-    return check_valid_value(result, IR_SF_C_SCOPE)
+    return check_valid_value(result, IR_SF_C_SCOPE), item["customFields"].get(CUSTOM_FIELD_SCOPE, "")
 
 
 def get_baseline_standard_ref(item, feedback):
@@ -149,7 +151,8 @@ def get_baseline_standard_ref(item, feedback):
     ]
 
     result = query_chatgpt(messages)
-    return check_valid_value(result, IR_SF_C_STANDARD_BASELINES)
+    return (check_valid_value(result, IR_SF_C_STANDARD_BASELINES),
+            item["customFields"].get(CUSTOM_FIELD_STANDARD_BASELINE_REF, ""))
 
 
 def get_baseline_standard_section(item, feedback):
@@ -165,7 +168,8 @@ def get_baseline_standard_section(item, feedback):
     ]
 
     result = query_chatgpt(messages)
-    return check_valid_value(result, IR_SF_C_STANDARD_SECTION)
+    return (check_valid_value(result, IR_SF_C_STANDARD_SECTION),
+            item["customFields"].get(CUSTOM_FIELD_STANDARD_BASELINE_SECTION, ""))
 
 
 def get_cia_triad(item, feedback):
@@ -176,7 +180,7 @@ def get_cia_triad(item, feedback):
         {"role": "user", "content": feedback}
     ]
 
-    return query_chatgpt(messages)
+    return query_chatgpt(messages), str(item["riskRating"])
 
 
 def get_proper_cost(item, feedback):
@@ -187,7 +191,7 @@ def get_proper_cost(item, feedback):
         {"role": "user", "content": feedback}
     ]
 
-    return query_chatgpt(messages)
+    return query_chatgpt(messages), item["cost"]
 
 
 def get_proper_cwe(item, feedback):
@@ -198,29 +202,23 @@ def get_proper_cwe(item, feedback):
         {"role": "user", "content": feedback}
     ]
 
-    return query_chatgpt(messages)
+    result = query_chatgpt(messages)
+    if ":" in result:
+        cwe_id, _ = result.split(":")
+        original_cwe_weaknesses = get_original_cwe_weaknesses()
+        if cwe_id not in original_cwe_weaknesses:
+            print(f"{cwe_id} is not a valid CWE. Try to avoid using CWE categories and pillars")
+        else:
+            result = f"{cwe_id}:{original_cwe_weaknesses[cwe_id].attrib['Name']}"
 
+    current = ""
+    template = read_current_component()
+    for rel in template["relations"]:
+        if rel["control"] == item["ref"]:
+            current = rel["weakness"]
+            break
 
-def get_complete_threat(item, feedback):
-    text = item["name"] + ": " + beautify(item["desc"])
-    messages = [
-        {"role": "system", "content": get_prompt("get_complete_threat.md")},
-        {"role": "user", "content": text},
-        {"role": "user", "content": feedback}
-    ]
-
-    return query_chatgpt(messages)
-
-
-def get_complete_control(item, feedback):
-    text = item["name"] + ": " + beautify(item["desc"])
-    messages = [
-        {"role": "system", "content": get_prompt("get_complete_control.md")},
-        {"role": "user", "content": text},
-        {"role": "user", "content": feedback}
-    ]
-
-    return query_chatgpt(messages)
+    return result, current
 
 
 def get_complete_threat_auto(item):
@@ -353,8 +351,11 @@ def save_proper_cwe(template, to_update, action="init"):
     # instead of querying the original document over and over
 
     for k, val in to_update.items():
-        cwe_id, cwe_name = val.split(":")
-        set_weakness(template, k, cwe_id, action)
+        if ":" in val:
+            cwe_id, cwe_name = val.split(":")
+            set_weakness(template, k, cwe_id, action)
+        else:
+            print("Wrong format. Use ID:Name")
     # Cleaning unused weaknesses
     available_weaknesses = set(rel["weakness"] for rel in template["relations"])
     template["weaknesses"] = {w: template["weaknesses"][w] for w in template["weaknesses"] if w in available_weaknesses}
@@ -436,7 +437,6 @@ def screening(items, ask_function, save_function, choices=None):
         print("Press 'save' to stop the screening process and save values")
 
         to_update = dict()
-        feedback = ""
 
         for index, item in enumerate(items):
             # First we check if the element is valid
@@ -445,12 +445,18 @@ def screening(items, ask_function, save_function, choices=None):
                 print(f"Item {item} is not valid: {validation}")
                 continue
 
+            feedback = ""
             # We enter in an infinite loop to keep asking if the user selects 'again'
             # Any other value will break the loop
             while True:
                 print(f"Item {index + 1}/{len(items)}: {item}")
+                chatgpt_answer, current_value = ask_function(items[item], feedback)
+                if current_value != "":
+                    print(f"Current value is [green]{current_value}")
+                if current_value != "" and action == "init":
+                    print("Item already has a value, skipping...")
+                    break
                 print(f"Description: [bright_cyan]{items[item]['desc']}")
-                chatgpt_answer = ask_function(items[item], feedback)
                 print(f"ChatGPT says: [blue]{chatgpt_answer}")
 
                 screening_item_result = qselect("Is it correct?", choices=[
