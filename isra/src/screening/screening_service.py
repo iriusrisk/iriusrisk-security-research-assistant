@@ -715,25 +715,27 @@ def autoscreening_init():
 
         val = values["cwe"]
 
-        cwe_id, cwe_name = val.split(":")
+        if ":" in val:
+            cwe_id, cwe_name = val.split(":")
 
-        for rel in template["relations"]:
-            if rel["control"] == k and cwe_id in original_cwe_weaknesses:
-                rel["weakness"] = f"CWE-{cwe_id}"
+            for rel in template["relations"]:
+                if rel["control"] == k and cwe_id in original_cwe_weaknesses:
+                    rel["weakness"] = f"CWE-{cwe_id}"
 
-                final_desc = get_cwe_description(original_cwe_weaknesses, [rel["weakness"]])
-                final_impact = get_cwe_impact(original_cwe_weaknesses, cwe_id)
+                    final_desc = get_cwe_description(original_cwe_weaknesses, [rel["weakness"]])
+                    final_impact = get_cwe_impact(original_cwe_weaknesses, cwe_id)
 
-                template["weaknesses"][rel["weakness"]] = {
-                    "ref": rel["weakness"],
-                    "name": rel["weakness"],  # Before: class_base_weaknesses[cwe_id].attrib["Name"],
-                    "desc": final_desc,
-                    "impact": final_impact
-                }
-                print(f"{rel['weakness']} set")
-            elif rel["control"] == k and cwe_id not in original_cwe_weaknesses:
-                print(f"Weakness {cwe_id} has not been found in the internal CWE list")
-
+                    template["weaknesses"][rel["weakness"]] = {
+                        "ref": rel["weakness"],
+                        "name": rel["weakness"],  # Before: class_base_weaknesses[cwe_id].attrib["Name"],
+                        "desc": final_desc,
+                        "impact": final_impact
+                    }
+                    print(f"{rel['weakness']} set")
+                elif rel["control"] == k and cwe_id not in original_cwe_weaknesses:
+                    print(f"Weakness {cwe_id} has not been found in the internal CWE list")
+            else:
+                print(f"Couldn't extract CWE from '{val}'")
     # Cleaning unused weaknesses
     available_weaknesses = set(rel["weakness"] for rel in template["relations"])
     template["weaknesses"] = {w: template["weaknesses"][w] for w in template["weaknesses"] if
