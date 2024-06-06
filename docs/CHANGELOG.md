@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.1.1 - 20240606
+
+## Enhancements
+
+* Added X-Irius-Async header for 'isra component upload'
+
+
 ## 2.1.0 - 20240527
 
 ### Features

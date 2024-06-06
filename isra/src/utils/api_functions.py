@@ -514,6 +514,7 @@ def make_api_call(http_method, api_endpoint, request_body=None, api_version="v2"
             elif http_method == 'post' and files is None:
                 response = requests.post(url + api_endpoint, headers=headers, json=request_body)
             elif http_method == 'post' and files is not None:
+                headers["X-Irius-Async"] = "true"
                 response = requests.post(url + api_endpoint, headers=headers, files=files)
             elif http_method == 'put':
                 response = requests.put(url + api_endpoint, headers=headers, json=request_body)
