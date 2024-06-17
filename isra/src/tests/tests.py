@@ -29,7 +29,7 @@ def all():
     """
     Run all tests
     """
-    pytest.main(
+    return pytest.main(
         ['-v', '-p no:warnings', f'{rootdir}/components'])
 
 
@@ -38,7 +38,7 @@ def component():
     """
     Run pytest with tests that affect each component separately
     """
-    pytest.main(
+    return pytest.main(
         ['-v', '-p no:warnings', f'{rootdir}/components/test_component.py'])
 
 
@@ -47,5 +47,5 @@ def components():
     """
     Run pytest with tests that affect all components at the same time
     """
-    pytest.main(
+    return pytest.main(
         ['-v', '-p no:warnings', f'{rootdir}/components/test_all_components.py'])
