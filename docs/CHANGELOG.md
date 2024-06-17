@@ -5,6 +5,7 @@
 ## Enhancements
 
 * Added X-Irius-Async header for 'isra component upload'
+* When doing the screening the process shows the previous value to help the user to decide
 
 
 ## 2.1.0 - 20240527
