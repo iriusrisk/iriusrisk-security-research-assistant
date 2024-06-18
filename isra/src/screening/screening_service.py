@@ -734,8 +734,8 @@ def autoscreening_init():
                     print(f"{rel['weakness']} set")
                 elif rel["control"] == k and cwe_id not in original_cwe_weaknesses:
                     print(f"Weakness {cwe_id} has not been found in the internal CWE list")
-            else:
-                print(f"Couldn't extract CWE from '{val}'")
+        else:
+            print(f"Couldn't extract CWE from '{val}'")
     # Cleaning unused weaknesses
     available_weaknesses = set(rel["weakness"] for rel in template["relations"])
     template["weaknesses"] = {w: template["weaknesses"][w] for w in template["weaknesses"] if
