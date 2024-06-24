@@ -599,7 +599,9 @@ def import_content_into_template(template, xml_text=None, root=None):
                     "customFields": customfields,
                     "references": references,
                     "standards": [],
-                    "dataflow_tags": []  # This will be filled in the import_rules_into_template function
+                    "dataflow_tags": [],  # These will be filled in the import_rules_into_template function
+                    "question": "",
+                    "question_desc": ""
                 }
 
             for usecase in rp.find("usecases").iter("usecase"):
