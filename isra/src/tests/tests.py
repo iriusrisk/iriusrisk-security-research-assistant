@@ -29,8 +29,7 @@ def all():
     """
     Run all tests
     """
-    return pytest.main(
-        ['-v', '-p no:warnings', f'{rootdir}/components'])
+    exit(pytest.main(['-v', '-p no:warnings', f'{rootdir}/components']))
 
 
 @yaml_components.command()
@@ -38,8 +37,7 @@ def component():
     """
     Run pytest with tests that affect each component separately
     """
-    return pytest.main(
-        ['-v', '-p no:warnings', f'{rootdir}/components/test_component.py'])
+    exit(pytest.main(['-v', '-p no:warnings', f'{rootdir}/components/test_component.py']))
 
 
 @yaml_components.command()
@@ -47,5 +45,4 @@ def components():
     """
     Run pytest with tests that affect all components at the same time
     """
-    return pytest.main(
-        ['-v', '-p no:warnings', f'{rootdir}/components/test_all_components.py'])
+    exit(pytest.main(['-v', '-p no:warnings', f'{rootdir}/components/test_all_components.py']))

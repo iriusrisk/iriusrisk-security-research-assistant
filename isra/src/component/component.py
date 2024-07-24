@@ -391,95 +391,107 @@ def save(format: Annotated[str, typer.Option(help="Indicate the file format of t
         raise typer.Exit(-1)
 
 
+def create_table(params, template):
+    # Idea: if I create an index map I could put the right value in the right column
+    headers = ["Element"] + params
+    table = Table(*headers)
+
+    for item, item_val in template["component"].items():
+        param_map = dict()
+        for param in params:
+            if param == item:
+                param_map[param] = item_val
+        if len(param_map) != 0:
+            table.add_row(template["component"]["ref"], *param_map.values())
+    for item, item_val in template["riskPattern"].items():
+        param_map = dict()
+        for param in params:
+            if param == item:
+                param_map[param] = item_val
+        if len(param_map) != 0:
+            table.add_row(template["riskPattern"]["ref"], *param_map.values())
+
+    for item in template["threats"].values():
+        param_map = dict()
+        for param in params:
+            if param in item:
+                if param in ["riskRating", "references"]:
+                    param_map[param] = str(item[param])
+                else:
+                    param_map[param] = item[param]
+            for cf, cfvalue in item["customFields"].items():
+                if param == cf:
+                    param_map[param] = cfvalue
+
+        if len(param_map) != 0:
+            table.add_row(item["ref"], *param_map.values())
+
+    for item in template["controls"].values():
+        param_map = dict()
+        for param in params:
+            if param in item:
+                if param in ["standards", "references", "dataflow_tags"]:
+                    param_map[param] = str(item[param])
+                else:
+                    param_map[param] = item[param]
+            if param == "cwe":
+                for rel in template["relations"]:
+                    if rel["control"] == item["ref"]:
+                        param_map[param] = rel["weakness"]
+            for cf, cfvalue in item["customFields"].items():
+                if param == cf:
+                    param_map[param] = cfvalue
+        if len(param_map) != 0:
+            table.add_row(item["ref"], *param_map.values())
+    return table
+
+
 @app.command()
 def info(full: Annotated[bool, typer.Option(help="Shows all properties")] = False,
-         parameter: Annotated[bool, typer.Option(help="Shows parameter information")] = False):
+         parameter: Annotated[bool, typer.Option(help="Shows parameter information")] = False,
+         p: Annotated[str, typer.Option(help="Shows parameter information for a given parameter")] = ""):
     """
     Shows current component status
     """
     template = read_current_component()
 
+    allowed_params = [
+        "name",
+        "desc",
+        "cost",
+        "question",
+        "question_desc",
+        "dataflow_tags",
+        "attack_enterprise_mitigation",
+        "attack_ics_mitigation",
+        "attack_mobile_mitigation",
+        "atlas_mitigation",
+        "baseline_standard_ref",
+        "baseline_standard_section",
+        "scope",
+        "cwe",
+        "references",
+        "standards",
+        "riskRating",
+        "attack_enterprise_technique",
+        "attack_ics_technique",
+        "attack_mobile_technique",
+        "atlas_technique",
+        "stride_lm",
+        "categoryRef"
+    ]
+
     if parameter:
-
-        params = qmulti("Select parameter:", choices=[
-            "name",
-            "desc",
-            "cost",
-            "question",
-            "question_desc",
-            "dataflow_tags",
-            "attack_enterprise_mitigation",
-            "attack_ics_mitigation",
-            "attack_mobile_mitigation",
-            "atlas_mitigation",
-            "baseline_standard_ref",
-            "baseline_standard_section",
-            "scope",
-            "cwe",
-            "references",
-            "standards",
-            "riskRating",
-            "attack_enterprise_technique",
-            "attack_ics_technique",
-            "attack_mobile_technique",
-            "atlas_technique",
-            "stride_lm",
-            "categoryRef"
-        ])
-
-        # Idea: if I create an index map I could put the right value in the right column
-        headers = ["Element"] + params
-        table = Table(*headers)
-
-        for item, item_val in template["component"].items():
-            param_map = dict()
-            for param in params:
-                if param == item:
-                    param_map[param] = item_val
-            if len(param_map) != 0:
-                table.add_row(template["component"]["ref"], *param_map.values())
-        for item, item_val in template["riskPattern"].items():
-            param_map = dict()
-            for param in params:
-                if param == item:
-                    param_map[param] = item_val
-            if len(param_map) != 0:
-                table.add_row(template["riskPattern"]["ref"], *param_map.values())
-
-        for item in template["threats"].values():
-            param_map = dict()
-            for param in params:
-                if param in item:
-                    if param in ["riskRating", "references"]:
-                        param_map[param] = str(item[param])
-                    else:
-                        param_map[param] = item[param]
-                for cf, cfvalue in item["customFields"].items():
-                    if param == cf:
-                        param_map[param] = cfvalue
-
-            if len(param_map) != 0:
-                table.add_row(item["ref"], *param_map.values())
-
-        for item in template["controls"].values():
-            param_map = dict()
-            for param in params:
-                if param in item:
-                    if param in ["standards", "references", "dataflow_tags"]:
-                        param_map[param] = str(item[param])
-                    else:
-                        param_map[param] = item[param]
-                if param == "cwe":
-                    for rel in template["relations"]:
-                        if rel["control"] == item["ref"]:
-                            param_map[param] = rel["weakness"]
-                for cf, cfvalue in item["customFields"].items():
-                    if param == cf:
-                        param_map[param] = cfvalue
-            if len(param_map) != 0:
-                table.add_row(item["ref"], *param_map.values())
-
+        params = qmulti("Select parameter:", choices=allowed_params)
+        table = create_table(params, template)
         print(table)
+    elif p:
+        if p not in allowed_params:
+            print(f"Parameter {p} cannot be found")
+        else:
+            params = [p]
+            table = create_table(params, template)
+            print(table)
 
     else:
         if not full:

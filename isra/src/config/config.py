@@ -238,7 +238,8 @@ def update():
                 "gpt-3.5-turbo-1106",
                 "gpt-3.5-turbo-16k",
                 "gpt-4",
-                "gpt-4-32k"
+                "gpt-4-32k",
+                "gpt-4o"
             ])
         elif opt == "openai_assistant_id":
             value = qselect("Select OpenAI Assistant ID:", choices=list_assistants())

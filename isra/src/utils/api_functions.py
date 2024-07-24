@@ -89,9 +89,11 @@ def get_export_library_xml(library):
 
 
 def post_library(template):
+    prefix = get_company_name_prefix()
+    name = prefix + " " if prefix != "" else ""
     data = {
-        "referenceId": get_company_name_prefix() + template["component"]["categoryRef"] + "-components",
-        "name": get_company_name_prefix() + " " + clean_and_capitalize(
+        "referenceId": prefix + template["component"]["categoryRef"] + "-components",
+        "name": name + clean_and_capitalize(
             template["component"]["categoryRef"]) + " - Components"
     }
 
@@ -99,9 +101,11 @@ def post_library(template):
 
 
 def post_rules_library(template):
+    prefix = get_company_name_prefix()
+    name = prefix + " " if prefix != "" else ""
     data = {
-        "referenceId": get_company_name_prefix() + template["component"]["categoryRef"] + "-rules",
-        "name": get_company_name_prefix() + " " + clean_and_capitalize(
+        "referenceId": prefix + template["component"]["categoryRef"] + "-rules",
+        "name": name + clean_and_capitalize(
             template["component"]["categoryRef"]) + " - Rules"
     }
 
@@ -709,7 +713,7 @@ def upload_xml(template):
 def add_to_batch(template):
     output_folder = get_property("component_output_path") or get_app_dir()
 
-    library_path = output_folder + "\\" + f'{template["component"]["categoryRef"]}-components.xml'
+    library_path = os.path.join(output_folder, f'{template["component"]["categoryRef"]}-components.xml')
     if not os.path.exists(library_path):
         component_library = get_library(template)
         if component_library is None:
@@ -719,7 +723,7 @@ def add_to_batch(template):
 
     export_content_into_category_library(template, source_path=library_path)
 
-    rules_library_path = output_folder + "\\" + f'{template["component"]["categoryRef"]}-rules.xml'
+    rules_library_path = os.path.join(output_folder, f'{template["component"]["categoryRef"]}-rules.xml')
     if not os.path.exists(rules_library_path):
         rules_library = get_rules_library(template)
         if rules_library is None:

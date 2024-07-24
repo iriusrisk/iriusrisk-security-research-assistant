@@ -585,7 +585,7 @@ def import_content_into_template(template, xml_text=None, root=None):
 
                 references = list()
                 for reference in control.iter("reference"):
-                    if reference.attrib["url"] != "":
+                    if reference.attrib["url"] != "" and not reference.attrib["url"].startswith("http://cwe.mitre.org"):
                         references.append({
                             "name": reference.attrib["name"],
                             "url": reference.attrib["url"]

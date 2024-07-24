@@ -44,14 +44,14 @@ if __name__ == "__main__":
     v2_components = []
     for library in os.listdir(str(v2_components_xml)):
         if library.endswith(".xml"):
-            tree = etree.parse(v2_components_xml + "\\" + library)
+            tree = etree.parse(os.path.join(v2_components_xml, library))
             root = tree.getroot()
             for cd in root.find("componentDefinitions").iter("componentDefinition"):
                 v2_components.append((cd.attrib["ref"], cd.attrib["name"]))
 
     for library in os.listdir(str(libFolder)):
         if library.endswith(".xml"):
-            tree = etree.parse(libFolder + "\\" + library)
+            tree = etree.parse(os.path.join(libFolder, library))
             root = tree.getroot()
             logger.debug(root.attrib["ref"])
 
@@ -99,7 +99,7 @@ if __name__ == "__main__":
                                     "available but won't be regularly updated.")
 
                 if modify_original_folder:
-                    tree.write(libFolder + "\\" + library)
+                    tree.write(os.path.join(libFolder, library))
                 else:
                     tree.write("updated/" + library)
             else:

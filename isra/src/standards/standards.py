@@ -33,50 +33,54 @@ def expand_init():
         baseline_ref = control["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_REF]
         baseline_sections = control["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_SECTION].split("||")
 
-        for baseline_section in baseline_sections:
+        for base_standard_sections in baseline_sections:
 
             # Now we are looking for the base standard in the OpenCRE+, so we need to use the name that is in the file
-            opencre_name = CRE_MAPPING_NAME[baseline_ref]
-            print(f"{control_ref}: [yellow]Looking for {opencre_name} - {baseline_section}")
+            opencre_standard_name = CRE_MAPPING_NAME[baseline_ref]
+            print(f"{control_ref}: [yellow]Looking for {opencre_standard_name} - {base_standard_sections}")
 
             # If OpenCRE+ contains the base standard and section we'll include the other standards related
             standards_to_add = dict()
             # By default, CRE is included in the dict but we haven't found any valid CRE yet
-            standards_to_add["CRE"] = set()
 
             # Now we iterate over the OpenCRE+ keys searching for the standard
             for cre_id, cre_values in mappings_yaml.items():
-                if opencre_name in cre_values:
+                if opencre_standard_name in cre_values:
                     # Now it may happen that the section doesn't appear exactly as it is in the OpenCRE+, so we
                     # apply special techniques to look for the best match
-                    adapted = baseline_section
+                    adapted = base_standard_sections
 
-                    if adapted in cre_values[opencre_name]:
+                    if adapted in cre_values[opencre_standard_name]:
+                        # If the section of the standard can be found inside the CRE we add all values
+                        # of that standard and the CRE ID
                         standards_to_add.update(cre_values)
-                        standards_to_add["CRE"].add(cre_id)
+                        standards_to_add.get("CRE", set()).add(cre_id)
 
+            # At this point we have a dictionary of the standards that have to be added in this control
+            # We convert the lists to sets to remove duplicates
             standards_to_add = {key: set(value) for key, value in standards_to_add.items()}
-            if len(standards_to_add) == 1:
-                basesects = baseline_section.split("||")
-                for s in basesects:
+            # If no standards have been found we add the base standard by default
+            if len(standards_to_add) == 0:
+                for section in base_standard_sections.split("||"):
+                    # This line is to remove duplicates in case the same base standard section is added twice
                     current_list = [x["standard-ref"] + x["standard-section"] for x in control["standards"]]
-                    if CRE_MAPPING_NAME[baseline_ref] + s not in current_list:
+                    if CRE_MAPPING_NAME[baseline_ref] + section not in current_list:
                         control["standards"].append({
                             "standard-ref": CRE_MAPPING_NAME[baseline_ref],
-                            "standard-section": s
+                            "standard-section": section
                         })
 
                 print(f"[red]Nothing found in OpenCRE+. Added base standard")
             else:
-                for k, v in standards_to_add.items():
-                    for elem in v:
+                for standard_ref, sections in standards_to_add.items():
+                    for section in sections:
                         current_list = [x["standard-ref"] + x["standard-section"] for x in control["standards"]]
-                        if k + elem not in current_list:
+                        if standard_ref + section not in current_list:
                             control["standards"].append({
-                                "standard-ref": k,
-                                "standard-section": elem
+                                "standard-ref": standard_ref,
+                                "standard-section": section
                             })
-                            print(f"Added [green]{k}[/green] -> [blue]{elem}")
+                            print(f"Added [green]{standard_ref}[/green] -> [blue]{section}")
 
     write_current_component(template)
 

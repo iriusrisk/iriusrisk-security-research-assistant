@@ -1,8 +1,20 @@
 # Changelog
 
+## 2.1.2 - 20240724
+
+### Features
+
+* Added new option '--p <parameter>' to 'isra component info' to show the information of a specific parameter
+
+### Enhancements
+
+* Fixed problem when pulling questions from IriusRisk
+* Fixed bug on resolving paths on Linux systems
+* Fixed bug when pulling countermeasures with CWE references that are automatically set in IriusRisk that were causing duplicated references
+
 ## 2.1.1 - 20240606
 
-## Enhancements
+### Enhancements
 
 * Added X-Irius-Async header for 'isra component upload'
 * When doing the screening the process shows the previous value to help the user to decide
