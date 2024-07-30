@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.2.0 - 2024XXXX
+
+### Features
+
+* Added support for IIoT components
+
+
 ## 2.1.2 - 20240724
 
 ### Features

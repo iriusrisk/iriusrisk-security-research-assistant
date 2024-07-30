@@ -71,6 +71,7 @@
             "microservice-architecture",
             "kubernetes",
             "iot-components",
+            "iiot-components",
             "generic-components",
             "docker-category",
             "google-cloud-platform",
@@ -685,6 +686,7 @@
                             "NIST 800-53 v5",
                             "ISO 27001",
                             "ASVS",
+                            "IEC62443-4-2-ICSA-500",
                             ""
                           ],
                           "examples": [

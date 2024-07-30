@@ -399,6 +399,11 @@ CATEGORIES_LIST = {
         "name": "IoT components",
         "desc": ""
     },
+    "iiot-components": {
+        "ref": "iiot-components",
+        "name": "IIoT Components",
+        "desc": ""
+    },
     "automotive": {
         "ref": "automotive",
         "name": "Automotive",

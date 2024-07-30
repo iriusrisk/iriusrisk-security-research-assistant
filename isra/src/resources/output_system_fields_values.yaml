@@ -569,7 +569,7 @@ SF-MITRE-T-TYPE:
 - ATT&CK Enterprise - T1194 - Spearphishing via Service
 - ATT&CK Enterprise - T1195 - Supply Chain Compromise
 - ATT&CK Enterprise - T1195.001 - Compromise Software Dependencies and Development
-  Tools
+- Tools
 - ATT&CK Enterprise - T1195.002 - Compromise Software Supply Chain
 - ATT&CK Enterprise - T1195.003 - Compromise Hardware Supply Chain
 - ATT&CK Enterprise - T1196 - Control Panel Items
@@ -1309,6 +1309,7 @@ SF-STANDARD-BASELINE-TYPE:
 - ASVS
 - ISO 27001
 - NIST 800-53 v5
+- IEC62443-4-2-ICSA-500
 SF-STANDARD-SECTION-TYPE:
 - V1.1.1
 - V1.1.3
@@ -1748,7 +1749,7 @@ SF-STANDARD-SECTION-TYPE:
 - PM-23 Data Governance Body
 - PM-24 Data Integrity Board
 - PM-25 Minimization of Personally Identifiable Information Used in Testing, Training,
-  and Research
+- and Research
 - PM-26 Complaint Management
 - PM-27 Privacy Reporting
 - PM-28 Risk Framing
@@ -1939,7 +1940,7 @@ SF-STANDARD-SECTION-TYPE:
 - Management of technical vulnerabilities
 - Management responsibilities
 - Managing information security in the information and communication technology (ICT)
-  supply chain
+- supply chain
 - Monitoring activities
 - Monitoring, review and change management of supplier services
 - Networks security
@@ -1982,6 +1983,46 @@ SF-STANDARD-SECTION-TYPE:
 - User end point devices
 - Web filtering
 - Working in secure areas
+- 4.2.1.2-3
+- 4.5.1-7
+- 4.2.1.1.2-3
+- 4.8.1-2
+- 4.5.1-6
+- 4.7.1-1
+- 4.5.1-2
+- 4.2.1.1.1-1
+- 4.2.1.3-2
+- 4.1.1-1
+- 4.2.1.3-6
+- 4.2.1.1.4-2
+- 4.8.1-1
+- 4.10.1-1
+- 4.5.1-5
+- 4.2.1.2-2
+- 4.2.1.1.4-1
+- 4.9.1-1
+- 4.2.1.1.3-1
+- 4.2.1.1.2-2
+- 4.2.1.3-4
+- 4.2.1.3-5
+- 4.2.1.3-3
+- 4.4.1-1
+- 4.6.1-1
+- 4.6.1-2
+- 4.6.1-3
+- 4.11.1-1
+- 4.3.1-1
+- 4.5.1-3
+- 4.2.1.1.3-2
+- 4.2.1.1.1-2
+- 4.2.1.1.3-3
+- 4.2.1.1.2-1
+- 4.10.1-2
+- 4.5.1-1
+- 4.5.1-4
+- 4.8.1-3
+- 4.2.1.2-1
+- 4.2.1.3-1
 SF-STRIDE-LM-TYPE:
 - Denial of Service
 - Elevation of Privilege
