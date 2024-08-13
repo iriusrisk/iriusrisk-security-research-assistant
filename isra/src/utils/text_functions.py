@@ -302,3 +302,7 @@ def set_value(variable_name, variable, value, action):
         print(message)
 
     return variable
+
+
+def set_category_suffix(category_ref):
+    return category_ref + "-components" if "-components" not in category_ref else category_ref

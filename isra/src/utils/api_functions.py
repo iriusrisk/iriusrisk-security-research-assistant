@@ -10,9 +10,10 @@ from urllib3.exceptions import NewConnectionError
 
 from isra.src.config.config import get_property, get_app_dir
 from isra.src.config.constants import IRIUSRISK_API_HEADERS
-from isra.src.utils.text_functions import clean_and_capitalize, convert_cost_value, get_company_name_prefix
+from isra.src.utils.text_functions import clean_and_capitalize, convert_cost_value, get_company_name_prefix, \
+    set_category_suffix
 from isra.src.utils.xml_functions import export_rules_into_rules_library, export_content_into_category_library, \
-    import_content_into_template, import_rules_into_template, create_local_library
+    import_content_into_template, import_rules_into_template, create_local_library, get_library_name_from_file
 from isra.src.utils.yaml_functions import build_tree_hierarchy
 
 
@@ -71,7 +72,8 @@ def put_component_definition(template, component, category):
 
 # Libraries
 def get_library(template):
-    category_ref = get_company_name_prefix() + template["component"]["categoryRef"] + "-components"
+    category_ref = get_company_name_prefix() + template["component"]["categoryRef"]
+    category_ref = set_category_suffix(category_ref)
     answer = make_api_call("get", f"/api/v2/libraries?filter='referenceId'='{category_ref}'")
     return get_response_object([answer])
 
@@ -91,8 +93,9 @@ def get_export_library_xml(library):
 def post_library(template):
     prefix = get_company_name_prefix()
     name = prefix + " " if prefix != "" else ""
+    category_ref = set_category_suffix(template["component"]["categoryRef"])
     data = {
-        "referenceId": prefix + template["component"]["categoryRef"] + "-components",
+        "referenceId": prefix + category_ref,
         "name": name + clean_and_capitalize(
             template["component"]["categoryRef"]) + " - Components"
     }
@@ -698,7 +701,9 @@ def upload_xml(template):
         component_library = post_library(template)
     xml = get_export_library_xml(component_library)
     export_content_into_category_library(template, xml_text=xml)
-    xml_category_library_path = os.path.join(output_folder, f"{template['component']['categoryRef']}-components.xml")
+
+    category_ref = set_category_suffix(template["component"]["categoryRef"])
+    xml_category_library_path = os.path.join(output_folder, f"{category_ref}.xml")
     post_library_xml(template, component_library, xml_category_library_path)
     # Upload rules in a different library
     rules_library = get_rules_library(template)
@@ -713,7 +718,8 @@ def upload_xml(template):
 def add_to_batch(template):
     output_folder = get_property("component_output_path") or get_app_dir()
 
-    library_path = os.path.join(output_folder, f'{template["component"]["categoryRef"]}-components.xml')
+    category_ref = set_category_suffix(template["component"]["categoryRef"])
+    library_path = os.path.join(output_folder, f'{category_ref}.xml')
     if not os.path.exists(library_path):
         component_library = get_library(template)
         if component_library is None:
@@ -740,7 +746,8 @@ def release_component_batch():
     for root, dirs, files in os.walk(output_folder):
         for file in files:
             if file.endswith(".xml") and "-components" in file:
-                library_name = file.replace(".xml", "").replace("-components", "")
+                # Assuming that there will be a components library and a rules library
+                library_name = get_library_name_from_file(file)
                 print(library_name)
                 tt = {
                     "component": {
@@ -748,7 +755,8 @@ def release_component_batch():
                     }
                 }
                 component_library = get_library(tt)
-                xml_library_path = os.path.join(output_folder, library_name + "-components.xml")
+                category_ref = set_category_suffix(library_name)
+                xml_library_path = os.path.join(output_folder, category_ref + ".xml")
                 post_library_xml(tt, component_library, xml_library_path)
 
                 rules_library = get_rules_library(tt)

@@ -12,7 +12,7 @@ from isra.src.config.constants import OUTPUT_NAME, CATEGORIES_LIST, SF_C_MAP, SF
     CUSTOM_FIELD_STRIDE, EMPTY_TEMPLATE
 from isra.src.utils.cwe_functions import get_original_cwe_weaknesses, get_cwe_description
 from isra.src.utils.text_functions import merge_custom_fields, split_mitre_custom_field_threats, \
-    split_mitre_custom_field_controls, generate_identifier_from_ref
+    split_mitre_custom_field_controls, generate_identifier_from_ref, set_category_suffix
 
 
 def load_xml_file(component_path):
@@ -999,7 +999,8 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
             cbox.append(citem2)
 
     output_folder = get_property("component_output_path") or get_app_dir()
-    xml_library_path = os.path.join(output_folder, f"{template['component']['categoryRef']}-components.xml")
+    category_ref = set_category_suffix(template["component"]["categoryRef"])
+    xml_library_path = os.path.join(output_folder, f"{category_ref}.xml")
     tree = etree.ElementTree(root)
     tree.write(xml_library_path, pretty_print=True, encoding='utf-8', xml_declaration=True)
 
@@ -1019,7 +1020,8 @@ def export_rules_into_rules_library(template, source_path=None, xml_text=None, r
     root.attrib["revision"] = str(int(root.attrib["revision"]) + 1)
     root.find("desc").text = f"This library holds the rules for the components in the {root.attrib['name']} library"
 
-    library_origin = template["component"]["categoryRef"] + "-components"
+    category_ref = set_category_suffix(template["component"]["categoryRef"])
+    library_origin = category_ref
     create_rule_elements(template, root, library_origin)
 
     output_folder = get_property("component_output_path") or get_app_dir()
@@ -1032,3 +1034,9 @@ def create_local_library(xml, library_path):
     rules_library_root = etree.fromstring(xml)
     tree = etree.ElementTree(rules_library_root)
     tree.write(library_path, pretty_print=True, encoding='utf-8', xml_declaration=True)
+
+
+def get_library_name_from_file(file):
+    tree = etree.parse(file)
+    root = tree.getroot()
+    return root.attrib["ref"]

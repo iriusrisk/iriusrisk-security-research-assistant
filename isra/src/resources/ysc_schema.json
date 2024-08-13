@@ -469,6 +469,20 @@
                             ""
                           ]
                         },
+						"cost": {
+							"$id": "#root/component/risk_pattern/threats/items/countermeasures/items/cost",
+							"title": "Cost",
+							"type": "string",
+							"enum": [
+							  "0",
+							  "1",
+							  "2"
+							],
+							"default": "0",
+							"examples": [
+							  "1"
+							]
+                        },
                         "question": {
                           "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/question",
                           "title": "Question",

@@ -18,6 +18,7 @@ from isra.src.utils.decorators import get_time
 from isra.src.utils.gpt_functions import query_chatgpt, get_prompt
 from isra.src.utils.questionary_wrapper import qconfirm, qselect, qtext, qmulti
 from isra.src.utils.text_functions import extract_json, get_company_name_prefix, get_allowed_system_field_values
+from isra.src.utils.xlsx_functions import load_xlsx_file, save_xlsx_file
 from isra.src.utils.xml_functions import *
 from isra.src.utils.yaml_functions import load_yaml_file, save_yaml_file, validate_yaml
 
@@ -82,7 +83,7 @@ def clean_exported_components(force):
     if clean_components:
         properties_dir = get_app_dir()
         for file in os.listdir(properties_dir):
-            if ".xml" in file or ".yaml" in file:
+            if ".xml" in file or ".yaml" in file or ".xlsx" in file:
                 os.remove(os.path.join(properties_dir, file))
                 print(f"File {file} removed")
 
@@ -154,6 +155,12 @@ def load_yaml(component):
     write_current_component(template)
 
 
+@get_time
+def load_xlsx(component):
+    template = load_xlsx_file(component)
+    write_current_component(template)
+
+
 def validate_custom_fields(template):
     custom_field_values = get_allowed_system_field_values()
     custom_field_values.append("")
@@ -184,7 +191,7 @@ def load_init(file):
         input_folder = get_property("component_input_path") or get_app_dir()
 
         choices = [file.name for file in os.scandir(input_folder) if
-                   file.name.endswith(".xml") or file.name.endswith(".yaml")]
+                   file.name.endswith(".xml") or file.name.endswith(".yaml") or file.name.endswith(".xlsx")]
 
         if len(choices) == 0:
             print("No components to load")
@@ -200,6 +207,9 @@ def load_init(file):
             balance_mitigation_values()
         elif component_to_load.endswith(".yaml"):
             load_yaml(component)
+            balance_mitigation_values()
+        elif component_to_load.endswith(".xlsx"):
+            load_xlsx(component)
             balance_mitigation_values()
         else:
             print("[red]Invalid file")
@@ -249,6 +259,19 @@ def save_yaml(preview):
             yaml.dump(root, file, default_flow_style=False, sort_keys=False)
             print(f"Component saved in {yaml_template_path}")
 
+
+@get_time
+def save_xlsx(preview):
+    template = read_current_component()
+
+    output_folder = get_property("component_output_path") or get_app_dir()
+    xlsx_template_path = os.path.join(output_folder, f"{template['component']['ref']}.xlsx")
+    save_xlsx_file(xlsx_template_path, template)
+
+    if preview:
+        print("Preview of the XLSX output is not allowed")
+
+    print(f"Component saved in {xlsx_template_path}")
 
 def initialize_template():
     properties_dir = get_app_dir()
@@ -374,7 +397,8 @@ def load(file: Annotated[str, typer.Option(help="Path to file to import")] = Non
 
 
 @app.command()
-def save(format: Annotated[str, typer.Option(help="Indicate the file format of the source. 'xml' by default")] = "yaml",
+def save(format: Annotated[str, typer.Option(help="Indicate the file format of the source (xml, yaml, xlsx). 'yaml' "
+                                                  "by default")] = "yaml",
          preview: Annotated[bool, typer.Option(help="Show a preview of the output without storing anything")] = False):
     """
     Saves the component in an IriusRisk XML
@@ -386,6 +410,8 @@ def save(format: Annotated[str, typer.Option(help="Indicate the file format of t
         save_xml(preview)
     elif format == "yaml":
         save_yaml(preview)
+    elif format == "xlsx":
+        save_xlsx(preview)
     else:
         print(f"Invalid format: {format}")
         raise typer.Exit(-1)
