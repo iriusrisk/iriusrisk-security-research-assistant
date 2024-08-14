@@ -273,6 +273,7 @@ def save_xlsx(preview):
 
     print(f"Component saved in {xlsx_template_path}")
 
+
 def initialize_template():
     properties_dir = get_app_dir()
     template_path = str(os.path.join(properties_dir, TEMPLATE_FILE))
@@ -512,12 +513,16 @@ def info(full: Annotated[bool, typer.Option(help="Shows all properties")] = Fals
         table = create_table(params, template)
         print(table)
     elif p:
-        if p not in allowed_params:
-            print(f"Parameter {p} cannot be found")
-        else:
-            params = [p]
-            table = create_table(params, template)
-            print(table)
+        params = p.split("/")
+
+        for pp in params:
+            if pp not in allowed_params:
+                print(f"[red]Parameter {pp} cannot be found. "
+                      f"Use 'isra component info --parameter' to see allowed values")
+                params.remove(pp)
+
+        table = create_table(params, template)
+        print(table)
 
     else:
         if not full:

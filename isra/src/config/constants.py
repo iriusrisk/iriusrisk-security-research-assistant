@@ -423,6 +423,11 @@ CATEGORIES_LIST = {
         "ref": "alibaba-cloud",
         "name": "Alibaba Cloud",
         "desc": ""
+    },
+    "embedded-device": {
+        "ref": "embedded-device",
+        "name": "Embedded Device",
+        "desc": ""
     }
 }
 
@@ -463,5 +468,6 @@ HINTS = [
     "Use 'isra screening autoscreening' to perform an automatic screening, but don't forget to fix values later!",
     "Use 'isra screening fix' to fix every value that might be wrong, especially after the autoscreening",
     "The command 'isra standards show' will show you the whole list of supported standards",
-    "If the autoscreening doesn't do what you want you can modify its behavior by editing the config file"
+    "If the autoscreening doesn't do what you want you can modify its behavior by editing the config file",
+    "Use 'isra component info --p param1/param2/param3' to see specific info about some parameters"
 ]

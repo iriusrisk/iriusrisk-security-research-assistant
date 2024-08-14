@@ -83,7 +83,8 @@
             "vmware",
             "oracle-cloud-infrastructure",
             "salesforce-components",
-            "alibaba-cloud"
+            "alibaba-cloud",
+            "embedded-device"
           ],
           "examples": [
             "data-store"

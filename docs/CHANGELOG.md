@@ -4,8 +4,11 @@
 
 ### Features
 
+* New option in 'isra component save': --format xlsx to save component in .xlsx format
+* Now the 'isra component load' accepts .xlsx files. 
 * Added support for IIoT components
-
+* Added support for Embedded device components
+* Now 'isra component info --p param1/param2/param3' accepts more than one parameters as shown
 
 ## 2.1.2 - 20240724
 
