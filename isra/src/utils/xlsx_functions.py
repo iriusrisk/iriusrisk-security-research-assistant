@@ -37,12 +37,12 @@ def get_values(mylist, ref, name):
 def load_xlsx_file(component):
     template = json.loads(EMPTY_TEMPLATE)
 
-    df1 = pd.read_excel(component, sheet_name="Component")
-    df2 = pd.read_excel(component, sheet_name="RiskPattern")
-    df3 = pd.read_excel(component, sheet_name="Threat")
-    df4 = pd.read_excel(component, sheet_name="Countermeasure")
-    df5 = pd.read_excel(component, sheet_name="Reference")
-    df6 = pd.read_excel(component, sheet_name="Taxonomy")
+    df1 = pd.read_excel(component, sheet_name="Component", dtype=str)
+    df2 = pd.read_excel(component, sheet_name="RiskPattern", dtype=str)
+    df3 = pd.read_excel(component, sheet_name="Threat", dtype=str)
+    df4 = pd.read_excel(component, sheet_name="Countermeasure", dtype=str)
+    df5 = pd.read_excel(component, sheet_name="Reference", dtype=str)
+    df6 = pd.read_excel(component, sheet_name="Taxonomy", dtype=str)
 
     original_cwe_weaknesses = get_original_cwe_weaknesses()
 
