@@ -116,7 +116,12 @@ def post_rules_library(template):
 
 
 def post_library_xml(template, library, xml_library_path):
-    files = {'file': open(xml_library_path, 'rb')}
+    with open(xml_library_path, 'rb') as f:
+        filename = os.path.basename(f.name)
+        filedata = f.read()
+        mimetype = 'application/xml'
+        files = {"file": (filename, filedata, mimetype)}
+
     return make_api_call("post", f"/api/v2/libraries/{library['id']}/update-with-file",
                          api_version="v2multipart",
                          files=files)

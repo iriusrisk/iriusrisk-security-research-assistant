@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.2.0 - 2024XXXX
+## 2.2.0 - 20240814
 
 ### Features
 
