@@ -16,7 +16,7 @@ app_completion = typer.Typer(help="Generate and install completion scripts.", hi
 app.add_typer(app_completion, name="completion")
 app.add_typer(config.app, name="config")
 app.add_typer(tests.app, name="tests")
-app.add_typer(ile.app, name="ile")
+app.add_typer(ile.app, name="ile", hidden=True)
 app.add_typer(screening.app, name="screening")
 app.add_typer(standards.app, name="standards")
 app.add_typer(component.app, name="component")

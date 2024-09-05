@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.2.1 - 202409XX
+
+### Features
+
+* The ILE option has been eliminated
+
+
 ## 2.2.0 - 20240814
 
 ### Features
