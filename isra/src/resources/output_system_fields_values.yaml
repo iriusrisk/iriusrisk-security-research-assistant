@@ -62,6 +62,20 @@ SF-MITRE-C-TYPE:
 - ATT&CK Enterprise - M1055 - Do Not Mitigate
 - ATT&CK Enterprise - M1056 - Pre-compromise
 - ATT&CK Enterprise - M1057 - Data Loss Prevention
+- ATT&CK Mobile - M1001 - Security Updates
+- ATT&CK Mobile - M1002 - Attestation
+- ATT&CK Mobile - M1003 - Lock Bootloader
+- ATT&CK Mobile - M1004 - System Partition Integrity
+- ATT&CK Mobile - M1005 - Application Vetting
+- ATT&CK Mobile - M1006 - Use Recent OS Version
+- ATT&CK Mobile - M1007 - Caution with Device Administrator Access
+- ATT&CK Mobile - M1009 - Encrypt Network Traffic
+- ATT&CK Mobile - M1010 - Deploy Compromised Device Detection Method
+- ATT&CK Mobile - M1011 - User Guidance
+- ATT&CK Mobile - M1012 - Enterprise Policy
+- ATT&CK Mobile - M1013 - Application Developer Guidance
+- ATT&CK Mobile - M1014 - Interconnection Filtering
+- ATT&CK Mobile - M1058 - Antivirus/Antimalware
 - ATT&CK ICS - M0800 - Authorization Enforcement
 - ATT&CK ICS - M0801 - Access Management
 - ATT&CK ICS - M0802 - Communication Authenticity

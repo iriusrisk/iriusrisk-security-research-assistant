@@ -13,10 +13,8 @@ $ isra [OPTIONS] COMMAND [ARGS]...
 **Commands**:
 
 * `about`: Information about this application
-* `completion`: Generate and install completion scripts.
 * `component`: Component creation
 * `config`: Configuration settings
-* `ile`: IriusRisk Library Editor
 * `screening`: Screening processes
 * `standards`: Standard mapping processes
 * `tests`: Testing suite
@@ -30,61 +28,6 @@ Information about this application
 ```console
 $ isra about [OPTIONS]
 ```
-
-**Options**:
-
-* `--help`: Show this message and exit.
-
-## `isra completion`
-
-Generate and install completion scripts.
-
-**Usage**:
-
-```console
-$ isra completion [OPTIONS] COMMAND [ARGS]...
-```
-
-**Options**:
-
-* `--help`: Show this message and exit.
-
-**Commands**:
-
-* `install`: Install completion for the specified shell.
-* `show`: Show completion for the specified shell,...
-
-### `isra completion install`
-
-Install completion for the specified shell.
-
-**Usage**:
-
-```console
-$ isra completion install [OPTIONS] SHELL:{bash|zsh|fish|powershell|pwsh}
-```
-
-**Arguments**:
-
-* `SHELL:{bash|zsh|fish|powershell|pwsh}`: [required]
-
-**Options**:
-
-* `--help`: Show this message and exit.
-
-### `isra completion show`
-
-Show completion for the specified shell, to copy or customize it.
-
-**Usage**:
-
-```console
-$ isra completion show [OPTIONS] SHELL:{bash|zsh|fish|powershell|pwsh}
-```
-
-**Arguments**:
-
-* `SHELL:{bash|zsh|fish|powershell|pwsh}`: [required]
 
 **Options**:
 
@@ -171,6 +114,8 @@ $ isra component info [OPTIONS]
 **Options**:
 
 * `--full / --no-full`: Shows all properties  [default: no-full]
+* `--parameter / --no-parameter`: Shows parameter information  [default: no-parameter]
+* `--p TEXT`: Shows parameter information for a given parameter
 * `--help`: Show this message and exit.
 
 ### `isra component load`
@@ -257,7 +202,7 @@ $ isra component save [OPTIONS]
 
 **Options**:
 
-* `--format TEXT`: Indicate the file format of the source. 'xml' by default  [default: yaml]
+* `--format TEXT`: Indicate the file format of the source (xml, yaml, xlsx). 'yaml' by default  [default: yaml]
 * `--preview / --no-preview`: Show a preview of the output without storing anything  [default: no-preview]
 * `--help`: Show this message and exit.
 
@@ -302,12 +247,27 @@ $ isra config [OPTIONS] COMMAND [ARGS]...
 
 **Commands**:
 
+* `allowed-values`: Prints all allowed values for IriusRisk's...
 * `info`: Shows info about config parameters
 * `list`: Shows all properties
 * `load`: Loads a configuration file
 * `reset`: Resets configuration (in case we need to...
 * `save`: Saves a configuration file
 * `update`: Updates a property with a specific value
+
+### `isra config allowed-values`
+
+Prints all allowed values for IriusRisk's system fields
+
+**Usage**:
+
+```console
+$ isra config allowed-values [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
 
 ### `isra config info`
 
@@ -395,34 +355,6 @@ $ isra config update [OPTIONS]
 
 * `--help`: Show this message and exit.
 
-## `isra ile`
-
-IriusRisk Library Editor
-
-**Usage**:
-
-```console
-$ isra ile [OPTIONS] COMMAND [ARGS]...
-```
-
-**Commands**:
-
-* `run`: Run an ILE instance
-
-### `isra ile run`
-
-Run an ILE instance
-
-**Usage**:
-
-```console
-$ isra ile run [OPTIONS]
-```
-
-**Options**:
-
-* `--help`: Show this message and exit.
-
 ## `isra screening`
 
 Screening processes
@@ -437,18 +369,18 @@ $ isra screening [OPTIONS] COMMAND [ARGS]...
 
 * `attack`: Adds a Mitre ATT&CK technique reference to...
 * `attack-mit`: Adds a Mitre ATT&CK Mitigation reference...
+* `autoscreening`: Automated screening process
 * `baselines`: Set baseline standards for countermeasures
 * `cia`: Adds CIA values for threats
-* `control`: Generates a countermeasure based on the...
-* `control-s`: Creates a complete countermeasure...
 * `cost`: Adds cost values for countermeasures
 * `cwe`: Finds best CWE weakness for a countermeasure
+* `fix`: Tries to fix anything that doesn't fit the...
+* `new-control`: Generates a countermeasure based on the...
+* `new-threat`: Generates a threat based on the current...
 * `question`: Creates a set of questions for the...
 * `scope`: Adds an intended scope for a countermeasure
 * `sections`: Set baseline standards sections for...
 * `stride`: Adds a STRIDE category to a threat
-* `threat`: Generates a threat based on the current...
-* `threat-s`: Creates a complete threat screening for...
 
 ### `isra screening attack`
 
@@ -472,6 +404,20 @@ Adds a Mitre ATT&CK Mitigation reference to a countermeasure
 
 ```console
 $ isra screening attack-mit [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `isra screening autoscreening`
+
+Automated screening process
+
+**Usage**:
+
+```console
+$ isra screening autoscreening [OPTIONS]
 ```
 
 **Options**:
@@ -506,34 +452,6 @@ $ isra screening cia [OPTIONS]
 
 * `--help`: Show this message and exit.
 
-### `isra screening control`
-
-Generates a countermeasure based on the current component name and description
-
-**Usage**:
-
-```console
-$ isra screening control [OPTIONS]
-```
-
-**Options**:
-
-* `--help`: Show this message and exit.
-
-### `isra screening control-s`
-
-Creates a complete countermeasure screening for many fields at the same time
-
-**Usage**:
-
-```console
-$ isra screening control-s [OPTIONS]
-```
-
-**Options**:
-
-* `--help`: Show this message and exit.
-
 ### `isra screening cost`
 
 Adds cost values for countermeasures
@@ -556,6 +474,48 @@ Finds best CWE weakness for a countermeasure
 
 ```console
 $ isra screening cwe [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `isra screening fix`
+
+Tries to fix anything that doesn't fit the YSC schema
+
+**Usage**:
+
+```console
+$ isra screening fix [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `isra screening new-control`
+
+Generates a countermeasure based on the current component name and description
+
+**Usage**:
+
+```console
+$ isra screening new-control [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `isra screening new-threat`
+
+Generates a threat based on the current component name and description
+
+**Usage**:
+
+```console
+$ isra screening new-threat [OPTIONS]
 ```
 
 **Options**:
@@ -613,34 +573,6 @@ Adds a STRIDE category to a threat
 
 ```console
 $ isra screening stride [OPTIONS]
-```
-
-**Options**:
-
-* `--help`: Show this message and exit.
-
-### `isra screening threat`
-
-Generates a threat based on the current component name and description
-
-**Usage**:
-
-```console
-$ isra screening threat [OPTIONS]
-```
-
-**Options**:
-
-* `--help`: Show this message and exit.
-
-### `isra screening threat-s`
-
-Creates a complete threat screening for many fields at the same time
-
-**Usage**:
-
-```console
-$ isra screening threat-s [OPTIONS]
 ```
 
 **Options**:

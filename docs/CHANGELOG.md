@@ -5,6 +5,7 @@
 ### Features
 
 * The ILE option has been eliminated
+* Added new "operating-system" category
 
 
 ## 2.2.0 - 20240814

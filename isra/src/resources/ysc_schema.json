@@ -84,7 +84,8 @@
             "oracle-cloud-infrastructure",
             "salesforce-components",
             "alibaba-cloud",
-            "embedded-device"
+            "embedded-device",
+            "operating-system"
           ],
           "examples": [
             "data-store"

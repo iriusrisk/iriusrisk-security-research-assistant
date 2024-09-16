@@ -428,6 +428,11 @@ CATEGORIES_LIST = {
         "ref": "embedded-device",
         "name": "Embedded Device",
         "desc": ""
+    },
+    "operating-system": {
+        "ref": "operating-system",
+        "name": "Operating System",
+        "desc": ""
     }
 }
 
