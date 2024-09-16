@@ -96,6 +96,11 @@ def show_init(standard_name, standard_section):
                 if any(standard_section.lower() in s for s in li):
                     table.add_row(k, k2, str(sorted(v2)))
     print(table)
+    print("This table shows the standards that will be included using OpenCRE as the link standard")
+    print("For example, if the countermeasure's base standard is related with ASVS V5.2.3 it will find all the "
+          "OpenCRE IDs related with that, and proceed to import every other standard related")
+    print("In this example ASVS V5.2.3 is currently related with OpenCRE ID 881-434, so it will also add CWE-147 to "
+          "the countermeasure and many others")
 
 
 @app.callback()

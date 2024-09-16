@@ -23,6 +23,7 @@ def get_string(value):
         output = value
     return str(output)
 
+
 def get_values(mylist, ref, name):
     list_of_values = []
     for element in mylist:

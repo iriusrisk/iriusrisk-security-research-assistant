@@ -54,4 +54,4 @@ def about():
 
 if __name__ == "__main__":
     config.initialize_configuration()
-    app(["screening", "autoscreening"])
+    app(["about"])

@@ -21,14 +21,14 @@ def get_info():
     return {
         "components_dir": "Folder where the IriusRisk YAML components are stored",
         "gpt_model": "GPT Model to use",
-        "ile_root_folder": "Path where the ILE folders (config, projects, versions, output) will be created or loaded "
-                           "if they already exist",
-        "ile_port": "Port where ILE will listen",
+        "ile_root_folder": "Deprecated: Path where the ILE folders (config, projects, versions, output) will be "
+                           "created or loaded if they already exist",
+        "ile_port": "Deprecated: Port where ILE will listen",
         "component_input_path": "Path where components will be loaded. Leave empty to use appdata",
         "component_output_path": "Path where components will be saved. Leave empty to use appdata",
         "openai_assistant_id": "OpenAI Assistant ID that will be used to generate answers",
         "iriusrisk_url": "IriusRisk instance URL",
-        "iriusrisk_api_token": "IriusRisk authentication token",
+        "iriusrisk_api_token": "IriusRisk API Token",
         "company_name": "Fill only if the content will be released for a specific company"
     }
 
@@ -122,7 +122,6 @@ def get_sf_values(key=None):
 
 
 def initialize_configuration():
-
     config_folder = Path(get_app_dir()) / "config"
     if not os.path.exists(config_folder):
         os.makedirs(config_folder, exist_ok=True)
@@ -162,7 +161,6 @@ def list_assistants():
 
 
 def read_autoscreening_config():
-
     parameter_config_path = Path(get_app_dir()) / "config" / 'autoscreening.yaml'
 
     if not os.path.exists(parameter_config_path):
@@ -273,7 +271,7 @@ def info():
 
     parser = get_parser()
     print(f"[bold blue]Config file location: {parser.config_path}")
-    print("None of these parameters are strictly mandatory, but having them enables some functionalities")
+    print("None of these parameters are strictly mandatory, but having them enables some functionality")
     info_items = get_info()
     table = Table("Property", "Value")
     for key, value in sorted(info_items.items()):

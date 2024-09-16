@@ -27,7 +27,7 @@ def extract_json(json_string):
 
     try:
         result = json.loads(json_object)
-    except JSONDecodeError as e:
+    except JSONDecodeError:
         try:
             result = json.loads(json_object.replace("'", "\""))
         except JSONDecodeError as e:
