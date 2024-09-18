@@ -101,12 +101,15 @@ After that, the component can be loaded from file and uploaded to IriusRisk if n
     isra component upload                       # Uploads the component to IriusRisk
     isra component pull                         # Downloads the component from IriusRisk
 
-
-## Note about allowed taxonomies
+## Notes
+### Note about allowed taxonomies
 
 Components created with ISRA are generated in a format we called YSC (YAML Structured Components) which is a way to decouple from the existing IriusRisk XML format. 
 This format is easier to modify and it can handle many different types of data.
 However, IriusRisk won't understand any value defined by the user but rather those that belong to a list of allowed values.
 ISRA tries to warn the user about these values when loading a component but it doesn't provide a functionality to set these values automatically yet.
 
-If you have doubts about which values are allowed you can take a look at the following 
+If you have doubts about which values are allowed you can take a look with the following command:
+
+    isra config allowed-values
+
