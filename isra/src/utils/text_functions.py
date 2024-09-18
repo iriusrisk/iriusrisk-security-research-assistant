@@ -28,10 +28,11 @@ def extract_json(json_string):
     try:
         result = json.loads(json_object)
     except JSONDecodeError:
+        # print("Failed to parse plain answer, trying again...")
         try:
             result = json.loads(json_object.replace("'", "\""))
         except JSONDecodeError as e:
-            print(json_string)
+            # print(f"Plain answer: ---{json_string}---")
             print(f"Couldn't convert JSON answer: {json_object}")
             raise e
 

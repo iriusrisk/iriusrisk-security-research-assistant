@@ -73,10 +73,6 @@ class CLITests(unittest.TestCase):
         result = self.runner.invoke(app, ["component", "load"], input=input_commands)
         assert_process(result)
 
-    def run_component_upload(self, input_commands):
-        result = self.runner.invoke(app, ["component", "upload"], input=input_commands)
-        assert_process(result)
-
     def run_threat_screening(self, screening):
         result = self.runner.invoke(app, ["screening", screening], input=get_threat_answers())
         assert_process(result)

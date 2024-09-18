@@ -1,10 +1,11 @@
 # Changelog
 
-## 2.2.1 - 202409XX
+## 2.2.1 - 20240918
 
 ### Features
 
-* The ILE option has been eliminated
+* First public release
+* The ILE option has been removed
 * Added new "operating-system" category
 
 
@@ -16,7 +17,7 @@
 * Now the 'isra component load' accepts .xlsx files. 
 * Added support for IIoT components
 * Added support for Embedded device components
-* Now 'isra component info --p param1/param2/param3' accepts more than one parameters as shown
+* Now 'isra component info --p param1/param2/param3' accepts more than one parameter as shown
 
 ## 2.1.2 - 20240724
 
