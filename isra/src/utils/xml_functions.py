@@ -9,7 +9,7 @@ from isra.src.config.config import get_property, get_app_dir
 from isra.src.config.constants import OUTPUT_NAME, CATEGORIES_LIST, SF_C_MAP, SF_T_MAP, \
     CUSTOM_FIELD_SCOPE, \
     CUSTOM_FIELD_STANDARD_BASELINE_REF, CUSTOM_FIELD_STANDARD_BASELINE_SECTION, \
-    CUSTOM_FIELD_STRIDE, EMPTY_TEMPLATE
+    CUSTOM_FIELD_STRIDE, EMPTY_TEMPLATE, REVERSED_OUTPUT_NAME
 from isra.src.utils.cwe_functions import get_original_cwe_weaknesses, get_cwe_description
 from isra.src.utils.text_functions import merge_custom_fields, split_mitre_custom_field_threats, \
     split_mitre_custom_field_controls, generate_identifier_from_ref, set_category_suffix
@@ -833,19 +833,36 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
                     cf_element.attrib["ref"] = ref
                     cf_element.attrib["value"] = value
 
-            for ref in new_control.find("standards").iter("standard"):
-                if (ref.attrib["supportedStandardRef"] + ref.attrib["ref"] not in
-                        [x["standard-ref"] + x["standard-section"]
-                         for x in template["controls"][control["ref"]]["standards"]]):
-                    new_control.find("standards").remove(ref)
-            for item in template["controls"][control["ref"]]["standards"]:
-                std_element = new_control.find(f'./standards/standard[@supportedStandardRef="{item["standard-ref"]}"]')
-                if std_element is None:
+            standards_in_control = [x for x in new_control.find("standards").iter("standard")]
+            if len(standards_in_control) == 0:
+                # Case 1: Standards in control is an empty list
+                for item in template["controls"][control["ref"]]["standards"]:
                     std_element = etree.SubElement(new_control.find("standards"), "standard")
                     std_element.attrib["supportedStandardRef"] = OUTPUT_NAME[item["standard-ref"]]["ref"]
                     std_element.attrib["ref"] = item["standard-section"]
-                else:
-                    std_element.attrib["ref"] = item["standard-section"]
+            else:
+                # Case 2: If there are standards, delete all those that are not in the current template
+                standards_in_template = [x["standard-ref"] + x["standard-section"]
+                                         for x in template["controls"][control["ref"]]["standards"]]
+                # This step is to remove any standard that is not present anymore
+                for ref in new_control.find("standards").iter("standard"):
+                    if (REVERSED_OUTPUT_NAME[ref.attrib["supportedStandardRef"]]["ref"] +
+                            ref.attrib["ref"] not in standards_in_template):
+                        new_control.find("standards").remove(ref)
+                # Now we add the standards
+                for item in template["controls"][control["ref"]]["standards"]:
+                    std_element = None
+                    for sdf in new_control.find("standards").iter("standard"):
+                        if (sdf.attrib["supportedStandardRef"] == item["standard-ref"]
+                                and sdf.attrib["ref"] == item["standard-section"]):
+                            std_element = sdf
+
+                    if std_element is None:
+                        std_element = etree.SubElement(new_control.find("standards"), "standard")
+                        std_element.attrib["supportedStandardRef"] = OUTPUT_NAME[item["standard-ref"]]["ref"]
+                        std_element.attrib["ref"] = item["standard-section"]
+                    else:
+                        std_element.attrib["ref"] = item["standard-section"]
 
     # Now we have to remove those controls that are not in the template but are present in the XML
     # This is only valid for upload operation

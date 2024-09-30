@@ -12,8 +12,7 @@ from isra.src.config.constants import OPENCRE_PLUS, CRE_MAPPING_NAME, CUSTOM_FIE
 app = typer.Typer(no_args_is_help=True, add_help_option=False)
 
 
-def expand_init():
-    template = read_current_component()
+def expand_process(template):
 
     mappings_yaml = get_resource(OPENCRE_PLUS)
 
@@ -54,9 +53,11 @@ def expand_init():
                         # If the section of the standard can be found inside the CRE we add all values
                         # of that standard and the CRE ID
                         standards_to_add.update(cre_values)
-                        standards_to_add.get("CRE", set()).add(cre_id)
+                        if "CRE" not in standards_to_add:
+                            standards_to_add["CRE"] = set()
+                        standards_to_add["CRE"].add(cre_id)
 
-            # At this point we have a dictionary of the standards that have to be added in this control
+                        # At this point we have a dictionary of the standards that have to be added in this control
             # We convert the lists to sets to remove duplicates
             standards_to_add = {key: set(value) for key, value in standards_to_add.items()}
             # If no standards have been found we add the base standard by default
@@ -82,6 +83,11 @@ def expand_init():
                             })
                             print(f"Added [green]{standard_ref}[/green] -> [blue]{section}")
 
+    return template
+
+def expand_init():
+    template = read_current_component()
+    template = expand_process(template)
     write_current_component(template)
 
 

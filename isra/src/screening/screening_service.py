@@ -9,60 +9,20 @@ from isra.src.config.config import get_sf_values, read_autoscreening_config
 from isra.src.config.constants import CUSTOM_FIELD_STRIDE, CUSTOM_FIELD_SCOPE, \
     CUSTOM_FIELD_STANDARD_BASELINE_REF, CUSTOM_FIELD_STANDARD_BASELINE_SECTION, \
     STRIDE_LIST, CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE, \
-    CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION, PREFIX_COMPONENT_DEFINITION, PREFIX_THREAT, PREFIX_COUNTERMEASURE, \
+    CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION, \
     IR_SF_C_STANDARD_BASELINES, IR_SF_T_STRIDE, IR_SF_C_SCOPE, IR_SF_C_MITRE, IR_SF_T_MITRE, IR_SF_C_STANDARD_SECTION, \
     CUSTOM_FIELD_ATTACK_ICS_TECHNIQUE, CUSTOM_FIELD_ATLAS_TECHNIQUE, CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE, \
     CUSTOM_FIELD_ATTACK_ICS_MITIGATION, CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION, CUSTOM_FIELD_ATLAS_MITIGATION
 from isra.src.utils.cwe_functions import get_original_cwe_weaknesses, get_cwe_description, get_cwe_impact, set_weakness
 from isra.src.utils.gpt_functions import query_chatgpt, get_prompt
 from isra.src.utils.questionary_wrapper import qselect, qconfirm, qtext
-from isra.src.utils.structure_functions import build_new_threat, build_new_control
-from isra.src.utils.text_functions import extract_json, closest_number, beautify, get_company_name_prefix, \
+from isra.src.utils.text_functions import extract_json, closest_number, beautify, \
     check_valid_value, set_value, fix_value
 
 warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
 
 # Get functions
-def generate_threat():
-    template = read_current_component()
-
-    messages = [
-        {"role": "system", "content": get_prompt("generate_threat.md")},
-        {"role": "user", "content": template["component"]["name"] + ":" + template["component"]["desc"]}
-    ]
-
-    return query_chatgpt(messages)
-
-
-def generate_threat_description(text, feedback):
-    messages = [
-        {"role": "system", "content": get_prompt("generate_threat_description.md")},
-        {"role": "user", "content": text},
-        {"role": "user", "content": feedback}
-    ]
-
-    return query_chatgpt(messages)
-
-
-def generate_control(threat_base):
-    messages = [
-        {"role": "system", "content": get_prompt("generate_control.md")},
-        {"role": "user", "content": threat_base["name"] + ":" + threat_base["desc"]}
-    ]
-
-    return query_chatgpt(messages)
-
-
-def generate_control_description(text, feedback):
-    messages = [
-        {"role": "system", "content": get_prompt("generate_control_description.md")},
-        {"role": "user", "content": text},
-        {"role": "user", "content": feedback}
-    ]
-
-    return query_chatgpt(messages)
-
 
 def create_description_for_question(text, feedback):
     messages = [
@@ -517,126 +477,6 @@ def screening(items, ask_function, save_function, choices=None):
             print("Saving screening results")
             save_function(template, to_update, action=action)
             write_current_component(template)
-
-
-def threat_generator():
-    """
-    This is a generator that will help the user to create a threat or a countermeasure
-    :return:
-    """
-
-    new_threat_dict = build_new_threat()
-
-    # Let's try to find a threat, we'll ask ChatGPT to generate a possible threat name
-    while True:
-
-        chatgpt_answer = generate_threat()
-        print(f"ChatGPT says: [blue]{chatgpt_answer}")
-        answer = qconfirm("What do you think?")
-
-        if answer:
-            new_threat_dict["name"] = chatgpt_answer
-            break
-        else:
-            print("Let's try again")
-
-    # If the name sounds good, we'll ask ChatGPT to create a description and iterate until we are happy with it
-    feedback = ""
-    while True:
-        feedback = "" if feedback is None else feedback
-
-        chatgpt_answer = generate_threat_description(new_threat_dict["name"], feedback)
-        print(f"ChatGPT says: [blue]{chatgpt_answer}")
-        answer = qconfirm("What do you think?")
-
-        if answer:
-            new_threat_dict["desc"] = chatgpt_answer
-            break
-        else:
-            feedback = qtext("Add more information if needed for the next time: ", default=feedback)
-            print("Let's try again")
-
-    # Finally we add the new threat to our threat collection, but we need a threat ref
-    template = read_current_component()
-    component_ref = template["component"]["ref"]
-    component_ref_nocd = component_ref.replace(PREFIX_COMPONENT_DEFINITION + get_company_name_prefix(), "")
-
-    # Number of manual threats until now + 1
-    i = sum(1 for t in template["threats"] if "-MANUAL-" in t) + 1
-
-    new_threat_dict["ref"] = f"{PREFIX_THREAT}{component_ref_nocd}-MANUAL-T{i}"
-    template["threats"][new_threat_dict["ref"]] = new_threat_dict
-
-    save_results = qconfirm("Do you want to save?")
-    if save_results:
-        print("Saving generated results")
-        write_current_component(template)
-
-
-def control_generator():
-    """
-    This is a generator that will help the user to create a threat or a countermeasure
-    :return:
-    """
-
-    template = read_current_component()
-    component_ref = template["component"]["ref"]
-    component_ref_nocd = component_ref.replace(PREFIX_COMPONENT_DEFINITION + get_company_name_prefix(), "")
-
-    selected_threat = qselect("Choose a threat to find a countermeasure", choices=template["threats"].keys())
-    threat_item = template["threats"][selected_threat]
-
-    new_control_dict = build_new_control()
-
-    # Let's try to find a threat, we'll ask ChatGPT to generate a possible control name
-    while True:
-        chatgpt_answer = generate_control(threat_item)
-        print(f"ChatGPT says: [blue]{chatgpt_answer}")
-        answer = qconfirm("What do you think?")
-
-        if answer:
-            new_control_dict["name"] = chatgpt_answer
-            break
-        else:
-            print("Let's try again")
-
-    # If the name sounds good, we'll ask ChatGPT to create a description and iterate until we are happy with it
-    feedback = ""
-    while True:
-        feedback = "" if feedback is None else feedback
-
-        chatgpt_answer = generate_control_description(new_control_dict["name"], feedback)
-        print(f"ChatGPT says: [blue]{chatgpt_answer}")
-        answer = qconfirm("What do you think?")
-
-        if answer:
-            new_control_dict["desc"] = chatgpt_answer
-            break
-        else:
-            feedback = qtext("Add more information if needed for the next time: ", default=feedback)
-            print("Let's try again")
-
-    # Finally we add the new threat to our control collection, but we need a control ref
-
-    i = sum(1 for t in template["controls"] if "-MANUAL-" in t) + 1
-
-    new_control_dict["ref"] = f"{PREFIX_COUNTERMEASURE}{component_ref_nocd}-MANUAL-C{i}"
-    template["controls"][new_control_dict["ref"]] = new_control_dict
-
-    new_relation = {
-        "riskPattern": template["riskPattern"]["ref"],
-        "usecase": "General",
-        "threat": threat_item["ref"],
-        "weakness": "",
-        "control": new_control_dict["ref"]
-    }
-    template["relations"].append(new_relation)
-
-    save_results = qconfirm("Do you want to save?")
-    if save_results:
-        print("Saving generated results")
-        write_current_component(template)
-        balance_mitigation_values()
 
 
 def autoscreening_init():

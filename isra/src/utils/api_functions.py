@@ -731,7 +731,6 @@ def add_to_batch(template):
             component_library = post_library(template)
         xml = get_export_library_xml(component_library)
         create_local_library(xml, library_path)
-
     export_content_into_category_library(template, source_path=library_path)
 
     rules_library_path = os.path.join(output_folder, f'{template["component"]["categoryRef"]}-rules.xml')

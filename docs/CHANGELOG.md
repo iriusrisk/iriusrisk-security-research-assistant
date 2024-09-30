@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.3.0 - 2024XXXX
+
+### Enhancements
+
+* Fixed bug that was preventing OpenCRE to be added to the standards list
+* Improved multi-select UI to be able to select when there are more than 36 options
+* Moved template functions to a new file to decouple it from other functions
+
 ## 2.2.1 - 20240918
 
 ### Features

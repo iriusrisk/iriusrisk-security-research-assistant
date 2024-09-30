@@ -10,8 +10,10 @@ import yaml
 from rich import print
 from rich.table import Table
 
+from isra.src.component.template import read_current_component, write_current_component, check_current_component
 from isra.src.config.constants import TEMPLATE_FILE, THREAT_MODEL_FILE, TM_SCHEMA, PREFIX_COMPONENT_DEFINITION, \
     PREFIX_RISK_PATTERN, PREFIX_THREAT, PREFIX_COUNTERMEASURE
+from isra.src.standards.standards import expand_process
 from isra.src.utils.api_functions import upload_xml, add_to_batch, release_component_batch, \
     pull_remote_component_xml
 from isra.src.utils.decorators import get_time
@@ -46,33 +48,6 @@ def generate_component_description(text):
     return query_chatgpt(messages)
 
 
-def check_current_component(raise_if_not_exists=True):
-    properties_dir = get_app_dir()
-    template_path = os.path.join(properties_dir, TEMPLATE_FILE)
-
-    if os.path.exists(template_path):
-        return template_path
-    else:
-        print("No component initialized")
-        if raise_if_not_exists:
-            raise typer.Exit(-1)
-        else:
-            return ""
-
-
-def read_current_component():
-    template_path = check_current_component()
-    with open(template_path, "r") as f:
-        template = json.load(f)
-    return template
-
-
-def write_current_component(template):
-    template_path = check_current_component()
-    with open(template_path, "w") as f:
-        f.write(json.dumps(template, indent=4))
-
-
 @get_time
 def clean_exported_components(force):
     if force:
@@ -91,9 +66,7 @@ def clean_exported_components(force):
         print("Operation aborted")
 
 
-def balance_mitigation_values():
-    template = read_current_component()
-
+def balance_mitigation_values_process(template):
     threat_groups = defaultdict(list)
     for item in template["relations"]:
         threat_groups[item['threat']].append(item)
@@ -107,7 +80,12 @@ def balance_mitigation_values():
                 item['mitigation'] = f"{mitigation_per_control + 1}"
             else:
                 item['mitigation'] = f"{mitigation_per_control}"
+    return template
 
+
+def balance_mitigation_values():
+    template = read_current_component()
+    template = balance_mitigation_values_process(template)
     write_current_component(template)
 
 
@@ -574,13 +552,14 @@ def tm():
 
     reuse_threat_model = False
     if os.path.exists(threat_model_path):
-        print(f"[blue]Existing threat model found in {threat_model_path}")
-        reuse_threat_model = qconfirm("Do you want to reuse previous threat model?")
+        print(f"[blue]Threat model found in {threat_model_path}")
+        reuse_threat_model = qconfirm("Do you want to apply existing threat model?")
 
     template["threats"] = dict()
     template["weaknesses"] = dict()
     template["controls"] = dict()
     template["relations"] = list()
+
     if not reuse_threat_model:
         max_iterations = 10
         generated_threat_model = ""
@@ -703,3 +682,25 @@ def pull():
     Pulls the name, descriptions and metadata of threats and countermeasure of a component from IriusRisk
     """
     pull_component()
+
+
+@app.command(hidden=True)
+def complete():
+    """Creates release"""
+
+    components_dir = get_property("components_dir")
+
+    for root, dirs, files in os.walk(components_dir):
+        for file in files:
+            try:
+                if file.endswith(".yaml") and "to_review" not in root and ".git" not in root:
+                    print(f"Reading {file}")
+                    template = load_yaml_file(os.path.join(root, file))
+                    print("Loaded")
+                    template = balance_mitigation_values_process(template)
+                    template = expand_process(template)
+                    print("Expanded")
+                    add_to_batch(template)
+                    print(f"Component {template['component']['ref']} added to batch successfully")
+            except Exception as e:
+                print(f"An error happened when adding the component to batch: {e}")

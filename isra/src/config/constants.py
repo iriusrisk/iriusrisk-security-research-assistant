@@ -138,6 +138,26 @@ OUTPUT_NAME = {
 
 }
 
+REVERSED_OUTPUT_NAME = {'iso-27002-2022': {'name': 'ISO/IEC 27002:2022', 'ref': 'ISO 27001'},
+                        'NIST 800-53': {'name': 'NIST 800-53', 'ref': 'NIST 800-53 v5'},
+                        'owasp-asvs4-level-3': {'name': 'OWASP-ASVS4-Level-3', 'ref': 'ASVS'},
+                        'nist-800-63': {'name': 'NIST 800-63', 'ref': 'NIST 800-63'},
+                        'fedramp-high-baseline': {'name': 'FedRAMP High Baseline', 'ref': 'FedRAMP'},
+                        'owasp-top-10-2021': {'name': 'OWASP Top 10 2021', 'ref': 'OWASP Top 10 2021'},
+                        'PCI-DSS-v3.2.1': {'name': 'PCI-DSS-v3.2.1', 'ref': 'PCI DSS v3.2.1'},
+                        'cloud-control-matrix': {'name': 'Cloud Controls Matrix', 'ref': 'Cloud Controls Matrix'},
+                        'cwe-standard': {'name': 'CWE', 'ref': 'CWE'},
+                        'nist-ssdf': {'name': 'NIST SSDF', 'ref': 'NIST SSDF'},
+                        'owasp-cheat-sheets': {'name': 'OWASP Cheat Sheets', 'ref': 'OWASP Cheat Sheets'},
+                        'owasp-proactive-controls': {'name': 'OWASP Proactive Controls',
+                                                     'ref': 'OWASP Proactive Controls'},
+                        'owasp-wstg': {'name': 'OWASP Web Security Testing Guide (WSTG)',
+                                       'ref': 'OWASP Web Security Testing Guide (WSTG)'},
+                        'SAMM': {'name': 'SAMM', 'ref': 'SAMM'}, 'OpenCRE': {'name': 'OpenCRE', 'ref': 'CRE'},
+                        'nist-csf': {'name': 'NIST Cybersecurity Framework', 'ref': 'NIST CSF v1.1'},
+                        'D3FEND': {'name': 'Mitre D3FEND Framework', 'ref': 'D3FEND'},
+                        'ccpa': {'name': 'California Consumer Privacy Act', 'ref': 'CCPA'}}
+
 IRIUSRISK_API_HEADERS = {
     "v1": {
         'accept': 'application/json',
