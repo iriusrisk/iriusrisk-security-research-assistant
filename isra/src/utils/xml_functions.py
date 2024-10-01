@@ -441,12 +441,12 @@ def create_rule_question_group_action_implemented(category_ref, qg_id, control_r
     action.attrib["project"] = category_ref
     action.attrib["value"] = f"{control_ref}_::_Implemented_::__::_false"
 
-    notif_id = f"gc.notification.warning.{qg_id}.used"
+    notif_id = f"gc.alert.warning.{qg_id}.used"
     notif_message = f"This countermeasure has already been implemented as indicated in the questionnaire"
     notification = etree.SubElement(rule.find("actions"), "action")
-    notification.attrib["name"] = "INSERT_COMPONENT_NOTIFICATION"
+    notification.attrib["name"] = "INSERT_COMPONENT_ALERT"
     notification.attrib["project"] = ""
-    notification.attrib["value"] = f"NotificationType.WARNING_::_{notif_id}_::_{notif_message}"
+    notification.attrib["value"] = f"AlertType.WARNING_::_{notif_id}_::_{notif_message}"
 
     return rule
 

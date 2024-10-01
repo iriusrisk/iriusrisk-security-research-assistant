@@ -696,10 +696,8 @@ def complete():
                 if file.endswith(".yaml") and "to_review" not in root and ".git" not in root:
                     print(f"Reading {file}")
                     template = load_yaml_file(os.path.join(root, file))
-                    print("Loaded")
                     template = balance_mitigation_values_process(template)
                     template = expand_process(template)
-                    print("Expanded")
                     add_to_batch(template)
                     print(f"Component {template['component']['ref']} added to batch successfully")
             except Exception as e:

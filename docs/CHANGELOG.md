@@ -7,6 +7,7 @@
 * Fixed bug that was preventing OpenCRE to be added to the standards list
 * Improved multi-select UI to be able to select when there are more than 36 options
 * Moved template functions to a new file to decouple it from other functions
+* Fixed bug that was preventing ICSA-500 standard to be added to standard list
 
 ## 2.2.1 - 20240918
 
