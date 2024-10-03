@@ -685,10 +685,10 @@ def pull():
 
 
 @app.command(hidden=True)
-def complete():
+def build():
     """Creates release"""
 
-    components_dir = get_property("components_dir")
+    components_dir = get_property("components_dir") or get_app_dir()
 
     for root, dirs, files in os.walk(components_dir):
         for file in files:
