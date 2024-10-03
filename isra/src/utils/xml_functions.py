@@ -804,10 +804,10 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
             new_control.find("desc").text = control["desc"]
 
             # This removes those references from the library that are not in the template
-            for ref in new_control.find("references").iter("reference"):
-                if ref.attrib["name"] not in [x["name"] for x in
+            for std_element in new_control.find("references").iter("reference"):
+                if std_element.attrib["name"] not in [x["name"] for x in
                                               template["controls"][control["ref"]]["references"]]:
-                    new_control.find("references").remove(ref)
+                    new_control.find("references").remove(std_element)
             for item in template["controls"][control["ref"]]["references"]:
                 reference_element = new_control.find(f'./references/reference[@name="{item["name"]}"]')
                 if reference_element is None:
@@ -820,17 +820,17 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
                     reference_element.attrib["url"] = item["url"]
 
             control_custom_fields = merge_custom_fields(control["customFields"], SF_C_MAP)
-            for ref in new_control.find("customFields").iter("customField"):
-                if ref.attrib["ref"] not in control_custom_fields:
-                    new_control.find("customFields").remove(ref)
-            for ref, value in control_custom_fields.items():
-                cf_element = new_control.find(f'./customFields/customField[@ref="{ref}"]')
+            for std_element in new_control.find("customFields").iter("customField"):
+                if std_element.attrib["ref"] not in control_custom_fields:
+                    new_control.find("customFields").remove(std_element)
+            for std_element, value in control_custom_fields.items():
+                cf_element = new_control.find(f'./customFields/customField[@ref="{std_element}"]')
                 if cf_element is None:
                     cf_element = etree.SubElement(new_control.find("customFields"), "customField")
-                    cf_element.attrib["ref"] = ref
+                    cf_element.attrib["ref"] = std_element
                     cf_element.attrib["value"] = value
                 else:
-                    cf_element.attrib["ref"] = ref
+                    cf_element.attrib["ref"] = std_element
                     cf_element.attrib["value"] = value
 
             standards_in_control = [x for x in new_control.find("standards").iter("standard")]
@@ -845,10 +845,13 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
                 standards_in_template = [x["standard-ref"] + x["standard-section"]
                                          for x in template["controls"][control["ref"]]["standards"]]
                 # This step is to remove any standard that is not present anymore
-                for ref in new_control.find("standards").iter("standard"):
-                    if (REVERSED_OUTPUT_NAME[ref.attrib["supportedStandardRef"]]["ref"] +
-                            ref.attrib["ref"] not in standards_in_template):
-                        new_control.find("standards").remove(ref)
+
+                uuid_map = dict()
+                for std_element in new_control.find("standards").iter("standard"):
+                    if "uuid" in std_element.attrib:
+                        uuid_map[std_element.attrib['supportedStandardRef']+std_element.attrib['ref']] = std_element.attrib['uuid']
+                    new_control.find("standards").remove(std_element)
+
                 # Now we add the standards
                 for item in template["controls"][control["ref"]]["standards"]:
                     std_element = None
@@ -863,6 +866,9 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
                         std_element.attrib["ref"] = item["standard-section"]
                     else:
                         std_element.attrib["ref"] = item["standard-section"]
+
+                    if std_element.attrib["supportedStandardRef"]+std_element.attrib["ref"] in uuid_map:
+                        std_element.attrib["uuid"] = uuid_map[std_element.attrib["supportedStandardRef"]+std_element.attrib["ref"]]
 
     # Now we have to remove those controls that are not in the template but are present in the XML
     # This is only valid for upload operation
@@ -922,9 +928,9 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
             template["threats"][relation["threat"]]["riskRating"]["EE"]
 
         # This removes those references from the library that are not in the template
-        for ref in new_threat.find("references").iter("reference"):
-            if ref.attrib["name"] not in [x["name"] for x in template["threats"][relation["threat"]]["references"]]:
-                new_threat.find("references").remove(ref)
+        for std_element in new_threat.find("references").iter("reference"):
+            if std_element.attrib["name"] not in [x["name"] for x in template["threats"][relation["threat"]]["references"]]:
+                new_threat.find("references").remove(std_element)
         for item in template["threats"][relation["threat"]]["references"]:
             reference_element = new_threat.find(f'./references/reference[@name="{item["name"]}"]')
             if reference_element is None:
@@ -938,17 +944,17 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
 
         threat_custom_fields = merge_custom_fields(template["threats"][relation["threat"]]["customFields"],
                                                    SF_T_MAP)
-        for ref in new_threat.find("customFields").iter("customField"):
-            if ref.attrib["ref"] not in threat_custom_fields:
-                new_threat.find("customFields").remove(ref)
-        for ref, value in threat_custom_fields.items():
-            cf_element = new_threat.find(f'./customFields/customField[@ref="{ref}"]')
+        for std_element in new_threat.find("customFields").iter("customField"):
+            if std_element.attrib["ref"] not in threat_custom_fields:
+                new_threat.find("customFields").remove(std_element)
+        for std_element, value in threat_custom_fields.items():
+            cf_element = new_threat.find(f'./customFields/customField[@ref="{std_element}"]')
             if cf_element is None:
                 cf_element = etree.SubElement(new_threat.find("customFields"), "customField")
-                cf_element.attrib["ref"] = ref
+                cf_element.attrib["ref"] = std_element
                 cf_element.attrib["value"] = value
             else:
-                cf_element.attrib["ref"] = ref
+                cf_element.attrib["ref"] = std_element
                 cf_element.attrib["value"] = value
 
     # We remove use cases not present in the template
