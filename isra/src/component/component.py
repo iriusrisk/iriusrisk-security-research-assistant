@@ -685,20 +685,28 @@ def pull():
 
 
 @app.command(hidden=True)
-def build():
+def build(file: Annotated[str, typer.Option(help="Path to file to import")] = None):
     """Creates release"""
 
     components_dir = get_property("components_dir") or get_app_dir()
-
-    for root, dirs, files in os.walk(components_dir):
-        for file in files:
-            try:
+    file_list = []
+    if file:
+        with open(file, "r") as f:
+            for line in f.read().splitlines():
+                file_list.append(line)
+    else:
+        for root, dirs, files in os.walk(components_dir):
+            for file in files:
                 if file.endswith(".yaml") and "to_review" not in root and ".git" not in root:
-                    print(f"Reading {file}")
-                    template = load_yaml_file(os.path.join(root, file))
-                    template = balance_mitigation_values_process(template)
-                    template = expand_process(template)
-                    add_to_batch(template)
-                    print(f"Component {template['component']['ref']} added to batch successfully")
-            except Exception as e:
-                print(f"An error happened when adding the component to batch: {e}")
+                    file_list.append(os.path.join(root, file))
+
+    for file in file_list:
+        try:
+            print(f"Reading {file}")
+            template = load_yaml_file(file)
+            template = balance_mitigation_values_process(template)
+            template = expand_process(template)
+            add_to_batch(template)
+            print(f"Component {template['component']['ref']} added to batch successfully")
+        except Exception as e:
+            print(f"An error happened when adding the component to batch: {e}")

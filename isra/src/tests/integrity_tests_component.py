@@ -263,3 +263,15 @@ def check_trailing_whitespaces(root):
                           "Trailing whitespaces")
 
     return errors
+
+
+def check_name_does_not_contain_category(root):
+    errors = []
+    component_ref: str = root['component']['ref']
+    component_name: str = root['component']['name']
+    category: str = root['component']['category']
+
+    if category in component_name:
+        errors.append(f"Component {component_ref} has an invalid name: {component_name}")
+
+    return errors
