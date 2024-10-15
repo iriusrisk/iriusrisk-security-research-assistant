@@ -79,29 +79,29 @@ def check_valid_value(answer, system_field):
 
 
 def fix_value(value, allowed_values):
-    values = value.split("||")
-    new_values = list()
+    updated_values = list()
 
-    for value in values:
+    for value in value.split("||"):
         if value == "":
             continue
         if value not in allowed_values:
             possible_matches = find_closest_match(value, allowed_values)
             print(f"Current value: {value}")
-            new_value = qselect(
+            user_choice = qselect(
                 "This value is not allowed. Please choose the best match. "
-                "If there are no valid matches select None to skip and Manual to manually input a new value",
-                choices=["None", "Set empty", "Manual"] + possible_matches)
-            if new_value is None or new_value == "None":
+                "If there are no valid matches select Skip to move on to the next value and Manual to manually input "
+                "a new value",
+                choices=["Skip", "Set empty", "Manual"] + possible_matches)
+            if user_choice is None or user_choice == "Skip":
                 continue
-            if new_value == "Set empty":
-                new_value = ""
-            if new_value == "Manual":
-                new_value = qtext("Write new value:")
-            new_values.append(new_value)
+            if user_choice == "Set empty":
+                user_choice = ""
+            if user_choice == "Manual":
+                user_choice = qtext("Write new value:")
+            updated_values.append(user_choice)
         else:
-            new_values.append(value)
-    return "||".join(new_values)
+            updated_values.append(value)
+    return "||".join(updated_values)
 
 
 def beautify(text):

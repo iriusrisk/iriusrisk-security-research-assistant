@@ -31,6 +31,8 @@ def get_cwe_description(weaknesses, ids):
     final_desc = "CWE:"
 
     for cwe_id in ids:
+        if "-" not in cwe_id:
+            continue
         id_number = cwe_id.split("-")[1]
         if id_number in weaknesses:
             weakness = weaknesses[id_number]

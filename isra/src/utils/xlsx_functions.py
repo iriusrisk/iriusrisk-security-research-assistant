@@ -44,6 +44,12 @@ def load_xlsx_file(component):
     df4 = pd.read_excel(component, sheet_name="Countermeasure", dtype=str)
     df5 = pd.read_excel(component, sheet_name="Reference", dtype=str)
     df6 = pd.read_excel(component, sheet_name="Taxonomy", dtype=str)
+    df1 = df1.fillna('')
+    df2 = df2.fillna('')
+    df3 = df3.fillna('')
+    df4 = df4.fillna('')
+    df5 = df5.fillna('')
+    df6 = df6.fillna('')
 
     original_cwe_weaknesses = get_original_cwe_weaknesses()
 

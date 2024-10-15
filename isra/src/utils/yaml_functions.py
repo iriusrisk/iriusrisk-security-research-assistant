@@ -31,6 +31,8 @@ def load_yaml_file(component):
 
         component = yml["component"]
 
+        print(f"Last review: {component['last_review']}")
+
         risk_pattern = component["risk_pattern"]
         template["component"] = {
             "ref": component["ref"],
