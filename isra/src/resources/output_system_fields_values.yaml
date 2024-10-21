@@ -128,6 +128,89 @@ SF-MITRE-C-TYPE:
 - ATT&CK ICS - M0951 - Update Software
 - ATT&CK ICS - M0953 - Data Backup
 - ATT&CK ICS - M0954 - Software Configuration
+- EMB3D - MID-001 - Software Only Bootloader Authentication
+- EMB3D - MID-002 - Hardware-backed Bootloader Authentication
+- EMB3D - MID-003 - Periodic/Continuous Integrity Measurement and Remote Attestation
+- EMB3D - MID-004 - Memory Hardening Against Code Injection
+- EMB3D - MID-005 - Memory Safe Programming Languages
+- EMB3D - MID-006 - Driver Memory Isolation
+- EMB3D - MID-007 - Control Flow Manipulation Protections
+- EMB3D - MID-008 - Decidable Protocols and Parsers
+- EMB3D - MID-009 - Operating System-based Runtime Integrity Check
+- EMB3D - MID-010 - No Runtime OS Driver Load
+- EMB3D - MID-011 - OS Driver/Peripheral Authentication
+- EMB3D - MID-012 - OS-based Access Control Mechanisms
+- EMB3D - MID-013 - Process and Thread Memory Segmentation
+- EMB3D - MID-014 - Sandboxing
+- EMB3D - MID-015 - Containerization
+- EMB3D - MID-016 - Least Functionality
+- EMB3D - MID-017 - Security-relevant Auditing and Logging
+- EMB3D - MID-018 - Require Authentication for Privileged Functions
+- EMB3D - MID-019 - ROP Gadget Minimization
+- EMB3D - MID-020 - Pointer Authentication
+- EMB3D - MID-021 - VM Hardening
+- EMB3D - MID-022 - Segmentation Through Hardware-assisted VMs
+- EMB3D - MID-023 - Hypervisor Hardening
+- EMB3D - MID-024 - Encrypted VM Isolation
+- EMB3D - MID-025 - End-of-Life Management Features
+- EMB3D - MID-026 - Secure Firmware Update
+- EMB3D - MID-027 - Validated Cryptographic Libraries
+- EMB3D - MID-028 - Hardware-backed Key Storage
+- EMB3D - MID-029 - Hardware Root of Trust
+- EMB3D - MID-030 - Firmware Rollback Protections
+- EMB3D - MID-031 - Physical Presence Validation
+- EMB3D - MID-032 - System Service Availability Manager
+- EMB3D - MID-033 - Unique Factory Preinstalled Secret Keys
+- EMB3D - MID-034 - Authenticate Network Messages
+- EMB3D - MID-035 - Encrypt Network Traffic
+- EMB3D - MID-036 - Cryptographic Nonces
+- EMB3D - MID-037 - Network Timestamps
+- EMB3D - MID-038 - Authenticate for Administrative Actions
+- EMB3D - MID-039 - Restrict Software Diagnostic Functions
+- EMB3D - MID-040 - Cryptographically Signed Custom Programs
+- EMB3D - MID-041 - Cryptographically Signed Vendor-supplied Programs
+- EMB3D - MID-042 - Device Checks Consistency Between Binary/Running Code and Textual Code
+- EMB3D - MID-043 - Manage Default Login Credentials
+- EMB3D - MID-044 - Strong Cryptographic Algorithms and Protocols
+- EMB3D - MID-045 - Multi-factor Authentication
+- EMB3D - MID-046 - Authentication Attempts Timeouts and Lockouts
+- EMB3D - MID-047 - Sufficient Entropy for Keys
+- EMB3D - MID-048 - Hardware Random Number Generator
+- EMB3D - MID-049 - Secure Password Storage
+- EMB3D - MID-050 - Operating System Defenses Against Microarchitecture Feature Side Channels
+- EMB3D - MID-051 - Disallow User-Provided Code
+- EMB3D - MID-052 - Physically Protect Circuit Board Traces and Chip Pins
+- EMB3D - MID-053 - Use IOMMU to Implement DMA Access Controls
+- EMB3D - MID-054 - Encrypt and Authenticate Non-volatile Storage Contents
+- EMB3D - MID-055 - Use Highly Integrated Processors to Avoid Physical Attacks
+- EMB3D - MID-056 - Allow Device Administrators to Disable Removable Storage Support
+- EMB3D - MID-057 - Disable Physical Development and Debugging Ports
+- EMB3D - MID-058 - Engage Hardware Readout Protection Mechanisms
+- EMB3D - MID-059 - Software Patterns for Side Channel Resistance
+- EMB3D - MID-060 - Dedicated Hardware Cryptographic Modules
+- EMB3D - MID-061 - Use Separate Processors for Isolation
+- EMB3D - MID-062 - Hardware Mitigations for Fault Injection
+- EMB3D - MID-063 - Software Mitigations for Fault Injection
+- EMB3D - MID-064 - Store Critical Code and Data in On-Chip Memory
+- EMB3D - MID-065 - RAM Encryption
+- EMB3D - MID-066 - Implement Redundant Processing and Memory
+- EMB3D - MID-067 - Implement DRAM RowHammer-resistant DRAM and Memory Controllers
+- EMB3D - MID-068 - Data Bus Encryption and Message Authentication
+- EMB3D - MID-069 - Electrical Fault Protection
+- EMB3D - MID-070 - Peripheral Component Authentication
+- EMB3D - MID-071 - Sanitized and Escaped User Data for Web Applications
+- EMB3D - MID-072 - Parameterized SQL Queries
+- EMB3D - MID-073 - Secure HTTP Session Management
+- EMB3D - MID-074 - Cross Site Request Forgery Mitigations
+- EMB3D - MID-075 - Path Traversal Protections
+- EMB3D - MID-076 - Web Direct Object Reference Authentication
+- EMB3D - MID-077 - Secure Deserialization
+- EMB3D - MID-078 - HTTP Request/Response Validation
+- EMB3D - MID-079 - Remove Undocumented Network Functionality
+- EMB3D - MID-080 - Network Request Processing Limits
+- EMB3D - MID-081 - Secure Network Tunnels
+- EMB3D - MID-082 - Post-quantum Cryptography
+- EMB3D - MID-083 - Network Firewall/Access Control List
 SF-MITRE-T-TYPE:
 - ATLAS - AML.TA0000 - ML Model Access
 - ATLAS - AML.TA0001 - ML Attack Staging
@@ -1309,6 +1392,85 @@ SF-MITRE-T-TYPE:
 - ATT&CK Mobile - T1661 - Application Versioning
 - ATT&CK Mobile - T1662 - Data Destruction
 - ATT&CK Mobile - T1663 - Remote Access Software
+- EMB3D - TID-101 - Power Consumption Analysis Side Channel
+- EMB3D - TID-102 - Electromagnetic Analysis Side Channel
+- EMB3D - TID-103 - Cache Timing Analysis Side Channel
+- EMB3D - TID-105 - Hardware Fault Injection – Control Flow Modification
+- EMB3D - TID-106 - Data Bus Interception
+- EMB3D - TID-107 - Unauthorized Direct Memory Access (DMA)
+- EMB3D - TID-108 - ROM/NVRAM Data Extraction or Modification
+- EMB3D - TID-109 - RAM Chip Contents Readout
+- EMB3D - TID-110 - Hardware Fault Injection – Data Manipulation
+- EMB3D - TID-111 - Untrusted External Storage
+- EMB3D - TID-113 - Unverified Peripheral Firmware Loaded
+- EMB3D - TID-114 - Peripheral Data Bus Interception
+- EMB3D - TID-115 - Firmware/Data Extraction via Hardware Interface
+- EMB3D - TID-116 - Latent Privileged Access Port
+- EMB3D - TID-118 - Weak Peripheral Port Electrical Damage Protection
+- EMB3D - TID-119 - Latent Hardware Debug Port Allows Memory/Code Manipulation
+- EMB3D - TID-201 - Inadequate Bootloader Protection and Verification
+- EMB3D - TID-202 - Exploitable System Network Stack Component
+- EMB3D - TID-203 - Malicious OS Kernel Driver/Module Installable
+- EMB3D - TID-204 - Untrusted Programs Can Access Privileged OS Functions
+- EMB3D - TID-205 - Existing OS Tools Maliciously Used for Device Manipulation
+- EMB3D - TID-206 - Memory Management Protections Subverted
+- EMB3D - TID-207 - Container Escape
+- EMB3D - TID-208 - Virtual Machine Escape
+- EMB3D - TID-209 - Host Can Manipulate Guest Virtual Machines
+- EMB3D - TID-210 - Device Vulnerabilities Unpatchable
+- EMB3D - TID-211 - Device Allows Unauthenticated Firmware Installation
+- EMB3D - TID-212 - FW/SW Update Integrity Shared Secrets Extraction
+- EMB3D - TID-213 - Faulty FW/SW Update Integrity Verification
+- EMB3D - TID-214 - Secrets Extracted from Device Root of Trust
+- EMB3D - TID-215 - Unencrypted SW/FW Updates
+- EMB3D - TID-216 - Firmware Update Rollbacks Allowed
+- EMB3D - TID-217 - Remotely Initiated Updates Can Cause DoS
+- EMB3D - TID-218 - Operating System Susceptible to Rootkit
+- EMB3D - TID-219 - OS/Kernel Privilege Escalation
+- EMB3D - TID-220 - Unpatchable Hardware Root of Trust
+- EMB3D - TID-221 - Authentication Bypass By Message Replay
+- EMB3D - TID-222 - Critical System Service May Be Disabled
+- EMB3D - TID-223 - System Susceptible to RAM Scraping
+- EMB3D - TID-224 - Excessive Access via Software Diagnostic Features
+- EMB3D - TID-301 - Applications Binaries Modified
+- EMB3D - TID-302 - Install Untrusted Application
+- EMB3D - TID-303 - Excessive Trust in Offboard Management/IDE Software
+- EMB3D - TID-304 - Manipulate Runtime Environment
+- EMB3D - TID-305 - Program Executes Dangerous System Calls
+- EMB3D - TID-306 - Sandboxed Environments Escaped
+- EMB3D - TID-307 - Device Code Representations Inconsistent
+- EMB3D - TID-308 - Code Overwritten to Avoid Detection
+- EMB3D - TID-309 - Device Exploits Engineering Workstation
+- EMB3D - TID-310 - Remotely Accessible Unauthenticated Services
+- EMB3D - TID-311 - Default Credentials
+- EMB3D - TID-312 - Credential Change Mechanism Can Be Abused
+- EMB3D - TID-313 - Unauthenticated Session Changes Credential
+- EMB3D - TID-314 - Passwords Can Be Guessed Using Brute-Force Attempts
+- EMB3D - TID-315 - Password Retrieval Mechanism Abused
+- EMB3D - TID-316 - Incorrect Certificate Verification Allows Authentication Bypass
+- EMB3D - TID-317 - Predictable Cryptographic Key
+- EMB3D - TID-318 - Insecure Cryptographic Implementation
+- EMB3D - TID-319 - Cross Site Scripting (XSS)
+- EMB3D - TID-320 - SQL Injection
+- EMB3D - TID-321 - HTTP Application Session Hijacking
+- EMB3D - TID-322 - Cross Site Request Forgery (CSRF)
+- EMB3D - TID-323 - HTTP Path Traversal
+- EMB3D - TID-324 - HTTP Direct Object Reference
+- EMB3D - TID-325 - HTTP Injection/Response Splitting
+- EMB3D - TID-326 - Insecure Deserialization
+- EMB3D - TID-327 - Out of Bounds Memory Access
+- EMB3D - TID-328 - Hardcoded Credentials
+- EMB3D - TID-329 - Improper Password Storage
+- EMB3D - TID-330 - Cryptographic Timing Side-Channel
+- EMB3D - TID-401 - Undocumented Protocol Features
+- EMB3D - TID-404 - Remotely Triggerable Deadlock/DoS
+- EMB3D - TID-405 - Network Stack Resource Exhaustion
+- EMB3D - TID-406 - Unauthorized Messages or Connections
+- EMB3D - TID-407 - Missing Message Replay Protection
+- EMB3D - TID-408 - Unencrypted Sensitive Data Communication
+- EMB3D - TID-410 - Cryptographic Protocol Side Channel
+- EMB3D - TID-411 - Weak/Insecure Cryptographic Protocol
+- EMB3D - TID-412 - Network Routing Capability Abuse
 SF-SCOPE-TYPE:
 - AI Security
 - Application Security

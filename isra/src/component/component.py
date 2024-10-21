@@ -16,7 +16,7 @@ from isra.src.config.constants import TEMPLATE_FILE, THREAT_MODEL_FILE, TM_SCHEM
 from isra.src.standards.standards import expand_process
 from isra.src.utils.api_functions import upload_xml, add_to_batch, release_component_batch, \
     pull_remote_component_xml
-from isra.src.utils.decorators import get_time
+from isra.src.utils.decorators import get_time, audit
 from isra.src.utils.gpt_functions import query_chatgpt, get_prompt
 from isra.src.utils.questionary_wrapper import qconfirm, qselect, qtext, qmulti
 from isra.src.utils.text_functions import extract_json, get_company_name_prefix, get_allowed_system_field_values
@@ -155,7 +155,25 @@ def validate_custom_fields(template):
     for k, v in template["threats"].items():
         check(v)
 
+@get_time
+def save_xml(preview):
+    template = read_current_component()
 
+    output_folder = get_property("component_output_path") or get_app_dir()
+    xml_template_path = os.path.join(output_folder, f"{template['component']['ref']}.xml")
+    root = save_xml_file(template)
+
+    if preview:
+        tree = etree.tostring(root, pretty_print=True)
+        print(tree.decode())
+    else:
+        tree = etree.ElementTree(root)
+        tree.write(xml_template_path, pretty_print=True, encoding='utf-8', xml_declaration=True)
+
+        print(f"Component saved in {xml_template_path}")
+
+
+#@audit(message="load")
 @get_time
 def load_init(file):
     template_path = check_current_component(raise_if_not_exists=False)
@@ -199,24 +217,6 @@ def load_init(file):
 
     template = read_current_component()
     validate_custom_fields(template)
-
-
-@get_time
-def save_xml(preview):
-    template = read_current_component()
-
-    output_folder = get_property("component_output_path") or get_app_dir()
-    xml_template_path = os.path.join(output_folder, f"{template['component']['ref']}.xml")
-    root = save_xml_file(template)
-
-    if preview:
-        tree = etree.tostring(root, pretty_print=True)
-        print(tree.decode())
-    else:
-        tree = etree.ElementTree(root)
-        tree.write(xml_template_path, pretty_print=True, encoding='utf-8', xml_declaration=True)
-
-        print(f"Component saved in {xml_template_path}")
 
 
 @get_time

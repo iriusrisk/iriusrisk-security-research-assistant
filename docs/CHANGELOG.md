@@ -9,6 +9,9 @@
 * Moved template functions to a new file to decouple it from other functions
 * Fixed bug that was preventing ICSA-500 standard to be added to standard list
 * Added new YSC tests
+* Added new "Hardware Security" scope
+* Added new Mitre EMB3D Framework system field type values
+* Now when loading a component from a YSC file it shows the last review date
 
 ## 2.2.1 - 20240918
 
