@@ -101,7 +101,7 @@ After that, the component can be loaded from file and uploaded to IriusRisk if n
     isra component upload                       # Uploads the component to IriusRisk
     isra component pull                         # Downloads the component from IriusRisk
 
-## Notes
+## Notes 
 ### Note about allowed taxonomies
 
 Components created with ISRA are generated in a format we called YSC (YAML Structured Components) which is a way to decouple from the existing IriusRisk XML format. 
