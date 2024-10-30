@@ -98,7 +98,7 @@ def upload_component():
         # TODO: This function should be replaced at some point when the APIv2 is ready
         # upload_component_to_iriusrisk(template)
         upload_xml(template)
-        print("Component uploaded successfully")
+        print(f"Component {template['component']['ref']} uploaded successfully")
     except Exception as e:
         print(f"An error happened when uploading the component to IriusRisk: {e}")
 
