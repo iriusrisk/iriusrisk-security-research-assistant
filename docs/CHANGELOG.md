@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.3.0 - 2024XXXX
+## 2.3.0 - 20241031
 
 ### Enhancements
 
