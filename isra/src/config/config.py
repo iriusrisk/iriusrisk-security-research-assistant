@@ -231,7 +231,7 @@ def update():
                    "component_input_path", "ile_root_folder"]:
             value = qpath("Write the new value: ", default=parser[APP_NAME][opt])
         elif opt == "gpt_model":
-            value = qselect("Select model (gpt-4 if not sure):", choices=[
+            value = qselect("Select model (choose gpt-4 if not sure):", choices=[
                 "gpt-3.5-turbo-0613",
                 "gpt-3.5-turbo-1106",
                 "gpt-3.5-turbo-16k",

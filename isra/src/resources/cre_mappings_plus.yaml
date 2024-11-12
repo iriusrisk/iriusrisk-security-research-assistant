@@ -45,10 +45,14 @@
   - PO.1.2
   PCI DSS v3.2.1:
   - '5'
+  PCI-DSS-v4.0:
+  - 1.2.6
   SAMM:
   - Policy & Standards
   - Software Requirements
 007-274:
+  PCI-DSS-v4.0:
+  - 6.3.3
   SAMM:
   - Patching and Updating
 013-021:
@@ -69,6 +73,10 @@
   - 'PR.AT-2: Privileged users understand their roles and responsibilities'
   - 'PR.AT-4: Senior executives understand their roles and responsibilities'
   - 'PR.AT-5: Physical and cybersecurity personnel understand their roles and responsibilities'
+  NIST CSF v2.0:
+  - GV.RR-01
+  - GV.RR-02
+  - GV.RR-04
   NIST SSDF:
   - PO.2.1
   PCI DSS v3.2.1:
@@ -84,11 +92,28 @@
   - '7.3'
   - '8.4'
   - 9.9.3
+  PCI-DSS-v4.0:
+  - 1.1.2
+  - 10.1.2
+  - 11.1.2
+  - 12.1.3
+  - 2.1.2
+  - 3.1.2
+  - 4.1.2
+  - 5.1.2
+  - 6.1.2
+  - 6.5.4
+  - 7.1.2
+  - 8.1.2
+  - 9.1.2
+  - A3.1.3
 015-063:
   ASVS:
   - V8.3.5
   CWE:
   - '532'
+  PCI-DSS-v4.0:
+  - '10.1'
 026-280:
   ASVS:
   - V1.7.2
@@ -128,6 +153,10 @@
 028-727:
   OWASP Top 10 2021:
   - Server Side Request Forgery (SSRF)
+  PCI-DSS-v4.0:
+  - '11.6'
+  - 5.4.1
+  - A1.1.3
 031-447:
   ASVS:
   - V5.1.3
@@ -226,6 +255,8 @@
   - V1.14.3
   CWE:
   - '1104'
+  PCI-DSS-v4.0:
+  - 7.2.4
 058-083:
   CCPA:
   - Verification for Password-Protected Accounts (b)
@@ -263,6 +294,19 @@
   - 'PR.DS-5: Protections against data leaks are implemented'
   - 'PR.IP-8: Effectiveness of protection technologies is shared'
   - 'RS.AN-1: Notifications from detection systems are investigated'
+  NIST CSF v2.0:
+  - DE.AE-02
+  - DE.AE-03
+  - DE.CM-01
+  - DE.CM-06
+  - DE.CM-09
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - ID.RA-01
+  - PR.DS-01
+  - PR.DS-02
+  - PR.DS-10
   PCI DSS v3.2.1:
   - 1.1.1
   - 1.1.2
@@ -288,6 +332,8 @@
   - '5'
   - '6.1'
   - 8.1.5
+  PCI-DSS-v4.0:
+  - 10.7.2
   SAMM:
   - Incident Detection
 058-527:
@@ -311,6 +357,10 @@
   - '2'
   - '2.2'
   - '6.2'
+  PCI-DSS-v4.0:
+  - 1.4.3
+  - 1.4.5
+  - 11.6.1
 060-472:
   ASVS:
   - V4.2.2
@@ -322,6 +372,8 @@
   - Insecure Direct Object Reference Prevention Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-05
+  PCI-DSS-v4.0:
+  - 6.4.2
 061-186:
   ASVS:
   - V13.1.1
@@ -422,6 +474,10 @@
   NIST 800-53 v5:
   - PM-17 Protecting Controlled Unclassified Information on External Systems
   - PM-23 Data Governance Body
+  NIST CSF v2.0:
+  - GV.RR-01
+  - GV.RR-02
+  - ID.AM-08
   SAMM:
   - Data Protection
 076-470:
@@ -469,6 +525,9 @@
     of least functionality)'
   - 'PR.IP-2: A System Development Life Cycle to manage systems is implemented'
   - 'PR.IP-3: Configuration change control processes are in place'
+  NIST CSF v2.0:
+  - ID.RA-09
+  - PR.PS-06
   NIST SSDF:
   - PS.1.1
   PCI DSS v3.2.1:
@@ -535,11 +594,20 @@
   - '509'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-BUSL-09
+  PCI-DSS-v4.0:
+  - '5.1'
+  - '5.2'
+  - '5.3'
+  - 5.3.2.1
+  - 5.3.3
+  - 5.3.5
 112-648:
   Cloud Controls Matrix:
   - Change Control and Configuration Management
   ISO 27001:
   - Change management
+  PCI-DSS-v4.0:
+  - 6.5.1
 113-133:
   ASVS:
   - V1.2.3
@@ -572,6 +640,16 @@
     with approved and controlled tools'
   - 'PR.MA-2: Remote maintenance of organizational assets is approved, logged, and
     performed in a manner that prevents unauthorized access'
+  NIST CSF v2.0:
+  - GV.OC-03
+  - GV.OV-01
+  - GV.PO-01
+  - GV.PO-02
+  - GV.SC-03
+  - ID.AM-08
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
   PCI DSS v3.2.1:
   - 12.3.8
   - 12.3.9
@@ -587,6 +665,8 @@
   - '284'
   OWASP Proactive Controls:
   - C7
+  PCI-DSS-v4.0:
+  - '7.3'
 118-602:
   ASVS:
   - V7.4.3
@@ -632,6 +712,8 @@
   - 'PR.AC-4: Access permissions and authorizations are managed, incorporating the
     principles of least privilege and separation of duties'
   - 'PR.DS-5: Protections against data leaks are implemented'
+  NIST CSF v2.0:
+  - PR.AA-05
   PCI DSS v3.2.1:
   - '10.6'
   - 6.4.2
@@ -683,6 +765,25 @@
   - 'PR.IP-3: Configuration change control processes are in place'
   - 'PR.PT-3: The principle of least functionality is incorporated by configuring
     systems to provide only essential capabilities'
+  NIST CSF v2.0:
+  - DE.CM-01
+  - DE.CM-03
+  - DE.CM-09
+  - GV.OC-03
+  - GV.OV-01
+  - GV.PO-01
+  - GV.PO-02
+  - GV.SC-03
+  - ID.AM-01
+  - ID.AM-02
+  - ID.AM-07
+  - ID.AM-08
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - ID.RA-07
+  - PR.PS-01
+  - PR.PS-02
   PCI DSS v3.2.1:
   - '1.2'
   - '10.1'
@@ -707,6 +808,10 @@
   - '9.7'
   - '9.8'
   - '9.9'
+  PCI-DSS-v4.0:
+  - 1.2.2
+  - A3.2.2.1
+  - A3.3.2
 126-668:
   OWASP Top 10 2021:
   - Insecure Design
@@ -729,6 +834,10 @@
     principles of least privilege and separation of duties'
   - 'PR.PT-3: The principle of least functionality is incorporated by configuring
     systems to provide only essential capabilities'
+  NIST CSF v2.0:
+  - PR.AA-05
+  - PR.DS-10
+  - PR.IR-01
   PCI DSS v3.2.1:
   - '2.2'
   - 6.4.2
@@ -736,6 +845,8 @@
   - '7.2'
   - '8.7'
   - '9.3'
+  PCI-DSS-v4.0:
+  - 7.3.2
 132-146:
   Cloud Controls Matrix:
   - Network Defense
@@ -784,6 +895,9 @@
   NIST 800-53 v5:
   - SC-24 Fail in Known State
   - SI-17 Fail-safe Procedures
+  NIST CSF v2.0:
+  - PR.DS-10
+  - PR.IR-03
 145-310:
   ASVS:
   - V5.2.7
@@ -826,6 +940,14 @@
   - 'DE.CM-4: Malicious code is detected'
   - 'DE.DP-5: Detection processes are continuously improved'
   - 'PR.IP-7: Protection processes are improved'
+  NIST CSF v2.0:
+  - ID.AM-03
+  - ID.AM-08
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - ID.IM-04
+  - PR.PS-03
   PCI DSS v3.2.1:
   - '10.8'
   - 12.10.6
@@ -842,6 +964,8 @@
   - AU-10 Non-repudiation
   - AU-8 Time Stamps
   - AU-9 Protection of Audit Information
+  NIST CSF v2.0:
+  - PR.DS-10
   OWASP Top 10 2021:
   - Logging and Monitoring Failures
 148-853:
@@ -851,6 +975,10 @@
   - PO.3.2
   - PO.5.1
   - PO.5.2
+  PCI-DSS-v4.0:
+  - '6.1'
+  - '6.2'
+  - 6.2.1
 152-725:
   CWE:
   - '419'
@@ -867,6 +995,9 @@
 155-155:
   OWASP Top 10 2021:
   - Insecure Design
+  PCI-DSS-v4.0:
+  - 1.2.3
+  - A1.1.1
 157-430:
   ASVS:
   - V8.1.2
@@ -962,8 +1093,26 @@
   - SC-12 CRYPTOGRAPHIC KEY ESTABLISHMENT AND MANAGEMENT
   - SC-13 Cryptographic Protection
   - SC-17 Public Key Infrastructure Certificates
+  NIST CSF v2.0:
+  - PR.DS-01
+  - PR.DS-02
+  - PR.DS-10
   OWASP Top 10 2021:
   - Cryptographic Failures
+  PCI-DSS-v4.0:
+  - 12.3.3
+  - 2.2.7
+  - 2.3.2
+  - '3.1'
+  - 3.3.2
+  - 3.3.3
+  - '3.4'
+  - 3.5.1
+  - 3.5.1.1
+  - 3.5.1.2
+  - 3.5.1.3
+  - 8.6.2
+  - A3.2.6
 171-222:
   ASVS:
   - V1.14.2
@@ -1011,6 +1160,17 @@
   - 'PR.DS-5: Protections against data leaks are implemented'
   - 'PR.IP-11: Cybersecurity is included in human resources practices (e.g., deprovisioning,
     personnel screening)'
+  NIST CSF v2.0:
+  - DE.CM-06
+  - GV.OC-03
+  - GV.OV-01
+  - GV.PO-01
+  - GV.PO-02
+  - GV.RR-04
+  - GV.SC-03
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
   PCI DSS v3.2.1:
   - '10.6'
   - '12.4'
@@ -1025,6 +1185,9 @@
   - 8.1.5
   - 8.2.2
   - '9.3'
+  PCI-DSS-v4.0:
+  - 12.7.1
+  - 9.3.1
 175-235:
   ASVS:
   - V12.2.1
@@ -1055,6 +1218,10 @@
     multi-factor) commensurate with the risk of the transaction (e.g., individuals''
     security and privacy risks and other organizational risks)'
   - 'PR.PT-4: Communications and control networks are protected'
+  NIST CSF v2.0:
+  - PR.AA-01
+  - PR.AA-03
+  - PR.AA-05
   OWASP Top 10 2021:
   - Broken Access Controls
   - Identification and Authentication Failures
@@ -1092,6 +1259,8 @@
   - '778'
   OWASP Cheat Sheets:
   - Logging Cheat Sheet
+  PCI-DSS-v4.0:
+  - A3.5
 186-540:
   ASVS:
   - V8.3.1
@@ -1133,11 +1302,18 @@
   - Moderate
   NIST 800-53 v5:
   - SC-4 Information in Shared System Resources
+  NIST CSF v2.0:
+  - PR.DS-01
+  - PR.DS-02
+  - PR.DS-10
+  - PR.IR-01
 217-112:
   ASVS:
   - V8.1.3
   CWE:
   - '233'
+  PCI-DSS-v4.0:
+  - A3.3.1
 217-168:
   Cloud Controls Matrix:
   - Audit & Assurance
@@ -1153,6 +1329,9 @@
   - 'PR.DS-5: Protections against data leaks are implemented'
   - 'PR.PT-1: Audit/log records are determined, documented, implemented, and reviewed
     in accordance with policy'
+  NIST CSF v2.0:
+  - DE.CM-03
+  - PR.DS-10
   PCI DSS v3.2.1:
   - '10.1'
   - '10.2'
@@ -1164,6 +1343,15 @@
   - 10.6.2
   - '10.7'
   - 9.1.1
+  PCI-DSS-v4.0:
+  - 1.4.4
+  - 12.4.2.1
+  - 5.3.4
+  - 7.2.5.1
+  - 8.2.1
+  - A1.2.1
+  - A3.3.3
+  - A3.4.1
 223-780:
   Cheat_sheets:
   - Secrets Management Cheat Sheet
@@ -1199,6 +1387,9 @@
   - Protection of records
   NIST 800-53 v5:
   - SI-12 Information Management and Retention
+  NIST CSF v2.0:
+  - ID.AM-07
+  - ID.AM-08
   OWASP Proactive Controls:
   - C8
 232-034:
@@ -1229,6 +1420,8 @@
   CWE:
   - '320'
 233-748:
+  PCI-DSS-v4.0:
+  - 2.2.4
   SAMM:
   - Configuration Hardening
 234-282:
@@ -1289,6 +1482,18 @@
     to achieve resilience requirements in normal and adverse situations'
   - 'RS.AN-1: Notifications from detection systems are investigated'
   - 'RS.CO-4: Coordination with stakeholders occurs consistent with response plans'
+  NIST CSF v2.0:
+  - DE.CM-02
+  - GV.OC-03
+  - GV.OV-01
+  - GV.PO-01
+  - GV.PO-02
+  - GV.SC-03
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - PR.AA-06
+  - PR.IR-02
   PCI DSS v3.2.1:
   - '10.1'
   - '10.6'
@@ -1317,6 +1522,12 @@
   - '9.7'
   - '9.8'
   - '9.9'
+  PCI-DSS-v4.0:
+  - 11.2.2
+  - '9.2'
+  - 9.3.3
+  - '9.5'
+  - 9.5.1.2
 235-658:
   ASVS:
   - V2.5.5
@@ -1414,6 +1625,28 @@
   - 'RS.IM-1: Response plans incorporate lessons learned'
   - 'RS.IM-2: Response strategies are updated'
   - 'RS.RP-1: Response plan is executed during or after an incident'
+  NIST CSF v2.0:
+  - GV.OC-03
+  - GV.OV-01
+  - GV.PO-01
+  - GV.PO-02
+  - GV.SC-03
+  - GV.SC-08
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - ID.IM-04
+  - PR.DS-01
+  - PR.DS-10
+  - PR.DS-11
+  - PR.IR-02
+  - PR.IR-03
+  - PR.IR-04
+  - RC.CO-04
+  - RC.RP-01
+  - RC.RP-02
+  - RC.RP-03
+  - RC.RP-05
   PCI DSS v3.2.1:
   - '1'
   - '10.1'
@@ -1440,6 +1673,8 @@
   - '6.1'
   - 9.5.1
   - 9.6.1
+  PCI-DSS-v4.0:
+  - 8.3.7
 244-750:
   FedRAMP:
   - High
@@ -1447,6 +1682,8 @@
   - SA-16 Developer-provided Training
   NIST SSDF:
   - PO.2.2
+  PCI-DSS-v4.0:
+  - 6.2.2
   SAMM:
   - Training and Awareness
 247-250:
@@ -1523,6 +1760,23 @@
   - 'PR.AC-5: Network integrity is protected (e.g., network segregation, network segmentation)'
   - 'PR.DS-5: Protections against data leaks are implemented'
   - 'PR.IP-8: Effectiveness of protection technologies is shared'
+  NIST CSF v2.0:
+  - DE.CM-09
+  - GV.OC-03
+  - GV.OV-01
+  - GV.PO-01
+  - GV.PO-02
+  - GV.SC-03
+  - ID.AM-02
+  - ID.AM-03
+  - ID.AM-04
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - PR.AA-01
+  - PR.AA-05
+  - PR.DS-10
+  - PR.IR-01
   PCI DSS v3.2.1:
   - '1.1'
   - 1.1.1
@@ -1560,6 +1814,9 @@
   - '8.8'
   - '9.10'
   - '9.3'
+  PCI-DSS-v4.0:
+  - 6.5.6
+  - 7.2.1
 248-646:
   ASVS:
   - V9.1.3
@@ -1621,6 +1878,8 @@
     are prioritized based on their classification, criticality, and business value'
   - 'PR.PT-5: Mechanisms (e.g., failsafe, load balancing, hot swap) are implemented
     to achieve resilience requirements in normal and adverse situations'
+  NIST CSF v2.0:
+  - PR.IR-03
   PCI DSS v3.2.1:
   - '12.2'
   - 9.6.1
@@ -1634,6 +1893,9 @@
   - User Privacy Protection Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-04
+  PCI-DSS-v4.0:
+  - 3.3.1.2
+  - '3.5'
 268-088:
   ASVS:
   - V13.4.1
@@ -1651,6 +1913,10 @@
   - V8.3.8
   CWE:
   - '285'
+  PCI-DSS-v4.0:
+  - 3.2.1
+  - 9.4.6
+  - 9.4.7
 270-568:
   FedRAMP:
   - High
@@ -1666,6 +1932,9 @@
   - 'PR.AC-7: Users, devices, and other assets are authenticated (e.g., single-factor,
     multi-factor) commensurate with the risk of the transaction (e.g., individuals''
     security and privacy risks and other organizational risks)'
+  NIST CSF v2.0:
+  - PR.AA-01
+  - PR.AA-03
   PCI DSS v3.2.1:
   - '12.3'
   - '2.1'
@@ -1674,6 +1943,8 @@
   - '8.3'
   - '8.5'
   - '8.6'
+  PCI-DSS-v4.0:
+  - '8.1'
 270-634:
   ASVS:
   - V2.5.1
@@ -1695,6 +1966,8 @@
   - '923'
   Cloud Controls Matrix:
   - Network Architecture Documentation
+  PCI-DSS-v4.0:
+  - 1.4.1
 278-413:
   ASVS:
   - V1.2.2
@@ -1702,6 +1975,8 @@
   - '306'
   OWASP Proactive Controls:
   - C3
+  PCI-DSS-v4.0:
+  - '8.6'
 278-646:
   CCPA:
   - Opt-Out Preference Signals (c)(2)
@@ -1729,6 +2004,12 @@
   - 'PR.AC-3: Remote access is managed'
   - 'PR.DS-2: Data-in-transit is protected'
   - 'PR.PT-4: Communications and control networks are protected'
+  NIST CSF v2.0:
+  - ID.AM-03
+  - PR.AA-05
+  - PR.DS-01
+  - PR.DS-02
+  - PR.DS-10
   PCI DSS v3.2.1:
   - '1'
   - 1.1.1
@@ -1744,6 +2025,8 @@
   - 8.2.1
   - '8.3'
   - 8.5.1
+  PCI-DSS-v4.0:
+  - '8.3'
 284-521:
   ASVS:
   - V4.3.3
@@ -1754,6 +2037,8 @@
 286-500:
   Cloud Controls Matrix:
   - OS Hardening and Base Controls
+  PCI-DSS-v4.0:
+  - 11.3.2
 287-251:
   ASVS:
   - V2.9.2
@@ -1784,6 +2069,9 @@
   NIST CSF v1.1:
   - 'ID.AM-1: Physical devices and systems within the organization are inventoried'
   - 'ID.AM-4: External information systems are catalogued'
+  NIST CSF v2.0:
+  - ID.AM-01
+  - ID.AM-02
   PCI DSS v3.2.1:
   - 1.1.1
   - 1.1.2
@@ -1792,6 +2080,11 @@
   - 12.3.3
   - '2.4'
   - '9.9'
+  PCI-DSS-v4.0:
+  - 12.5.1
+  - 9.4.5
+  - 9.4.5.1
+  - 9.5.1.1
 304-667:
   ASVS:
   - V4.2.1
@@ -1902,6 +2195,45 @@
     testing, security bulletins, or security researchers)'
   - 'RS.MI-3: Newly identified vulnerabilities are mitigated or documented as accepted
     risks'
+  NIST CSF v2.0:
+  - DE.AE-04
+  - DE.AE-06
+  - DE.AE-07
+  - GV.OC-01
+  - GV.OC-02
+  - GV.OC-03
+  - GV.OC-04
+  - GV.OC-05
+  - GV.OV-01
+  - GV.OV-02
+  - GV.OV-03
+  - GV.PO-01
+  - GV.PO-02
+  - GV.RM-01
+  - GV.RM-02
+  - GV.RM-03
+  - GV.RM-04
+  - GV.RM-05
+  - GV.RM-06
+  - GV.RM-07
+  - GV.SC-03
+  - GV.SC-04
+  - GV.SC-07
+  - GV.SC-09
+  - GV.SC-10
+  - ID.AM-05
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - ID.RA-01
+  - ID.RA-03
+  - ID.RA-04
+  - ID.RA-05
+  - ID.RA-06
+  - ID.RA-08
+  - PR.IR-04
+  - RC.RP-04
+  - RS.AN-08
   PCI DSS v3.2.1:
   - '1.5'
   - '10.6'
@@ -1931,6 +2263,17 @@
   - '8.8'
   - '9.10'
   - 9.6.1
+  PCI-DSS-v4.0:
+  - 11.3.1
+  - 11.3.1.1
+  - 11.3.1.3
+  - 11.3.2.1
+  - '12.3'
+  - 12.3.1
+  - 12.3.2
+  - 5.2.3.1
+  - 6.3.1
+  - 9.5.1.2.1
   SAMM:
   - Application risk profile
 307-507:
@@ -1942,6 +2285,11 @@
   - PS.2.1
   OWASP Cheat Sheets:
   - Docker Security Cheat Sheet
+  PCI-DSS-v4.0:
+  - 11.4.6
+  - '11.5'
+  - 11.5.2
+  - A1.1.4
 314-131:
   ASVS:
   - V14.1.2
@@ -2005,11 +2353,17 @@
     normal operations)'
   - 'PR.PT-5: Mechanisms (e.g., failsafe, load balancing, hot swap) are implemented
     to achieve resilience requirements in normal and adverse situations'
+  NIST CSF v2.0:
+  - ID.AM-03
+  - ID.RA-09
+  - PR.PS-06
   PCI DSS v3.2.1:
   - 1.1.2
   - 1.1.3
   - '12.2'
   - 9.6.1
+  PCI-DSS-v4.0:
+  - '7.2'
   SAMM:
   - Architecture Design
 327-505:
@@ -2043,6 +2397,14 @@
   - Authentication Cheat Sheet
   - TLS Cipher String Cheat Sheet
   - Transport Layer Protection Cheat Sheet
+  PCI-DSS-v4.0:
+  - 8.2.3
+  - 8.3.1
+  - 8.3.10
+  - 8.3.10.1
+  - 8.3.3
+  - 8.3.9
+  - 8.6.3
 333-888:
   ASVS:
   - V13.1.3
@@ -2154,6 +2516,9 @@
 356-282:
   NIST 800-53 v5:
   - SI-21 Information Refresh
+  PCI-DSS-v4.0:
+  - '3.2'
+  - '9.4'
 358-860:
   ASVS:
   - V2.5.7
@@ -2167,6 +2532,24 @@
 362-550:
   ISO 27001:
   - Privacy and protection of personal identifiable information (PII)
+  PCI-DSS-v4.0:
+  - 3.3.1.1
+  - 3.3.1.3
+  - 3.4.1
+  - 3.4.2
+  - 6.5.5
+  - '7.1'
+  - '9.1'
+  - 9.2.4
+  - 9.3.4
+  - 9.4.3
+  - A1.1
+  - A1.1.2
+  - A1.2
+  - A3.2.5
+  - A3.2.5.1
+  - A3.2.5.2
+  - A3.2.6.1
 366-835:
   ASVS:
   - V5.3.3
@@ -2206,6 +2589,8 @@
   - C7
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-IDNT-01
+  PCI-DSS-v4.0:
+  - 7.2.2
 377-680:
   ASVS:
   - V13.1.5
@@ -2260,6 +2645,8 @@
   NIST CSF v1.1:
   - 'PR.PT-1: Audit/log records are determined, documented, implemented, and reviewed
     in accordance with policy'
+  NIST CSF v2.0:
+  - PR.PS-04
   OWASP Top 10 2021:
   - Logging and Monitoring Failures
   PCI DSS v3.2.1:
@@ -2288,6 +2675,9 @@
   NIST SSDF:
   - PW.7.1
   - PW.7.2
+  PCI-DSS-v4.0:
+  - 6.2.3
+  - 6.2.3.1
 417-342:
   NIST SSDF:
   - PW.4.2
@@ -2337,6 +2727,13 @@
 427-113:
   Cloud Controls Matrix:
   - Human Resources
+  PCI-DSS-v4.0:
+  - '12.7'
+  - 8.2.2
+  - 8.2.5
+  - 8.6.1
+  - 9.2.1.1
+  - '9.3'
 428-544:
   CCPA:
   - Privacy Policy (e)(3)(J)
@@ -2361,6 +2758,17 @@
     their roles and responsibilities'
   - 'PR.AT-4: Senior executives understand their roles and responsibilities'
   - 'PR.AT-5: Physical and cybersecurity personnel understand their roles and responsibilities'
+  NIST CSF v2.0:
+  - GV.OC-03
+  - GV.OV-01
+  - GV.PO-01
+  - GV.PO-02
+  - GV.SC-03
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - PR.AT-01
+  - PR.AT-02
   PCI DSS v3.2.1:
   - 1.1.5
   - '12.4'
@@ -2374,6 +2782,18 @@
   - '7.3'
   - '8.4'
   - 9.9.3
+  PCI-DSS-v4.0:
+  - 12.10.4
+  - 12.10.4.1
+  - '12.6'
+  - 12.6.1
+  - 12.6.2
+  - 12.6.3
+  - 12.6.3.1
+  - 12.6.3.2
+  - '5.4'
+  - 9.5.1.3
+  - A3.1.4
 430-636:
   ASVS:
   - V9.2.1
@@ -2409,6 +2829,12 @@
     test results, or other forms of evaluations to confirm they are meeting their
     contractual obligations.'
   - 'PR.IP-2: A System Development Life Cycle to manage systems is implemented'
+  NIST CSF v2.0:
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - ID.RA-09
+  - PR.PS-06
   NIST SSDF:
   - PO.4.1
   - PO.4.2
@@ -2578,6 +3004,40 @@
   - 'RS.MI-1: Incidents are contained'
   - 'RS.MI-2: Incidents are mitigated'
   - 'RS.RP-1: Response plan is executed during or after an incident'
+  NIST CSF v2.0:
+  - DE.AE-02
+  - DE.AE-03
+  - DE.AE-06
+  - DE.AE-08
+  - GV.OC-03
+  - GV.OV-01
+  - GV.PO-01
+  - GV.PO-02
+  - GV.SC-03
+  - GV.SC-08
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - ID.IM-04
+  - RC.CO-03
+  - RC.CO-04
+  - RC.RP-01
+  - RC.RP-02
+  - RC.RP-04
+  - RC.RP-06
+  - RS.AN-03
+  - RS.AN-06
+  - RS.AN-07
+  - RS.AN-08
+  - RS.CO-02
+  - RS.CO-03
+  - RS.MA-01
+  - RS.MA-02
+  - RS.MA-03
+  - RS.MA-04
+  - RS.MA-05
+  - RS.MI-01
+  - RS.MI-02
   NIST SSDF:
   - RV.1.3
   PCI DSS v3.2.1:
@@ -2598,6 +3058,8 @@
   - 12.5.2
   - 12.5.3
   - 2.10.6
+  PCI-DSS-v4.0:
+  - 12.10.7
   SAMM:
   - Incident Response
 463-820:
@@ -2673,6 +3135,30 @@
     broader cybersecurity situational awareness'
   - 'RS.MI-3: Newly identified vulnerabilities are mitigated or documented as accepted
     risks'
+  NIST CSF v2.0:
+  - DE.AE-02
+  - DE.AE-03
+  - DE.CM-01
+  - DE.CM-02
+  - DE.CM-03
+  - DE.CM-06
+  - DE.CM-09
+  - GV.OC-03
+  - GV.OV-01
+  - GV.OV-02
+  - GV.OV-03
+  - GV.PO-01
+  - GV.PO-02
+  - GV.SC-03
+  - GV.SC-09
+  - GV.SC-10
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - ID.RA-01
+  - ID.RA-02
+  - ID.RA-03
+  - ID.RA-07
   NIST SSDF:
   - PO.3.3
   PCI DSS v3.2.1:
@@ -2702,6 +3188,8 @@
   - 8.1.5
   - 9.1.1
   - 9.9.3
+  PCI-DSS-v4.0:
+  - 8.2.6
 467-784:
   CCPA:
   - Opt-Out Preference Signals (b)
@@ -2720,6 +3208,12 @@
   - 'PR.AC-5: Network integrity is protected (e.g., network segregation, network segmentation)'
   - 'PR.DS-5: Protections against data leaks are implemented'
   - 'PR.PT-4: Communications and control networks are protected'
+  NIST CSF v2.0:
+  - DE.CM-01
+  - PR.DS-01
+  - PR.DS-02
+  - PR.DS-10
+  - PR.IR-01
   PCI DSS v3.2.1:
   - '1'
   - '1.1'
@@ -2734,6 +3228,8 @@
   - '2'
   - '2.2'
   - '6.2'
+  PCI-DSS-v4.0:
+  - 9.2.2
 470-731:
   FedRAMP:
   - High
@@ -2745,6 +3241,8 @@
   NIST CSF v1.1:
   - 'PR.AC-5: Network integrity is protected (e.g., network segregation, network segmentation)'
   - 'PR.PT-4: Communications and control networks are protected'
+  NIST CSF v2.0:
+  - PR.AA-03
   PCI DSS v3.2.1:
   - '1'
   - '1.1'
@@ -2760,6 +3258,9 @@
   - Automated Secure Application Deployment
   NIST 800-53 v5:
   - SC-34 Non-modifiable Executable Programs
+  NIST CSF v2.0:
+  - DE.CM-09
+  - PR.PS-05
   SAMM:
   - Build Process
   - Deployment Process
@@ -2829,6 +3330,9 @@
   - 'PR.IP-1: A baseline configuration of information technology/industrial control
     systems is created and maintained incorporating security principles (e.g. concept
     of least functionality)'
+  NIST CSF v2.0:
+  - DE.CM-09
+  - PR.PS-01
   OWASP Top 10 2021:
   - Security Misconfiguration
   PCI DSS v3.2.1:
@@ -2839,6 +3343,25 @@
   - '2.2'
   - 6.4.1
   - 6.4.2
+  PCI-DSS-v4.0:
+  - '1.1'
+  - '1.2'
+  - 1.2.1
+  - 1.2.5
+  - 1.2.7
+  - 1.2.8
+  - '1.4'
+  - 1.5.1
+  - 10.6.3
+  - '2.1'
+  - '2.2'
+  - 2.2.1
+  - 2.2.2
+  - 2.2.5
+  - 2.2.6
+  - '2.3'
+  - 2.3.1
+  - 6.5.3
 487-305:
   ASVS:
   - V2.1.12
@@ -2861,6 +3384,8 @@
   NIST CSF v1.1:
   - 'PR.DS-6: Integrity checking mechanisms are used to verify software, firmware,
     and information integrity'
+  NIST CSF v2.0:
+  - PR.DS-10
   PCI DSS v3.2.1:
   - '11.5'
 504-340:
@@ -2883,6 +3408,12 @@
   - Compliance with policies, rules and standards for information security
   - Contact with authorities
   - Independent review of information security
+  PCI-DSS-v4.0:
+  - 12.8.4
+  - '12.9'
+  - 12.9.2
+  - 6.5.2
+  - A3.1
   SAMM:
   - Compliance Management
 513-845:
@@ -2903,6 +3434,8 @@
   - Segregation of networks
   OWASP Proactive Controls:
   - C5
+  PCI-DSS-v4.0:
+  - '1.3'
 522-616:
   FedRAMP:
   - High
@@ -2924,6 +3457,16 @@
   - 'PR.DS-3: Assets are formally managed throughout removal, transfers, and disposition'
   - 'PR.IP-6: Data is destroyed according to policy'
   - 'PR.PT-2: Removable media is protected and its use restricted according to policy'
+  NIST CSF v2.0:
+  - GV.OC-03
+  - GV.OV-01
+  - GV.PO-01
+  - GV.PO-02
+  - GV.SC-03
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - PR.DS-01
   PCI DSS v3.2.1:
   - '12.3'
   - 12.3.10
@@ -2937,6 +3480,8 @@
   - '9.7'
   - '9.8'
   - '9.9'
+  PCI-DSS-v4.0:
+  - 9.4.1
 524-446:
   ASVS:
   - V2.2.6
@@ -2948,6 +3493,9 @@
   - Authentication Cheat Sheet
   - TLS Cipher String Cheat Sheet
   - Transport Layer Protection Cheat Sheet
+  PCI-DSS-v4.0:
+  - 8.4.1
+  - 8.4.2
 524-603:
   ASVS:
   - V4.1.2
@@ -2969,6 +3517,8 @@
   - Authentication Cheat Sheet
   - TLS Cipher String Cheat Sheet
   - Transport Layer Protection Cheat Sheet
+  PCI-DSS-v4.0:
+  - '8.5'
 527-034:
   ASVS:
   - V1.9.1
@@ -3199,6 +3749,26 @@
   - C9
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CONF-02
+  PCI-DSS-v4.0:
+  - '10.2'
+  - 10.2.1
+  - 10.2.1.1
+  - 10.2.1.2
+  - 10.2.1.3
+  - 10.2.1.4
+  - 10.2.1.5
+  - 10.2.1.6
+  - 10.2.1.7
+  - 10.2.2
+  - '10.4'
+  - 10.4.1
+  - 10.4.1.1
+  - 10.4.2
+  - 10.4.2.1
+  - '10.5'
+  - 10.5.1
+  - '10.7'
+  - 10.7.1
 558-807:
   ASVS:
   - V2.2.5
@@ -3228,6 +3798,18 @@
   - SA-2 Allocation of Resources
   NIST CSF v1.1:
   - 'ID.GV-4: Governance and risk management processes address cybersecurity risks'
+  NIST CSF v2.0:
+  - GV.OC-03
+  - GV.OV-01
+  - GV.PO-01
+  - GV.PO-02
+  - GV.RM-03
+  - GV.RR-03
+  - GV.SC-03
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - PR.IR-04
   PCI DSS v3.2.1:
   - '1.5'
   - '10.8'
@@ -3245,6 +3827,15 @@
 570-487:
   NIST SSDF:
   - PW.8.1
+  PCI-DSS-v4.0:
+  - '11.4'
+  - 11.4.1
+  - 11.4.2
+  - 11.4.3
+  - 11.4.4
+  - 11.4.5
+  - 11.4.7
+  - A3.2.4
 571-271:
   CCPA:
   - Agency Audits (b)
@@ -3284,6 +3875,17 @@
   - 'RS.AN-5: Processes are established to receive, analyze and respond to vulnerabilities
     disclosed to the organization from internal and external sources (e.g. internal
     testing, security bulletins, or security researchers)'
+  NIST CSF v2.0:
+  - GV.OC-03
+  - GV.OV-01
+  - GV.OV-03
+  - GV.PO-01
+  - GV.PO-02
+  - GV.SC-03
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - ID.RA-03
   PCI DSS v3.2.1:
   - 10.6.1
   - '10.9'
@@ -3384,6 +3986,28 @@
   - PT-8 Computer Matching Requirements
   - SI-18 Personally Identifiable Information Quality Operations
   - SI-19 De-identification
+  NIST CSF v2.0:
+  - DE.AE-04
+  - GV.OC-02
+  - GV.OC-03
+  - GV.OV-01
+  - GV.OV-02
+  - GV.PO-01
+  - GV.PO-02
+  - GV.RM-06
+  - GV.RM-07
+  - GV.RR-01
+  - GV.RR-02
+  - GV.SC-03
+  - GV.SC-09
+  - ID.AM-08
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - ID.RA-06
+  PCI-DSS-v4.0:
+  - 9.4.4
+  - A3.2
 576-042:
   ASVS:
   - V1.2.4
@@ -3412,6 +4036,8 @@
   OWASP Cheat Sheets:
   - Docker Security Cheat Sheet
   - Vulnerable Dependency Management Cheat Sheet
+  PCI-DSS-v4.0:
+  - 6.4.3
 581-525:
   ASVS:
   - V2.5.6
@@ -3436,9 +4062,13 @@
   - Transaction Authorization Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-01
+  PCI-DSS-v4.0:
+  - 8.2.8
 586-842:
   OWASP Top 10 2021:
   - Identification and Authentication Failures
+  PCI-DSS-v4.0:
+  - 8.2.4
 604-025:
   ASVS:
   - V2.1.8
@@ -3498,6 +4128,8 @@
   - '749'
   OWASP Cheat Sheets:
   - Third Party Javascript Management Cheat Sheet
+  PCI-DSS-v4.0:
+  - 11.3.1.2
 612-252:
   ASVS:
   - V13.4.2
@@ -3579,6 +4211,47 @@
   - 'RS.AN-5: Processes are established to receive, analyze and respond to vulnerabilities
     disclosed to the organization from internal and external sources (e.g. internal
     testing, security bulletins, or security researchers)'
+  NIST CSF v2.0:
+  - DE.AE-04
+  - DE.CM-06
+  - GV.OC-02
+  - GV.OC-03
+  - GV.OC-05
+  - GV.OV-01
+  - GV.OV-02
+  - GV.OV-03
+  - GV.PO-01
+  - GV.PO-02
+  - GV.RM-01
+  - GV.RM-03
+  - GV.RM-04
+  - GV.RM-05
+  - GV.RM-06
+  - GV.RM-07
+  - GV.SC-01
+  - GV.SC-02
+  - GV.SC-03
+  - GV.SC-04
+  - GV.SC-05
+  - GV.SC-06
+  - GV.SC-07
+  - GV.SC-08
+  - GV.SC-09
+  - GV.SC-10
+  - ID.AM-02
+  - ID.AM-04
+  - ID.AM-08
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - ID.IM-04
+  - ID.RA-06
+  - ID.RA-09
+  - ID.RA-10
+  - RC.CO-03
+  - RS.CO-02
+  - RS.CO-03
+  - RS.MA-01
   NIST SSDF:
   - PO.1.3
   - PW.4.1
@@ -3615,6 +4288,8 @@
   - RV.1.1
   OWASP Top 10 2021:
   - Vulnerable and Outdated Components
+  PCI-DSS-v4.0:
+  - 12.8.1
   SAMM:
   - Software Dependencies
 613-287:
@@ -3625,6 +4300,9 @@
   - V8.1.6
   CWE:
   - '19'
+  PCI-DSS-v4.0:
+  - 9.4.1.1
+  - 9.4.1.2
 615-744:
   ASVS:
   - V4.3.2
@@ -3674,6 +4352,17 @@
     and services are identified, prioritized, and assessed using a cyber supply chain
     risk assessment process'
   - 'PR.IP-2: A System Development Life Cycle to manage systems is implemented'
+  NIST CSF v2.0:
+  - ID.AM-08
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - ID.RA-09
+  - PR.DS-01
+  - PR.DS-02
+  - PR.DS-10
+  - PR.IR-03
+  - PR.PS-06
   OWASP Proactive Controls:
   - C1
   PCI DSS v3.2.1:
@@ -3697,6 +4386,9 @@
   - '922'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CLNT-12
+  PCI-DSS-v4.0:
+  - 7.2.5
+  - 7.3.1
 618-403:
   ASVS:
   - V3.6.1
@@ -3750,6 +4442,8 @@
   NIST 800-63:
   - 5.1.1.2
   - A.3
+  PCI-DSS-v4.0:
+  - 8.3.5
 623-347:
   ASVS:
   - V2.5.4
@@ -3761,6 +4455,11 @@
   OWASP Cheat Sheets:
   - Choosing and Using Security Questions Cheat Sheet
   - Forgot Password Cheat Sheet
+  PCI-DSS-v4.0:
+  - 11.2.1
+  - 12.10.5
+  - '12.8'
+  - 2.2.3
 623-550:
   FedRAMP:
   - High
@@ -3772,12 +4471,18 @@
   - 'DE.CM-1: The network is monitored to detect potential cybersecurity events'
   - 'PR.DS-4: Adequate capacity to ensure availability is maintained'
   - 'PR.PT-4: Communications and control networks are protected'
+  NIST CSF v2.0:
+  - DE.CM-01
+  - PR.IR-01
   PCI DSS v3.2.1:
   - '1'
   - 10.6.1
   - 10.6.2
   - '11.4'
   - '2'
+  PCI-DSS-v4.0:
+  - 1.3.1
+  - 1.3.2
 626-250:
   FedRAMP:
   - High
@@ -3788,6 +4493,13 @@
   NIST CSF v1.1:
   - 'PR.DS-6: Integrity checking mechanisms are used to verify software, firmware,
     and information integrity'
+  NIST CSF v2.0:
+  - DE.CM-09
+  - ID.RA-09
+  - PR.DS-01
+  - PR.DS-02
+  - PR.DS-10
+  - PR.PS-02
   NIST SSDF:
   - PW.2.1
   PCI DSS v3.2.1:
@@ -3862,6 +4574,19 @@
   - 'PR.AC-7: Users, devices, and other assets are authenticated (e.g., single-factor,
     multi-factor) commensurate with the risk of the transaction (e.g., individuals''
     security and privacy risks and other organizational risks)'
+  NIST CSF v2.0:
+  - DE.CM-09
+  - GV.OC-03
+  - GV.OV-01
+  - GV.PO-01
+  - GV.PO-02
+  - GV.SC-03
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - PR.AA-01
+  - PR.AA-02
+  - PR.AA-03
   OWASP Top 10 2021:
   - Identification and Authentication Failures
   PCI DSS v3.2.1:
@@ -3874,9 +4599,15 @@
   - '8.3'
   - '8.5'
   - '8.6'
+  PCI-DSS-v4.0:
+  - 8.3.8
+  - 8.4.3
+  - A3.4
 635-851:
   NIST SSDF:
   - RV.3.4
+  PCI-DSS-v4.0:
+  - 1.4.2
   SAMM:
   - Create and Promote
   - Measure and Improve
@@ -3891,6 +4622,14 @@
   - V9.2.2
   CWE:
   - '319'
+  PCI-DSS-v4.0:
+  - '4.1'
+  - '4.2'
+  - 4.2.1
+  - 4.2.1.1
+  - 4.2.1.2
+  - 4.2.2
+  - 8.3.2
 640-364:
   ASVS:
   - V1.4.1
@@ -3999,6 +4738,8 @@
   - SC-28 PROTECTION OF INFORMATION AT REST
   NIST CSF v1.1:
   - 'PR.DS-1: Data-at-rest is protected'
+  NIST CSF v2.0:
+  - PR.DS-01
   PCI DSS v3.2.1:
   - '3'
   - 8.2.1
@@ -4014,6 +4755,8 @@
   - V1.14.6
   CWE:
   - '477'
+  PCI-DSS-v4.0:
+  - 12.3.4
 673-736:
   ASVS:
   - V3.3.4
@@ -4053,6 +4796,12 @@
 683-036:
   NIST 800-53 v5:
   - SC-40 Wireless Link Protection
+  NIST CSF v2.0:
+  - PR.DS-02
+  - PR.DS-10
+  PCI-DSS-v4.0:
+  - 1.3.3
+  - '11.2'
 683-722:
   ASVS:
   - V12.3.5
@@ -4120,6 +4869,10 @@
   NIST CSF v1.1:
   - 'DE.CM-4: Malicious code is detected'
   - 'DE.CM-5: Unauthorized mobile code is detected'
+  NIST CSF v2.0:
+  - PR.DS-01
+  - PR.DS-10
+  - PR.IR-03
   PCI DSS v3.2.1:
   - '5'
 713-683:
@@ -4134,6 +4887,8 @@
   - C9
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHZ-03
+  PCI-DSS-v4.0:
+  - 10.3.1
 715-223:
   ASVS:
   - V14.2.4
@@ -4212,6 +4967,12 @@
     multi-factor) commensurate with the risk of the transaction (e.g., individuals''
     security and privacy risks and other organizational risks)'
   - 'PR.DS-5: Protections against data leaks are implemented'
+  NIST CSF v2.0:
+  - DE.CM-01
+  - DE.CM-03
+  - PR.AA-01
+  - PR.AA-05
+  - PR.DS-10
   OWASP Top 10 2021:
   - Broken Access Controls
   PCI DSS v3.2.1:
@@ -4284,6 +5045,11 @@
   NIST CSF v1.1:
   - 'ID.RA-1: Asset vulnerabilities are identified and documented'
   - 'PR.IP-12: A vulnerability management plan is developed and implemented'
+  NIST CSF v2.0:
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - PR.PS-02
   NIST SSDF:
   - RV.1.1
   - RV.2.1
@@ -4432,9 +5198,14 @@
   OWASP Cheat Sheets:
   - Third Party Javascript Management Cheat Sheet
   - Virtual Patching Cheat Sheet
+  PCI-DSS-v4.0:
+  - '6.5'
 760-764:
   OWASP Top 10 2021:
   - Injection
+  PCI-DSS-v4.0:
+  - 6.2.4
+  - '6.4'
 762-451:
   ASVS:
   - V8.3.2
@@ -4470,6 +5241,9 @@
   OWASP Cheat Sheets:
   - Abuse Case Cheat Sheet
   - User Privacy Protection Cheat Sheet
+  PCI-DSS-v4.0:
+  - 3.3.1
+  - 9.4.2
 766-162:
   Cloud Controls Matrix:
   - Governance, Risk and Compliance
@@ -4477,6 +5251,8 @@
   - PM-7 Enterprise Architecture
   NIST CSF v1.1:
   - 'ID.GV-4: Governance and risk management processes address cybersecurity risks'
+  NIST CSF v2.0:
+  - ID.AM-03
   PCI DSS v3.2.1:
   - '1.5'
   - '10.8'
@@ -4563,6 +5339,23 @@
   OWASP Cheat Sheets:
   - Cryptographic Storage Cheat Sheet
   - Key Management Cheat Sheet
+  PCI-DSS-v4.0:
+  - '3.6'
+  - 3.6.1
+  - 3.6.1.1
+  - 3.6.1.2
+  - 3.6.1.3
+  - 3.6.1.4
+  - '3.7'
+  - 3.7.1
+  - 3.7.2
+  - 3.7.3
+  - 3.7.4
+  - 3.7.5
+  - 3.7.6
+  - 3.7.7
+  - 3.7.8
+  - 3.7.9
 786-224:
   ASVS:
   - V6.2.7
@@ -4598,6 +5391,8 @@
   - Transport Layer Protection Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-03
+  PCI-DSS-v4.0:
+  - 8.3.4
 804-220:
   ASVS:
   - V3.4.2
@@ -4682,6 +5477,8 @@
   - C7
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-IDNT-01
+  PCI-DSS-v4.0:
+  - 7.3.3
 820-421:
   ASVS:
   - V14.5.4
@@ -4697,6 +5494,9 @@
   - SA-5 System Documentation
   NIST CSF v1.1:
   - 'ID.RA-1: Asset vulnerabilities are identified and documented'
+  NIST CSF v2.0:
+  - ID.AM-02
+  - ID.RA-09
   NIST SSDF:
   - PW.1.2
   PCI DSS v3.2.1:
@@ -4713,6 +5513,8 @@
   - Abuse Case Cheat Sheet
   - Attack Surface Analysis Cheat Sheet
   - Threat Modeling Cheat Sheet
+  PCI-DSS-v4.0:
+  - 1.2.4
 821-832:
   ASVS:
   - V1.6.3
@@ -4767,6 +5569,9 @@
     testing, security bulletins, or security researchers)'
   - 'RS.CO-5: Voluntary information sharing occurs with external stakeholders to achieve
     broader cybersecurity situational awareness'
+  NIST CSF v2.0:
+  - DE.AE-06
+  - ID.RA-02
   PCI DSS v3.2.1:
   - '11.2'
   - '11.3'
@@ -4839,6 +5644,25 @@
   - 'RS.AN-1: Notifications from detection systems are investigated'
   - 'RS.AN-3: Forensics are performed'
   - 'RS.CO-2: Incidents are reported consistent with established criteria'
+  NIST CSF v2.0:
+  - DE.AE-02
+  - DE.AE-03
+  - DE.CM-01
+  - DE.CM-03
+  - DE.CM-09
+  - GV.OC-03
+  - GV.OV-01
+  - GV.PO-01
+  - GV.PO-02
+  - GV.SC-03
+  - ID.IM-01
+  - ID.IM-02
+  - ID.IM-03
+  - PR.DS-02
+  - PR.PS-04
+  - RS.AN-03
+  - RS.AN-06
+  - RS.AN-07
   PCI DSS v3.2.1:
   - '10.1'
   - '10.2'
@@ -4884,6 +5708,9 @@
 850-376:
   Cloud Controls Matrix:
   - Datacenter security
+  PCI-DSS-v4.0:
+  - 9.2.1
+  - 9.2.3
 854-643:
   ISO 27001:
   - Data leakage prevention
@@ -4948,6 +5775,12 @@
   - SC-50 Software-enforced Separation and Policy Enforcement
   NIST CSF v1.1:
   - 'PR.PT-4: Communications and control networks are protected'
+  NIST CSF v2.0:
+  - DE.CM-09
+  - PR.DS-01
+  - PR.DS-02
+  - PR.DS-10
+  - PR.IR-03
   PCI DSS v3.2.1:
   - '1'
   - '2'
@@ -4961,6 +5794,8 @@
   - Vulnerable Dependency Management Cheat Sheet
   OWASP Proactive Controls:
   - C2
+  PCI-DSS-v4.0:
+  - 6.3.2
 863-636:
   ASVS:
   - V7.4.2
@@ -4978,9 +5813,16 @@
   - Moderate
   NIST 800-53 v5:
   - SI-16 Memory Protection
+  NIST CSF v2.0:
+  - PR.DS-10
 872-574:
   ISO 27001:
   - Protection against malware
+  PCI-DSS-v4.0:
+  - 11.5.1.1
+  - 5.2.1
+  - 5.2.2
+  - 5.3.2
 878-880:
   ASVS:
   - V6.2.8
@@ -5020,6 +5862,18 @@
   - 'ID.RA-3: Threats, both internal and external, are identified and documented'
   - 'ID.RA-5: Threats, vulnerabilities, likelihoods, and impacts are used to determine
     risk'
+  NIST CSF v2.0:
+  - DE.AE-03
+  - DE.AE-06
+  - DE.AE-07
+  - ID.RA-02
+  - ID.RA-03
+  - ID.RA-05
   PCI DSS v3.2.1:
   - '12.2'
   - '6.1'
+  PCI-DSS-v4.0:
+  - 5.2.3
+  - 5.3.1
+  - '6.3'
+  - 6.4.1

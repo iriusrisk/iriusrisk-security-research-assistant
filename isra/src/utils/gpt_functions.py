@@ -79,11 +79,12 @@ def query_chatgpt(messages):
                     assistant_result = client.beta.threads.messages.list(thread_id=my_thread.id)
 
                     result = assistant_result.data[0].content[0].text.value
-                except Exception:
+                except Exception as e:
                     print(
                         "Something happened when calling ChatGPT API. Make sure you defined the environment variable "
                         "OPENAI_API_KEY and that an OpenAI Assistant ID has been selected in the configuration."
                     )
+                    print(e)
                     raise typer.Exit(-1)
         else:
             with Progress(
@@ -106,10 +107,11 @@ def query_chatgpt(messages):
                     # Enable this for the lolz
                     # calculate_message_cost(get_property("gpt_model"), completion.usage.prompt_tokens,
                     #                      completion.usage.completion_tokens)
-                except Exception:
+                except Exception as e:
                     print(
                         "Something happened when calling ChatGPT API. Make sure you defined the environment variable "
                         "OPENAI_API_KEY and that a GPT model has been selected in the configuration")
+                    print(e)
                     raise typer.Exit(-1)
 
     return replace_non_ascii(result)
