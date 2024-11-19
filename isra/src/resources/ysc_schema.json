@@ -85,7 +85,8 @@
             "salesforce-components",
             "alibaba-cloud",
             "embedded-device",
-            "operating-system"
+            "operating-system",
+            "huawei-cloud"
           ],
           "examples": [
             "data-store"

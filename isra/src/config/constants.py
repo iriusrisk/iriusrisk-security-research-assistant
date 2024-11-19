@@ -454,6 +454,11 @@ CATEGORIES_LIST = {
         "ref": "operating-system",
         "name": "Operating System",
         "desc": ""
+    },
+    "huawei-cloud": {
+        "ref": "huawei-cloud",
+        "name": "Huawei Cloud",
+        "desc": ""
     }
 }
 
