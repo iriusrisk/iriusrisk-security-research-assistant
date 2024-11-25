@@ -17,6 +17,17 @@ from isra.src.utils.questionary_wrapper import qselect, qtext, qpath
 app = typer.Typer(no_args_is_help=True, add_help_option=False)
 
 
+def get_app_dir():
+    return typer.get_app_dir(APP_NAME, roaming=False)
+
+
+CONFIG_FOLDER = Path(get_app_dir()) / "config"
+BACKUP_FOLDER = Path(get_app_dir()) / "backup"
+PROPERTIES_FILE = CONFIG_FOLDER / 'isra.yaml'
+OLD_PROPERTIES_FILE = Path(get_app_dir()) / 'isra.properties'
+AUTOSCREENING_CONFIG_FILE = CONFIG_FOLDER / 'autoscreening.yaml'
+
+
 def get_info():
     return {
         "components_dir": "Folder where the IriusRisk YAML components are stored",
@@ -33,61 +44,25 @@ def get_info():
     }
 
 
-def get_parser():
-    properties_file = get_properties_file_path()
-    parser = configparser.ConfigParser()
-    parser.config_path = properties_file
-    parser.read(properties_file)
-    return parser
+def load_config():
+    with open(PROPERTIES_FILE, "r") as f:
+        properties = yaml.safe_load(f)
+    return properties
 
 
-def save_properties(properties: dict):
-    parser = get_parser()
-    for key, value in properties.items():
-        if key in parser[APP_NAME]:
-            parser[APP_NAME][key] = value
-        else:
-            print(f"No '{key}' key found")
-            return
-    with open(parser.config_path, 'w') as configfile:
-        parser.write(configfile)
-        print("Parameters written to properties file")
+def save_config(new_properties):
+    with open(PROPERTIES_FILE, "w") as f:
+        yaml.safe_dump(new_properties, f, indent=4)
 
 
 def get_property(key):
-    parser = get_parser()
+    properties = load_config()
 
-    if key in parser[APP_NAME]:
-        return parser[APP_NAME][key]
+    if key in properties:
+        return properties[key]
     else:
         print(f"No property '{key}' found")
         raise typer.Exit(-1)
-
-
-def get_app_dir():
-    return typer.get_app_dir(APP_NAME, roaming=False)
-
-
-def get_properties_file_path():
-    properties_file = Path(get_app_dir()) / 'isra.properties'
-    if os.path.exists(properties_file):
-        return properties_file
-    else:
-        properties_dir = get_app_dir()
-        print(f"[bold blue]No config file found in {properties_dir}")
-        print(f"[bold blue]Creating properties file in {properties_file}")
-        if not os.path.exists(properties_dir):
-            os.makedirs(properties_dir, exist_ok=True)
-
-        # Create the properties file with default values
-        parser = configparser.ConfigParser()
-        parser.config_path = properties_file
-        parser[APP_NAME] = {k: "" for k, v in get_info().items()}
-
-        with open(properties_file, 'w') as f:
-            parser.write(f)
-            print("Parameters written to properties file")
-        return properties_file
 
 
 def get_resource(resource, filetype="yaml"):
@@ -122,27 +97,39 @@ def get_sf_values(key=None):
 
 
 def initialize_configuration():
-    config_folder = Path(get_app_dir()) / "config"
-    if not os.path.exists(config_folder):
-        os.makedirs(config_folder, exist_ok=True)
-
-    backup_folder = Path(get_app_dir()) / "backup"
-    if not os.path.exists(backup_folder):
-        os.makedirs(backup_folder, exist_ok=True)
+    os.makedirs(CONFIG_FOLDER, exist_ok=True)
+    os.makedirs(BACKUP_FOLDER, exist_ok=True)
 
     default_properties = {k: "" for k, v in get_info().items()}
 
-    parser = get_parser()
+    if os.path.exists(PROPERTIES_FILE):
+        properties = load_config()
+    else:
+        print(f"No configuration file found in {PROPERTIES_FILE}. Creating new file...")
+        properties = default_properties
+        save_config(properties)
+        print("Configuration initialized")
 
-    modified = False
-    for key, value in default_properties.items():
-        if key not in parser[APP_NAME]:
-            parser[APP_NAME][key] = value
-            modified = True
-    if modified:
-        with open(parser.config_path, 'w') as f:
-            parser.write(f)
-            print("Parameters written to properties file")
+    # To update config with new config parameters
+    merged_properties = {**default_properties, **properties}
+
+    if merged_properties != properties:
+        save_config(merged_properties)
+        print("Configuration file updated with new parameters")
+
+    # Migrate from old configuration file
+    if os.path.exists(OLD_PROPERTIES_FILE):
+        print(f"An old configuration file exists in {OLD_PROPERTIES_FILE}")
+        print(f"Migrating to {PROPERTIES_FILE}")
+        parser = configparser.ConfigParser()
+        parser.read(OLD_PROPERTIES_FILE)
+        for key, value in parser[APP_NAME].items():
+            if key in merged_properties:
+                merged_properties[key] = value
+        save_config(merged_properties)
+        os.remove(OLD_PROPERTIES_FILE)
+
+    return merged_properties
 
 
 def list_assistants():
@@ -161,9 +148,7 @@ def list_assistants():
 
 
 def read_autoscreening_config():
-    parameter_config_path = Path(get_app_dir()) / "config" / 'autoscreening.yaml'
-
-    if not os.path.exists(parameter_config_path):
+    if not os.path.exists(AUTOSCREENING_CONFIG_FILE):
         default_parameter_config = {
             "cost": "replace",
             "question": "replace",
@@ -184,13 +169,13 @@ def read_autoscreening_config():
             "attack_mobile_technique": "ignore",
             "atlas_technique": "ignore"
         }
-        with open(parameter_config_path, 'w') as f:
+        with open(AUTOSCREENING_CONFIG_FILE, 'w') as f:
             yaml.dump(default_parameter_config, f, default_flow_style=False, sort_keys=False)
-            print(f"Autoscreening parameters generated in {parameter_config_path}")
+            print(f"Autoscreening parameters generated in {AUTOSCREENING_CONFIG_FILE}")
 
         parameter_config = default_parameter_config
     else:
-        with open(parameter_config_path, 'r') as f:
+        with open(AUTOSCREENING_CONFIG_FILE, 'r') as f:
             parameter_config = yaml.safe_load(f)
 
     return parameter_config
@@ -208,10 +193,10 @@ def list():
     """
     Shows all properties
     """
-    parser = get_parser()
+    properties = load_config()
 
     table = Table("Property", "Value")
-    for key, value in sorted(parser[APP_NAME].items()):
+    for key, value in sorted(properties.items()):
         table.add_row(key, value)
     print(table)
 
@@ -221,15 +206,14 @@ def update():
     """
     Updates a property with a specific value
     """
-    parser = get_parser()
+    properties = load_config()
 
-    choices = [key for key in parser[APP_NAME]]
-    opt = qselect("Which property do you want to update?", choices=choices)
+    opt = qselect("Which property do you want to update?", choices=properties.keys())
 
     try:
         if opt in ["components_dir", "ile_jar_location", "component_output_path",
                    "component_input_path", "ile_root_folder"]:
-            value = qpath("Write the new value: ", default=parser[APP_NAME][opt])
+            value = qpath("Write the new value: ", default=properties[opt])
         elif opt == "gpt_model":
             value = qselect("Select model (choose gpt-4 if not sure):", choices=[
                 "gpt-3.5-turbo-0613",
@@ -246,31 +230,31 @@ def update():
             else:
                 value = value.split(":")[0]
         elif opt == "iriusrisk_url":
-            value = qtext("Write the new value: ", default=parser[APP_NAME][opt])
+            value = qtext("Write the new value: ", default=properties[opt])
             if value.endswith("/ui#!app"):
                 value = value.replace("/ui#!app", "")
             if value.endswith("\\") or value.endswith("/"):
                 print("Removing trailing slash...")
                 value = value[:-1]
         else:
-            value = qtext("Write the new value: ", default=parser[APP_NAME][opt])
+            value = qtext("Write the new value: ", default=properties[opt])
 
     except Exception as e:
         print(e)
         print("Something wrong happened, try again")
         raise typer.Exit(-1)
 
-    save_properties({opt: value})
+    properties[opt] = value
+    save_config(properties)
 
 
 @app.command()
 def info():
     """
-   Shows info about config parameters
+    Shows info about config parameters
     """
 
-    parser = get_parser()
-    print(f"[bold blue]Config file location: {parser.config_path}")
+    print(f"[bold blue]Config file location: {PROPERTIES_FILE}")
     print("None of these parameters are strictly mandatory, but having them enables some functionality")
     info_items = get_info()
     table = Table("Property", "Value")
@@ -284,8 +268,7 @@ def reset():
     """
     Resets configuration (in case we need to force an update)
     """
-    parser = get_parser()
-    os.remove(parser.config_path)
+    os.remove(PROPERTIES_FILE)
     initialize_configuration()
 
 
@@ -294,30 +277,29 @@ def load():
     """
     Loads a configuration file
     """
-    properties_dir = Path(get_app_dir()) / "backup"
 
-    choices = [file.name for file in os.scandir(properties_dir) if
-               file.name.endswith(".properties") and file.name.startswith("backup")]
+    choices = [file.name for file in os.scandir(BACKUP_FOLDER) if
+               file.name.endswith(".json") and file.name.startswith("backup")]
 
     if len(choices) == 0:
         print("No config backups to load")
         raise typer.Exit(-1)
     else:
-        config_to_load = qselect("Which config do you want to load?", choices=choices)
-        config_to_load_path = str(os.path.join(properties_dir, config_to_load))
-        initialize_configuration()
-        parser = get_parser()
-        parser_backup = configparser.ConfigParser()
-        parser_backup.read(config_to_load_path)
+        backup_choice = qselect("Which config do you want to load?", choices=choices)
+        backup_file_path = str(os.path.join(BACKUP_FOLDER, backup_choice))
+
+        with open(backup_file_path, "r") as f:
+            backup_properties = json.load(f)
+
+        properties = initialize_configuration()
 
         info_params = get_info()
-        for key, value in parser_backup[APP_NAME].items():
+        for key, value in backup_properties.items():
             if key in info_params:
-                parser[APP_NAME][key] = value
+                properties[key] = value
             else:
                 print(f"Ignoring key {key} (deprecated)")
-        with open(parser.config_path, 'w') as f:
-            parser.write(f)
+        save_config(properties)
 
 
 @app.command()
@@ -332,11 +314,12 @@ def save(name: Annotated[str, typer.Option(help="Name of the new config file")] 
     if name == "isra":
         print("Name cannot be 'isra' since it's a reserved name")
     else:
-        new_properties_file = Path(get_app_dir()) / "backup" / f'backup_{name}.properties'
-        parser = get_parser()
-        with open(new_properties_file, 'w') as configfile:
-            parser.write(configfile)
-            print(f"Parameters written to backup_{name}.properties file")
+        new_properties_file = BACKUP_FOLDER / f'backup_{name}.json'
+
+        parser = load_config()
+        with open(new_properties_file, 'w') as f:
+            json.dump(parser, f)
+            print(f"Parameters written to backup_{name}.json file")
             print(f"To use it run 'isra config load' and select the configuration")
 
 
