@@ -27,7 +27,8 @@ PROPERTIES_FILE = CONFIG_FOLDER / 'isra.yaml'
 OLD_PROPERTIES_FILE = Path(get_app_dir()) / 'isra.properties'
 AUTOSCREENING_CONFIG_FILE = CONFIG_FOLDER / 'autoscreening.yaml'
 
-properties = None
+properties_s = None
+
 
 def get_info():
     return {
@@ -57,12 +58,12 @@ def save_config(new_properties):
 
 
 def get_property(key):
-    global properties
-    if properties is None:
-        properties = load_config()
+    global properties_s
+    if properties_s is None:
+        properties_s = load_config()
 
-    if key in properties:
-        return properties[key]
+    if key in properties_s:
+        return properties_s[key]
     else:
         print(f"No property '{key}' found")
         raise typer.Exit(-1)
@@ -282,7 +283,7 @@ def load():
     """
 
     choices = [file.name for file in os.scandir(BACKUP_FOLDER) if
-               file.name.endswith(".json") and file.name.startswith("backup")]
+               file.name.endswith(".yaml") and file.name.startswith("backup")]
 
     if len(choices) == 0:
         print("No config backups to load")
@@ -292,7 +293,7 @@ def load():
         backup_file_path = str(os.path.join(BACKUP_FOLDER, backup_choice))
 
         with open(backup_file_path, "r") as f:
-            backup_properties = json.load(f)
+            backup_properties = yaml.safe_load(f)
 
         properties = initialize_configuration()
 
@@ -317,12 +318,12 @@ def save(name: Annotated[str, typer.Option(help="Name of the new config file")] 
     if name == "isra":
         print("Name cannot be 'isra' since it's a reserved name")
     else:
-        new_properties_file = BACKUP_FOLDER / f'backup_{name}.json'
+        new_properties_file = BACKUP_FOLDER / f'backup_{name}.yaml'
 
-        parser = load_config()
+        properties = load_config()
         with open(new_properties_file, 'w') as f:
-            json.dump(parser, f)
-            print(f"Parameters written to backup_{name}.json file")
+            yaml.safe_dump(properties, f)
+            print(f"Parameters written to backup_{name}.yaml file")
             print(f"To use it run 'isra config load' and select the configuration")
 
 
