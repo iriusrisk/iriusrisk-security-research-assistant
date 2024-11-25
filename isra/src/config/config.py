@@ -27,6 +27,7 @@ PROPERTIES_FILE = CONFIG_FOLDER / 'isra.yaml'
 OLD_PROPERTIES_FILE = Path(get_app_dir()) / 'isra.properties'
 AUTOSCREENING_CONFIG_FILE = CONFIG_FOLDER / 'autoscreening.yaml'
 
+properties = None
 
 def get_info():
     return {
@@ -56,7 +57,9 @@ def save_config(new_properties):
 
 
 def get_property(key):
-    properties = load_config()
+    global properties
+    if properties is None:
+        properties = load_config()
 
     if key in properties:
         return properties[key]
