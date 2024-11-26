@@ -1,12 +1,31 @@
 # Just believe that these are inmutable constants :)
+from pathlib import Path
+
+import typer
 
 APP_NAME = "ISRA"
+
+
+def get_app_dir():
+    return typer.get_app_dir(APP_NAME, roaming=False)
+
+
+CONFIG_FOLDER = Path(get_app_dir()) / "config"
+BACKUP_FOLDER = Path(get_app_dir()) / "backup"
+
+# Configuration files
+
+PROPERTIES_FILE = CONFIG_FOLDER / 'isra.yaml'
+OLD_PROPERTIES_FILE = Path(get_app_dir()) / 'isra.properties'
+AUTOSCREENING_CONFIG_FILE = CONFIG_FOLDER / 'autoscreening.yaml'
+TEMPLATE_FILE = CONFIG_FOLDER / "temp.irius"
+THREAT_MODEL_FILE = CONFIG_FOLDER / "threat_model.json"
+
+# Resource files
 
 CWE_SOURCE_FILE = "cwec_v4.13.xml"
 PROMPTS_DIR = "prompts"
 ILE_JAR_FILE = "editor-1.0.7-SNAPSHOT.jar"
-TEMPLATE_FILE = "temp.irius"
-THREAT_MODEL_FILE = "threat_model.json"
 TEST_ANSWERS_FILE = "test_answers.yaml"
 OPENCRE_PLUS = "cre_mappings_plus.yaml"
 YSC_SCHEMA = "ysc_schema.json"
@@ -85,6 +104,8 @@ OUTPUT_NAME = {
     "NIST CSF v1.1": {'ref': 'nist-csf', 'name': 'NIST Cybersecurity Framework'},
     "D3FEND": {'ref': 'D3FEND', 'name': 'Mitre D3FEND Framework'},
     "CCPA": {'ref': 'ccpa', 'name': 'California Consumer Privacy Act'},
+    'PCI-DSS-v4.0': {'ref': 'PCI-DSS-v4.0', 'name': 'PCI-DSS-v4.0'},
+    "NIST CSF v2.0": {'ref': 'NIST CSF v2.0', 'name': 'NIST CSF v2.0'},
     # {'ref': 'azure-security-benchmark', 'name': 'Azure Security Benchmark'},
     # {'ref': 'CIS AWS Standard', 'name': 'CIS Amazon Web Services Foundations Benchmark Level 1'},
     # {'ref': 'cis-amazon-web-services-three-tier-web-architecture-benchmark',
@@ -131,7 +152,7 @@ OUTPUT_NAME = {
     # {'ref': 'owasp-masvs-testing-guide', 'name': 'OWASP MASVS'},
     # {'ref': 'owasp-mobile-top-10-2016', 'name': 'OWASP Mobile Top 10 2016'},
     # {'ref': 'owasp-top-10-2017', 'name': 'OWASP Top 10 2017'},
-    # {'ref': 'PCI-DSS-v4.0', 'name': 'PCI-DSS-v4.0'},
+
     # {'ref': 'pci-sss', 'name': 'PCI Secure Software Standard'},
     # {'ref': 'swift-cscf', 'name': 'SWIFT CSCF'},
     # {'ref': 'unece-wp29-csms', 'name': 'UNECE WP.29 Cybersecurity Regulation (CSMS)'},

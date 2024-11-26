@@ -1,21 +1,18 @@
 import json
-import os
 import unittest
 
 import pytest
 from typer.testing import CliRunner
 
 from isra.main import app
-from isra.src.config.config import get_app_dir
+from isra.src.config.constants import TEMPLATE_FILE
 from isra.src.utils.text_functions import compare_elements
 from isra.test.aux_test_functions import get_template, set_component_from_file, assert_process
 
 
 def get_threat_answers():
-    properties_dir = get_app_dir()
 
-    template_path = os.path.join(properties_dir, "temp.irius")
-    with open(template_path, "r") as f:
+    with open(TEMPLATE_FILE, "r") as f:
         template = json.loads(f.read())
 
     answers = "I want to replace existing values with new ones\n"
@@ -28,9 +25,7 @@ def get_threat_answers():
 
 
 def get_control_answers():
-    properties_dir = get_app_dir()
-    template_path = os.path.join(properties_dir, "temp.irius")
-    with open(template_path, "r") as f:
+    with open(TEMPLATE_FILE, "r") as f:
         template = json.loads(f.read())
 
     answers = "I want to replace existing values with new ones\n"

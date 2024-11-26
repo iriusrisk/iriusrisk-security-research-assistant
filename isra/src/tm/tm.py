@@ -4,8 +4,7 @@ import os.path
 import typer
 from rich import print
 
-from isra.src.config.config import get_app_dir
-from isra.src.config.constants import THREAT_MODEL_FILE
+from isra.src.config.constants import THREAT_MODEL_FILE, get_app_dir
 from isra.src.utils.questionary_wrapper import qselect, qmulti
 
 app = typer.Typer(no_args_is_help=True, add_help_option=False)

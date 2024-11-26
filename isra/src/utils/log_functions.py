@@ -3,7 +3,7 @@ import os
 from loguru import logger
 from rich import print
 
-from isra.src.config.config import get_app_dir
+from isra.src.config.constants import get_app_dir
 
 
 class CustomLogger:

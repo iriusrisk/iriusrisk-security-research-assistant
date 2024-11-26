@@ -11,24 +11,13 @@ from openai import OpenAI, OpenAIError
 from rich import print
 from rich.table import Table
 
-from isra.src.config.constants import APP_NAME, SYSTEM_FIELD_VALUES
+from isra.src.config.constants import APP_NAME, SYSTEM_FIELD_VALUES, PROPERTIES_FILE, CONFIG_FOLDER, BACKUP_FOLDER, \
+    OLD_PROPERTIES_FILE, AUTOSCREENING_CONFIG_FILE, get_app_dir
 from isra.src.utils.questionary_wrapper import qselect, qtext, qpath
 
 app = typer.Typer(no_args_is_help=True, add_help_option=False)
 
-
-def get_app_dir():
-    return typer.get_app_dir(APP_NAME, roaming=False)
-
-
-CONFIG_FOLDER = Path(get_app_dir()) / "config"
-BACKUP_FOLDER = Path(get_app_dir()) / "backup"
-PROPERTIES_FILE = CONFIG_FOLDER / 'isra.yaml'
-OLD_PROPERTIES_FILE = Path(get_app_dir()) / 'isra.properties'
-AUTOSCREENING_CONFIG_FILE = CONFIG_FOLDER / 'autoscreening.yaml'
-
 properties_s = None
-
 
 def get_info():
     return {

@@ -3,7 +3,7 @@ import os
 
 import typer
 
-from isra.src.config.config import get_app_dir
+from isra.src.config.constants import get_app_dir
 from isra.src.config.constants import TEMPLATE_FILE
 
 
