@@ -12,7 +12,7 @@ from isra.src.config.constants import OPENCRE_PLUS, CRE_MAPPING_NAME, CUSTOM_FIE
 app = typer.Typer(no_args_is_help=True, add_help_option=False)
 
 
-def expand_process(template):
+def expand_process(template, verbose=False):
 
     mappings_yaml = get_resource(OPENCRE_PLUS)
 
@@ -36,7 +36,8 @@ def expand_process(template):
 
             # Now we are looking for the base standard in the OpenCRE+, so we need to use the name that is in the file
             opencre_standard_name = CRE_MAPPING_NAME[baseline_ref]
-            print(f"{control_ref}: [yellow]Looking for {opencre_standard_name} - {base_standard_sections}")
+            if verbose:
+                print(f"{control_ref}: [yellow]Looking for {opencre_standard_name} - {base_standard_sections}")
 
             # If OpenCRE+ contains the base standard and section we'll include the other standards related
             standards_to_add = dict()
@@ -70,8 +71,8 @@ def expand_process(template):
                             "standard-ref": CRE_MAPPING_NAME[baseline_ref],
                             "standard-section": section
                         })
-
-                print(f"[red]Nothing found in OpenCRE+. Added base standard")
+                if verbose:
+                    print(f"[red]Nothing found in OpenCRE+. Added base standard")
             else:
                 for standard_ref, sections in standards_to_add.items():
                     for section in sections:
@@ -81,7 +82,8 @@ def expand_process(template):
                                 "standard-ref": standard_ref,
                                 "standard-section": section
                             })
-                            print(f"Added [green]{standard_ref}[/green] -> [blue]{section}")
+                            if verbose:
+                                print(f"Added [green]{standard_ref}[/green] -> [blue]{section}")
 
     return template
 
