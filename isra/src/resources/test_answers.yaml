@@ -4,5 +4,7 @@ get_stride_category: Spoofing
 get_attack_technique: ATT&CK Enterprise - T1001.001 - Junk Data
 get_cia_triad: "{'C':0, 'I':0, 'A':100, 'EE':70}"
 get_intended_scope: "Data Security"
+generate_component_description: "A generic software component"
+get_baseline_standard_section_nist: "AC-1 POLICY AND PROCEDURES"
 get_complete_threat_auto: "{'C': 90, 'I': 85, 'A': 80, 'EE': 75, 'attack_enterprise_technique': 'ATT&CK Enterprise - T1078 - Valid Accounts', 'stride_lm': 'Elevation of Privilege'}"
 get_complete_control_auto: "{'cwe': '287:Improper Authentication', 'question': 'Is network logging enabled for security investigation?', 'question_desc': 'Valuable for detecting potential security threats and incidents.', 'scope': 'Network Security', 'attack_enterprise_mitigation': 'ATT&CK Enterprise - M1049 - Audit', 'baseline_standard_ref': 'NIST 800-53 v5', 'baseline_standard_section': 'AU-2 Audit Events', 'cost': '1'}"

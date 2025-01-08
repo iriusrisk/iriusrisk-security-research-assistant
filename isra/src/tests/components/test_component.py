@@ -120,6 +120,12 @@ class TestComponent(unittest.TestCase):
                 errors = check_name_does_not_contain_category(self.roots[component])
                 self.assertCountEqual(errors, [])
 
+    def test_custom_fields_are_valid(self):
+        for component in self.components:
+            with self.subTest(component=component):
+                errors = check_custom_fields_are_valid(self.roots[component])
+                self.assertCountEqual(errors, [])
+
 
 if __name__ == "__main__":
     unittest.main()

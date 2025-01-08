@@ -11,6 +11,7 @@ from isra.src.screening import screening
 from isra.src.standards import standards
 from isra.src.tests import tests
 from isra.src.tm import tm
+from isra.src.srt import srt
 
 app = typer.Typer(no_args_is_help=True, add_completion=False, add_help_option=False)
 app_completion = typer.Typer(help="Generate and install completion scripts.", hidden=True)
@@ -22,6 +23,7 @@ app.add_typer(screening.app, name="screening")
 app.add_typer(standards.app, name="standards")
 app.add_typer(component.app, name="component")
 app.add_typer(tm.app, name="tm", hidden=True)
+app.add_typer(srt.app, name="srt", hidden=True)
 
 config.initialize_configuration()
 
@@ -56,4 +58,4 @@ def about():
 
 if __name__ == "__main__":
     config.initialize_configuration()
-    app(["tests", "components", "component"])
+    app(["srt", "auto"])

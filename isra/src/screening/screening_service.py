@@ -5,14 +5,15 @@ from bs4 import MarkupResemblesLocatorWarning
 from rich import print
 
 from isra.src.component.component import read_current_component, write_current_component, balance_mitigation_values
-from isra.src.config.config import get_sf_values, read_autoscreening_config
+from isra.src.config.config import get_sf_values, read_autoscreening_config, get_resource
 from isra.src.config.constants import CUSTOM_FIELD_STRIDE, CUSTOM_FIELD_SCOPE, \
     CUSTOM_FIELD_STANDARD_BASELINE_REF, CUSTOM_FIELD_STANDARD_BASELINE_SECTION, \
     STRIDE_LIST, CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE, \
     CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION, \
     IR_SF_C_STANDARD_BASELINES, IR_SF_T_STRIDE, IR_SF_C_SCOPE, IR_SF_C_MITRE, IR_SF_T_MITRE, IR_SF_C_STANDARD_SECTION, \
     CUSTOM_FIELD_ATTACK_ICS_TECHNIQUE, CUSTOM_FIELD_ATLAS_TECHNIQUE, CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE, \
-    CUSTOM_FIELD_ATTACK_ICS_MITIGATION, CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION, CUSTOM_FIELD_ATLAS_MITIGATION
+    CUSTOM_FIELD_ATTACK_ICS_MITIGATION, CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION, CUSTOM_FIELD_ATLAS_MITIGATION, \
+    SYSTEM_FIELD_VALUES
 from isra.src.utils.cwe_functions import get_original_cwe_weaknesses, get_cwe_description, get_cwe_impact, set_weakness
 from isra.src.utils.gpt_functions import query_chatgpt, get_prompt
 from isra.src.utils.questionary_wrapper import qselect, qconfirm, qtext
@@ -384,7 +385,7 @@ def validate_item(item):
 
 # Main processes
 
-def screening(items, ask_function, save_function, choices=None):
+def screening(items, ask_function, save_function, choices=None, force=False):
     template = read_current_component()
     if len(items) <= 0:
         print("No items found to do screening")
@@ -394,8 +395,11 @@ def screening(items, ask_function, save_function, choices=None):
             "I want to set values only where they have not been set yet": "init",
             "I want to append new values to the existing ones": "append"
         }
-        action_choice = qselect("Define the purpose of the screening:", choices=screening_choices.keys())
-        action = screening_choices[action_choice]
+        if force:
+            action = "replace"
+        else:
+            action_choice = qselect("Define the purpose of the screening:", choices=screening_choices.keys())
+            action = screening_choices[action_choice]
 
         print(f"[red]Starting screening process for {len(items)} items")
         print("Press 'y' or 'n' and then press Enter")
@@ -431,15 +435,18 @@ def screening(items, ask_function, save_function, choices=None):
 
                 print(f"ChatGPT says: [blue]{chatgpt_answer}")
 
-                screening_item_result = qselect("Is it correct?", choices=[
-                    "y",
-                    "n",
-                    "skip",
-                    "again",
-                    "manual",
-                    "exit",
-                    "save"
-                ])
+                if force:
+                    screening_item_result = "y"
+                else:
+                    screening_item_result = qselect("Is it correct?", choices=[
+                        "y",
+                        "n",
+                        "skip",
+                        "again",
+                        "manual",
+                        "exit",
+                        "save"
+                    ])
 
                 if screening_item_result == "y":
                     to_update[item] = chatgpt_answer
@@ -472,14 +479,17 @@ def screening(items, ask_function, save_function, choices=None):
                     write_current_component(template)
                     return
 
-        save_results = qconfirm("No more items. Do you want to save?")
+        if force:
+            save_results = True
+        else:
+            save_results = qconfirm("No more items. Do you want to save?")
         if save_results:
             print("Saving screening results")
             save_function(template, to_update, action=action)
             write_current_component(template)
 
 
-def autoscreening_init():
+def autoscreening_init(force=False):
     template = read_current_component()
 
     parameter_config = read_autoscreening_config()
@@ -495,9 +505,19 @@ def autoscreening_init():
     for th in template["threats"].values():
         k = th["ref"]
         print(f'[blue]Threat: {th["ref"]} - {th["name"]}')
-        try:
-            values = extract_json(get_complete_threat_auto(th))
-        except JSONDecodeError:
+
+        tries = 5
+        valid = False
+        while tries > 0 and not valid:
+            try:
+                values = extract_json(get_complete_threat_auto(th))
+                valid = True
+            except JSONDecodeError:
+                tries -= 1
+                print(f"Failed when decoding JSON, trying again...({tries})")
+
+        if not valid:
+            print("Couldn't extract JSON after 5 tries, skipping...")
             continue
 
         risk_rating = ["C", "I", "A", "EE"]
@@ -582,14 +602,17 @@ def autoscreening_init():
                               w in available_weaknesses}
 
     print("Autoscreening finished!")
-    save_results = qconfirm("Do you want to save?")
+    if force:
+        save_results = True
+    else:
+        save_results = qconfirm("Do you want to save?")
     if save_results:
         print("Saving generated results")
         write_current_component(template)
         balance_mitigation_values()
 
 
-def fix_component():
+def fix_component(force_save=False):
     template = read_current_component()
     print("Analyzing...")
 
@@ -656,3 +679,87 @@ def fix_component():
     if save_results:
         write_current_component(template)
         print("Saved")
+
+
+# Experimental functions
+
+def get_baseline_standard_section_nist(item, feedback):
+    template = read_current_component()
+    control_ref = item["ref"]
+    standard_reference = template["controls"][control_ref]["customFields"][CUSTOM_FIELD_STANDARD_BASELINE_REF]
+    print(f"Standard reference for countermeasure is: {standard_reference}")
+    messages = [
+        {"role": "system", "content": get_prompt("get_baseline_standard_section_nist.md")},
+        {"role": "user", "content": f"This is the countermeasure description: {item['desc']}"},
+        {"role": "user", "content": f"This is the assigned security standard: {standard_reference}"},
+        {"role": "user", "content": feedback}
+    ]
+
+    result = query_chatgpt(messages)
+    print(result)
+    return result, ""
+
+
+def set_default_baseline_standard(standard):
+    template = read_current_component()
+    to_update = dict()
+    items = get_all_controls()
+    for c in items:
+        to_update[c] = standard
+
+    save_controls_custom_fields(template, CUSTOM_FIELD_STANDARD_BASELINE_REF, to_update, "replace")
+    write_current_component(template)
+
+    items = get_all_controls()
+    screening(items, get_baseline_standard_section_nist, save_baseline_standard_section,
+              choices=get_sf_values(IR_SF_C_STANDARD_SECTION), force=True)
+
+
+def fix_mitre_values():
+    # A hack to fix MITRE values automatically
+    template = read_current_component()
+
+    cfs = get_resource(SYSTEM_FIELD_VALUES, filetype="yaml")
+
+    for threat in template["threats"].values():
+        for cf_key, cf_value in threat["customFields"].items():
+            if cf_key in [CUSTOM_FIELD_ATLAS_TECHNIQUE, CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE,
+                          CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE, CUSTOM_FIELD_ATTACK_ICS_TECHNIQUE]:
+
+                if cf_value != "":
+                    new_value = ""
+                    for value in cf_value.split("||"):
+
+                        if value in cfs[IR_SF_T_MITRE]:
+                            new_value += value + "||"
+                        else:
+                            m = value.split(" - ")
+                            k = m[0] + " - " + m[1] + " - "
+                            for cfv in cfs[IR_SF_T_MITRE]:
+                                if k in cfv:
+                                    new_value += cfv + "||"
+
+                    new_value = new_value[:-2]
+                    threat["customFields"][cf_key] = new_value
+
+    for control in template["controls"].values():
+        for cf_key, cf_value in control["customFields"].items():
+            if cf_key in [CUSTOM_FIELD_ATLAS_MITIGATION, CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION,
+                          CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION, CUSTOM_FIELD_ATTACK_ICS_MITIGATION]:
+
+                if cf_value != "":
+                    new_value = ""
+                    for value in cf_value.split("||"):
+                        if value in cfs[IR_SF_C_MITRE]:
+                            new_value += value + "||"
+                        else:
+                            m = value.split(" - ")
+                            k = m[0] + " - " + m[1] + " - "
+                            for cfv in cfs[IR_SF_C_MITRE]:
+                                if k in cfv:
+                                    new_value += cfv + "||"
+
+                    new_value = new_value[:-2]
+                    control["customFields"][cf_key] = new_value
+
+    write_current_component(template)

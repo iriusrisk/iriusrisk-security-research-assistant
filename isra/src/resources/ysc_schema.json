@@ -514,7 +514,7 @@
                           "title": "Cwe",
                           "type": "string",
                           "default": "",
-                          "pattern": "(CWE-\\d{1,5}){1,3}",
+                          "pattern": "^(CWE-\\d{1,5})(\\s+CWE-\\d{1,5})*$|^$",
                           "examples": [
                             "CWE-770"
                           ]

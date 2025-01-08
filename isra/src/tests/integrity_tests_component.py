@@ -4,7 +4,8 @@ import jsonschema
 import yaml
 
 from isra.src.config.config import get_resource
-from isra.src.config.constants import YSC_SCHEMA
+from isra.src.config.constants import YSC_SCHEMA, IR_SF_T_STRIDE, SYSTEM_FIELD_VALUES, IR_SF_T_MITRE, IR_SF_C_SCOPE, \
+    IR_SF_C_MITRE
 
 
 def read_yaml(file_path):
@@ -273,5 +274,34 @@ def check_name_does_not_contain_category(root):
 
     if category in component_name:
         errors.append(f"Component {component_ref} has an invalid name: {component_name}")
+
+    return errors
+
+
+def aux(ref, cf_values_list, valid_values):
+    errors = []
+    for value in cf_values_list:
+        if value not in valid_values:
+            errors.append(f"Threat {ref} has an invalid custom field value: {value}")
+    return errors
+
+def check_custom_fields_are_valid(root):
+
+    cfs = get_resource(SYSTEM_FIELD_VALUES, filetype="yaml")
+    errors = []
+
+    for threat in root['component']['risk_pattern']['threats']:
+        errors.extend(aux(threat["ref"], threat["taxonomies"]["stride"], cfs[IR_SF_T_STRIDE]))
+        errors.extend(aux(threat["ref"], threat["taxonomies"]["attack_enterprise_technique"], cfs[IR_SF_T_MITRE]))
+        errors.extend(aux(threat["ref"], threat["taxonomies"]["attack_mobile_technique"], cfs[IR_SF_T_MITRE]))
+        errors.extend(aux(threat["ref"], threat["taxonomies"]["attack_ics_technique"], cfs[IR_SF_T_MITRE]))
+        errors.extend(aux(threat["ref"], threat["taxonomies"]["atlas_technique"], cfs[IR_SF_T_MITRE]))
+
+        for control in threat["countermeasures"]:
+            errors.extend(aux(control["ref"], control["taxonomies"]["scope"], cfs[IR_SF_C_SCOPE]))
+            errors.extend(aux(control["ref"], control["taxonomies"]["attack_enterprise_mitigation"], cfs[IR_SF_C_MITRE]))
+            errors.extend(aux(control["ref"], control["taxonomies"]["attack_mobile_mitigation"], cfs[IR_SF_C_MITRE]))
+            errors.extend(aux(control["ref"], control["taxonomies"]["attack_ics_mitigation"], cfs[IR_SF_C_MITRE]))
+            errors.extend(aux(control["ref"], control["taxonomies"]["atlas_mitigation"], cfs[IR_SF_C_MITRE]))
 
     return errors
