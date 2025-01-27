@@ -424,6 +424,22 @@
                             "T1001"
                           ]
                         }
+                      },
+                      "emb3d_technique": {
+                        "$id": "#root/component/risk_pattern/threats/items/taxonomies/emb3d_technique",
+                        "title": "Emb3d_technique",
+                        "type": "array",
+                        "default": [],
+                        "items": {
+                          "$id": "#root/component/risk_pattern/threats/items/taxonomies/emb3d_technique/items",
+                          "title": "Items",
+                          "type": "string",
+                          "default": "",
+                          "pattern": "^[\\x20-\\x7E]*$",
+                          "examples": [
+                            "T1001"
+                          ]
+                        }
                       }
                     }
                   },
@@ -690,6 +706,22 @@
                                 "pattern": "^[\\x20-\\x7E]*$",
                                 "examples": [
                                   "AML1001"
+                                ]
+                              }
+                            },
+                            "emb3d_mitigation": {
+                              "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/taxonomies/emb3d_mitigation",
+                              "title": "Emb3d_mitigation",
+                              "type": "array",
+                              "default": [],
+                              "items": {
+                                "$id": "#root/component/risk_pattern/threats/items/countermeasures/items/taxonomies/emb3d_mitigation/items",
+                                "title": "Items",
+                                "type": "string",
+                                "default": "",
+                                "pattern": "^[\\x20-\\x7E]*$",
+                                "examples": [
+                                  "EMB3D - MID-083 - Network Firewall/Access Control List"
                                 ]
                               }
                             }

@@ -13,10 +13,10 @@ from isra.src.config.constants import CUSTOM_FIELD_STRIDE, CUSTOM_FIELD_SCOPE, \
     IR_SF_C_STANDARD_BASELINES, IR_SF_T_STRIDE, IR_SF_C_SCOPE, IR_SF_C_MITRE, IR_SF_T_MITRE, IR_SF_C_STANDARD_SECTION, \
     CUSTOM_FIELD_ATTACK_ICS_TECHNIQUE, CUSTOM_FIELD_ATLAS_TECHNIQUE, CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE, \
     CUSTOM_FIELD_ATTACK_ICS_MITIGATION, CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION, CUSTOM_FIELD_ATLAS_MITIGATION, \
-    SYSTEM_FIELD_VALUES
+    SYSTEM_FIELD_VALUES, CUSTOM_FIELD_EMB3D_TECHNIQUE, CUSTOM_FIELD_EMB3D_MITIGATION
 from isra.src.utils.cwe_functions import get_original_cwe_weaknesses, get_cwe_description, get_cwe_impact, set_weakness
 from isra.src.utils.gpt_functions import query_chatgpt, get_prompt
-from isra.src.utils.questionary_wrapper import qselect, qconfirm, qtext
+from isra.src.utils.questionary_wrapper import qselect, qconfirm, qtext, qauto
 from isra.src.utils.text_functions import extract_json, closest_number, beautify, \
     check_valid_value, set_value, fix_value
 
@@ -24,6 +24,16 @@ warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
 
 # Get functions
+
+
+def fix_description(text, feedback):
+    messages = [
+        {"role": "system", "content": get_prompt("fix_description.md")},
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
+    ]
+
+    return query_chatgpt(messages), ""
 
 def create_description_for_question(text, feedback):
     messages = [
@@ -89,6 +99,33 @@ def get_attack_mitigation(item, feedback):
     result = query_chatgpt(messages)
     return (check_valid_value(result, IR_SF_C_MITRE),
             item["customFields"].get(CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION, ""))
+
+
+def get_emb3d_technique(item, feedback):
+    text = item["name"] + ": " + beautify(item["desc"])
+    messages = [
+        {"role": "system",
+         "content": get_prompt("get_emb3d_technique.md")},
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
+    ]
+
+    result = query_chatgpt(messages)
+    return (check_valid_value(result, IR_SF_T_MITRE),
+            item["customFields"].get(CUSTOM_FIELD_EMB3D_TECHNIQUE, ""))
+
+
+def get_emb3d_mitigation(item, feedback):
+    text = item["name"] + ": " + beautify(item["desc"])
+    messages = [
+        {"role": "system", "content": get_prompt("get_emb3d_mitigation.md")},
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
+    ]
+
+    result = query_chatgpt(messages)
+    return (check_valid_value(result, IR_SF_C_MITRE),
+            item["customFields"].get(CUSTOM_FIELD_EMB3D_MITIGATION, ""))
 
 
 def get_intended_scope(item, feedback):
@@ -284,6 +321,14 @@ def save_attack_mitigation(template, to_update, action="init"):
     save_controls_custom_fields(template, CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION, to_update, action)
 
 
+def save_emb3d_technique(template, to_update, action="init"):
+    save_threats_custom_fields(template, CUSTOM_FIELD_EMB3D_TECHNIQUE, to_update, action)
+
+
+def save_emb3d_mitigation(template, to_update, action="init"):
+    save_controls_custom_fields(template, CUSTOM_FIELD_EMB3D_MITIGATION, to_update, action)
+
+
 def save_intended_scope(template, to_update, action="init"):
     save_controls_custom_fields(template, CUSTOM_FIELD_SCOPE, to_update, action)
 
@@ -465,7 +510,7 @@ def screening(items, ask_function, save_function, choices=None, force=False):
                 elif screening_item_result == "skip":
                     break
                 elif screening_item_result == "manual":
-                    manual_answer = qtext("Set manually (text input):")
+                    manual_answer = qauto("Set manually (text input):", choices=choices)
                     if manual_answer is None:
                         continue
                     to_update[item] = manual_answer
@@ -761,5 +806,32 @@ def fix_mitre_values():
 
                     new_value = new_value[:-2]
                     control["customFields"][cf_key] = new_value
+
+    write_current_component(template)
+
+
+def custom_fix_component():
+    # A hack to fix MITRE values automatically
+    template = read_current_component()
+
+
+    for threat in template["threats"].values():
+        print(threat["desc"])
+
+        answer, current_value = fix_description(threat["desc"], "")
+        ss = extract_json(answer)
+        print(answer)
+
+        threat["desc"] = ss["description"]
+
+    for control in template["controls"].values():
+        print(control["desc"])
+
+        answer, current_value = fix_description(control["desc"], "")
+        ss = extract_json(answer)
+        print(answer)
+
+        control["desc"] = ss["description"]
+
 
     write_current_component(template)

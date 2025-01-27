@@ -7,7 +7,8 @@ from rich import print
 from isra.src.component.component import balance_mitigation_values_process, restart_component, create_new_component, \
     create_threat_model, save_yaml, load_init
 from isra.src.component.template import check_current_component
-from isra.src.screening.screening_service import autoscreening_init, set_default_baseline_standard, fix_mitre_values
+from isra.src.screening.screening_service import autoscreening_init, set_default_baseline_standard, fix_mitre_values, \
+    fix_component, custom_fix_component
 from isra.src.standards.standards import expand_process
 from isra.src.utils.api_functions import add_to_batch
 
@@ -90,3 +91,16 @@ def fix():
             print(f"Component fixed successfully")
         except Exception as e:
             print(f"An error happened when fixing the component: {e}")
+
+
+@app.command()
+def fix2():
+    """Fixes component"""
+
+
+    try:
+        custom_fix_component()
+
+        print(f"Component fixed successfully")
+    except Exception as e:
+        print(f"An error happened when fixing the component: {e}")

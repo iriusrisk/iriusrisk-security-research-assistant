@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.3.1 - 20250115
+
+### Enhancements
+
+* Added autocomplete function in screening process
+* Added support for Mitre EMB3D Framework taxonomy
+* Refactored some parts of the code to be more flexible and reusable
+
+
 ## 2.3.0 - 20241031
 
 ### Enhancements

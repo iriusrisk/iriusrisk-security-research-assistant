@@ -42,14 +42,14 @@ def qselect(question_text, choices):
             splitt = split_array(choices, 30)
             answer = None
             for i, arrd in enumerate(splitt):
-                print(f"Page {i+1}/{len(splitt)}")
+                print(f"Page {i + 1}/{len(splitt)}")
                 prev = questionary.select(message=question_text,
                                           use_shortcuts=True,
                                           use_arrow_keys=True,
-                                          choices=["Next page"]+arrd).ask()
+                                          choices=["Next page"] + arrd).ask()
                 if prev is None:
                     raise typer.Exit(-1)
-                
+
                 if prev != "Next page":
                     answer = prev
                     break
@@ -77,9 +77,9 @@ def qmulti(question_text, choices):
             list_of_arrays = []
             splitt = split_array(choices, 30)
             for i, arrd in enumerate(splitt):
-                print(f"Page {i+1}/{len(splitt)}")
+                print(f"Page {i + 1}/{len(splitt)}")
                 prev = questionary.checkbox(message=question_text,
-                                            choices=["Mark this to move to next page"]+arrd).ask()
+                                            choices=["Mark this to move to next page"] + arrd).ask()
 
                 if prev is None:
                     raise typer.Exit(-1)
@@ -106,6 +106,20 @@ def qmulti(question_text, choices):
 def qtext(question_text, default=""):
     try:
         answer = questionary.text(question_text, default=default).ask()
+    except NoConsoleScreenBufferError:
+        answer = input(question_text)
+
+    if answer is None:
+        raise typer.Exit(-1)
+
+    return answer
+
+
+def qauto(question_text, default="", choices=None):
+    if choices is None:
+        choices = []
+    try:
+        answer = questionary.autocomplete(question_text, choices=choices, default=default).ask()
     except NoConsoleScreenBufferError:
         answer = input(question_text)
 
