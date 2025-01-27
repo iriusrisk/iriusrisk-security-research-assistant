@@ -119,7 +119,10 @@ def qauto(question_text, default="", choices=None):
     if choices is None:
         choices = []
     try:
-        answer = questionary.autocomplete(question_text, choices=choices, default=default).ask()
+        if len(choices) == 0:
+            answer = questionary.text(question_text, default=default).ask()
+        else:
+            answer = questionary.autocomplete(question_text, choices=choices, default=default).ask()
     except NoConsoleScreenBufferError:
         answer = input(question_text)
 

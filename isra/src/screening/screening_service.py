@@ -576,7 +576,8 @@ def autoscreening_init(force=False):
                                 CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE,
                                 CUSTOM_FIELD_ATTACK_ICS_TECHNIQUE,
                                 CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE,
-                                CUSTOM_FIELD_ATLAS_TECHNIQUE]
+                                CUSTOM_FIELD_ATLAS_TECHNIQUE,
+                                CUSTOM_FIELD_EMB3D_TECHNIQUE]
         for custom_field in threat_custom_fields:
             if custom_field not in template["threats"][k]["customFields"]:
                 template["threats"][k]["customFields"][custom_field] = ""
@@ -608,7 +609,8 @@ def autoscreening_init(force=False):
                                  CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION,
                                  CUSTOM_FIELD_ATTACK_ICS_MITIGATION,
                                  CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION,
-                                 CUSTOM_FIELD_ATLAS_MITIGATION]
+                                 CUSTOM_FIELD_ATLAS_MITIGATION,
+                                 CUSTOM_FIELD_EMB3D_MITIGATION]
         for custom_field in control_custom_fields:
             if custom_field not in template["controls"][k]["customFields"]:
                 template["controls"][k]["customFields"][custom_field] = ""
