@@ -296,6 +296,7 @@ def check_custom_fields_are_valid(root):
         errors.extend(aux(threat["ref"], threat["taxonomies"]["attack_mobile_technique"], cfs[IR_SF_T_MITRE]))
         errors.extend(aux(threat["ref"], threat["taxonomies"]["attack_ics_technique"], cfs[IR_SF_T_MITRE]))
         errors.extend(aux(threat["ref"], threat["taxonomies"]["atlas_technique"], cfs[IR_SF_T_MITRE]))
+        errors.extend(aux(threat["ref"], threat["taxonomies"]["emb3d_technique"], cfs[IR_SF_T_MITRE]))
 
         for control in threat["countermeasures"]:
             errors.extend(aux(control["ref"], control["taxonomies"]["scope"], cfs[IR_SF_C_SCOPE]))
@@ -303,5 +304,6 @@ def check_custom_fields_are_valid(root):
             errors.extend(aux(control["ref"], control["taxonomies"]["attack_mobile_mitigation"], cfs[IR_SF_C_MITRE]))
             errors.extend(aux(control["ref"], control["taxonomies"]["attack_ics_mitigation"], cfs[IR_SF_C_MITRE]))
             errors.extend(aux(control["ref"], control["taxonomies"]["atlas_mitigation"], cfs[IR_SF_C_MITRE]))
+            errors.extend(aux(control["ref"], control["taxonomies"]["emb3d_mitigation"], cfs[IR_SF_C_MITRE]))
 
     return errors

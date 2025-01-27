@@ -151,6 +151,7 @@ def read_autoscreening_config():
             "attack_ics_mitigation": "ignore",
             "attack_mobile_mitigation": "ignore",
             "atlas_mitigation": "ignore",
+            "emb3d_mitigation": "ignore",
             "baseline_standard_ref": "init",
             "baseline_standard_section": "init",
             "scope": "append",
@@ -160,7 +161,8 @@ def read_autoscreening_config():
             "attack_enterprise_technique": "append",
             "attack_ics_technique": "ignore",
             "attack_mobile_technique": "ignore",
-            "atlas_technique": "ignore"
+            "atlas_technique": "ignore",
+            "emb3d_technique": "ignore"
         }
         with open(AUTOSCREENING_CONFIG_FILE, 'w') as f:
             yaml.dump(default_parameter_config, f, default_flow_style=False, sort_keys=False)

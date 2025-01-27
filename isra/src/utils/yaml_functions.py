@@ -15,7 +15,8 @@ from isra.src.config.constants import (CUSTOM_FIELD_SCOPE, CUSTOM_FIELD_STRIDE, 
                                        CUSTOM_FIELD_ATTACK_ICS_MITIGATION, CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION,
                                        CUSTOM_FIELD_ATLAS_MITIGATION, CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE,
                                        CUSTOM_FIELD_ATTACK_ICS_TECHNIQUE, CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE,
-                                       CUSTOM_FIELD_ATLAS_TECHNIQUE, EMPTY_TEMPLATE)
+                                       CUSTOM_FIELD_ATLAS_TECHNIQUE, EMPTY_TEMPLATE, CUSTOM_FIELD_EMB3D_MITIGATION,
+                                       CUSTOM_FIELD_EMB3D_TECHNIQUE)
 from isra.src.utils.structure_functions import build_tree_hierarchy
 from isra.src.utils.xml_functions import get_cwe_description, get_original_cwe_weaknesses
 
@@ -68,6 +69,7 @@ def load_yaml_file(component):
             attack_ics_tech = "||".join(th["taxonomies"].get("attack_ics_technique", []))
             attack_mobile_tech = "||".join(th["taxonomies"].get("attack_mobile_technique", []))
             atlas_tech = "||".join(th["taxonomies"].get("atlas_technique", []))
+            emb3d_tech = "||".join(th["taxonomies"].get("emb3d_technique", []))
             stride = "||".join(th["taxonomies"].get("stride", []))
 
             new_threat = {
@@ -86,6 +88,7 @@ def load_yaml_file(component):
                     CUSTOM_FIELD_ATTACK_ICS_TECHNIQUE: attack_ics_tech,
                     CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE: attack_mobile_tech,
                     CUSTOM_FIELD_ATLAS_TECHNIQUE: atlas_tech,
+                    CUSTOM_FIELD_EMB3D_TECHNIQUE: emb3d_tech,
                     CUSTOM_FIELD_STRIDE: stride
                 }
             }
@@ -111,6 +114,7 @@ def load_yaml_file(component):
                 attack_ics_mit = "||".join(c["taxonomies"].get("attack_ics_mitigation", []))
                 attack_mobile_mit = "||".join(c["taxonomies"].get("attack_mobile_mitigation", []))
                 atlas_mit = "||".join(c["taxonomies"].get("atlas_mitigation", []))
+                emb3d_mit = "||".join(c["taxonomies"].get("emb3d_mitigation", []))
                 scope = "||".join(c["taxonomies"].get("scope", []))
 
                 new_control = {
@@ -123,6 +127,7 @@ def load_yaml_file(component):
                         CUSTOM_FIELD_ATTACK_ICS_MITIGATION: attack_ics_mit,
                         CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION: attack_mobile_mit,
                         CUSTOM_FIELD_ATLAS_MITIGATION: atlas_mit,
+                        CUSTOM_FIELD_EMB3D_MITIGATION: emb3d_mit,
                         CUSTOM_FIELD_STANDARD_BASELINE_REF: c.get("base_standard", ""),
                         CUSTOM_FIELD_STANDARD_BASELINE_SECTION: "||".join(c.get("base_standard_section", [])),
                         CUSTOM_FIELD_SCOPE: scope
@@ -214,6 +219,10 @@ def save_yaml_file(template):
                             CUSTOM_FIELD_ATLAS_MITIGATION, "")
                         atlas_mitigation = sorted(atlas_mitigation_val.split("||")) if atlas_mitigation_val else []
 
+                        emb3d_mitigation_val = template["controls"][c_key]["customFields"].get(
+                            CUSTOM_FIELD_EMB3D_MITIGATION, "")
+                        emb3d_mitigation = sorted(emb3d_mitigation_val.split("||")) if emb3d_mitigation_val else []
+
                         countermeasure = {
                             "ref": template["controls"][c_key]["ref"],
                             "name": template["controls"][c_key]["name"],
@@ -231,7 +240,8 @@ def save_yaml_file(template):
                                 "attack_enterprise_mitigation": attack_enterprise_mitigation,
                                 "attack_ics_mitigation": attack_ics_mitigation,
                                 "attack_mobile_mitigation": attack_mobile_mitigation,
-                                "atlas_mitigation": atlas_mitigation
+                                "atlas_mitigation": atlas_mitigation,
+                                "emb3d_mitigation": emb3d_mitigation
                             },
                             "base_standard": template["controls"][c_key]["customFields"].get(
                                 CUSTOM_FIELD_STANDARD_BASELINE_REF, ""),
@@ -265,6 +275,10 @@ def save_yaml_file(template):
                     CUSTOM_FIELD_ATLAS_TECHNIQUE, "")
                 atlas_technique = sorted(atlas_technique_val.split("||")) if atlas_technique_val else []
 
+                emb3d_technique_val = template["threats"][th_key]["customFields"].get(
+                    CUSTOM_FIELD_EMB3D_TECHNIQUE, "")
+                emb3d_technique = sorted(emb3d_technique_val.split("||")) if emb3d_technique_val else []
+
                 threat = {
                     "ref": template["threats"][th_key]["ref"],
                     "name": template["threats"][th_key]["name"],
@@ -282,7 +296,8 @@ def save_yaml_file(template):
                         "attack_enterprise_technique": attack_enterprise_technique,
                         "attack_ics_technique": attack_ics_technique,
                         "attack_mobile_technique": attack_mobile_technique,
-                        "atlas_technique": atlas_technique
+                        "atlas_technique": atlas_technique,
+                        "emb3d_technique": emb3d_technique
                     },
                     "question": template["threats"][th_key].get("question", ""),
                     "question_desc": template["threats"][th_key].get("question_desc", ""),
