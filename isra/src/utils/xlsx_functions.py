@@ -8,7 +8,8 @@ from isra.src.config.constants import EMPTY_TEMPLATE, CUSTOM_FIELD_STANDARD_BASE
     CUSTOM_FIELD_STANDARD_BASELINE_REF, CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION, CUSTOM_FIELD_ATTACK_ICS_MITIGATION, \
     CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION, CUSTOM_FIELD_ATLAS_MITIGATION, CUSTOM_FIELD_SCOPE, \
     CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE, CUSTOM_FIELD_ATTACK_ICS_TECHNIQUE, CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE, \
-    CUSTOM_FIELD_ATLAS_TECHNIQUE, CUSTOM_FIELD_STRIDE, STRIDE_LIST
+    CUSTOM_FIELD_ATLAS_TECHNIQUE, CUSTOM_FIELD_STRIDE, STRIDE_LIST, CUSTOM_FIELD_EMB3D_TECHNIQUE, \
+    CUSTOM_FIELD_EMB3D_MITIGATION
 from isra.src.utils.cwe_functions import get_cwe_description, get_original_cwe_weaknesses
 from isra.src.utils.structure_functions import build_tree_hierarchy
 
@@ -93,6 +94,7 @@ def load_xlsx_file(component):
         attack_ics_tech = "||".join(get_values(taxonomies_sheet, th["ref"], CUSTOM_FIELD_ATTACK_ICS_TECHNIQUE))
         attack_mobile_tech = "||".join(get_values(taxonomies_sheet, th["ref"], CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE))
         atlas_tech = "||".join(get_values(taxonomies_sheet, th["ref"], CUSTOM_FIELD_ATLAS_TECHNIQUE))
+        emb3d_tech = "||".join(get_values(taxonomies_sheet, th["ref"], CUSTOM_FIELD_EMB3D_TECHNIQUE))
         stride = "||".join(get_values(taxonomies_sheet, th["ref"], CUSTOM_FIELD_STRIDE))
 
         new_threat = {
@@ -111,6 +113,7 @@ def load_xlsx_file(component):
                 CUSTOM_FIELD_ATTACK_ICS_TECHNIQUE: attack_ics_tech,
                 CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE: attack_mobile_tech,
                 CUSTOM_FIELD_ATLAS_TECHNIQUE: atlas_tech,
+                CUSTOM_FIELD_EMB3D_TECHNIQUE: emb3d_tech,
                 CUSTOM_FIELD_STRIDE: stride
             }
         }
@@ -139,6 +142,7 @@ def load_xlsx_file(component):
             attack_ics_mit = "||".join(get_values(taxonomies_sheet, c["ref"], CUSTOM_FIELD_ATTACK_ICS_MITIGATION))
             attack_mobile_mit = "||".join(get_values(taxonomies_sheet, c["ref"], CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION))
             atlas_mit = "||".join(get_values(taxonomies_sheet, c["ref"], CUSTOM_FIELD_ATLAS_MITIGATION))
+            emb3d_mit = "||".join(get_values(taxonomies_sheet, c["ref"], CUSTOM_FIELD_EMB3D_MITIGATION))
             scope = "||".join(get_values(taxonomies_sheet, c["ref"], CUSTOM_FIELD_SCOPE))
 
             base_standard_sections_string = c.get("base_standard_section", "")
@@ -161,6 +165,7 @@ def load_xlsx_file(component):
                     CUSTOM_FIELD_ATTACK_ICS_MITIGATION: attack_ics_mit,
                     CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION: attack_mobile_mit,
                     CUSTOM_FIELD_ATLAS_MITIGATION: atlas_mit,
+                    CUSTOM_FIELD_EMB3D_MITIGATION: emb3d_mit,
                     CUSTOM_FIELD_STANDARD_BASELINE_REF: c.get("base_standard", ""),
                     CUSTOM_FIELD_STANDARD_BASELINE_SECTION: "||".join(base_standard_sections),
                     CUSTOM_FIELD_SCOPE: scope
