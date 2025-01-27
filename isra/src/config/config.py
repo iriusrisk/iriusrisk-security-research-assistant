@@ -141,29 +141,31 @@ def list_assistants():
 
 
 def read_autoscreening_config():
+    default_parameter_config = {
+        "cost": "replace",
+        "question": "replace",
+        "question_desc": "ignore",
+        "dataflow_tags": "append",
+        "attack_enterprise_mitigation": "append",
+        "attack_ics_mitigation": "ignore",
+        "attack_mobile_mitigation": "ignore",
+        "atlas_mitigation": "ignore",
+        "emb3d_mitigation": "ignore",
+        "baseline_standard_ref": "init",
+        "baseline_standard_section": "init",
+        "scope": "append",
+        "cwe": "init",
+        "riskRating": "replace",
+        "stride_lm": "append",
+        "attack_enterprise_technique": "append",
+        "attack_ics_technique": "ignore",
+        "attack_mobile_technique": "ignore",
+        "atlas_technique": "ignore",
+        "emb3d_technique": "ignore"
+    }
+
     if not os.path.exists(AUTOSCREENING_CONFIG_FILE):
-        default_parameter_config = {
-            "cost": "replace",
-            "question": "replace",
-            "question_desc": "ignore",
-            "dataflow_tags": "append",
-            "attack_enterprise_mitigation": "append",
-            "attack_ics_mitigation": "ignore",
-            "attack_mobile_mitigation": "ignore",
-            "atlas_mitigation": "ignore",
-            "emb3d_mitigation": "ignore",
-            "baseline_standard_ref": "init",
-            "baseline_standard_section": "init",
-            "scope": "append",
-            "cwe": "init",
-            "riskRating": "replace",
-            "stride_lm": "append",
-            "attack_enterprise_technique": "append",
-            "attack_ics_technique": "ignore",
-            "attack_mobile_technique": "ignore",
-            "atlas_technique": "ignore",
-            "emb3d_technique": "ignore"
-        }
+
         with open(AUTOSCREENING_CONFIG_FILE, 'w') as f:
             yaml.dump(default_parameter_config, f, default_flow_style=False, sort_keys=False)
             print(f"Autoscreening parameters generated in {AUTOSCREENING_CONFIG_FILE}")
@@ -172,6 +174,17 @@ def read_autoscreening_config():
     else:
         with open(AUTOSCREENING_CONFIG_FILE, 'r') as f:
             parameter_config = yaml.safe_load(f)
+
+    modify = False
+    for k in default_parameter_config.keys():
+        if k not in parameter_config.keys():
+            parameter_config[k] = "ignore"
+            modify = True
+
+    if modify:
+        with open(AUTOSCREENING_CONFIG_FILE, 'w') as f:
+            yaml.dump(parameter_config, f, default_flow_style=False, sort_keys=False)
+            print(f"Autoscreening parameters generated in {AUTOSCREENING_CONFIG_FILE}")
 
     return parameter_config
 
