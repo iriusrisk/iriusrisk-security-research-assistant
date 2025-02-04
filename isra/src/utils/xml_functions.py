@@ -557,7 +557,7 @@ def import_content_into_template(template, xml_text=None, root=None):
             }
 
             for weakness in rp.find("weaknesses").iter("weakness"):
-                weaknessdesc = weakness.find("desc").text
+                weaknessdesc = weakness.find("desc").text or ""
 
                 template["weaknesses"][weakness.attrib["ref"]] = {
                     "ref": weakness.attrib["ref"],
@@ -567,8 +567,7 @@ def import_content_into_template(template, xml_text=None, root=None):
                 }
 
             for control in rp.find("countermeasures").iter("countermeasure"):
-
-                controldesc = control.find("desc").text
+                controldesc = control.find("desc").text or ""
                 customfields = dict()
                 for cf in control.iter("customField"):
                     if cf.attrib["value"] != "":
@@ -613,7 +612,7 @@ def import_content_into_template(template, xml_text=None, root=None):
                 }
 
                 for threat in usecase.iter("threat"):
-                    desc = threat.find("desc").text
+                    desc = threat.find("desc").text or ""
                     customfields = dict()
                     for cf in threat.iter("customField"):
                         if cf.attrib["value"] != "":
