@@ -291,19 +291,32 @@ def check_custom_fields_are_valid(root):
     errors = []
 
     for threat in root['component']['risk_pattern']['threats']:
-        errors.extend(aux(threat["ref"], threat["taxonomies"]["stride"], cfs[IR_SF_T_STRIDE]))
-        errors.extend(aux(threat["ref"], threat["taxonomies"]["attack_enterprise_technique"], cfs[IR_SF_T_MITRE]))
-        errors.extend(aux(threat["ref"], threat["taxonomies"]["attack_mobile_technique"], cfs[IR_SF_T_MITRE]))
-        errors.extend(aux(threat["ref"], threat["taxonomies"]["attack_ics_technique"], cfs[IR_SF_T_MITRE]))
-        errors.extend(aux(threat["ref"], threat["taxonomies"]["atlas_technique"], cfs[IR_SF_T_MITRE]))
-        errors.extend(aux(threat["ref"], threat["taxonomies"]["emb3d_technique"], cfs[IR_SF_T_MITRE]))
+        if "stride" in threat["taxonomies"]:
+            errors.extend(aux(threat["ref"], threat["taxonomies"]["stride"], cfs[IR_SF_T_STRIDE]))
+        if "attack_enterprise_technique" in threat["taxonomies"]:
+            errors.extend(aux(threat["ref"], threat["taxonomies"]["attack_enterprise_technique"], cfs[IR_SF_T_MITRE]))
+        if "attack_mobile_technique" in threat["taxonomies"]:
+            errors.extend(aux(threat["ref"], threat["taxonomies"]["attack_mobile_technique"], cfs[IR_SF_T_MITRE]))
+        if "attack_ics_technique" in threat["taxonomies"]:
+            errors.extend(aux(threat["ref"], threat["taxonomies"]["attack_ics_technique"], cfs[IR_SF_T_MITRE]))
+        if "atlas_technique" in threat["taxonomies"]:
+            errors.extend(aux(threat["ref"], threat["taxonomies"]["atlas_technique"], cfs[IR_SF_T_MITRE]))
+        if "emb3d_technique" in threat["taxonomies"]:
+            errors.extend(aux(threat["ref"], threat["taxonomies"]["emb3d_technique"], cfs[IR_SF_T_MITRE]))
+
 
         for control in threat["countermeasures"]:
-            errors.extend(aux(control["ref"], control["taxonomies"]["scope"], cfs[IR_SF_C_SCOPE]))
-            errors.extend(aux(control["ref"], control["taxonomies"]["attack_enterprise_mitigation"], cfs[IR_SF_C_MITRE]))
-            errors.extend(aux(control["ref"], control["taxonomies"]["attack_mobile_mitigation"], cfs[IR_SF_C_MITRE]))
-            errors.extend(aux(control["ref"], control["taxonomies"]["attack_ics_mitigation"], cfs[IR_SF_C_MITRE]))
-            errors.extend(aux(control["ref"], control["taxonomies"]["atlas_mitigation"], cfs[IR_SF_C_MITRE]))
-            errors.extend(aux(control["ref"], control["taxonomies"]["emb3d_mitigation"], cfs[IR_SF_C_MITRE]))
+            if "scope" in control["taxonomies"]:
+                errors.extend(aux(control["ref"], control["taxonomies"]["scope"], cfs[IR_SF_C_SCOPE]))
+            if "attack_enterprise_mitigation" in control["taxonomies"]:
+                errors.extend(aux(control["ref"], control["taxonomies"]["attack_enterprise_mitigation"], cfs[IR_SF_C_MITRE]))
+            if "attack_mobile_mitigation" in control["taxonomies"]:
+                errors.extend(aux(control["ref"], control["taxonomies"]["attack_mobile_mitigation"], cfs[IR_SF_C_MITRE]))
+            if "attack_ics_mitigation" in control["taxonomies"]:
+                errors.extend(aux(control["ref"], control["taxonomies"]["attack_ics_mitigation"], cfs[IR_SF_C_MITRE]))
+            if "atlas_mitigation" in control["taxonomies"]:
+                errors.extend(aux(control["ref"], control["taxonomies"]["atlas_mitigation"], cfs[IR_SF_C_MITRE]))
+            if "emb3d_mitigation" in control["taxonomies"]:
+                errors.extend(aux(control["ref"], control["taxonomies"]["emb3d_mitigation"], cfs[IR_SF_C_MITRE]))
 
     return errors
