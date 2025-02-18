@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.3.2 - 20250218
+
+### Enhancements
+
+* Minor bug fixes
+
 ## 2.3.1 - 20250204
 
 ### Enhancements
