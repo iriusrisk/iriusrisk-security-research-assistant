@@ -665,8 +665,7 @@ SF-MITRE-T-TYPE:
 - ATT&CK Enterprise - T1193 - Spearphishing Attachment
 - ATT&CK Enterprise - T1194 - Spearphishing via Service
 - ATT&CK Enterprise - T1195 - Supply Chain Compromise
-- ATT&CK Enterprise - T1195.001 - Compromise Software Dependencies and Development
-- Tools
+- ATT&CK Enterprise - T1195.001 - Compromise Software Dependencies and Development Tools
 - ATT&CK Enterprise - T1195.002 - Compromise Software Supply Chain
 - ATT&CK Enterprise - T1195.003 - Compromise Hardware Supply Chain
 - ATT&CK Enterprise - T1196 - Control Panel Items
