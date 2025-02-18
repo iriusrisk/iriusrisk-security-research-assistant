@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "isra"
-version = "2.3.1"
+version = "2.3.2"
 description = "IriusRisk Security Research Assistant: a tool to create components as code"
 authors = ["Alvaro Reyes <areyes@iriusrisk.com>"]
 readme = "README.md"
