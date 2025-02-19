@@ -483,6 +483,7 @@ def info(full: Annotated[bool, typer.Option(help="Shows all properties")] = Fals
         "attack_ics_mitigation",
         "attack_mobile_mitigation",
         "atlas_mitigation",
+        "emb3d_mitigation",
         "baseline_standard_ref",
         "baseline_standard_section",
         "scope",
@@ -494,6 +495,7 @@ def info(full: Annotated[bool, typer.Option(help="Shows all properties")] = Fals
         "attack_ics_technique",
         "attack_mobile_technique",
         "atlas_technique",
+        "emb3d_technique",
         "stride_lm",
         "categoryRef"
     ]
