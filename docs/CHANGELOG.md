@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.3.3 - 20250219
+
+### Enhancements
+
+* Added Emb3d as a parameter for 'isra component info'
+
 ## 2.3.2 - 20250218
 
 ### Enhancements
