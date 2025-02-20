@@ -11,7 +11,8 @@ from isra.src.config.constants import NON_ASCII_CODES, CUSTOM_FIELD_ATTACK_ENTER
     CUSTOM_FIELD_ATTACK_ICS_TECHNIQUE, CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE, CUSTOM_FIELD_ATLAS_TECHNIQUE, \
     CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION, CUSTOM_FIELD_ATTACK_ICS_MITIGATION, \
     CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION, CUSTOM_FIELD_ATLAS_MITIGATION, IR_SF_C_STANDARD_BASELINES, \
-    IR_SF_C_STANDARD_SECTION, IR_SF_C_SCOPE, IR_SF_C_MITRE, IR_SF_T_MITRE, IR_SF_T_STRIDE
+    IR_SF_C_STANDARD_SECTION, IR_SF_C_SCOPE, IR_SF_C_MITRE, IR_SF_T_MITRE, IR_SF_T_STRIDE, \
+    CUSTOM_FIELD_EMB3D_MITIGATION, CUSTOM_FIELD_EMB3D_TECHNIQUE
 from isra.src.utils.questionary_wrapper import qselect, qtext
 
 
@@ -151,6 +152,7 @@ def split_mitre_custom_field_threats(mitre_value: str):
     attack_ics = []
     attack_mobile = []
     atlas = []
+    emb3d = []
     for val in mitre_value.split("||"):
         if "ATT&CK ICS" in val:
             attack_ics.append(val)
@@ -160,12 +162,16 @@ def split_mitre_custom_field_threats(mitre_value: str):
             attack_mobile.append(val)
         elif "ATLAS" in val:
             atlas.append(val)
+        elif "EMB3D" in val:
+            emb3d.append(val)
         else:
             pass
     customfields[CUSTOM_FIELD_ATTACK_ENTERPRISE_TECHNIQUE] = "||".join(set(attack))
     customfields[CUSTOM_FIELD_ATTACK_ICS_TECHNIQUE] = "||".join(set(attack_ics))
     customfields[CUSTOM_FIELD_ATTACK_MOBILE_TECHNIQUE] = "||".join(set(attack_mobile))
     customfields[CUSTOM_FIELD_ATLAS_TECHNIQUE] = "||".join(set(atlas))
+    customfields[CUSTOM_FIELD_EMB3D_TECHNIQUE] = "||".join(set(emb3d))
+
     return customfields
 
 
@@ -175,6 +181,7 @@ def split_mitre_custom_field_controls(mitre_value: str):
     attack_ics = []
     attack_mobile = []
     atlas = []
+    emb3d = []
     for val in mitre_value.split("||"):
         if "ATT&CK ICS" in val:
             attack_ics.append(val)
@@ -184,12 +191,15 @@ def split_mitre_custom_field_controls(mitre_value: str):
             attack_mobile.append(val)
         elif "ATLAS" in val:
             atlas.append(val)
+        elif "EMB3D" in val:
+            emb3d.append(val)
         else:
             pass
     customfields[CUSTOM_FIELD_ATTACK_ENTERPRISE_MITIGATION] = "||".join(set(attack))
     customfields[CUSTOM_FIELD_ATTACK_ICS_MITIGATION] = "||".join(set(attack_ics))
     customfields[CUSTOM_FIELD_ATTACK_MOBILE_MITIGATION] = "||".join(set(attack_mobile))
     customfields[CUSTOM_FIELD_ATLAS_MITIGATION] = "||".join(set(atlas))
+    customfields[CUSTOM_FIELD_EMB3D_MITIGATION] = "||".join(set(emb3d))
     return customfields
 
 
