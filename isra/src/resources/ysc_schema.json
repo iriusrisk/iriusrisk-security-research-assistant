@@ -435,7 +435,6 @@
                           "title": "Items",
                           "type": "string",
                           "default": "",
-                          "pattern": "^[\\x20-\\x7E]*$",
                           "examples": [
                             "T1001"
                           ]
@@ -719,7 +718,6 @@
                                 "title": "Items",
                                 "type": "string",
                                 "default": "",
-                                "pattern": "^[\\x20-\\x7E]*$",
                                 "examples": [
                                   "EMB3D - MID-083 - Network Firewall/Access Control List"
                                 ]
