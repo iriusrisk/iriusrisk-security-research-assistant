@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.4.0 - 20250310
+
+### Features
+
+* New 'isra standards reset' function that removes all standards in a component
+* New way to expand standards, where only those related with OpenCRE will be replaced while others will persist
+
 ## 2.3.3 - 20250219
 
 ### Enhancements

@@ -9,7 +9,7 @@ from isra.src.component.component import balance_mitigation_values_process, rest
 from isra.src.component.template import check_current_component
 from isra.src.screening.screening_service import autoscreening_init, set_default_baseline_standard, fix_mitre_values, \
     fix_component, custom_fix_component
-from isra.src.standards.standards import expand_process
+from isra.src.standards.standards import expand_process, set_standard_on_components
 from isra.src.utils.api_functions import add_to_batch
 
 from isra.src.utils.xml_functions import *
@@ -102,5 +102,22 @@ def fix2():
         custom_fix_component()
 
         print(f"Component fixed successfully")
+    except Exception as e:
+        print(f"An error happened when fixing the component: {e}")
+
+
+@app.command()
+def standards(standard_ref: Annotated[str, typer.Option(help="Standard ref")] = "",
+              table: Annotated[str, typer.Option(help="Excel file containing the standards to import")] = ""):   
+    """Imports standards from an Excel file and applies them to the YSC files in the given folder"""
+
+    if standard_ref == "" or table == "":
+        print("Help: isra srt standards --standard-ref custom_ref --table /path/to/excel/file.xlsx")
+        raise typer.Exit(-1)
+
+    try:
+        set_standard_on_components(standard_ref, table)
+
+        print(f"Standard added successfully")
     except Exception as e:
         print(f"An error happened when fixing the component: {e}")

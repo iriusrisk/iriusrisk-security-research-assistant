@@ -1,24 +1,98 @@
 from typing import Annotated
 
 import typer
+import pandas as pd
 from rich import print
 from rich.table import Table
+import os
 
 from isra.src.component.component import read_current_component, write_current_component
 from isra.src.config.config import get_resource
 from isra.src.config.constants import OPENCRE_PLUS, CRE_MAPPING_NAME, CUSTOM_FIELD_STANDARD_BASELINE_REF, \
     CUSTOM_FIELD_STANDARD_BASELINE_SECTION
+from isra.src.utils.gpt_functions import get_prompt, query_chatgpt
 
 app = typer.Typer(no_args_is_help=True, add_help_option=False)
 
 
-def expand_process(template, verbose=False):
+def extract_standard_from_table(text):
+    messages = [
+        {"role": "system",
+         "content": get_prompt("extract_standard_from_table.md")},
+        {"role": "user", "content": text}
+    ]
 
+    return query_chatgpt(messages)
+
+def set_standard_on_components(standard_ref, table):
+    print(standard_ref)
+    print(table)
+
+    template = read_current_component()
+
+    try:
+        df = pd.read_excel(table)
+        
+        # Validate DataFrame structure
+        required_columns = ['ID', 'Name', 'Description']
+        missing_columns = [col for col in required_columns if col not in df.columns]
+        
+        if missing_columns:
+            print(f"Error: Missing required columns: {', '.join(missing_columns)}")
+            print("The Excel file must contain a table with the following columns: ID, Name, Description")
+            raise typer.Exit(-1)
+            
+    except Exception as e:
+        print("Couldn't read Excel file. Ensure that the file only has one sheet and a table with the following columns: ID, Name, Description")
+        raise typer.Exit(-1)
+    
+    for control_ref, control in template["controls"].items():
+        control_name = control["name"]
+        print(f"{control_ref}: {control_name}")
+        control_desc = control["desc"]
+
+        control_part = f"<countermeasure>Name:{control_name}{os.linesep}Description:{control_desc}</countermeasure>"
+        # Convert DataFrame rows to string format for the table part
+        table_content = df.apply(lambda row: f"ID:{row['ID']}{os.linesep}Name:{row['Name']}{os.linesep}Description:{row['Description']}", axis=1)
+        table_part = f"<table>{os.linesep.join(table_content)}</table>"
+
+        result = extract_standard_from_table(control_part+table_part)
+        
+        # Validate that the extracted ID exists in the DataFrame
+        if result not in df['ID'].values:
+            print(f"Warning: Extracted ID '{result}' not found in the table for control {control_ref}")
+            continue
+        
+        # Get the Name associated with the ID
+        standard_name = df[df['ID'] == result]['Name'].iloc[0]
+        print(f"Result: {result} - {standard_name}")
+
+        control["standards"].append({
+                            "standard-ref": standard_ref,
+                            "standard-section": result
+                        })
+
+    write_current_component(template)
+
+
+def expand_process(template, verbose=False):
     mappings_yaml = get_resource(OPENCRE_PLUS)
 
+    # First, get all standard names that appear in OpenCRE+
+    opencre_standards = {'CRE'}
+    for cre_values in mappings_yaml.values():
+        opencre_standards.update(cre_values.keys())
+    
     for control_ref, control in template["controls"].items():
-        # Set a empty list to start from a blank state
-        control["standards"] = list()
+        # Instead of clearing the list, filter out standards from OpenCRE+
+        if "standards" in control:
+            control["standards"] = [
+                std for std in control["standards"] 
+                if std["standard-ref"] not in opencre_standards
+            ]
+        else:
+            control["standards"] = list()
+
         # Get the baseline standard that should have been set
         try:
             assert CUSTOM_FIELD_STANDARD_BASELINE_REF in control["customFields"], "No base standard"
@@ -87,11 +161,21 @@ def expand_process(template, verbose=False):
 
     return template
 
-def expand_init():
+def reset_process(template):
+    for control_ref, control in template["controls"].items():
+        control["standards"] = list()
+
+    return template
+
+def expand_init(verbose):
     template = read_current_component()
-    template = expand_process(template)
+    template = expand_process(template, verbose)
     write_current_component(template)
 
+def reset_init():
+    template = read_current_component()
+    template = reset_process(template)
+    write_current_component(template)
 
 def show_init(standard_name, standard_section):
     table = Table("OpenCRE ID", "Standard", "Section")
@@ -119,11 +203,18 @@ def callback():
 
 
 @app.command()
-def expand():
+def expand(verbose: Annotated[bool, typer.Option(help="Verbose (True/False)")] = False):
     """
     This function will expand the standard set of a countermeasure by using the base standard
     """
-    expand_init()
+    expand_init(verbose)
+
+@app.command()
+def reset():
+    """
+    This function will expand the standard set of a countermeasure by using the base standard
+    """
+    reset_init()  
 
 
 @app.command()
