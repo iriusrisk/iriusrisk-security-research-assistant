@@ -86,7 +86,8 @@
             "alibaba-cloud",
             "embedded-device",
             "operating-system",
-            "huawei-cloud"
+            "huawei-cloud",
+            "openstack"
           ],
           "examples": [
             "data-store"

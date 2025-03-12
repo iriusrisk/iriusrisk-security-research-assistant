@@ -480,6 +480,11 @@ CATEGORIES_LIST = {
         "ref": "huawei-cloud",
         "name": "Huawei Cloud",
         "desc": ""
+    },
+    "openstack": {
+        "ref": "openstack",
+        "name": "OpenStack",
+        "desc": ""
     }
 }
 
