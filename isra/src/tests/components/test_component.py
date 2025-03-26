@@ -39,6 +39,13 @@ class TestComponent(unittest.TestCase):
                 errors = check_duplicated_standards_sections(self.roots[component])
                 self.assertCountEqual(errors, [])
 
+    def test_empty_standards_sections_per_control(self):
+        """Check that there are no countermeasures with duplicated standards"""
+        for component in self.components:
+            with self.subTest(component=component):
+                errors = check_empty_standard_sections(self.roots[component])
+                self.assertCountEqual(errors, [])
+
     def test_duplicated_references(self):
         """Check that there are no elements with duplicated references"""
         for component in self.components:
@@ -86,6 +93,13 @@ class TestComponent(unittest.TestCase):
         for component in self.components:
             with self.subTest(component=component):
                 errors = check_empty_countermeasure_descriptions(self.roots[component])
+                self.assertCountEqual(errors, [])
+
+    def test_empty_countermeasure_baseline_standards(self):
+        """Check that there are no countermeasures with empty descriptions"""
+        for component in self.components:
+            with self.subTest(component=component):
+                errors = check_empty_countermeasure_base_standards(self.roots[component])
                 self.assertCountEqual(errors, [])
 
     def test_problematic_characters_in_questions(self):

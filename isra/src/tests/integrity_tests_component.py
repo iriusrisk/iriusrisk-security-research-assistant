@@ -77,6 +77,29 @@ def check_duplicated_standards_sections(root):
 
     return errors
 
+def check_empty_standard_sections(root):
+    """
+    Checks if any countermeasures in the given YAML root object
+    have an empty 'base_standard_section' list. Returns a list of error messages.
+    """
+    errors = []
+
+    yaml_fields = ["countermeasures"]
+    all_countermeasures = collect_field_values_from_yaml_data(root, yaml_fields)
+
+    for countermeasures in all_countermeasures:
+        for countermeasure in countermeasures:
+            baseline_sections = countermeasure.get('base_standard_section', [])
+            if not baseline_sections:
+                component_ref = root.get('component', {}).get('ref', 'unknown')
+                countermeasure_ref = countermeasure.get('ref', 'unknown')
+                errors.append(
+                    f"Component: {component_ref} --> Countermeasure ref: {countermeasure_ref} "
+                    f"has an empty baseline standard sections"
+                )
+
+    return errors
+
 
 def check_duplicated_references(root):
     errors = []
@@ -208,6 +231,20 @@ def check_empty_countermeasure_descriptions(root):
             if not countermeasure['description']:
                 errors.append(f"Component: {root['component']['ref']} --> Countermeasure ref: {countermeasure['ref']} "
                               f"has an empty description")
+
+    return errors
+
+def check_empty_countermeasure_base_standards(root):
+    errors = []
+
+    #    print(f"Component: {root['component']['ref']}")
+    yaml_fields = ["countermeasures"]
+    countermeasures_fields_found = collect_field_values_from_yaml_data(root, yaml_fields)
+    for i, countermeasures in enumerate(countermeasures_fields_found):
+        for j, countermeasure in enumerate(countermeasures):
+            if not countermeasure['base_standard']:
+                errors.append(f"Component: {root['component']['ref']} --> Countermeasure ref: {countermeasure['ref']} "
+                              f"has an empty baseline standard")
 
     return errors
 
