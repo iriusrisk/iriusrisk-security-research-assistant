@@ -59,7 +59,7 @@ def check_duplicated_components(roots):
     return errors
 
 
-def check_duplicated_risk_patterns(roots):
+def check_duplicated_risk_pattern_refs(roots):
     errors = []
     risk_pattern_refs = list()
 
@@ -69,6 +69,21 @@ def check_duplicated_risk_patterns(roots):
     counter = Counter(risk_pattern_refs)
     for k, v in counter.items():
         if v > 1:
-            errors.append(f"Risk-Pattern {k} appears {v} times")
+            errors.append(f"Risk-Pattern ref {k} appears {v} times")
+
+    return errors
+
+
+def check_duplicated_risk_pattern_names(roots):
+    errors = []
+    risk_pattern_refs = list()
+
+    for component_path, yaml_root in roots.items():
+        risk_pattern_refs.append(yaml_root["component"]["risk_pattern"]["name"])
+
+    counter = Counter(risk_pattern_refs)
+    for k, v in counter.items():
+        if v > 1:
+            errors.append(f"Risk-Pattern name {k} appears {v} times")
 
     return errors

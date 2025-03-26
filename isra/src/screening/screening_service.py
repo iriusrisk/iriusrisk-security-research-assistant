@@ -28,7 +28,7 @@ warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
 def fix_description(text, feedback):
     messages = [
-        {"role": "system", "content": get_prompt("fix_description.md")},
+        {"role": "system", "content": get_prompt("generate_control_description.md")},
         {"role": "user", "content": text},
         {"role": "user", "content": feedback}
     ]
@@ -817,23 +817,22 @@ def custom_fix_component():
     template = read_current_component()
 
 
-    for threat in template["threats"].values():
-        print(threat["desc"])
-
-        answer, current_value = fix_description(threat["desc"], "")
-        ss = extract_json(answer)
-        print(answer)
-
-        threat["desc"] = ss["description"]
+    # for threat in template["threats"].values():
+    #     print(threat["desc"])
+    #
+    #     answer, current_value = fix_description(threat["desc"], "")
+    #     ss = extract_json(answer)
+    #     print(answer)
+    #
+    #     threat["desc"] = ss["description"]
 
     for control in template["controls"].values():
         print(control["desc"])
 
-        answer, current_value = fix_description(control["desc"], "")
-        ss = extract_json(answer)
+        answer, current_value = fix_description(control["name"], "")
         print(answer)
 
-        control["desc"] = ss["description"]
+        control["desc"] = answer
 
 
     write_current_component(template)

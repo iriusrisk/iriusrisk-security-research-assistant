@@ -31,7 +31,12 @@ class TestAllComponents(unittest.TestCase):
 
     def test_duplicated_risk_pattern_refs(self):
         """Check that a risk pattern ref cannot be duplicated"""
-        errors = check_duplicated_risk_patterns(self.roots)
+        errors = check_duplicated_risk_pattern_refs(self.roots)
+        self.assertCountEqual(errors, [])
+
+    def test_duplicated_risk_pattern_names(self):
+        """Check that a risk pattern ref cannot be duplicated"""
+        errors = check_duplicated_risk_pattern_names(self.roots)
         self.assertCountEqual(errors, [])
 
 

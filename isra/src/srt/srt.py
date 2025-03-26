@@ -54,7 +54,7 @@ def auto():
     """
     Creates a component automatically
     """
-    with open("hardware.txt", "r") as f:
+    with open("functional.txt", "r") as f:
         components = f.read().splitlines()
 
         for c in components:
