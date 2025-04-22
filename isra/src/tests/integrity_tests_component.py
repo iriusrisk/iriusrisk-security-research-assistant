@@ -248,6 +248,20 @@ def check_empty_countermeasure_base_standards(root):
 
     return errors
 
+def check_empty_countermeasure_cwe_impact(root):
+    errors = []
+
+    #    print(f"Component: {root['component']['ref']}")
+    yaml_fields = ["countermeasures"]
+    countermeasures_fields_found = collect_field_values_from_yaml_data(root, yaml_fields)
+    for i, countermeasures in enumerate(countermeasures_fields_found):
+        for j, countermeasure in enumerate(countermeasures):
+            if not countermeasure['cwe_impact']:
+                errors.append(f"Component: {root['component']['ref']} --> Countermeasure ref: {countermeasure['ref']} "
+                              f"has an empty cwe_impact")
+
+    return errors
+
 
 def check_problematic_characters_in_questions(root):
     errors = []

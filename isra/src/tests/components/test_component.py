@@ -96,10 +96,17 @@ class TestComponent(unittest.TestCase):
                 self.assertCountEqual(errors, [])
 
     def test_empty_countermeasure_baseline_standards(self):
-        """Check that there are no countermeasures with empty descriptions"""
+        """Check that there are no countermeasures with empty baseline_standards"""
         for component in self.components:
             with self.subTest(component=component):
                 errors = check_empty_countermeasure_base_standards(self.roots[component])
+                self.assertCountEqual(errors, [])
+
+    def test_empty_countermeasure_cwe_impact(self):
+        """Check that there are no countermeasures with empty baseline_standards"""
+        for component in self.components:
+            with self.subTest(component=component):
+                errors = check_empty_countermeasure_cwe_impact(self.roots[component])
                 self.assertCountEqual(errors, [])
 
     def test_problematic_characters_in_questions(self):
