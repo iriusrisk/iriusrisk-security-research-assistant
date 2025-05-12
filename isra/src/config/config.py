@@ -223,14 +223,7 @@ def update():
                    "component_input_path", "ile_root_folder"]:
             value = qpath("Write the new value: ", default=properties[opt])
         elif opt == "gpt_model":
-            value = qselect("Select model (choose gpt-4 if not sure):", choices=[
-                "gpt-3.5-turbo-0613",
-                "gpt-3.5-turbo-1106",
-                "gpt-3.5-turbo-16k",
-                "gpt-4",
-                "gpt-4-32k",
-                "gpt-4o"
-            ])
+            value = qtext("Write the new value: ", default=properties[opt])
         elif opt == "openai_assistant_id":
             value = qselect("Select OpenAI Assistant ID:", choices=list_assistants())
             if value == "No assistant":

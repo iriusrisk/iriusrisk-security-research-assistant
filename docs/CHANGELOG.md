@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.4.1 - 20250512
+
+### Features
+
+* New screening functions to add Mitre ATLAS to threats and countermeasures
+
+### Enhancements
+
+* Fixed bug related with Click (Typer's base library) that was causing an execution error
+* Removed GPT model selectable in isra config update. Now the value has to be written manually
+
+
+
 ## 2.4.0 - 20250310
 
 ### Features

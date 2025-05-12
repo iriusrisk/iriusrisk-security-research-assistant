@@ -128,6 +128,33 @@ def get_emb3d_mitigation(item, feedback):
             item["customFields"].get(CUSTOM_FIELD_EMB3D_MITIGATION, ""))
 
 
+def get_atlas_technique(item, feedback):
+    text = item["name"] + ": " + beautify(item["desc"])
+    messages = [
+        {"role": "system",
+         "content": get_prompt("get_atlas_technique.md")},
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
+    ]
+
+    result = query_chatgpt(messages)
+    return (check_valid_value(result, IR_SF_T_MITRE),
+            item["customFields"].get(CUSTOM_FIELD_ATLAS_TECHNIQUE, ""))
+
+
+def get_atlas_mitigation(item, feedback):
+    text = item["name"] + ": " + beautify(item["desc"])
+    messages = [
+        {"role": "system", "content": get_prompt("get_atlas_mitigation.md")},
+        {"role": "user", "content": text},
+        {"role": "user", "content": feedback}
+    ]
+
+    result = query_chatgpt(messages)
+    return (check_valid_value(result, IR_SF_C_MITRE),
+            item["customFields"].get(CUSTOM_FIELD_ATLAS_MITIGATION, ""))
+
+
 def get_intended_scope(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
     messages = [
@@ -327,6 +354,14 @@ def save_emb3d_technique(template, to_update, action="init"):
 
 def save_emb3d_mitigation(template, to_update, action="init"):
     save_controls_custom_fields(template, CUSTOM_FIELD_EMB3D_MITIGATION, to_update, action)
+
+
+def save_atlas_technique(template, to_update, action="init"):
+    save_threats_custom_fields(template, CUSTOM_FIELD_ATLAS_TECHNIQUE, to_update, action)
+
+
+def save_atlas_mitigation(template, to_update, action="init"):
+    save_controls_custom_fields(template, CUSTOM_FIELD_ATLAS_MITIGATION, to_update, action)
 
 
 def save_intended_scope(template, to_update, action="init"):

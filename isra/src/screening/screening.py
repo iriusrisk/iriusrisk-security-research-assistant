@@ -10,7 +10,7 @@ from isra.src.screening.screening_service import get_all_threats, screening, get
     get_baseline_standard_section, save_baseline_standard_section, get_cia_triad, save_cia_triad, get_proper_cost, \
     save_proper_cost, get_proper_cwe, save_proper_cwe, generate_question, save_question, \
     autoscreening_init, fix_component, get_emb3d_technique, save_emb3d_technique, get_emb3d_mitigation, \
-    save_emb3d_mitigation
+    save_emb3d_mitigation, get_atlas_technique, save_atlas_technique, get_atlas_mitigation, save_atlas_mitigation
 
 app = typer.Typer(no_args_is_help=True, add_help_option=False)
 
@@ -67,6 +67,25 @@ def embed_mit():
     """
     items = get_all_controls()
     screening(items, get_emb3d_mitigation, save_emb3d_mitigation, choices=get_sf_values(IR_SF_C_MITRE))
+
+
+@app.command()
+def atlas():
+    """
+    Adds a Mitre ATLAS Technique reference to a threat
+    """
+    items = get_all_threats()
+    screening(items, get_atlas_technique, save_atlas_technique, choices=get_sf_values(IR_SF_T_MITRE))
+
+
+@app.command()
+def atlas_mit():
+    """
+    Adds a Mitre ATLAS Mitigation reference to a countermeasure
+    """
+    items = get_all_controls()
+    screening(items, get_atlas_mitigation, save_atlas_mitigation, choices=get_sf_values(IR_SF_C_MITRE))
+
 
 @app.command()
 def scope():

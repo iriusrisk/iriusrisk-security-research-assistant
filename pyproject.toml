@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "isra"
-version = "2.4.0"
+version = "2.4.1"
 description = "IriusRisk Security Research Assistant: a tool to create components as code"
 authors = ["Alvaro Reyes <areyes@iriusrisk.com>"]
 readme = "README.md"
@@ -11,6 +11,7 @@ isra = "isra.main:app"
 [tool.poetry.dependencies]
 python = "^3.9"
 typer = {extras = ["all"], version = "^0.13.0"}
+click = "8.1.8" # This version is fixed due to a bug that was happening
 loguru = "^0.7.2"
 pytest = "^8.3.3"
 beautifulsoup4 = "^4.12.3"
