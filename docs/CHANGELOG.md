@@ -1,5 +1,12 @@
 # Changelog
 
+
+## 2.4.2 - 20250520
+
+### Enhancements
+
+* Added OWASP Top 10 for LLMs 2025 support
+
 ## 2.4.1 - 20250512
 
 ### Features
@@ -10,8 +17,6 @@
 
 * Fixed bug related with Click (Typer's base library) that was causing an execution error
 * Removed GPT model selectable in isra config update. Now the value has to be written manually
-
-
 
 ## 2.4.0 - 20250310
 

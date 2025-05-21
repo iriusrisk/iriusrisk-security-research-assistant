@@ -582,6 +582,13 @@ def import_content_into_template(template, xml_text=None, root=None):
                         else:
                             print("Custom field not valid")
 
+                standards = []
+                for standard_node in control.iter("standard"):
+                    standards.append({
+                        "standard-ref": standard_node.attrib["supportedStandardRef"],
+                        "standard-section": standard_node.attrib["ref"]
+                    })
+
                 references = list()
                 for reference in control.iter("reference"):
                     if reference.attrib["url"] != "" and not reference.attrib["url"].startswith("http://cwe.mitre.org"):
@@ -597,7 +604,7 @@ def import_content_into_template(template, xml_text=None, root=None):
                     "cost": control.attrib["cost"],
                     "customFields": customfields,
                     "references": references,
-                    "standards": [],
+                    "standards": standards,
                     "dataflow_tags": [],  # These will be filled in the import_rules_into_template function
                     "question": "",
                     "question_desc": ""

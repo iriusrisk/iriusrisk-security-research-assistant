@@ -154,6 +154,7 @@ OUTPUT_NAME = {
     'owasp-masvs-testing-guide': {'ref': 'owasp-masvs-testing-guide', 'name': 'OWASP MASVS'},
     'owasp-mobile-top-10-2016': {'ref': 'owasp-mobile-top-10-2016', 'name': 'OWASP Mobile Top 10 2016'},
     'owasp-top-10-2017': {'ref': 'owasp-top-10-2017', 'name': 'OWASP Top 10 2017'},
+    'owasp-top-10-llm-2025': {'ref': 'owasp-top-10-llm-2025', 'name': 'OWASP Top 10 for LLMs 2025'},
     'pci-sss': {'ref': 'pci-sss', 'name': 'PCI Secure Software Standard'},
     'swift-cscf': {'ref': 'swift-cscf', 'name': 'SWIFT CSCF'},
     'unece-wp29-csms': {'ref': 'unece-wp29-csms', 'name': 'UNECE WP.29 Cybersecurity Regulation (CSMS)'},
@@ -174,7 +175,8 @@ REVERSED_OUTPUT_NAME = {'iso-27002-2022': {'name': 'ISO/IEC 27002:2022', 'ref': 
                                                      'ref': 'OWASP Proactive Controls'},
                         'owasp-wstg': {'name': 'OWASP Web Security Testing Guide (WSTG)',
                                        'ref': 'OWASP Web Security Testing Guide (WSTG)'},
-                        'SAMM': {'name': 'SAMM', 'ref': 'SAMM'}, 'OpenCRE': {'name': 'OpenCRE', 'ref': 'CRE'},
+                        'SAMM': {'name': 'SAMM', 'ref': 'SAMM'},
+                        'OpenCRE': {'name': 'OpenCRE', 'ref': 'CRE'},
                         'nist-csf': {'name': 'NIST Cybersecurity Framework', 'ref': 'NIST CSF v1.1'},
                         'D3FEND': {'name': 'Mitre D3FEND Framework', 'ref': 'D3FEND'},
                         'ccpa': {'name': 'California Consumer Privacy Act', 'ref': 'CCPA'}}
