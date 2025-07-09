@@ -1,0 +1,50 @@
+# rules.yaml with AND logic
+
+- stride: Denial of Service
+  conditions:
+    - field: availability
+      min_value: 75
+  rationale: Denial of Service compromises system availability.
+  disabled: false
+
+- stride: Information Disclosure
+  conditions:
+    - field: confidentiality
+      min_value: 75
+  rationale: Leaks sensitive data, so confidentiality should be rated high.
+  disabled: false
+
+- stride: Elevation of Privilege
+  conditions:
+    - field: confidentiality
+      min_value: 75
+    - field: integrity
+      min_value: 75
+  rationale: Privilege escalation enables unauthorized actions and access.
+  disabled: false
+
+- stride: Spoofing
+  conditions:
+    - field: confidentiality
+      min_value: 75
+    - field: integrity
+      min_value: 75
+  rationale: Spoofing can allow unauthorized access and falsified modifications.
+  disabled: false
+
+- stride: Tampering
+  conditions:
+    - field: integrity
+      min_value: 75
+  rationale: Tampering implies unauthorized modification.
+  disabled: false
+
+- stride: Repudiation
+  conditions:
+    - field: integrity
+      min_value: 75
+    - field: ease_of_exploitation
+      min_value: 50
+  rationale: Repudiation can manipulate logs and is often easy if protections are weak.
+  disabled: false
+

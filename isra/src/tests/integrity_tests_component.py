@@ -2,6 +2,7 @@ from collections import Counter
 
 import jsonschema
 import yaml
+import os
 
 from isra.src.config.config import get_resource
 from isra.src.config.constants import YSC_SCHEMA, IR_SF_T_STRIDE, SYSTEM_FIELD_VALUES, IR_SF_T_MITRE, IR_SF_C_SCOPE, \
@@ -31,6 +32,13 @@ def yaml_validator(yaml_component_path):
 
     return errors
 
+def load_validation_rules(rules_path):
+    try:
+        with open(rules_path, 'r') as f:
+            rules = yaml.safe_load(f)
+            return [r for r in rules if not r.get("disabled", False)]
+    except Exception as e:
+        raise RuntimeError(f"Could not load rules from {rules_path}: {e}")
 
 def collect_field_values_from_yaml_data(yaml_data, fields_to_collect):
     """
@@ -219,6 +227,38 @@ def check_empty_threat_descriptions(root):
 
     return errors
 
+def check_risk_scoring_values_for_threats(root):
+    errors = []
+    rules_path = os.path.join("isra", "src", "resources", "rules.yaml")
+    rules = load_validation_rules(rules_path)
+
+    yaml_fields = ["threats"]
+    threats_fields_found = collect_field_values_from_yaml_data(root, yaml_fields)
+
+    for i, threats in enumerate(threats_fields_found):
+        for j, threat in enumerate(threats):
+            stride_tags = threat.get("taxonomies", {}).get("stride", [])
+            risk_scores = threat.get("risk_score", {})
+            threat_ref = threat.get("ref", "unknown")
+            component_ref = root.get("component", {}).get("ref", "unknown")
+
+            for rule in rules:
+                if rule["stride"] in stride_tags:
+                    for cond in rule.get("conditions", []):
+                        field = cond["field"]
+                        min_val = cond["min_value"]
+                        actual_val = int(risk_scores.get(field, "0"))
+
+                        if actual_val < min_val:
+                            error_msg = (
+                                f"Component: {component_ref} --> Threat ref: {threat_ref} "
+                                f"has a risk scoring inconsistency for STRIDE '{rule['stride']}': "
+                                f"{field} = {actual_val} (Expected ≥ {min_val}). "
+                                f"Rationale: {rule.get('rationale', 'No rationale provided.')}"
+                            )
+                            errors.append(error_msg)
+
+    return errors
 
 def check_empty_countermeasure_descriptions(root):
     errors = []

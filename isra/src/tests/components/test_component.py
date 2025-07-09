@@ -147,6 +147,12 @@ class TestComponent(unittest.TestCase):
                 errors = check_custom_fields_are_valid(self.roots[component])
                 self.assertCountEqual(errors, [])
 
+    def test_risk_scoring_values_for_threats(self):
+        for component in self.components:
+            with self.subTest(component=component):
+                errors = check_risk_scoring_values_for_threats(self.roots[component])
+                self.assertCountEqual(errors, [])
+
 
 if __name__ == "__main__":
     unittest.main()
