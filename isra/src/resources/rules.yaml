@@ -48,3 +48,11 @@
   rationale: Repudiation can manipulate logs and is often easy if protections are weak.
   disabled: false
 
+- stride: Lateral Movement
+  conditions:
+    - field: confidentiality
+      min_value: 75
+  rationale: Lateral Movement can compromise one or more machines in the same network
+  disabled: false
+
+
