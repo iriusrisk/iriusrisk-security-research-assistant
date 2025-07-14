@@ -2,11 +2,10 @@ from collections import Counter
 
 import jsonschema
 import yaml
-import os
 
 from isra.src.config.config import get_resource
 from isra.src.config.constants import YSC_SCHEMA, IR_SF_T_STRIDE, SYSTEM_FIELD_VALUES, IR_SF_T_MITRE, IR_SF_C_SCOPE, \
-    IR_SF_C_MITRE
+    IR_SF_C_MITRE, SCORING_RULES
 
 
 def read_yaml(file_path):
@@ -32,13 +31,6 @@ def yaml_validator(yaml_component_path):
 
     return errors
 
-def load_validation_rules(rules_path):
-    try:
-        with open(rules_path, 'r') as f:
-            rules = yaml.safe_load(f)
-            return [r for r in rules if not r.get("disabled", False)]
-    except Exception as e:
-        raise RuntimeError(f"Could not load rules from {rules_path}: {e}")
 
 def collect_field_values_from_yaml_data(yaml_data, fields_to_collect):
     """
@@ -84,6 +76,7 @@ def check_duplicated_standards_sections(root):
             errors.append(f"Duplicate sections found across standards: {duplicate_sections}")
 
     return errors
+
 
 def check_empty_standard_sections(root):
     """
@@ -227,10 +220,11 @@ def check_empty_threat_descriptions(root):
 
     return errors
 
+
 def check_risk_scoring_values_for_threats(root):
     errors = []
-    rules_path = os.path.join("isra", "src", "resources", "rules.yaml")
-    rules = load_validation_rules(rules_path)
+    rules_file = get_resource(SCORING_RULES)
+    rules = [r for r in rules_file if not r.get("disabled", False)]
 
     yaml_fields = ["threats"]
     threats_fields_found = collect_field_values_from_yaml_data(root, yaml_fields)
@@ -260,6 +254,7 @@ def check_risk_scoring_values_for_threats(root):
 
     return errors
 
+
 def check_empty_countermeasure_descriptions(root):
     errors = []
 
@@ -274,6 +269,7 @@ def check_empty_countermeasure_descriptions(root):
 
     return errors
 
+
 def check_empty_countermeasure_base_standards(root):
     errors = []
 
@@ -287,6 +283,7 @@ def check_empty_countermeasure_base_standards(root):
                               f"has an empty baseline standard")
 
     return errors
+
 
 def check_empty_countermeasure_cwe_impact(root):
     errors = []
@@ -376,8 +373,8 @@ def aux(ref, cf_values_list, valid_values):
             errors.append(f"Threat {ref} has an invalid custom field value: {value}")
     return errors
 
-def check_custom_fields_are_valid(root):
 
+def check_custom_fields_are_valid(root):
     cfs = get_resource(SYSTEM_FIELD_VALUES, filetype="yaml")
     errors = []
 
@@ -395,14 +392,15 @@ def check_custom_fields_are_valid(root):
         if "emb3d_technique" in threat["taxonomies"]:
             errors.extend(aux(threat["ref"], threat["taxonomies"]["emb3d_technique"], cfs[IR_SF_T_MITRE]))
 
-
         for control in threat["countermeasures"]:
             if "scope" in control["taxonomies"]:
                 errors.extend(aux(control["ref"], control["taxonomies"]["scope"], cfs[IR_SF_C_SCOPE]))
             if "attack_enterprise_mitigation" in control["taxonomies"]:
-                errors.extend(aux(control["ref"], control["taxonomies"]["attack_enterprise_mitigation"], cfs[IR_SF_C_MITRE]))
+                errors.extend(
+                    aux(control["ref"], control["taxonomies"]["attack_enterprise_mitigation"], cfs[IR_SF_C_MITRE]))
             if "attack_mobile_mitigation" in control["taxonomies"]:
-                errors.extend(aux(control["ref"], control["taxonomies"]["attack_mobile_mitigation"], cfs[IR_SF_C_MITRE]))
+                errors.extend(
+                    aux(control["ref"], control["taxonomies"]["attack_mobile_mitigation"], cfs[IR_SF_C_MITRE]))
             if "attack_ics_mitigation" in control["taxonomies"]:
                 errors.extend(aux(control["ref"], control["taxonomies"]["attack_ics_mitigation"], cfs[IR_SF_C_MITRE]))
             if "atlas_mitigation" in control["taxonomies"]:

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.4.3 - 20250710
+
+### Enhancements
+
+* Updated CIA screening to take into account the STRIDE-LM categorization
+* Added new test to ensure that the CIA values align with the STRIDE category
 
 ## 2.4.2 - 20250520
 

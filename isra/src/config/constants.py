@@ -30,6 +30,7 @@ TEST_ANSWERS_FILE = "test_answers.yaml"
 OPENCRE_PLUS = "cre_mappings_plus.yaml"
 YSC_SCHEMA = "ysc_schema.json"
 SYSTEM_FIELD_VALUES = "output_system_fields_values.yaml"
+SCORING_RULES = "rules.yaml"
 
 CUSTOM_FIELD_STRIDE = "stride_lm"
 CUSTOM_FIELD_SCOPE = "scope"
