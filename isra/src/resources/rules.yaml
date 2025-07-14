@@ -52,7 +52,10 @@
   conditions:
     - field: confidentiality
       min_value: 75
-  rationale: Lateral Movement can compromise one or more machines in the same network
+    - field: integrity
+      min_value: 75
+  rationale: Lateral movement allows attackers to traverse systems, exposing sensitive data and enabling unauthorized changes across components.
   disabled: false
+
 
 
