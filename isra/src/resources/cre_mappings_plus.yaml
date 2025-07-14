@@ -18,6 +18,10 @@
   PCI DSS v3.2.1:
   - '1'
   - '2'
+  owasp-asvs4-level-1:
+  - V3.2.1
+  owasp-asvs4-level-2:
+  - V3.2.1
 002-801:
   ASVS:
   - V2.9.3
@@ -28,6 +32,8 @@
   OWASP Cheat Sheets:
   - Cryptographic Storage Cheat Sheet
   - Key Management Cheat Sheet
+  owasp-asvs4-level-2:
+  - V2.9.3
 004-517:
   Cloud Controls Matrix:
   - Application Security Baseline Requirements
@@ -114,6 +120,8 @@
   - '532'
   PCI-DSS-v4.0:
   - '10.1'
+  owasp-asvs4-level-2:
+  - V8.3.5
 026-280:
   ASVS:
   - V1.7.2
@@ -121,6 +129,8 @@
   - Logging Cheat Sheet
   OWASP Proactive Controls:
   - C9
+  owasp-asvs4-level-2:
+  - V1.7.2
 027-210:
   ASVS:
   - V6.3.2
@@ -128,6 +138,8 @@
   - '338'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-04
+  owasp-asvs4-level-2:
+  - V6.3.2
 027-555:
   ASVS:
   - V2.1.1
@@ -143,6 +155,10 @@
   - C6
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-07
+  owasp-asvs4-level-1:
+  - V2.1.1
+  owasp-asvs4-level-2:
+  - V2.1.1
 028-254:
   ASVS:
   - V10.3.1
@@ -150,6 +166,10 @@
   - '16'
   OWASP Cheat Sheets:
   - Docker Security Cheat Sheet
+  owasp-asvs4-level-1:
+  - V10.3.1
+  owasp-asvs4-level-2:
+  - V10.3.1
 028-727:
   OWASP Top 10 2021:
   - Server Side Request Forgery (SSRF)
@@ -169,6 +189,10 @@
   - C5
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-00
+  owasp-asvs4-level-1:
+  - V5.1.3
+  owasp-asvs4-level-2:
+  - V5.1.3
 032-213:
   ASVS:
   - V6.4.2
@@ -178,6 +202,8 @@
   - Key Management Cheat Sheet
   OWASP Proactive Controls:
   - C8
+  owasp-asvs4-level-2:
+  - V6.4.2
 036-147:
   ASVS:
   - V14.4.5
@@ -187,6 +213,10 @@
   - Content Security Policy Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CONF-07
+  owasp-asvs4-level-1:
+  - V14.4.5
+  owasp-asvs4-level-2:
+  - V14.4.5
 036-275:
   ASVS:
   - V1.1.7
@@ -198,6 +228,8 @@
   - Abuse Case Cheat Sheet
   - Attack Surface Analysis Cheat Sheet
   - Threat Modeling Cheat Sheet
+  owasp-asvs4-level-2:
+  - V1.1.7
 036-725:
   ASVS:
   - V14.4.1
@@ -205,6 +237,10 @@
   - '173'
   OWASP Cheat Sheets:
   - Content Security Policy Cheat Sheet
+  owasp-asvs4-level-1:
+  - V14.4.1
+  owasp-asvs4-level-2:
+  - V14.4.1
 036-810:
   ASVS:
   - V6.2.1
@@ -215,6 +251,10 @@
   - Key Management Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-02
+  owasp-asvs4-level-1:
+  - V6.2.1
+  owasp-asvs4-level-2:
+  - V6.2.1
 042-550:
   ASVS:
   - V5.1.2
@@ -225,6 +265,10 @@
   - Mass Assignment Cheat Sheet
   OWASP Proactive Controls:
   - C5
+  owasp-asvs4-level-1:
+  - V5.1.2
+  owasp-asvs4-level-2:
+  - V5.1.2
 046-257:
   ASVS:
   - V8.2.3
@@ -232,6 +276,10 @@
   - '922'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CLNT-12
+  owasp-asvs4-level-1:
+  - V8.2.3
+  owasp-asvs4-level-2:
+  - V8.2.3
 048-612:
   ASVS:
   - V7.3.1
@@ -243,6 +291,8 @@
   - C9
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-BUSL-03
+  owasp-asvs4-level-2:
+  - V7.3.1
 052-821:
   ASVS:
   - V3.6.2
@@ -257,6 +307,8 @@
   - '1104'
   PCI-DSS-v4.0:
   - 7.2.4
+  owasp-asvs4-level-2:
+  - V1.14.3
 058-083:
   CCPA:
   - Verification for Password-Protected Accounts (b)
@@ -374,6 +426,10 @@
   - WSTG-SESS-05
   PCI-DSS-v4.0:
   - 6.4.2
+  owasp-asvs4-level-1:
+  - V4.2.2
+  owasp-asvs4-level-2:
+  - V4.2.2
 061-186:
   ASVS:
   - V13.1.1
@@ -382,6 +438,10 @@
   OWASP Cheat Sheets:
   - Server Side Request Forgery Prevention Cheat Sheet
   - Web Service Security Cheat Sheet
+  owasp-asvs4-level-1:
+  - V13.1.1
+  owasp-asvs4-level-2:
+  - V13.1.1
 064-808:
   ASVS:
   - V5.3.5
@@ -405,6 +465,10 @@
   - XML Security Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-05
+  owasp-asvs4-level-1:
+  - V5.3.5
+  owasp-asvs4-level-2:
+  - V5.3.5
 065-183:
   ASVS:
   - V2.10.2
@@ -412,6 +476,8 @@
   - '255'
   NIST 800-63:
   - 5.1.1.1
+  owasp-asvs4-level-2:
+  - V2.10.2
 065-388:
   ASVS:
   - V14.4.4
@@ -421,6 +487,10 @@
   - Content Security Policy Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-01; WSTG-INPV-02; WSTG-CLNT-01
+  owasp-asvs4-level-1:
+  - V14.4.4
+  owasp-asvs4-level-2:
+  - V14.4.4
 065-782:
   ASVS:
   - V3.3.2
@@ -434,6 +504,10 @@
   - C6
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-07
+  owasp-asvs4-level-1:
+  - V3.3.2
+  owasp-asvs4-level-2:
+  - V3.3.2
 067-050:
   ASVS:
   - V7.1.1
@@ -443,6 +517,10 @@
   - Logging Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CONF-02
+  owasp-asvs4-level-1:
+  - V7.1.1
+  owasp-asvs4-level-2:
+  - V7.1.1
 068-102:
   ASVS:
   - V1.1.5
@@ -465,6 +543,8 @@
   - '2'
   SAMM:
   - Threat modeling
+  owasp-asvs4-level-2:
+  - V1.1.5
 072-713:
   SAMM:
   - Technology Management
@@ -487,6 +567,8 @@
   - '308'
   NIST 800-63:
   - 5.2.3
+  owasp-asvs4-level-2:
+  - V2.8.7
 077-781:
   ASVS:
   - V2.4.5
@@ -496,6 +578,8 @@
   - 5.1.1.2
   OWASP Cheat Sheets:
   - Password Storage Cheat Sheet
+  owasp-asvs4-level-2:
+  - V2.4.5
 078-427:
   ASVS:
   - V2.4.4
@@ -507,6 +591,8 @@
   - Password Storage Cheat Sheet
   OWASP Proactive Controls:
   - C6
+  owasp-asvs4-level-2:
+  - V2.4.4
 080-466:
   D3FEND:
   - Firmware Verification
@@ -544,6 +630,10 @@
   - V8.3.3
   CWE:
   - '285'
+  owasp-asvs4-level-1:
+  - V8.3.3
+  owasp-asvs4-level-2:
+  - V8.3.3
 082-530:
   ASVS:
   - V2.4.2
@@ -555,6 +645,8 @@
   - Password Storage Cheat Sheet
   OWASP Proactive Controls:
   - C6
+  owasp-asvs4-level-2:
+  - V2.4.2
 088-377:
   NIST SSDF:
   - PW.8.2
@@ -565,6 +657,8 @@
   - '308'
   NIST 800-63:
   - 5.1.2.2
+  owasp-asvs4-level-2:
+  - V2.6.1
 102-811:
   ASVS:
   - V2.7.4
@@ -574,6 +668,10 @@
   - 5.1.3.2
   OWASP Cheat Sheets:
   - Forgot Password Cheat Sheet
+  owasp-asvs4-level-1:
+  - V2.7.4
+  owasp-asvs4-level-2:
+  - V2.7.4
 103-707:
   ASVS:
   - V2.1.4
@@ -587,6 +685,10 @@
   - Forgot Password Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-07
+  owasp-asvs4-level-1:
+  - V2.1.4
+  owasp-asvs4-level-2:
+  - V2.1.4
 112-273:
   ASVS:
   - V12.4.2
@@ -601,6 +703,10 @@
   - 5.3.2.1
   - 5.3.3
   - 5.3.5
+  owasp-asvs4-level-1:
+  - V12.4.2
+  owasp-asvs4-level-2:
+  - V12.4.2
 112-648:
   Cloud Controls Matrix:
   - Change Control and Configuration Management
@@ -613,6 +719,8 @@
   - V1.2.3
   CWE:
   - '306'
+  owasp-asvs4-level-2:
+  - V1.2.3
 114-853:
   CCPA:
   - Personal Information Security Breaches (a)(1)(2)
@@ -667,6 +775,8 @@
   - C7
   PCI-DSS-v4.0:
   - '7.3'
+  owasp-asvs4-level-2:
+  - V1.4.4
 118-602:
   ASVS:
   - V7.4.3
@@ -678,6 +788,8 @@
   - C10
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ERRH-02
+  owasp-asvs4-level-2:
+  - V7.4.3
 118-775:
   SAMM:
   - Organization and Culture
@@ -691,6 +803,8 @@
   - Key Management Cheat Sheet
   OWASP Proactive Controls:
   - C8
+  owasp-asvs4-level-2:
+  - V6.2.4
 123-124:
   CCPA:
   - Personal Information Security Breaches (a)(1)(2)
@@ -875,6 +989,10 @@
   - C4
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-07; WSTG-INPV-09
+  owasp-asvs4-level-1:
+  - V5.3.10
+  owasp-asvs4-level-2:
+  - V5.3.10
 134-412:
   ASVS:
   - V11.1.6
@@ -882,6 +1000,8 @@
   - '367'
   OWASP Cheat Sheets:
   - Abuse Case Cheat Sheet
+  owasp-asvs4-level-2:
+  - V11.1.6
 138-448:
   ASVS:
   - V2.3.3
@@ -889,6 +1009,8 @@
   - '287'
   NIST 800-63:
   - 6.1.4
+  owasp-asvs4-level-2:
+  - V2.3.3
 141-555:
   FedRAMP:
   - High
@@ -908,6 +1030,10 @@
   - DOM based XSS Prevention Cheat Sheet
   - Server Side Request Forgery Prevention Cheat Sheet
   - Unvalidated Redirects and Forwards Cheat Sheet
+  owasp-asvs4-level-1:
+  - V5.2.7
+  owasp-asvs4-level-2:
+  - V5.2.7
 146-706:
   ASVS:
   - V13.2.2
@@ -917,6 +1043,10 @@
   - Cross-Site Request Forgery Prevention Cheat Sheet
   - REST Assessment Cheat Sheet
   - REST Security Cheat Sheet
+  owasp-asvs4-level-1:
+  - V13.2.2
+  owasp-asvs4-level-2:
+  - V13.2.2
 148-227:
   Cloud Controls Matrix:
   - Universal Endpoint Management
@@ -1003,6 +1133,8 @@
   - V8.1.2
   CWE:
   - '524'
+  owasp-asvs4-level-2:
+  - V8.1.2
 157-587:
   FedRAMP:
   - High
@@ -1039,6 +1171,10 @@
   - C6
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-07
+  owasp-asvs4-level-1:
+  - V2.1.2
+  owasp-asvs4-level-2:
+  - V2.1.2
 161-451:
   NIST 800-53 v5:
   - SI-15 Information Output Filtering
@@ -1049,6 +1185,8 @@
   - '1059'
   OWASP Cheat Sheets:
   - Abuse Case Cheat Sheet
+  owasp-asvs4-level-2:
+  - V1.11.1
 163-518:
   ASVS:
   - V12.1.2
@@ -1056,6 +1194,8 @@
   - '409'
   OWASP Cheat Sheets:
   - File Upload Cheat Sheet
+  owasp-asvs4-level-2:
+  - V12.1.2
 163-776:
   ISO 27001:
   - Information backup
@@ -1071,6 +1211,10 @@
   - C10
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ERRH-01
+  owasp-asvs4-level-1:
+  - V4.1.5
+  owasp-asvs4-level-2:
+  - V4.1.5
 168-186:
   ASVS:
   - V2.7.3
@@ -1080,6 +1224,10 @@
   - 5.1.3.2
   OWASP Cheat Sheets:
   - Forgot Password Cheat Sheet
+  owasp-asvs4-level-1:
+  - V2.7.3
+  owasp-asvs4-level-2:
+  - V2.7.3
 170-772:
   Cloud Controls Matrix:
   - Cryptography, Encryption & Key Management
@@ -1118,6 +1266,8 @@
   - V1.14.2
   CWE:
   - '494'
+  owasp-asvs4-level-2:
+  - V1.14.2
 172-101:
   CCPA:
   - Contract Requirements for Third Parties (b)
@@ -1196,11 +1346,15 @@
   OWASP Cheat Sheets:
   - File Upload Cheat Sheet
   - Third Party Javascript Management Cheat Sheet
+  owasp-asvs4-level-2:
+  - V12.2.1
 176-154:
   ASVS:
   - V8.1.4
   CWE:
   - '770'
+  owasp-asvs4-level-2:
+  - V8.1.4
 177-260:
   FedRAMP:
   - High
@@ -1252,6 +1406,8 @@
   - PW.9.2
   OWASP Cheat Sheets:
   - Docker Security Cheat Sheet
+  owasp-asvs4-level-2:
+  - V14.1.3
 184-284:
   ASVS:
   - V7.1.3
@@ -1261,6 +1417,8 @@
   - Logging Cheat Sheet
   PCI-DSS-v4.0:
   - A3.5
+  owasp-asvs4-level-2:
+  - V7.1.3
 186-540:
   ASVS:
   - V8.3.1
@@ -1268,6 +1426,10 @@
   - '319'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-03
+  owasp-asvs4-level-1:
+  - V8.3.1
+  owasp-asvs4-level-2:
+  - V8.3.1
 201-246:
   ASVS:
   - V4.3.1
@@ -1275,6 +1437,10 @@
   - '419'
   OWASP Cheat Sheets:
   - REST Assessment Cheat Sheet
+  owasp-asvs4-level-1:
+  - V4.3.1
+  owasp-asvs4-level-2:
+  - V4.3.1
 206-254:
   ASVS:
   - V2.7.6
@@ -1284,11 +1450,15 @@
   - 5.1.3.2
   OWASP Cheat Sheets:
   - Forgot Password Cheat Sheet
+  owasp-asvs4-level-2:
+  - V2.7.6
 208-355:
   ASVS:
   - V14.1.4
   OWASP Cheat Sheets:
   - Docker Security Cheat Sheet
+  owasp-asvs4-level-2:
+  - V14.1.4
 208-805:
   ASVS:
   - V14.3.2
@@ -1296,6 +1466,10 @@
   - '497'
   OWASP Cheat Sheets:
   - Error Handling Cheat Sheet
+  owasp-asvs4-level-1:
+  - V14.3.2
+  owasp-asvs4-level-2:
+  - V14.3.2
 208-830:
   FedRAMP:
   - High
@@ -1314,6 +1488,8 @@
   - '233'
   PCI-DSS-v4.0:
   - A3.3.1
+  owasp-asvs4-level-2:
+  - V8.1.3
 217-168:
   Cloud Controls Matrix:
   - Audit & Assurance
@@ -1367,6 +1543,8 @@
   - User Privacy Protection Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-04
+  owasp-asvs4-level-2:
+  - V6.1.2
 227-045:
   ASVS:
   - V8.3.4
@@ -1392,6 +1570,10 @@
   - ID.AM-08
   OWASP Proactive Controls:
   - C8
+  owasp-asvs4-level-1:
+  - V8.3.4
+  owasp-asvs4-level-2:
+  - V8.3.4
 232-034:
   ASVS:
   - V3.4.4
@@ -1404,6 +1586,10 @@
   - Session Management Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-02
+  owasp-asvs4-level-1:
+  - V3.4.4
+  owasp-asvs4-level-2:
+  - V3.4.4
 232-217:
   ASVS:
   - V5.1.5
@@ -1414,11 +1600,17 @@
   - Mass Assignment Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CLNT-04
+  owasp-asvs4-level-1:
+  - V5.1.5
+  owasp-asvs4-level-2:
+  - V5.1.5
 232-325:
   ASVS:
   - V1.6.4
   CWE:
   - '320'
+  owasp-asvs4-level-2:
+  - V1.6.4
 233-748:
   PCI-DSS-v4.0:
   - 2.2.4
@@ -1540,6 +1732,10 @@
   - Forgot Password Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-02
+  owasp-asvs4-level-1:
+  - V2.5.5
+  owasp-asvs4-level-2:
+  - V2.5.5
 238-346:
   ASVS:
   - V3.3.3
@@ -1549,6 +1745,8 @@
   - Session Management Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-06
+  owasp-asvs4-level-2:
+  - V3.3.3
 240-274:
   ASVS:
   - V7.1.2
@@ -1560,6 +1758,10 @@
   - C9
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CONF-02
+  owasp-asvs4-level-1:
+  - V7.1.2
+  owasp-asvs4-level-2:
+  - V7.1.2
 240-464:
   Cloud Controls Matrix:
   - Business Continuity Management and Operational Resilience
@@ -1828,6 +2030,10 @@
   - Transport Layer Protection Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-01
+  owasp-asvs4-level-1:
+  - V9.1.3
+  owasp-asvs4-level-2:
+  - V9.1.3
 251-446:
   NIST SSDF:
   - PO.2.3
@@ -1836,6 +2042,8 @@
   - V14.1.1
   OWASP Cheat Sheets:
   - Docker Security Cheat Sheet
+  owasp-asvs4-level-2:
+  - V14.1.1
 257-117:
   ASVS:
   - V8.1.5
@@ -1850,6 +2058,10 @@
   - Content Security Policy Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-01; WSTG-INPV-02; WSTG-CLNT-01
+  owasp-asvs4-level-1:
+  - V14.4.3
+  owasp-asvs4-level-2:
+  - V14.4.3
 260-200:
   ASVS:
   - V1.7.1
@@ -1859,11 +2071,15 @@
   - Logging Cheat Sheet
   OWASP Proactive Controls:
   - C9
+  owasp-asvs4-level-2:
+  - V1.7.1
 261-010:
   Cloud Controls Matrix:
   - Application and Interface Security Policy and Procedures
 263-184:
   ASVS:
+  - V1.14.4
+  owasp-asvs4-level-2:
   - V1.14.4
 265-800:
   ASVS:
@@ -1896,11 +2112,15 @@
   PCI-DSS-v4.0:
   - 3.3.1.2
   - '3.5'
+  owasp-asvs4-level-2:
+  - V6.1.3
 268-088:
   ASVS:
   - V13.4.1
   CWE:
   - '770'
+  owasp-asvs4-level-2:
+  - V13.4.1
 268-100:
   ASVS:
   - V14.4.6
@@ -1908,6 +2128,10 @@
   - '116'
   OWASP Cheat Sheets:
   - Content Security Policy Cheat Sheet
+  owasp-asvs4-level-1:
+  - V14.4.6
+  owasp-asvs4-level-2:
+  - V14.4.6
 268-272:
   ASVS:
   - V8.3.8
@@ -1917,6 +2141,8 @@
   - 3.2.1
   - 9.4.6
   - 9.4.7
+  owasp-asvs4-level-2:
+  - V8.3.8
 270-568:
   FedRAMP:
   - High
@@ -1959,6 +2185,10 @@
   - C6
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-01
+  owasp-asvs4-level-1:
+  - V2.5.1
+  owasp-asvs4-level-2:
+  - V2.5.1
 273-600:
   ASVS:
   - V1.14.1
@@ -1968,6 +2198,8 @@
   - Network Architecture Documentation
   PCI-DSS-v4.0:
   - 1.4.1
+  owasp-asvs4-level-2:
+  - V1.14.1
 278-413:
   ASVS:
   - V1.2.2
@@ -1977,6 +2209,8 @@
   - C3
   PCI-DSS-v4.0:
   - '8.6'
+  owasp-asvs4-level-2:
+  - V1.2.2
 278-646:
   CCPA:
   - Opt-Out Preference Signals (c)(2)
@@ -2034,6 +2268,8 @@
   - '732'
   OWASP Cheat Sheets:
   - REST Assessment Cheat Sheet
+  owasp-asvs4-level-2:
+  - V4.3.3
 286-500:
   Cloud Controls Matrix:
   - OS Hardening and Base Controls
@@ -2049,6 +2285,8 @@
   OWASP Cheat Sheets:
   - Cryptographic Storage Cheat Sheet
   - Key Management Cheat Sheet
+  owasp-asvs4-level-2:
+  - V2.9.2
 287-305:
   ASVS:
   - V1.6.1
@@ -2057,6 +2295,8 @@
   OWASP Cheat Sheets:
   - Cryptographic Storage Cheat Sheet
   - Key Management Cheat Sheet
+  owasp-asvs4-level-2:
+  - V1.6.1
 287-823:
   CCPA:
   - Requests to Know (k)(1)
@@ -2096,6 +2336,10 @@
   - Insecure Direct Object Reference Prevention Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHZ-04
+  owasp-asvs4-level-1:
+  - V4.2.1
+  owasp-asvs4-level-2:
+  - V4.2.1
 307-111:
   ASVS:
   - V12.4.1
@@ -2103,6 +2347,10 @@
   - '552'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-BUSL-09
+  owasp-asvs4-level-1:
+  - V12.4.1
+  owasp-asvs4-level-2:
+  - V12.4.1
 307-242:
   CCPA:
   - Authorized Agents (a)
@@ -2290,6 +2538,10 @@
   - '11.5'
   - 11.5.2
   - A1.1.4
+  owasp-asvs4-level-1:
+  - V10.3.2
+  owasp-asvs4-level-2:
+  - V10.3.2
 314-131:
   ASVS:
   - V14.1.2
@@ -2300,6 +2552,8 @@
   - PW.6.2
   OWASP Cheat Sheets:
   - Docker Security Cheat Sheet
+  owasp-asvs4-level-2:
+  - V14.1.2
 314-701:
   ASVS:
   - V12.5.1
@@ -2307,6 +2561,10 @@
   - '552'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-BUSL-08
+  owasp-asvs4-level-1:
+  - V12.5.1
+  owasp-asvs4-level-2:
+  - V12.5.1
 316-272:
   ASVS:
   - V14.5.3
@@ -2314,6 +2572,10 @@
   - '346'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CLNT-07
+  owasp-asvs4-level-1:
+  - V14.5.3
+  owasp-asvs4-level-2:
+  - V14.5.3
 317-743:
   ASVS:
   - V5.2.4
@@ -2326,6 +2588,10 @@
   - Unvalidated Redirects and Forwards Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CLNT-02
+  owasp-asvs4-level-1:
+  - V5.2.4
+  owasp-asvs4-level-2:
+  - V5.2.4
 326-704:
   CCPA:
   - Authorized Agents (c)
@@ -2379,6 +2645,10 @@
   - Forgot Password Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-07
+  owasp-asvs4-level-1:
+  - V2.1.6
+  owasp-asvs4-level-2:
+  - V2.1.6
 330-281:
   ASVS:
   - V1.2.1
@@ -2386,6 +2656,8 @@
   - '250'
   OWASP Proactive Controls:
   - C3
+  owasp-asvs4-level-2:
+  - V1.2.1
 333-858:
   ASVS:
   - V2.2.4
@@ -2415,6 +2687,10 @@
   - Web Service Security Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-04
+  owasp-asvs4-level-1:
+  - V13.1.3
+  owasp-asvs4-level-2:
+  - V13.1.3
 336-512:
   ASVS:
   - V10.3.3
@@ -2428,6 +2704,10 @@
   - Docker Security Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CONF-10
+  owasp-asvs4-level-1:
+  - V10.3.3
+  owasp-asvs4-level-2:
+  - V10.3.3
 338-370:
   ASVS:
   - V2.1.10
@@ -2441,6 +2721,10 @@
   - Forgot Password Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-07
+  owasp-asvs4-level-1:
+  - V2.1.10
+  owasp-asvs4-level-2:
+  - V2.1.10
 340-375:
   ASVS:
   - V6.4.1
@@ -2450,6 +2734,8 @@
   - Key Management Cheat Sheet
   OWASP Proactive Controls:
   - C8
+  owasp-asvs4-level-2:
+  - V6.4.1
 342-055:
   ASVS:
   - V3.4.3
@@ -2464,6 +2750,10 @@
   - C6
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-02
+  owasp-asvs4-level-1:
+  - V3.4.3
+  owasp-asvs4-level-2:
+  - V3.4.3
 342-764:
   ASVS:
   - V2.7.5
@@ -2473,6 +2763,8 @@
   - 5.1.3.2
   OWASP Cheat Sheets:
   - Forgot Password Cheat Sheet
+  owasp-asvs4-level-2:
+  - V2.7.5
 344-611:
   ASVS:
   - V1.1.6
@@ -2486,6 +2778,8 @@
   - Threat Modeling Cheat Sheet
   OWASP Proactive Controls:
   - C10
+  owasp-asvs4-level-2:
+  - V1.1.6
 346-640:
   ASVS:
   - V2.6.2
@@ -2493,6 +2787,8 @@
   - '330'
   NIST 800-63:
   - 5.1.2.2
+  owasp-asvs4-level-2:
+  - V2.6.2
 347-352:
   ASVS:
   - V14.1.5
@@ -2513,6 +2809,12 @@
   - Forgot Password Cheat Sheet
   - TLS Cipher String Cheat Sheet
   - Transport Layer Protection Cheat Sheet
+  owasp-asvs4-level-1:
+  - V2.2.2
+  - V2.7.1
+  owasp-asvs4-level-2:
+  - V2.2.2
+  - V2.7.1
 356-282:
   NIST 800-53 v5:
   - SI-21 Information Refresh
@@ -2529,6 +2831,8 @@
   OWASP Cheat Sheets:
   - Choosing and Using Security Questions Cheat Sheet
   - Forgot Password Cheat Sheet
+  owasp-asvs4-level-2:
+  - V2.5.7
 362-550:
   ISO 27001:
   - Privacy and protection of personal identifiable information (PII)
@@ -2575,6 +2879,10 @@
   - C4
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-01
+  owasp-asvs4-level-1:
+  - V5.3.3
+  owasp-asvs4-level-2:
+  - V5.3.3
 368-633:
   ASVS:
   - V4.1.3
@@ -2591,6 +2899,10 @@
   - WSTG-IDNT-01
   PCI-DSS-v4.0:
   - 7.2.2
+  owasp-asvs4-level-1:
+  - V4.1.3
+  owasp-asvs4-level-2:
+  - V4.1.3
 377-680:
   ASVS:
   - V13.1.5
@@ -2599,6 +2911,8 @@
   OWASP Cheat Sheets:
   - Server Side Request Forgery Prevention Cheat Sheet
   - Web Service Security Cheat Sheet
+  owasp-asvs4-level-2:
+  - V13.1.5
 380-540:
   ASVS:
   - V1.11.3
@@ -2611,6 +2925,8 @@
   - V1.12.2
   CWE:
   - '646'
+  owasp-asvs4-level-2:
+  - V1.12.2
 387-848:
   ASVS:
   - V5.5.4
@@ -2622,6 +2938,10 @@
   - XML Security Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CLNT-02
+  owasp-asvs4-level-1:
+  - V5.5.4
+  owasp-asvs4-level-2:
+  - V5.5.4
 402-133:
   ASVS:
   - V3.1.1
@@ -2629,6 +2949,10 @@
   - '598'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-04
+  owasp-asvs4-level-1:
+  - V3.1.1
+  owasp-asvs4-level-2:
+  - V3.1.1
 402-706:
   CCPA:
   - Record-Keeping (a)
@@ -2666,11 +2990,17 @@
   NIST 800-63:
   - 5.1.4.2
   - 5.1.5.2
+  owasp-asvs4-level-2:
+  - V2.8.4
 405-411:
   ASVS:
   - V14.5.2
   CWE:
   - '346'
+  owasp-asvs4-level-1:
+  - V14.5.2
+  owasp-asvs4-level-2:
+  - V14.5.2
 411-684:
   NIST SSDF:
   - PW.7.1
@@ -2695,11 +3025,17 @@
   - Abuse Case Cheat Sheet
   OWASP Proactive Controls:
   - C9
+  owasp-asvs4-level-2:
+  - V11.1.7
 421-513:
   ASVS:
   - V12.3.4
   CWE:
   - '641'
+  owasp-asvs4-level-1:
+  - V12.3.4
+  owasp-asvs4-level-2:
+  - V12.3.4
 422-005:
   ASVS:
   - V5.2.5
@@ -2712,6 +3048,10 @@
   - Unvalidated Redirects and Forwards Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-18
+  owasp-asvs4-level-1:
+  - V5.2.5
+  owasp-asvs4-level-2:
+  - V5.2.5
 424-242:
   SAMM:
   - System Decommissioning / Legacy Management
@@ -2724,6 +3064,8 @@
   - Cross-Site Request Forgery Prevention Cheat Sheet
   - REST Assessment Cheat Sheet
   - REST Security Cheat Sheet
+  owasp-asvs4-level-2:
+  - V13.2.6
 427-113:
   Cloud Controls Matrix:
   - Human Resources
@@ -2799,6 +3141,8 @@
   - V9.2.1
   CWE:
   - '295'
+  owasp-asvs4-level-2:
+  - V9.2.1
 433-122:
   ASVS:
   - V6.2.6
@@ -2809,6 +3153,8 @@
   - Key Management Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-04
+  owasp-asvs4-level-2:
+  - V6.2.6
 433-442:
   Cloud Controls Matrix:
   - Automated Application Security Testing
@@ -2862,6 +3208,8 @@
   - '613'
   NIST 800-63:
   - 5.2.1
+  owasp-asvs4-level-2:
+  - V2.8.6
 441-132:
   ASVS:
   - V6.2.5
@@ -2872,6 +3220,8 @@
   - Key Management Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-04
+  owasp-asvs4-level-2:
+  - V6.2.5
 443-447:
   ASVS:
   - V7.2.2
@@ -2879,6 +3229,8 @@
   - '285'
   OWASP Cheat Sheets:
   - Logging Cheat Sheet
+  owasp-asvs4-level-2:
+  - V7.2.2
 455-358:
   ASVS:
   - V3.2.3
@@ -2890,6 +3242,10 @@
   - Session Management Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-02; WSTG-CLNT-12
+  owasp-asvs4-level-1:
+  - V3.2.3
+  owasp-asvs4-level-2:
+  - V3.2.3
 456-535:
   ASVS:
   - V11.1.2
@@ -2899,6 +3255,10 @@
   - Abuse Case Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-BUSL-$$
+  owasp-asvs4-level-1:
+  - V11.1.2
+  owasp-asvs4-level-2:
+  - V11.1.2
 456-636:
   ASVS:
   - V13.3.2
@@ -2906,6 +3266,8 @@
   - '345'
   OWASP Cheat Sheets:
   - XML Security Cheat Sheet
+  owasp-asvs4-level-2:
+  - V13.3.2
 457-165:
   ASVS:
   - V3.3.1
@@ -2926,6 +3288,10 @@
   PCI DSS v3.2.1:
   - '1'
   - '2'
+  owasp-asvs4-level-1:
+  - V3.3.1
+  owasp-asvs4-level-2:
+  - V3.3.1
 461-680:
   NIST SSDF:
   - PS.3.1
@@ -2939,6 +3305,10 @@
   - Vulnerable Dependency Management Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CONF-04
+  owasp-asvs4-level-1:
+  - V14.2.2
+  owasp-asvs4-level-2:
+  - V14.2.2
 463-577:
   CCPA:
   - Requests to Limit Use and Disclosure of Sensitive Personal Information (m)(3)
@@ -3069,6 +3439,8 @@
   - '770'
   OWASP Cheat Sheets:
   - File Upload Cheat Sheet
+  owasp-asvs4-level-2:
+  - V12.1.3
 464-084:
   ASVS:
   - V13.2.3
@@ -3080,6 +3452,10 @@
   - REST Security Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-05
+  owasp-asvs4-level-1:
+  - V13.2.3
+  owasp-asvs4-level-2:
+  - V13.2.3
 464-513:
   Cloud Controls Matrix:
   - Application Security Metrics
@@ -3271,6 +3647,10 @@
   - '525'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-06
+  owasp-asvs4-level-1:
+  - V8.2.1
+  owasp-asvs4-level-2:
+  - V8.2.1
 480-071:
   ASVS:
   - V14.4.7
@@ -3280,11 +3660,17 @@
   - Content Security Policy Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CLNT-09
+  owasp-asvs4-level-1:
+  - V14.4.7
+  owasp-asvs4-level-2:
+  - V14.4.7
 482-771:
   ASVS:
   - V5.4.3
   CWE:
   - '190'
+  owasp-asvs4-level-2:
+  - V5.4.3
 482-866:
   ASVS:
   - V6.1.1
@@ -3295,6 +3681,8 @@
   - User Privacy Protection Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-04
+  owasp-asvs4-level-2:
+  - V6.1.1
 483-715:
   ASVS:
   - V14.5.1
@@ -3302,6 +3690,10 @@
   - '749'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CONF-06
+  owasp-asvs4-level-1:
+  - V14.5.1
+  owasp-asvs4-level-2:
+  - V14.5.1
 483-883:
   ASVS:
   - V3.5.3
@@ -3312,6 +3704,8 @@
   - REST Security Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-04
+  owasp-asvs4-level-2:
+  - V3.5.3
 486-813:
   D3FEND:
   - Application Configuration Hardening
@@ -3375,6 +3769,10 @@
   - Forgot Password Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-07
+  owasp-asvs4-level-1:
+  - V2.1.12
+  owasp-asvs4-level-2:
+  - V2.1.12
 503-455:
   FedRAMP:
   - High
@@ -3395,6 +3793,8 @@
   - '327'
   OWASP Proactive Controls:
   - C8
+  owasp-asvs4-level-2:
+  - V8.3.7
 508-702:
   ASVS:
   - V1.6.2
@@ -3403,6 +3803,8 @@
   OWASP Cheat Sheets:
   - Cryptographic Storage Cheat Sheet
   - Key Management Cheat Sheet
+  owasp-asvs4-level-2:
+  - V1.6.2
 510-324:
   ISO 27001:
   - Compliance with policies, rules and standards for information security
@@ -3423,6 +3825,8 @@
   - '310'
   NIST 800-63:
   - 5.1.2.2
+  owasp-asvs4-level-2:
+  - V2.6.3
 515-021:
   ASVS:
   - V1.14.5
@@ -3436,6 +3840,8 @@
   - C5
   PCI-DSS-v4.0:
   - '1.3'
+  owasp-asvs4-level-2:
+  - V1.14.5
 522-616:
   FedRAMP:
   - High
@@ -3506,6 +3912,10 @@
   - Authorization Testing Automation Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHZ-02
+  owasp-asvs4-level-1:
+  - V4.1.2
+  owasp-asvs4-level-2:
+  - V4.1.2
 525-361:
   ASVS:
   - V2.2.7
@@ -3529,6 +3939,8 @@
   - Transport Layer Protection Cheat Sheet
   OWASP Proactive Controls:
   - C3
+  owasp-asvs4-level-2:
+  - V1.9.1
 530-671:
   ASVS:
   - V1.9.2
@@ -3537,6 +3949,8 @@
   OWASP Cheat Sheets:
   - TLS Cipher String Cheat Sheet
   - Transport Layer Protection Cheat Sheet
+  owasp-asvs4-level-2:
+  - V1.9.2
 531-558:
   ASVS:
   - V5.3.7
@@ -3562,6 +3976,10 @@
   - C4
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-06
+  owasp-asvs4-level-1:
+  - V5.3.7
+  owasp-asvs4-level-2:
+  - V5.3.7
 532-878:
   ASVS:
   - V13.2.1
@@ -3573,6 +3991,10 @@
   - REST Security Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-03
+  owasp-asvs4-level-1:
+  - V13.2.1
+  owasp-asvs4-level-2:
+  - V13.2.1
 533-516:
   ASVS:
   - V5.3.2
@@ -3598,6 +4020,10 @@
   - C4
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-APPE-D
+  owasp-asvs4-level-1:
+  - V5.3.2
+  owasp-asvs4-level-2:
+  - V5.3.2
 534-605:
   ASVS:
   - V11.1.1
@@ -3607,11 +4033,17 @@
   - Abuse Case Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-BUSL-$$
+  owasp-asvs4-level-1:
+  - V11.1.1
+  owasp-asvs4-level-2:
+  - V11.1.1
 537-367:
   ASVS:
   - V9.2.4
   CWE:
   - '299'
+  owasp-asvs4-level-2:
+  - V9.2.4
 538-446:
   ASVS:
   - V5.2.2
@@ -3624,6 +4056,10 @@
   - Unvalidated Redirects and Forwards Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-00
+  owasp-asvs4-level-1:
+  - V5.2.2
+  owasp-asvs4-level-2:
+  - V5.2.2
 540-566:
   ASVS:
   - V10.2.2
@@ -3631,6 +4067,8 @@
   - '272'
   ISO 27001:
   - Use of privileged utility programs
+  owasp-asvs4-level-2:
+  - V10.2.2
 542-445:
   ASVS:
   - V5.2.1
@@ -3645,6 +4083,10 @@
   - C5
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CLNT-03
+  owasp-asvs4-level-1:
+  - V5.2.1
+  owasp-asvs4-level-2:
+  - V5.2.1
 542-488:
   ASVS:
   - V6.3.1
@@ -3652,6 +4094,8 @@
   - '338'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-04
+  owasp-asvs4-level-2:
+  - V6.3.1
 543-428:
   ASVS:
   - V2.8.2
@@ -3660,6 +4104,8 @@
   NIST 800-63:
   - 5.1.4.2
   - 5.1.5.2
+  owasp-asvs4-level-2:
+  - V2.8.2
 543-512:
   ASVS:
   - V13.2.5
@@ -3669,6 +4115,8 @@
   - Cross-Site Request Forgery Prevention Cheat Sheet
   - REST Assessment Cheat Sheet
   - REST Security Cheat Sheet
+  owasp-asvs4-level-2:
+  - V13.2.5
 543-621:
   ASVS:
   - V2.5.3
@@ -3681,6 +4129,10 @@
   - Forgot Password Cheat Sheet
   OWASP Proactive Controls:
   - C6
+  owasp-asvs4-level-1:
+  - V2.5.3
+  owasp-asvs4-level-2:
+  - V2.5.3
 545-243:
   ASVS:
   - V12.5.2
@@ -3688,6 +4140,10 @@
   - '434'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-BUSL-09
+  owasp-asvs4-level-1:
+  - V12.5.2
+  owasp-asvs4-level-2:
+  - V12.5.2
 547-283:
   ASVS:
   - V5.3.9
@@ -3711,6 +4167,10 @@
   - XML Security Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-11
+  owasp-asvs4-level-1:
+  - V5.3.9
+  owasp-asvs4-level-2:
+  - V5.3.9
 551-054:
   ASVS:
   - V3.5.2
@@ -3721,6 +4181,8 @@
   - REST Security Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-01
+  owasp-asvs4-level-2:
+  - V3.5.2
 551-400:
   ASVS:
   - V3.5.1
@@ -3731,6 +4193,8 @@
   OWASP Cheat Sheets:
   - JSON Web Token for Java Cheat Sheet
   - REST Security Cheat Sheet
+  owasp-asvs4-level-2:
+  - V3.5.1
 553-413:
   ASVS:
   - V2.3.2
@@ -3738,6 +4202,8 @@
   - '308'
   NIST 800-63:
   - 6.1.3
+  owasp-asvs4-level-2:
+  - V2.3.2
 555-048:
   ASVS:
   - V7.1.4
@@ -3769,6 +4235,8 @@
   - 10.5.1
   - '10.7'
   - 10.7.1
+  owasp-asvs4-level-2:
+  - V7.1.4
 558-807:
   ASVS:
   - V2.2.5
@@ -4013,6 +4481,8 @@
   - V1.2.4
   CWE:
   - '306'
+  owasp-asvs4-level-2:
+  - V1.2.4
 576-651:
   ASVS:
   - V2.1.7
@@ -4028,6 +4498,10 @@
   - C6
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-07
+  owasp-asvs4-level-1:
+  - V2.1.7
+  owasp-asvs4-level-2:
+  - V2.1.7
 577-260:
   ASVS:
   - V14.2.3
@@ -4038,6 +4512,10 @@
   - Vulnerable Dependency Management Cheat Sheet
   PCI-DSS-v4.0:
   - 6.4.3
+  owasp-asvs4-level-1:
+  - V14.2.3
+  owasp-asvs4-level-2:
+  - V14.2.3
 581-525:
   ASVS:
   - V2.5.6
@@ -4052,6 +4530,10 @@
   - C6
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-09
+  owasp-asvs4-level-1:
+  - V2.5.6
+  owasp-asvs4-level-2:
+  - V2.5.6
 582-541:
   ASVS:
   - V3.7.1
@@ -4064,6 +4546,10 @@
   - WSTG-SESS-01
   PCI-DSS-v4.0:
   - 8.2.8
+  owasp-asvs4-level-1:
+  - V3.7.1
+  owasp-asvs4-level-2:
+  - V3.7.1
 586-842:
   OWASP Top 10 2021:
   - Identification and Authentication Failures
@@ -4082,11 +4568,17 @@
   - Forgot Password Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-07
+  owasp-asvs4-level-1:
+  - V2.1.8
+  owasp-asvs4-level-2:
+  - V2.1.8
 605-735:
   ASVS:
   - V9.2.3
   CWE:
   - '287'
+  owasp-asvs4-level-2:
+  - V9.2.3
 607-671:
   ASVS:
   - V5.3.6
@@ -4112,6 +4604,10 @@
   - C4
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CLNT-01
+  owasp-asvs4-level-1:
+  - V5.3.6
+  owasp-asvs4-level-2:
+  - V5.3.6
 611-051:
   ASVS:
   - V13.3.1
@@ -4121,6 +4617,10 @@
   - XML Security Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-07
+  owasp-asvs4-level-1:
+  - V13.3.1
+  owasp-asvs4-level-2:
+  - V13.3.1
 611-158:
   ASVS:
   - V10.1.1
@@ -4135,6 +4635,8 @@
   - V13.4.2
   CWE:
   - '285'
+  owasp-asvs4-level-2:
+  - V13.4.2
 612-435:
   ASVS:
   - V7.4.1
@@ -4146,6 +4648,10 @@
   - C10
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ERRH-02
+  owasp-asvs4-level-1:
+  - V7.4.1
+  owasp-asvs4-level-2:
+  - V7.4.1
 613-285:
   CCPA:
   - Contract Requirements for Service Providers and Contractors (b)
@@ -4312,6 +4818,10 @@
   - REST Assessment Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CONF-03
+  owasp-asvs4-level-1:
+  - V4.3.2
+  owasp-asvs4-level-2:
+  - V4.3.2
 616-305:
   ASVS:
   - V1.1.1
@@ -4379,6 +4889,8 @@
   - '6.5'
   - '6.6'
   - '6.7'
+  owasp-asvs4-level-2:
+  - V1.1.1
 617-524:
   ASVS:
   - V8.2.2
@@ -4389,6 +4901,10 @@
   PCI-DSS-v4.0:
   - 7.2.5
   - 7.3.1
+  owasp-asvs4-level-1:
+  - V8.2.2
+  owasp-asvs4-level-2:
+  - V8.2.2
 618-403:
   ASVS:
   - V3.6.1
@@ -4423,6 +4939,10 @@
   - C4
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-APPE-D
+  owasp-asvs4-level-1:
+  - V5.3.1
+  owasp-asvs4-level-2:
+  - V5.3.1
 622-203:
   ASVS:
   - V2.4.1
@@ -4434,6 +4954,8 @@
   - Password Storage Cheat Sheet
   OWASP Proactive Controls:
   - C6
+  owasp-asvs4-level-2:
+  - V2.4.1
 622-835:
   ASVS:
   - V2.3.1
@@ -4444,6 +4966,10 @@
   - A.3
   PCI-DSS-v4.0:
   - 8.3.5
+  owasp-asvs4-level-1:
+  - V2.3.1
+  owasp-asvs4-level-2:
+  - V2.3.1
 623-347:
   ASVS:
   - V2.5.4
@@ -4460,6 +4986,10 @@
   - 12.10.5
   - '12.8'
   - 2.2.3
+  owasp-asvs4-level-1:
+  - V2.5.4
+  owasp-asvs4-level-2:
+  - V2.5.4
 623-550:
   FedRAMP:
   - High
@@ -4516,6 +5046,10 @@
   - Abuse Case Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-BUSL-$$
+  owasp-asvs4-level-1:
+  - V11.1.4
+  owasp-asvs4-level-2:
+  - V11.1.4
 630-577:
   ASVS:
   - V2.1.11
@@ -4529,6 +5063,10 @@
   - Forgot Password Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-07
+  owasp-asvs4-level-1:
+  - V2.1.11
+  owasp-asvs4-level-2:
+  - V2.1.11
 633-428:
   CCPA:
   - Authorized Agents (a)
@@ -4630,6 +5168,8 @@
   - 4.2.1.2
   - 4.2.2
   - 8.3.2
+  owasp-asvs4-level-2:
+  - V9.2.2
 640-364:
   ASVS:
   - V1.4.1
@@ -4637,6 +5177,8 @@
   - '602'
   OWASP Cheat Sheets:
   - Docker Security Cheat Sheet
+  owasp-asvs4-level-2:
+  - V1.4.1
 646-227:
   ASVS:
   - V2.8.5
@@ -4644,6 +5186,8 @@
   - '287'
   NIST 800-63:
   - 5.1.5.2
+  owasp-asvs4-level-2:
+  - V2.8.5
 646-462:
   ASVS:
   - V5.2.8
@@ -4656,6 +5200,10 @@
   - Unvalidated Redirects and Forwards Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CLNT-05
+  owasp-asvs4-level-1:
+  - V5.2.8
+  owasp-asvs4-level-2:
+  - V5.2.8
 650-560:
   ASVS:
   - V4.1.1
@@ -4666,6 +5214,10 @@
   - Authorization Testing Automation Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHZ-02
+  owasp-asvs4-level-1:
+  - V4.1.1
+  owasp-asvs4-level-2:
+  - V4.1.1
 653-242:
   ASVS:
   - V5.1.4
@@ -4678,6 +5230,10 @@
   - C5
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-00
+  owasp-asvs4-level-1:
+  - V5.1.4
+  owasp-asvs4-level-2:
+  - V5.1.4
 657-084:
   ASVS:
   - V5.2.6
@@ -4690,6 +5246,10 @@
   - Unvalidated Redirects and Forwards Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-11
+  owasp-asvs4-level-1:
+  - V5.2.6
+  owasp-asvs4-level-2:
+  - V5.2.6
 660-052:
   ASVS:
   - V12.1.1
@@ -4699,6 +5259,10 @@
   - File Upload Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-BUSL-09
+  owasp-asvs4-level-1:
+  - V12.1.1
+  owasp-asvs4-level-2:
+  - V12.1.1
 660-867:
   ASVS:
   - V11.1.5
@@ -4708,6 +5272,10 @@
   - Abuse Case Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-BUSL-$$
+  owasp-asvs4-level-1:
+  - V11.1.5
+  owasp-asvs4-level-2:
+  - V11.1.5
 664-080:
   ASVS:
   - V13.1.4
@@ -4716,6 +5284,8 @@
   OWASP Cheat Sheets:
   - Server Side Request Forgery Prevention Cheat Sheet
   - Web Service Security Cheat Sheet
+  owasp-asvs4-level-2:
+  - V13.1.4
 664-571:
   ASVS:
   - V6.3.3
@@ -4750,6 +5320,8 @@
   - '362'
   OWASP Cheat Sheets:
   - Abuse Case Cheat Sheet
+  owasp-asvs4-level-2:
+  - V1.11.2
 673-475:
   ASVS:
   - V1.14.6
@@ -4757,6 +5329,8 @@
   - '477'
   PCI-DSS-v4.0:
   - 12.3.4
+  owasp-asvs4-level-2:
+  - V1.14.6
 673-736:
   ASVS:
   - V3.3.4
@@ -4768,6 +5342,8 @@
   - Session Management Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-06
+  owasp-asvs4-level-2:
+  - V3.3.4
 674-425:
   ASVS:
   - V6.2.3
@@ -4778,6 +5354,8 @@
   - Key Management Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-04
+  owasp-asvs4-level-2:
+  - V6.2.3
 675-168:
   ASVS:
   - V12.3.1
@@ -4785,6 +5363,10 @@
   - '22'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHZ-01
+  owasp-asvs4-level-1:
+  - V12.3.1
+  owasp-asvs4-level-2:
+  - V12.3.1
 681-823:
   ASVS:
   - V2.8.1
@@ -4793,6 +5375,10 @@
   NIST 800-63:
   - 5.1.4.2
   - 5.1.5.2
+  owasp-asvs4-level-1:
+  - V2.8.1
+  owasp-asvs4-level-2:
+  - V2.8.1
 683-036:
   NIST 800-53 v5:
   - SC-40 Wireless Link Protection
@@ -4809,6 +5395,10 @@
   - '78'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-12
+  owasp-asvs4-level-1:
+  - V12.3.5
+  owasp-asvs4-level-2:
+  - V12.3.5
 688-081:
   ASVS:
   - V3.4.1
@@ -4823,6 +5413,10 @@
   - C6
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-02
+  owasp-asvs4-level-1:
+  - V3.4.1
+  owasp-asvs4-level-2:
+  - V3.4.1
 704-530:
   ASVS:
   - V3.2.2
@@ -4836,6 +5430,10 @@
   - C6
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-01
+  owasp-asvs4-level-1:
+  - V3.2.2
+  owasp-asvs4-level-2:
+  - V3.2.2
 705-182:
   ASVS:
   - V3.4.5
@@ -4850,6 +5448,10 @@
   - C6
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-02
+  owasp-asvs4-level-1:
+  - V3.4.5
+  owasp-asvs4-level-2:
+  - V3.4.5
 708-355:
   D3FEND:
   - Execution Isolation
@@ -4889,6 +5491,8 @@
   - WSTG-ATHZ-03
   PCI-DSS-v4.0:
   - 10.3.1
+  owasp-asvs4-level-2:
+  - V7.3.3
 715-223:
   ASVS:
   - V14.2.4
@@ -4899,11 +5503,15 @@
   - Vulnerable Dependency Management Cheat Sheet
   OWASP Proactive Controls:
   - C2
+  owasp-asvs4-level-2:
+  - V14.2.4
 715-304:
   ASVS:
   - V8.3.6
   CWE:
   - '226'
+  owasp-asvs4-level-2:
+  - V8.3.6
 715-334:
   ASVS:
   - V14.2.1
@@ -4914,6 +5522,10 @@
   - Vulnerable Dependency Management Cheat Sheet
   OWASP Proactive Controls:
   - C2
+  owasp-asvs4-level-1:
+  - V14.2.1
+  owasp-asvs4-level-2:
+  - V14.2.1
 715-681:
   ASVS:
   - V2.1.3
@@ -4929,6 +5541,10 @@
   - C6
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-07
+  owasp-asvs4-level-1:
+  - V2.1.3
+  owasp-asvs4-level-2:
+  - V2.1.3
 724-770:
   CCPA:
   - General Rules Regarding Verification (c)(1)
@@ -5001,6 +5617,8 @@
   - '390'
   OWASP Cheat Sheets:
   - Abuse Case Cheat Sheet
+  owasp-asvs4-level-2:
+  - V11.1.8
 727-043:
   ASVS:
   - V3.2.4
@@ -5014,6 +5632,8 @@
   - C6
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-01
+  owasp-asvs4-level-2:
+  - V3.2.4
 731-120:
   ASVS:
   - V1.8.2
@@ -5022,6 +5642,8 @@
   OWASP Cheat Sheets:
   - Abuse Case Cheat Sheet
   - User Privacy Protection Cheat Sheet
+  owasp-asvs4-level-2:
+  - V1.8.2
 732-148:
   CCPA:
   - Agency Audits (b)
@@ -5092,6 +5714,10 @@
   - C3
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-05
+  owasp-asvs4-level-1:
+  - V5.3.4
+  owasp-asvs4-level-2:
+  - V5.3.4
 736-237:
   ASVS:
   - V14.4.2
@@ -5099,6 +5725,10 @@
   - '116'
   OWASP Cheat Sheets:
   - Content Security Policy Cheat Sheet
+  owasp-asvs4-level-1:
+  - V14.4.2
+  owasp-asvs4-level-2:
+  - V14.4.2
 736-554:
   ASVS:
   - V1.5.2
@@ -5107,6 +5737,8 @@
   OWASP Cheat Sheets:
   - Abuse Case Cheat Sheet
   - Deserialization Cheat Sheet
+  owasp-asvs4-level-2:
+  - V1.5.2
 737-086:
   ASVS:
   - V12.3.2
@@ -5114,6 +5746,10 @@
   - '73'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHZ-01
+  owasp-asvs4-level-1:
+  - V12.3.2
+  owasp-asvs4-level-2:
+  - V12.3.2
 742-056:
   ASVS:
   - V12.3.3
@@ -5121,6 +5757,10 @@
   - '98'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHZ-01
+  owasp-asvs4-level-1:
+  - V12.3.3
+  owasp-asvs4-level-2:
+  - V12.3.3
 742-431:
   ASVS:
   - V6.2.2
@@ -5133,6 +5773,8 @@
   - C8
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-04
+  owasp-asvs4-level-2:
+  - V6.2.2
 743-110:
   ASVS:
   - V14.3.3
@@ -5142,6 +5784,10 @@
   - Error Handling Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INFO-##
+  owasp-asvs4-level-1:
+  - V14.3.3
+  owasp-asvs4-level-2:
+  - V14.3.3
 743-237:
   ASVS:
   - V5.1.1
@@ -5152,6 +5798,10 @@
   - Mass Assignment Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-04
+  owasp-asvs4-level-1:
+  - V5.1.1
+  owasp-asvs4-level-2:
+  - V5.1.1
 745-045:
   ASVS:
   - V9.1.1
@@ -5165,6 +5815,10 @@
   - C8
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-01
+  owasp-asvs4-level-1:
+  - V9.1.1
+  owasp-asvs4-level-2:
+  - V9.1.1
 745-356:
   NIST SSDF:
   - PO.3.3
@@ -5177,6 +5831,10 @@
   - Abuse Case Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-BUSL-$$
+  owasp-asvs4-level-1:
+  - V11.1.3
+  owasp-asvs4-level-2:
+  - V11.1.3
 751-176:
   ASVS:
   - V2.1.5
@@ -5190,6 +5848,10 @@
   - Forgot Password Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-07
+  owasp-asvs4-level-1:
+  - V2.1.5
+  owasp-asvs4-level-2:
+  - V2.1.5
 757-271:
   ASVS:
   - V1.10.1
@@ -5200,6 +5862,8 @@
   - Virtual Patching Cheat Sheet
   PCI-DSS-v4.0:
   - '6.5'
+  owasp-asvs4-level-2:
+  - V1.10.1
 760-764:
   OWASP Top 10 2021:
   - Injection
@@ -5211,6 +5875,10 @@
   - V8.3.2
   CWE:
   - '212'
+  owasp-asvs4-level-1:
+  - V8.3.2
+  owasp-asvs4-level-2:
+  - V8.3.2
 762-616:
   ASVS:
   - V5.5.1
@@ -5222,6 +5890,10 @@
   - XML Security Cheat Sheet
   OWASP Proactive Controls:
   - C5
+  owasp-asvs4-level-1:
+  - V5.5.1
+  owasp-asvs4-level-2:
+  - V5.5.1
 764-507:
   ASVS:
   - V5.5.2
@@ -5233,6 +5905,10 @@
   - XML Security Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-07
+  owasp-asvs4-level-1:
+  - V5.5.2
+  owasp-asvs4-level-2:
+  - V5.5.2
 765-788:
   ASVS:
   - V1.8.1
@@ -5244,6 +5920,8 @@
   PCI-DSS-v4.0:
   - 3.3.1
   - 9.4.2
+  owasp-asvs4-level-2:
+  - V1.8.1
 766-162:
   Cloud Controls Matrix:
   - Governance, Risk and Compliance
@@ -5278,6 +5956,8 @@
   - Password Storage Cheat Sheet
   OWASP Proactive Controls:
   - C6
+  owasp-asvs4-level-2:
+  - V2.4.3
 767-701:
   ASVS:
   - V9.1.2
@@ -5289,6 +5969,10 @@
   - Transport Layer Protection Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-01
+  owasp-asvs4-level-1:
+  - V9.1.2
+  owasp-asvs4-level-2:
+  - V9.1.2
 770-361:
   ASVS:
   - V7.3.4
@@ -5297,6 +5981,8 @@
     Cheat Sheet
   OWASP Proactive Controls:
   - C9
+  owasp-asvs4-level-2:
+  - V7.3.4
 772-358:
   ASVS:
   - V2.5.2
@@ -5309,16 +5995,24 @@
   - Forgot Password Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-08
+  owasp-asvs4-level-1:
+  - V2.5.2
+  owasp-asvs4-level-2:
+  - V2.5.2
 774-888:
   ASVS:
   - V2.10.4
   CWE:
   - '798'
+  owasp-asvs4-level-2:
+  - V2.10.4
 777-470:
   ASVS:
   - V12.3.6
   CWE:
   - '829'
+  owasp-asvs4-level-2:
+  - V12.3.6
 782-234:
   ASVS:
   - V1.5.1
@@ -5329,6 +6023,8 @@
   OWASP Cheat Sheets:
   - Abuse Case Cheat Sheet
   - Deserialization Cheat Sheet
+  owasp-asvs4-level-2:
+  - V1.5.1
 783-255:
   ASVS:
   - V2.9.1
@@ -5356,6 +6052,8 @@
   - 3.7.7
   - 3.7.8
   - 3.7.9
+  owasp-asvs4-level-2:
+  - V2.9.1
 786-224:
   ASVS:
   - V6.2.7
@@ -5375,6 +6073,8 @@
   - Docker Security Cheat Sheet
   OWASP Proactive Controls:
   - C7
+  owasp-asvs4-level-2:
+  - V1.4.5
 802-056:
   ASVS:
   - V2.2.1
@@ -5393,6 +6093,10 @@
   - WSTG-ATHN-03
   PCI-DSS-v4.0:
   - 8.3.4
+  owasp-asvs4-level-1:
+  - V2.2.1
+  owasp-asvs4-level-2:
+  - V2.2.1
 804-220:
   ASVS:
   - V3.4.2
@@ -5407,6 +6111,10 @@
   - C6
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-02
+  owasp-asvs4-level-1:
+  - V3.4.2
+  owasp-asvs4-level-2:
+  - V3.4.2
 806-367:
   ASVS:
   - V1.5.4
@@ -5417,6 +6125,8 @@
   - Deserialization Cheat Sheet
   OWASP Proactive Controls:
   - C4
+  owasp-asvs4-level-2:
+  - V1.5.4
 807-565:
   ASVS:
   - V2.1.9
@@ -5432,6 +6142,10 @@
   - C6
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHN-07
+  owasp-asvs4-level-1:
+  - V2.1.9
+  owasp-asvs4-level-2:
+  - V2.1.9
 808-425:
   ASVS:
   - V2.2.3
@@ -5441,6 +6155,10 @@
   - Authentication Cheat Sheet
   - TLS Cipher String Cheat Sheet
   - Transport Layer Protection Cheat Sheet
+  owasp-asvs4-level-1:
+  - V2.2.3
+  owasp-asvs4-level-2:
+  - V2.2.3
 813-610:
   ASVS:
   - V2.10.1
@@ -5448,6 +6166,8 @@
   - '287'
   NIST 800-63:
   - 5.1.1.1
+  owasp-asvs4-level-2:
+  - V2.10.1
 814-322:
   ASVS:
   - V12.6.1
@@ -5458,6 +6178,10 @@
   - Unvalidated Redirects and Forwards Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-BUSL-09
+  owasp-asvs4-level-1:
+  - V12.6.1
+  owasp-asvs4-level-2:
+  - V12.6.1
 816-631:
   ASVS:
   - V2.7.2
@@ -5467,6 +6191,10 @@
   - 5.1.3.2
   OWASP Cheat Sheets:
   - Forgot Password Cheat Sheet
+  owasp-asvs4-level-1:
+  - V2.7.2
+  owasp-asvs4-level-2:
+  - V2.7.2
 817-808:
   CWE:
   - '276'
@@ -5484,6 +6212,8 @@
   - V14.5.4
   CWE:
   - '306'
+  owasp-asvs4-level-2:
+  - V14.5.4
 820-877:
   FedRAMP:
   - High
@@ -5515,6 +6245,8 @@
   - Threat Modeling Cheat Sheet
   PCI-DSS-v4.0:
   - 1.2.4
+  owasp-asvs4-level-2:
+  - V1.1.4
 821-832:
   ASVS:
   - V1.6.3
@@ -5523,6 +6255,8 @@
   OWASP Cheat Sheets:
   - Cryptographic Storage Cheat Sheet
   - Key Management Cheat Sheet
+  owasp-asvs4-level-2:
+  - V1.6.3
 822-100:
   ASVS:
   - V1.1.3
@@ -5532,11 +6266,15 @@
   - Abuse Case Cheat Sheet
   - Attack Surface Analysis Cheat Sheet
   - Threat Modeling Cheat Sheet
+  owasp-asvs4-level-2:
+  - V1.1.3
 824-732:
   ASVS:
   - V5.4.2
   CWE:
   - '134'
+  owasp-asvs4-level-2:
+  - V5.4.2
 831-563:
   ASVS:
   - V5.5.3
@@ -5546,6 +6284,10 @@
   - Deserialization Cheat Sheet
   - XML External Entity Prevention Cheat Sheet
   - XML Security Cheat Sheet
+  owasp-asvs4-level-1:
+  - V5.5.3
+  owasp-asvs4-level-2:
+  - V5.5.3
 831-570:
   ASVS:
   - V5.4.1
@@ -5553,6 +6295,8 @@
   - '120'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-13
+  owasp-asvs4-level-2:
+  - V5.4.1
 833-030:
   CCPA:
   - Training (a)
@@ -5583,6 +6327,8 @@
   - V10.2.1
   CWE:
   - '359'
+  owasp-asvs4-level-2:
+  - V10.2.1
 836-068:
   OWASP Top 10 2021:
   - Software and Data Integrity Failures
@@ -5598,6 +6344,8 @@
   - '778'
   OWASP Cheat Sheets:
   - Logging Cheat Sheet
+  owasp-asvs4-level-2:
+  - V7.2.1
 841-757:
   ASVS:
   - V2.8.3
@@ -5606,6 +6354,8 @@
   NIST 800-63:
   - 5.1.4.2
   - 5.1.5.2
+  owasp-asvs4-level-2:
+  - V2.8.3
 842-876:
   CCPA:
   - Record-Keeping (a)
@@ -5692,6 +6442,8 @@
   - V8.1.1
   CWE:
   - '524'
+  owasp-asvs4-level-2:
+  - V8.1.1
 847-247:
   Cloud Controls Matrix:
   - Interoperability and portability policy and procedures
@@ -5705,6 +6457,8 @@
   - Deserialization Cheat Sheet
   OWASP Proactive Controls:
   - C5
+  owasp-asvs4-level-2:
+  - V1.5.3
 850-376:
   Cloud Controls Matrix:
   - Datacenter security
@@ -5740,6 +6494,10 @@
   - C4
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-12
+  owasp-asvs4-level-1:
+  - V5.3.8
+  owasp-asvs4-level-2:
+  - V5.3.8
 860-084:
   ASVS:
   - V14.2.6
@@ -5750,6 +6508,8 @@
   - Vulnerable Dependency Management Cheat Sheet
   OWASP Proactive Controls:
   - C2
+  owasp-asvs4-level-2:
+  - V14.2.6
 862-452:
   CCPA:
   - Opt-Out Preference Signals (c)(1)
@@ -5796,6 +6556,8 @@
   - C2
   PCI-DSS-v4.0:
   - 6.3.2
+  owasp-asvs4-level-2:
+  - V14.2.5
 863-636:
   ASVS:
   - V7.4.2
@@ -5807,6 +6569,8 @@
   - C10
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ERRH-02
+  owasp-asvs4-level-2:
+  - V7.4.2
 866-553:
   FedRAMP:
   - High
@@ -5838,6 +6602,8 @@
   - '522'
   NIST 800-63:
   - 5.1.1.1
+  owasp-asvs4-level-2:
+  - V2.10.3
 881-434:
   ASVS:
   - V5.2.3
@@ -5850,6 +6616,10 @@
   - Unvalidated Redirects and Forwards Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-INPV-10
+  owasp-asvs4-level-1:
+  - V5.2.3
+  owasp-asvs4-level-2:
+  - V5.2.3
 888-770:
   ISO 27001:
   - Threat intelligence
