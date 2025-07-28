@@ -5,13 +5,34 @@ import random
 
 import httpx
 import typer
-from openai import OpenAI
+from openai import OpenAI, AzureOpenAI
 from rich import print
 from rich.progress import Progress, TextColumn, SpinnerColumn
 
 from isra.src.config.config import get_property, get_resource
 from isra.src.config.constants import TEST_ANSWERS_FILE, HINTS, PROMPTS_DIR
 from isra.src.utils.text_functions import replace_non_ascii
+
+
+def get_client():
+    client_to_use = get_property("openai_client")
+    if client_to_use == "OPENAI":
+        client = OpenAI(timeout=httpx.Timeout(15.0, read=5.0, write=10.0, connect=3.0))
+    elif client_to_use == "AZURE":
+        azure_openai_api_key = os.environ["AZURE_OPENAI_API_KEY"]
+        azure_openai_endpoint = os.environ["AZURE_OPENAI_ENDPOINT"]
+        client = AzureOpenAI(
+            api_version="2025-01-01-preview",
+            api_key=azure_openai_api_key,
+            azure_endpoint=azure_openai_endpoint,
+            http_client=httpx.Client(verify=False)
+        )
+
+    else:
+        print("No client has been defined. Use 'isra config update' to set the openai_client first")
+        client = None
+
+    return client
 
 
 def get_hint():
@@ -62,23 +83,31 @@ def query_chatgpt(messages):
                 progress.add_task(description="Processing...", total=None)
 
                 try:
-                    client = OpenAI(timeout=httpx.Timeout(15.0, read=5.0, write=10.0, connect=3.0))
-                    assistant = client.beta.assistants.retrieve(get_property("openai_assistant_id"))
-                    my_thread = client.beta.threads.create()
+                    if get_property("openai_client") == "AZURE":
+                        print(
+                            "Assistants cannot be used with Azure OpenAI. "
+                            "Either change the openai_client to OPENAI or remove the openai_assistant_id")
+                        raise typer.Exit(-1)
+                    else:
+                        client = get_client()
+                        assistant = client.beta.assistants.retrieve(get_property("openai_assistant_id"))
+                        my_thread = client.beta.threads.create()
 
-                    for m in messages:
-                        client.beta.threads.messages.create(thread_id=my_thread.id, role="user", content=m["content"])
+                        for m in messages:
+                            client.beta.threads.messages.create(thread_id=my_thread.id, role="user",
+                                                                content=m["content"])
 
-                    run = client.beta.threads.runs.create(thread_id=my_thread.id, assistant_id=assistant.id)
+                        run = client.beta.threads.runs.create(thread_id=my_thread.id, assistant_id=assistant.id)
 
-                    while run.status != "completed":
-                        keep_retrieving_run = client.beta.threads.runs.retrieve(thread_id=my_thread.id, run_id=run.id)
-                        if keep_retrieving_run.status == "completed":
-                            break
+                        while run.status != "completed":
+                            keep_retrieving_run = client.beta.threads.runs.retrieve(thread_id=my_thread.id,
+                                                                                    run_id=run.id)
+                            if keep_retrieving_run.status == "completed":
+                                break
 
-                    assistant_result = client.beta.threads.messages.list(thread_id=my_thread.id)
+                        assistant_result = client.beta.threads.messages.list(thread_id=my_thread.id)
 
-                    result = assistant_result.data[0].content[0].text.value
+                        result = assistant_result.data[0].content[0].text.value
                 except Exception as e:
                     print(
                         "Something happened when calling ChatGPT API. Make sure you defined the environment variable "
@@ -95,7 +124,8 @@ def query_chatgpt(messages):
                 progress.add_task(description="Processing...", total=None)
 
                 try:
-                    client = OpenAI()
+
+                    client = get_client()
 
                     completion = client.chat.completions.create(
                         model=get_property("gpt_model"),
@@ -109,8 +139,9 @@ def query_chatgpt(messages):
                     #                      completion.usage.completion_tokens)
                 except Exception as e:
                     print(
-                        "Something happened when calling ChatGPT API. Make sure you defined the environment variable "
-                        "OPENAI_API_KEY and that a GPT model has been selected in the configuration")
+                        f"Something happened when calling {get_property('openai_client')} API. "
+                        f"If you're using OPENAI ensure that you defined the OPENAI_API_KEY environment variable in your system as well as a valid gpt model in the configuration. "
+                        f"If you're using AZURE ensure that you defined the AZURE_OPENAI_API_KEY and AZURE_OPENAI_ENDPOINT environment variableS in your system as well as a valid gpt model in the configuration. ")
                     print(e)
                     raise typer.Exit(-1)
 

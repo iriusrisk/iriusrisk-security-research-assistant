@@ -1,5 +1,13 @@
 # Changelog
 
+
+## 2.5.0 - 20250728
+
+### Enhancements
+
+* Added new config parameters to use Azure OpenAI
+* Added new standard OWASP Agentic AI 2025
+
 ## 2.4.3 - 20250710
 
 ### Enhancements

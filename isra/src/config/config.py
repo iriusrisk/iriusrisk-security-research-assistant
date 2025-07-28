@@ -1,7 +1,6 @@
 import configparser
 import json
 import os
-from pathlib import Path
 from typing import Annotated
 
 import typer
@@ -12,12 +11,13 @@ from rich import print
 from rich.table import Table
 
 from isra.src.config.constants import APP_NAME, SYSTEM_FIELD_VALUES, PROPERTIES_FILE, CONFIG_FOLDER, BACKUP_FOLDER, \
-    OLD_PROPERTIES_FILE, AUTOSCREENING_CONFIG_FILE, get_app_dir
+    OLD_PROPERTIES_FILE, AUTOSCREENING_CONFIG_FILE
 from isra.src.utils.questionary_wrapper import qselect, qtext, qpath
 
 app = typer.Typer(no_args_is_help=True, add_help_option=False)
 
 properties_s = None
+
 
 def get_info():
     return {
@@ -31,7 +31,8 @@ def get_info():
         "openai_assistant_id": "OpenAI Assistant ID that will be used to generate answers",
         "iriusrisk_url": "IriusRisk instance URL",
         "iriusrisk_api_token": "IriusRisk API Token",
-        "company_name": "Fill only if the content will be released for a specific company"
+        "company_name": "Fill only if the content will be released for a specific company",
+        "openai_client": "Choose between OPENAI or AZURE",
     }
 
 
@@ -225,11 +226,17 @@ def update():
         elif opt == "gpt_model":
             value = qtext("Write the new value: ", default=properties[opt])
         elif opt == "openai_assistant_id":
-            value = qselect("Select OpenAI Assistant ID:", choices=list_assistants())
-            if value == "No assistant":
-                value = ""
+            if get_property("openai_client") == "OPENAI":
+                value = qselect("Select OpenAI Assistant ID:", choices=list_assistants())
+                if value == "No assistant":
+                    value = ""
+                else:
+                    value = value.split(":")[0]
             else:
-                value = value.split(":")[0]
+                print("Assistants couldn't be retrieved. Ensure that you defined OPENAI in the openai_client parameter")
+                value = ""
+        elif opt == "openai_client":
+            value = qselect("Select OpenAI client", choices=["OPENAI", "AZURE"])
         elif opt == "iriusrisk_url":
             value = qtext("Write the new value: ", default=properties[opt])
             if value.endswith("/ui#!app"):

@@ -8,8 +8,8 @@ from rich import print
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from urllib3.exceptions import NewConnectionError
 
-from isra.src.config.config import get_property, get_app_dir
-from isra.src.config.constants import IRIUSRISK_API_HEADERS
+from isra.src.config.config import get_property
+from isra.src.config.constants import IRIUSRISK_API_HEADERS, get_app_dir
 from isra.src.utils.text_functions import clean_and_capitalize, convert_cost_value, get_company_name_prefix, \
     set_category_suffix
 from isra.src.utils.xml_functions import export_rules_into_rules_library, export_content_into_category_library, \

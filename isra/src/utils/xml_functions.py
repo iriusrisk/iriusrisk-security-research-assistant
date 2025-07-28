@@ -5,11 +5,11 @@ import uuid
 import typer
 from lxml import etree
 
-from isra.src.config.config import get_property, get_app_dir
+from isra.src.config.config import get_property
 from isra.src.config.constants import OUTPUT_NAME, CATEGORIES_LIST, SF_C_MAP, SF_T_MAP, \
     CUSTOM_FIELD_SCOPE, \
     CUSTOM_FIELD_STANDARD_BASELINE_REF, CUSTOM_FIELD_STANDARD_BASELINE_SECTION, \
-    CUSTOM_FIELD_STRIDE, EMPTY_TEMPLATE, REVERSED_OUTPUT_NAME
+    CUSTOM_FIELD_STRIDE, EMPTY_TEMPLATE, REVERSED_OUTPUT_NAME, get_app_dir
 from isra.src.utils.cwe_functions import get_original_cwe_weaknesses, get_cwe_description
 from isra.src.utils.text_functions import merge_custom_fields, split_mitre_custom_field_threats, \
     split_mitre_custom_field_controls, generate_identifier_from_ref, set_category_suffix
