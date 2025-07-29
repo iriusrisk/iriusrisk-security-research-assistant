@@ -25,6 +25,7 @@ def extract_json(json_string):
     json_object = json_string[start_index:end_index + 1]
 
     # Parse the JSON object and return it
+    print(json_object)
 
     try:
         result = json.loads(json_object)
@@ -35,6 +36,7 @@ def extract_json(json_string):
         except JSONDecodeError as e:
             # print(f"Plain answer: ---{json_string}---")
             print(f"Couldn't convert JSON answer: {json_object}")
+            print(e)
             raise e
 
     return result

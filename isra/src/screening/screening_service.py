@@ -25,6 +25,15 @@ warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
 # Get functions
 
+def generate_new_control_description(text):
+    messages = [
+        {"role": "system",
+         "content": get_prompt("generate_new_control_description.md")},
+        {"role": "user", "content": text}
+    ]
+
+    return query_chatgpt(messages), ""
+
 
 def fix_description(text, feedback):
     messages = [
@@ -60,7 +69,6 @@ def generate_question(item, feedback):
         print(f"Double quotes have been removed: {result}")
 
     return result, item["question"]
-
 
 def get_stride_category(item, feedback):
     text = item["name"] + ": " + beautify(item["desc"])
@@ -421,6 +429,13 @@ def save_question(template, to_update, action="init"):
             control_item["question_desc"] = set_value("question_desc", control_item["question_desc"], question_desc,
                                                       action)
 
+
+def save_description(template, to_update, action="init"):
+    for control_ref, description in to_update.items():
+        control_item = template["controls"][control_ref]
+
+        if action in ["init", "replace"]:
+            control_item["question"] = set_value("desc", control_item["desc"], description, action)
 
 # Custom behavior for saving functions
 

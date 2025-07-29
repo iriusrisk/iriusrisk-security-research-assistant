@@ -623,9 +623,9 @@ def create_threat_model(reuse=False, controls=None):
             # Prepare controls text for GPT
             controls_text = ""
             for i, control in enumerate(controls_list, 1):
-                controls_text += f"{i}. Name: {control['name']}\n   Description: {control['description']}\n\n"
+                controls_text += f"{i}. Name: {control['name']}"
 
-            # Generate threats and countermeasures using GPT
+                # Generate threats and countermeasures using GPT
             chatgpt_answer = generate_threats_for_controls(controls_text)
             generated_threat_model = extract_json(chatgpt_answer)
 
@@ -633,7 +633,31 @@ def create_threat_model(reuse=False, controls=None):
                 print("ChatGPT didn't answer with the right format. Try again")
                 raise typer.Exit(-1)
 
-            # Improve descriptions for each threat and control
+            # Create a mapping of control names to original descriptions
+            controls_mapping = {control['name'].lower().strip(): control['description'] for control in controls_list}
+
+            # Ensure that every key in the controls_mapping variable can be found in the threat model. Otherwise throw an error
+            missing_controls = []
+            threat_model_controls = set()
+            
+            # Collect all control names from the generated threat model
+            for threat in generated_threat_model["security_threats"]:
+                for control in threat["countermeasures"]:
+                    threat_model_controls.add(control['countermeasure_name'].lower().strip())
+            
+            # Check if all controls from the XLSX file are present in the threat model
+            for control_name in controls_mapping.keys():
+                if control_name not in threat_model_controls:
+                    missing_controls.append(control_name)
+            
+            if missing_controls:
+                print(f"Error: The following controls from the XLSX file were not found in the generated threat model:")
+                for missing_control in missing_controls:
+                    print(f"  - {missing_control}")
+                print("Try to generate the threat model again")
+                raise typer.Exit(-1)
+
+            # Improve descriptions for each threat and restore original control descriptions
             t = 1
             for threat in generated_threat_model["security_threats"]:
                 # Improve threat description
@@ -643,14 +667,16 @@ def create_threat_model(reuse=False, controls=None):
                 improved_threat_desc = generate_new_threat_description(threat_improvement_text)
                 threat["description"] = improved_threat_desc.strip()
 
-                # Improve control descriptions
+                # Restore original control descriptions from XLSX file and track included controls
                 c = 1
                 for control in threat["countermeasures"]:
-                    print(f"Improving control description {c}/{len(threat['countermeasures'])}")
+                    print(f"Improving countermeasure description {c}/{len(threat['countermeasures'])}")
                     c += 1
-                    control_improvement_text = f"Control Name: {control['countermeasure_name']}\nCurrent Description: {control['description']}"
-                    improved_control_desc = generate_new_control_description(control_improvement_text)
-                    control["description"] = improved_control_desc.strip()
+                    control_name_lower = control['countermeasure_name'].lower().strip()
+                    if control_name_lower in controls_mapping:
+                        control["description"] = generate_new_control_description(controls_mapping[control_name_lower])
+                    else:
+                        print(f"Warning: Control '{control['countermeasure_name']}' not found in original XLSX file")
 
             # Save the generated threat model
             with open(threat_model_path, "w") as threat_model_file:
