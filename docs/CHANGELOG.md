@@ -6,7 +6,11 @@
 ### Enhancements
 
 * Added new config parameters to use Azure OpenAI
-* Added new standard OWASP Agentic AI 2025
+* Added new standard OWASP Agentic AI 2025, EU Cyber Resilience Act and ETSI 303 645
+
+### Features
+
+* New parameter in the 'isra component tm' function to feed a list of controls and create a threat model based on that list
 
 ## 2.4.3 - 20250710
 

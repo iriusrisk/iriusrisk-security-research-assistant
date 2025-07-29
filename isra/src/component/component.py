@@ -1,14 +1,16 @@
 import os.path
 import os.path
+import os.path
 import re
 from collections import defaultdict
 from json import JSONDecodeError
-from typing_extensions import Annotated
 
 import jsonschema
+import pandas as pd
 import yaml
 from rich import print
 from rich.table import Table
+from typing_extensions import Annotated
 
 from isra.src.component.template import read_current_component, write_current_component, check_current_component
 from isra.src.config.constants import TEMPLATE_FILE, THREAT_MODEL_FILE, TM_SCHEMA, PREFIX_COMPONENT_DEFINITION, \
@@ -30,6 +32,36 @@ def generate_threat_model(text):
     messages = [
         {"role": "system",
          "content": get_prompt("generate_threat_model.md")},
+        {"role": "user", "content": text}
+    ]
+
+    return query_chatgpt(messages)
+
+
+def generate_new_control_description(text):
+    messages = [
+        {"role": "system",
+         "content": get_prompt("generate_new_control_description.md")},
+        {"role": "user", "content": text}
+    ]
+
+    return query_chatgpt(messages)
+
+
+def generate_new_threat_description(text):
+    messages = [
+        {"role": "system",
+         "content": get_prompt("generate_new_threat_description.md")},
+        {"role": "user", "content": text}
+    ]
+
+    return query_chatgpt(messages)
+
+
+def generate_threats_for_controls(text):
+    messages = [
+        {"role": "system",
+         "content": get_prompt("generate_threats_for_controls.md")},
         {"role": "user", "content": text}
     ]
 
@@ -548,7 +580,7 @@ def info(full: Annotated[bool, typer.Option(help="Shows all properties")] = Fals
         print(table)
 
 
-def create_threat_model(reuse_threat_model):
+def create_threat_model(reuse=False, controls=None):
     template = read_current_component()
 
     properties_dir = get_app_dir()
@@ -563,22 +595,85 @@ def create_threat_model(reuse_threat_model):
     template["controls"] = dict()
     template["relations"] = list()
 
-    if not reuse_threat_model:
-        max_iterations = 10
-        generated_threat_model = ""
+    # Handle controls parameter - read XLSX file and generate threats from controls
+    if controls and controls != "":
+        try:
+            # Read the XLSX file with controls
+            df = pd.read_excel(controls, dtype=str)
+            df = df.fillna('')
 
-        for attempt in range(1, max_iterations + 1):
-            if attempt > 1:
-                print(f"Round {attempt}")
-            try:
-                chatgpt_answer = generate_threat_model(component_ref + ": " + component_desc)
-                generated_threat_model = extract_json(chatgpt_answer)
-                break
-            except JSONDecodeError:
-                print(f"ChatGPT didn't answered with the right format. Trying again...")
+            # Extract controls list
+            controls_list = []
+            for _, row in df.iterrows():
+                control_name = row.get('Name', '').strip()
+                control_description = row.get('Description', '').strip()
+                if control_name and control_description:
+                    controls_list.append({
+                        'name': control_name,
+                        'description': control_description
+                    })
 
-                if attempt == max_iterations:
-                    raise typer.Exit(-1)
+            if not controls_list:
+                print(
+                    "No valid controls found in the XLSX file. Please ensure the file has 'Name' and 'Description' columns.")
+                raise typer.Exit(-1)
+
+            print(f"Found {len(controls_list)} controls in the XLSX file")
+
+            # Prepare controls text for GPT
+            controls_text = ""
+            for i, control in enumerate(controls_list, 1):
+                controls_text += f"{i}. Name: {control['name']}\n   Description: {control['description']}\n\n"
+
+            # Generate threats and countermeasures using GPT
+            chatgpt_answer = generate_threats_for_controls(controls_text)
+            generated_threat_model = extract_json(chatgpt_answer)
+
+            if not generated_threat_model:
+                print("ChatGPT didn't answer with the right format. Try again")
+                raise typer.Exit(-1)
+
+            # Improve descriptions for each threat and control
+            t = 1
+            for threat in generated_threat_model["security_threats"]:
+                # Improve threat description
+                print(f"Improving threat description {t}/{len(generated_threat_model['security_threats'])}")
+                t += 1
+                threat_improvement_text = f"Threat Name: {threat['threat_name']}\nCurrent Description: {threat['description']}"
+                improved_threat_desc = generate_new_threat_description(threat_improvement_text)
+                threat["description"] = improved_threat_desc.strip()
+
+                # Improve control descriptions
+                c = 1
+                for control in threat["countermeasures"]:
+                    print(f"Improving control description {c}/{len(threat['countermeasures'])}")
+                    c += 1
+                    control_improvement_text = f"Control Name: {control['countermeasure_name']}\nCurrent Description: {control['description']}"
+                    improved_control_desc = generate_new_control_description(control_improvement_text)
+                    control["description"] = improved_control_desc.strip()
+
+            # Save the generated threat model
+            with open(threat_model_path, "w") as threat_model_file:
+                threat_model_file.write(json.dumps(generated_threat_model))
+
+        except Exception as e:
+            print(f"Error processing controls file: {e}")
+            raise typer.Exit(-1)
+
+    # Handle reuse parameter - load existing threat model
+    elif reuse:
+        if not os.path.exists(threat_model_path):
+            print("No existing threat model found to reuse")
+            raise typer.Exit(-1)
+
+    # Handle default case - generate new threat model
+    else:
+        try:
+            chatgpt_answer = generate_threat_model(component_ref + ": " + component_desc)
+            generated_threat_model = extract_json(chatgpt_answer)
+        except JSONDecodeError:
+            print(f"ChatGPT didn't answered with the right format. Try again")
+            raise typer.Exit(-1)
 
         if generated_threat_model != "":
             with open(threat_model_path, "w") as threat_model_file:
@@ -586,6 +681,7 @@ def create_threat_model(reuse_threat_model):
         else:
             raise typer.Exit(-1)
 
+    # Load and process the threat model
     with open(threat_model_path, "r") as threat_model_file:
         threat_model = json.loads(threat_model_file.read())
 
@@ -648,20 +744,24 @@ def create_threat_model(reuse_threat_model):
 
 
 @app.command()
-def tm():
+def tm(controls: Annotated[
+    str, typer.Option(help="Path to XLSX file containing controls with Name and Description columns")] = ""):
     """
     Creates a threat model with threats and countermeasures automatically with ChatGPT or from a file
     based on the current component name and description
     """
 
-    properties_dir = get_app_dir()
-    threat_model_path = os.path.join(properties_dir, THREAT_MODEL_FILE)
-    reuse_threat_model = False
-    if os.path.exists(threat_model_path):
-        print(f"[blue]Threat model found in {threat_model_path}")
-        reuse_threat_model = qconfirm("Do you want to apply existing threat model?")
+    if controls != "":
+        create_threat_model(controls=controls)
+    else:
+        properties_dir = get_app_dir()
+        threat_model_path = os.path.join(properties_dir, THREAT_MODEL_FILE)
+        reuse_threat_model = False
+        if os.path.exists(threat_model_path):
+            print(f"[blue]Threat model found in {threat_model_path}")
+            reuse_threat_model = qconfirm("Do you want to apply existing threat model?")
 
-    create_threat_model(reuse_threat_model)
+        create_threat_model(reuse=reuse_threat_model)
 
 
 @app.command()
