@@ -409,3 +409,44 @@ def check_custom_fields_are_valid(root):
                 errors.extend(aux(control["ref"], control["taxonomies"]["emb3d_mitigation"], cfs[IR_SF_C_MITRE]))
 
     return errors
+
+
+def check_component_ref_same_risk_pattern_ref(root):
+    errors = []
+
+    exceptions = ["CD-V2-CONNECTION-SETTINGS",
+                  "CD-V2-GENERIC-SWIFT-BANKING",
+                  "CD-V2-AUTHENTICATION-AND-AUTHORIZATION-MODULE",
+                  "CD-V2-MTLS",
+                  "CD-V2-SESSION-IDENTIFIER",
+                  "CD-V2-SOCIAL-MEDIA-INTEGRATOR",
+                  "CD-V2-WORKFLOW-AUTOMATION-SYSTEM",
+                  "CD-V2-XML-PROCESSING",
+                  "CD-V2-AKAMAI-CDN-SYSTEM",
+                  "CD-V2-GENERIC-ACCOUNT-STATEMENT",
+                  "CD-V2-GENERIC-COMPLIANCE-REPORTING",
+                  "CD-V2-GENERIC-DATA-DASHBOARD",
+                  "CD-V2-GENERIC-MARKET-DATA",
+                  "CD-V2-DATA-PREPARATION-FOR-LEARNING",
+                  "CD-V2-DEPLOYMENT-SETUP",
+                  "CD-V2-USERS-INPUT",
+                  "CD-V2-GENERIC-MATCHING-ENGINE",
+                  "CD-V2-GENERIC-POST-TRADE",
+                  "CD-V2-GENERIC-PRE-TRADE",
+                  "CD-V2-GENERIC-TELEPHONY",
+                  "CD-V2-GENERIC-K8S-EXTERNAL-SERVICES",
+                  "CD-V2-ACCOUNT",
+                  "CD-V2-FOLDER"
+                  ]
+
+    component_ref: str = root['component']['ref']
+    rp_ref: str = root['component']['risk_pattern']['ref']
+
+    if component_ref in exceptions:
+        return []
+    if component_ref.replace("CD-V2-", "") != rp_ref.replace("RP-V2-", ""):
+        errors.append(
+            f"Component {component_ref} has an invalid risk pattern ref: {rp_ref}. "
+            f"It should be RP-V2-{component_ref.replace('CD-V2-', '')}")
+
+    return errors

@@ -3,7 +3,8 @@ import os
 import unittest
 from pathlib import Path
 
-from isra.src.config.config import get_property, get_app_dir
+from isra.src.config.config import get_property
+from isra.src.config.constants import get_app_dir
 from isra.src.tests.integrity_tests_all_components import *
 
 

@@ -3,7 +3,8 @@ import os
 import unittest
 from pathlib import Path
 
-from isra.src.config.config import get_property, get_app_dir
+from isra.src.config.config import get_property
+from isra.src.config.constants import get_app_dir
 from isra.src.tests.integrity_tests_component import *
 
 
@@ -151,6 +152,12 @@ class TestComponent(unittest.TestCase):
         for component in self.components:
             with self.subTest(component=component):
                 errors = check_risk_scoring_values_for_threats(self.roots[component])
+                self.assertCountEqual(errors, [])
+
+    def test_component_ref_same_risk_pattern_ref(self):
+        for component in self.components:
+            with self.subTest(component=component):
+                errors = check_component_ref_same_risk_pattern_ref(self.roots[component])
                 self.assertCountEqual(errors, [])
 
 
