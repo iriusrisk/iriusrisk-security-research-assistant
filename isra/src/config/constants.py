@@ -25,7 +25,7 @@ THREAT_MODEL_FILE = CONFIG_FOLDER / "threat_model.json"
 
 CWE_SOURCE_FILE = "cwec_v4.13.xml"
 PROMPTS_DIR = "prompts"
-ILE_JAR_FILE = "editor-1.0.7-SNAPSHOT.jar"
+ILE_JAR_FILE = "editor-2.0.0.jar"
 TEST_ANSWERS_FILE = "test_answers.yaml"
 OPENCRE_PLUS = "cre_mappings_plus.yaml"
 YSC_SCHEMA = "ysc_schema.json"

@@ -235,30 +235,28 @@ def create_rule_elements(template, root, library_origin):
             # print(f"Removed rule {rule.attrib['name']}")
             root.find('rules').remove(rule)
 
+
+    # First we get all the questions
+    questions = []
     for control_ref, control in template["controls"].items():
         cont = generate_identifier_from_ref(control["name"])
         qg_id = f"{comp_ref}.{cont}"
 
         # First we need to remove old rules
         if "question" in control and control["question"] != "":
-            rule_element = create_rule_question_group(template['component']['ref'], qg_id, "Security Context",
-                                                      control["question"], "7000", control["question_desc"])
-            root.find("rules").append(rule_element)
-            rule_element = create_rule_question_group_answers(qg_id)
-            root.find("rules").append(rule_element)
-            rule_element = create_rule_question_group_action_implemented(library_origin, qg_id, control_ref)
-            root.find("rules").append(rule_element)
-            rule_element = create_rule_question_group_action_unsure(library_origin, qg_id, control_ref)
-            root.find("rules").append(rule_element)
-            rule_element = create_rule_question_group_action_required(library_origin, qg_id, control_ref)
-            root.find("rules").append(rule_element)
-            rule_element = create_rule_question_group_action_na(library_origin, qg_id, control_ref)
-            root.find("rules").append(rule_element)
+            questions.append((control_ref, control["question"], control["question_desc"]))
 
         if "dataflow_tags" in control and len(control["dataflow_tags"]) > 0:
             for item in control["dataflow_tags"]:
                 rule_element = create_rule_implement_by_tag(library_origin, qg_id, control_ref, item)
                 root.find("rules").append(rule_element)
+
+    # Then we add the questions
+    if len(questions) > 0:
+        rule_element = create_rule_question_group(questions, template['component']['ref'])            
+        root.find("rules").append(rule_element)
+
+
 
     return root
 
@@ -372,135 +370,23 @@ def create_rule_element():
     return rule
 
 
-def create_rule_question_group(component_definition_ref, qg_id, qc_name, qc_question, qc_priority, qc_desc):
+def create_rule_question_group(questions, component_definition_ref):
     rule = create_rule_element()
-    rule.attrib["name"] = f"Q - {qg_id}"
+    rule.attrib["name"] = f"Q - Security Context - {component_definition_ref}"
     condition = etree.SubElement(rule.find("conditions"), "condition")
     condition.attrib["name"] = "CONDITION_COMPONENT_DEFINITION"
     condition.attrib["field"] = "id"
     condition.attrib["value"] = component_definition_ref
 
-    action = etree.SubElement(rule.find("actions"), "action")
-    action.attrib["name"] = "INSERT_COMPONENT_QUESTION_GROUP"
-    action.attrib["project"] = ""
-    action.attrib[
-        "value"] = f"gc.qg.{qg_id}_::_{qc_name}_::_{qc_question}_::_{qc_priority}_::_true_::_false_::_{qc_desc}"
+    priority = 7000
+    for question in questions:
+        action = etree.SubElement(rule.find("actions"), "action")
+        action.attrib["name"] = "INSERT_COMPONENT_QUESTION_GROUP"
+        action.attrib["project"] = ""
+        action.attrib[
+            "value"] = f"provided.question.{question[0]}_::_Security Context_::_{question[1]}_::_{priority}_::_true_::_false_::_{question[2]}"
+        priority += 1
 
-    return rule
-
-
-def create_rule_question_group_answers(qg_id):
-    rule = create_rule_element()
-    rule.attrib["name"] = f"Q - {qg_id} - *"
-    condition = etree.SubElement(rule.find("conditions"), "condition")
-    condition.attrib["name"] = "CONDITION_COMPONENT_QUESTION_GROUP_EXISTS"
-    condition.attrib["field"] = "id"
-    condition.attrib["value"] = f"gc.qg.{qg_id}_::_group"
-
-    # fc.answer.audit.log.audit.operations.implemented
-    q_id = f"gc.answer.{qg_id}"
-    action1 = etree.SubElement(rule.find("actions"), "action")
-    action1.attrib["name"] = "INSERT_COMPONENT_QUESTION"
-    action1.attrib["project"] = ""
-    action1.attrib[
-        "value"] = (f"{q_id}.implemented_::_Yes, it is implemented_::_This functionality is already "
-                    f"present in the system")
-
-    action2 = etree.SubElement(rule.find("actions"), "action")
-    action2.attrib["name"] = "INSERT_COMPONENT_QUESTION"
-    action2.attrib["project"] = ""
-    action2.attrib["value"] = f"{q_id}.required_::_No, but it is required_::_This requirement has to be implemented"
-
-    action3 = etree.SubElement(rule.find("actions"), "action")
-    action3.attrib["name"] = "INSERT_COMPONENT_QUESTION"
-    action3.attrib["project"] = ""
-    action3.attrib["value"] = f"{q_id}.unsure_::_Not sure_::_This requirement is under analysis"
-
-    action4 = etree.SubElement(rule.find("actions"), "action")
-    action4.attrib["name"] = "INSERT_COMPONENT_QUESTION"
-    action4.attrib["project"] = ""
-    action4.attrib[
-        "value"] = (f"{q_id}.not.applicable_::_No, and this is not applicable_::_This requirement cannot be "
-                    f"implemented in this system or is out of scope")
-
-    return rule
-
-
-def create_rule_question_group_action_implemented(category_ref, qg_id, control_ref):
-    rule = create_rule_element()
-    q_id = f"gc.answer.{qg_id}"
-
-    rule.attrib["name"] = f"ControlImplemented: {qg_id} - Implemented"
-    condition = etree.SubElement(rule.find("conditions"), "condition")
-    condition.attrib["name"] = "CONDITION_COMPONENT_QUESTION"
-    condition.attrib["field"] = "id"
-    condition.attrib["value"] = f"{q_id}.implemented"
-
-    action = etree.SubElement(rule.find("actions"), "action")
-    action.attrib["name"] = "MARK_CONTROL_AS"
-    action.attrib["project"] = category_ref
-    action.attrib["value"] = f"{control_ref}_::_Implemented_::__::_false"
-
-    notif_id = f"gc.alert.warning.{qg_id}.used"
-    notif_message = f"This countermeasure has already been implemented as indicated in the questionnaire"
-    notification = etree.SubElement(rule.find("actions"), "action")
-    notification.attrib["name"] = "INSERT_COMPONENT_ALERT"
-    notification.attrib["project"] = ""
-    notification.attrib["value"] = f"AlertType.WARNING_::_{notif_id}_::_{notif_message}"
-
-    return rule
-
-
-def create_rule_question_group_action_required(category_ref, qg_id, control_ref):
-    rule = create_rule_element()
-    q_id = f"gc.answer.{qg_id}"
-
-    rule.attrib["name"] = f"ControlRequired: {qg_id} - Required"
-    condition = etree.SubElement(rule.find("conditions"), "condition")
-    condition.attrib["name"] = "CONDITION_COMPONENT_QUESTION"
-    condition.attrib["field"] = "id"
-    condition.attrib["value"] = f"{q_id}.required"
-
-    action = etree.SubElement(rule.find("actions"), "action")
-    action.attrib["name"] = "MARK_CONTROL_AS"
-    action.attrib["project"] = category_ref
-    action.attrib["value"] = f"{control_ref}_::_Required_::__::_false"
-
-    return rule
-
-
-def create_rule_question_group_action_na(category_ref, qg_id, control_ref):
-    rule = create_rule_element()
-    q_id = f"gc.answer.{qg_id}"
-
-    rule.attrib["name"] = f"ControlNotApplicable: {qg_id} - N/A"
-    condition = etree.SubElement(rule.find("conditions"), "condition")
-    condition.attrib["name"] = "CONDITION_COMPONENT_QUESTION"
-    condition.attrib["field"] = "id"
-    condition.attrib["value"] = f"{q_id}.not.applicable"
-
-    action = etree.SubElement(rule.find("actions"), "action")
-    action.attrib["name"] = "MARK_CONTROL_AS"
-    action.attrib["project"] = category_ref
-    action.attrib["value"] = f"{control_ref}_::_N/A_::_This countermeasure has been marked as N/A_::_false"
-
-    return rule
-
-
-def create_rule_question_group_action_unsure(category_ref, qg_id, control_ref):
-    rule = create_rule_element()
-    q_id = f"gc.answer.{qg_id}"
-
-    rule.attrib["name"] = f"ControlRecommended: {qg_id} - Recommended"
-    condition = etree.SubElement(rule.find("conditions"), "condition")
-    condition.attrib["name"] = "CONDITION_COMPONENT_QUESTION"
-    condition.attrib["field"] = "id"
-    condition.attrib["value"] = f"{q_id}.unsure"
-
-    action = etree.SubElement(rule.find("actions"), "action")
-    action.attrib["name"] = "MARK_CONTROL_AS"
-    action.attrib["project"] = category_ref
-    action.attrib["value"] = f"{control_ref}_::_Recommended_::__::_false"
 
     return rule
 
