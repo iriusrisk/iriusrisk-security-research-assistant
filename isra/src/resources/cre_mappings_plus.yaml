@@ -846,6 +846,8 @@
   - Mandatory Access Control
   - Message Authentication
   - System Configuration Permissions
+  EU-CRA:
+  - '2.1'
   FedRAMP:
   - High
   - Low
@@ -937,6 +939,8 @@
   - Executable Denylisting
   - Mandatory Access Control
   - System Call Filtering
+  EU-CRA:
+  - 1.3.b
   FedRAMP:
   - High
   - Low
@@ -2087,6 +2091,8 @@
   CWE:
   - '511'
 267-031:
+  EU-CRA:
+  - 1.3.g
   NIST 800-53 v5:
   - SC-6 Resource Availability
   NIST CSF v1.1:
@@ -2219,6 +2225,9 @@
   - Verification for Password-Protected Accounts (b)
   D3FEND:
   - Executable Denylisting
+  EU-CRA:
+  - 1.3.c
+  - 1.3.d
   FedRAMP:
   - High
   - Low
@@ -2385,6 +2394,8 @@
   - Platform Monitoring
   - Process Analysis
   - User Behavior Analysis
+  EU-CRA:
+  - '1.2'
   FedRAMP:
   - High
   - Low
@@ -2595,6 +2606,8 @@
 326-704:
   CCPA:
   - Authorized Agents (c)
+  EU-CRA:
+  - '1.1'
   FedRAMP:
   - High
   - Low
@@ -2959,6 +2972,8 @@
   - Record-Keeping (b)
   D3FEND:
   - Local Account Monitoring
+  EU-CRA:
+  - 1.3.j
   FedRAMP:
   - High
   - Low
@@ -3319,6 +3334,10 @@
   - Decoy Environment
   - Decoy Object
   - Dynamic Analysis
+  EU-CRA:
+  - '2.4'
+  - '2.5'
+  - '2.6'
   FedRAMP:
   - High
   - Low
@@ -3459,6 +3478,8 @@
 464-513:
   Cloud Controls Matrix:
   - Application Security Metrics
+  EU-CRA:
+  - '2.3'
   FedRAMP:
   - High
   - Low
@@ -3569,6 +3590,8 @@
 467-784:
   CCPA:
   - Opt-Out Preference Signals (b)
+  EU-CRA:
+  - 1.3.h
   FedRAMP:
   - High
   - Low
@@ -3709,6 +3732,8 @@
 486-813:
   D3FEND:
   - Application Configuration Hardening
+  EU-CRA:
+  - 1.3.a
   FedRAMP:
   - High
   - Low
@@ -4991,6 +5016,8 @@
   owasp-asvs4-level-2:
   - V2.5.4
 623-550:
+  EU-CRA:
+  - 1.3.f
   FedRAMP:
   - High
   - Low
@@ -5456,6 +5483,8 @@
   D3FEND:
   - Execution Isolation
   - Network Isolation
+  EU-CRA:
+  - 1.3.i
   FedRAMP:
   - High
   - Low
@@ -5656,6 +5685,11 @@
   - Peripheral Firmware Verification
   - Software Update
   - System Firmware Verification
+  EU-CRA:
+  - 1.3.k
+  - '2.2'
+  - '2.7'
+  - '2.8'
   FedRAMP:
   - High
   - Low

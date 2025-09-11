@@ -6,7 +6,7 @@
 ### Enhancements
 
 * Added new config parameters to use Azure OpenAI
-* Added new standard OWASP Agentic AI 2025, EU Cyber Resilience Act and ETSI 303 645
+* Added new standard OWASP Agentic AI 2025 and EU Cyber Resilience Act
 
 ### Features
 
