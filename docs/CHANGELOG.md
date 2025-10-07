@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.7.0 - 20251015
+
+### Enhancements
+
+* Updated system field values
+
+## 2.6.0 - 20250807
+
+### Enhancements
+
+* New ILE + Rule creation update
+* Updated tests
 
 ## 2.5.0 - 20250728
 

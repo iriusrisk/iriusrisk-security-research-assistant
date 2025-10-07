@@ -231,7 +231,7 @@ def create_rule_elements(template, root, library_origin):
     comp_ref = generate_identifier_from_ref(template["component"]["ref"])
 
     for rule in root.findall('.//rules/rule'):
-        if comp_ref in rule.attrib['name']:
+        if template["component"]["ref"] in rule.attrib['name']:
             # print(f"Removed rule {rule.attrib['name']}")
             root.find('rules').remove(rule)
 

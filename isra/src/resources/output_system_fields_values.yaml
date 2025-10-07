@@ -2037,8 +2037,7 @@ SF-STANDARD-SECTION-TYPE:
 - PM-22 Personally Identifiable Information Quality Management
 - PM-23 Data Governance Body
 - PM-24 Data Integrity Board
-- PM-25 Minimization of Personally Identifiable Information Used in Testing, Training,
-- and Research
+- PM-25 Minimization of Personally Identifiable Information Used in Testing, Training, and Research
 - PM-26 Complaint Management
 - PM-27 Privacy Reporting
 - PM-28 Risk Framing
@@ -2228,8 +2227,7 @@ SF-STANDARD-SECTION-TYPE:
 - Logging
 - Management of technical vulnerabilities
 - Management responsibilities
-- Managing information security in the information and communication technology (ICT)
-- supply chain
+- Managing information security in the information and communication technology (ICT) supply chain
 - Monitoring activities
 - Monitoring, review and change management of supplier services
 - Networks security
