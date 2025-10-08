@@ -1,10 +1,11 @@
 # Changelog
 
-## 2.7.0 - 20251015
+## 2.7.0 - 20251008
 
 ### Enhancements
 
 * Updated system field values
+* Fixed test about duplicated standard sections that wasn't working as expected
 
 ## 2.6.0 - 20250807
 

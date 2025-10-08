@@ -56,24 +56,15 @@ def collect_field_values_from_yaml_data(yaml_data, fields_to_collect):
 def check_duplicated_standards_sections(root):
     errors = []
 
+    component = root["component"]['ref']
     yaml_fields = ["standards"]
     standards = collect_field_values_from_yaml_data(root, yaml_fields)
 
     for index, standards_by_countermeasure in enumerate(standards):
-        all_sections = []
-        section_source = {}
-        # Check if all sections across different standards are unique
         for standard, sections in standards_by_countermeasure.items():
-            for section in sections:
-                if section in section_source:
-                    section_source[section].append(standard)
-                else:
-                    section_source[section] = [standard]
-                all_sections.append(section)
-
-        duplicate_sections = {section: sources for section, sources in section_source.items() if len(sources) > 1}
-        if len(duplicate_sections):
-            errors.append(f"Duplicate sections found across standards: {duplicate_sections}")
+            if len(sections) != len(set(sections)):
+                errors.append(
+                    f"This component has duplicated standard sections: {component} -> {standard} -> {sections}")
 
     return errors
 
