@@ -1,16 +1,14 @@
-from dataclasses import dataclass, field
 from typing import List, Dict
+from pydantic import BaseModel, Field
 from .base import IRBaseElement
 
 
-@dataclass
 class IRProjectReport(IRBaseElement):
     """Project report"""
-    version_reports: List['IRVersionReport'] = field(default_factory=list)
+    version_reports: List['IRVersionReport'] = Field(default_factory=list)
 
 
-@dataclass
-class IRVersionReport:
+class IRVersionReport(BaseModel):
     """Version report"""
     version: str
     num_libraries: int = 0
@@ -24,11 +22,10 @@ class IRVersionReport:
     num_categories: int = 0
     num_components: int = 0
     num_rules: int = 0
-    library_reports: List['IRLibraryReport'] = field(default_factory=list)
+    library_reports: List['IRLibraryReport'] = Field(default_factory=list)
 
 
-@dataclass
-class IRLibraryReport:
+class IRLibraryReport(BaseModel):
     """Library report"""
     library_ref: str
     library_name: str
@@ -43,33 +40,28 @@ class IRLibraryReport:
     num_threats: int = 0
 
 
-@dataclass
-class IRMitigationItem:
+class IRMitigationItem(BaseModel):
     """Mitigation item"""
     ref: str
     mitigation: str
 
 
-@dataclass
-class IRMitigationRiskPattern:
+class IRMitigationRiskPattern(BaseModel):
     """Mitigation risk pattern"""
     risk_pattern_ref: str
-    mitigation_items: List[IRMitigationItem] = field(default_factory=list)
+    mitigation_items: List[IRMitigationItem] = Field(default_factory=list)
 
 
-@dataclass
-class IRMitigationReport:
+class IRMitigationReport(BaseModel):
     """Mitigation report"""
-    risk_patterns: List[IRMitigationRiskPattern] = field(default_factory=list)
+    risk_patterns: List[IRMitigationRiskPattern] = Field(default_factory=list)
 
 
-@dataclass
-class IRSuggestions:
+class IRSuggestions(BaseModel):
     """Suggestions"""
-    suggestions: List[str] = field(default_factory=list)
+    suggestions: List[str] = Field(default_factory=list)
 
 
-@dataclass
-class IRTestReport:
+class IRTestReport(BaseModel):
     """Test report"""
-    tests: List[str] = field(default_factory=list)
+    tests: List[str] = Field(default_factory=list)

@@ -1,30 +1,26 @@
-from dataclasses import dataclass, field
 from typing import List, Dict, Optional
+from pydantic import BaseModel, Field
 
 
-@dataclass
-class VersionNamesResponse:
+class VersionNamesResponse(BaseModel):
     """Version names response"""
     project: str
-    versions: List[str] = field(default_factory=list)
+    versions: List[str] = Field(default_factory=list)
 
 
-@dataclass
-class ILEError:
+class ILEError(BaseModel):
     """Error response"""
     message: str
     code: Optional[str] = None
 
 
 # Request models
-@dataclass
-class CategoryRequest:
+class CategoryRequest(BaseModel):
     ref: str
     name: str
 
 
-@dataclass
-class ComponentRequest:
+class ComponentRequest(BaseModel):
     ref: str
     name: str
     desc: str
@@ -32,8 +28,7 @@ class ComponentRequest:
     visible: str
 
 
-@dataclass
-class ControlRequest:
+class ControlRequest(BaseModel):
     ref: str
     name: str
     desc: str
@@ -41,8 +36,7 @@ class ControlRequest:
     cost: str
 
 
-@dataclass
-class ControlUpdateRequest:
+class ControlUpdateRequest(BaseModel):
     ref: str
     name: str
     desc: str
@@ -50,8 +44,7 @@ class ControlUpdateRequest:
     cost: str
 
 
-@dataclass
-class LibraryRequest:
+class LibraryRequest(BaseModel):
     ref: str
     name: str
     desc: str
@@ -60,8 +53,7 @@ class LibraryRequest:
     enabled: str
 
 
-@dataclass
-class LibraryUpdateRequest:
+class LibraryUpdateRequest(BaseModel):
     ref: str
     name: str
     desc: str
@@ -70,29 +62,25 @@ class LibraryUpdateRequest:
     enabled: str
 
 
-@dataclass
-class MergeLibraryRequest:
+class MergeLibraryRequest(BaseModel):
     src_version: str
     src_library: str
     dst_version: str
     dst_library: str
 
 
-@dataclass
-class ReferenceRequest:
+class ReferenceRequest(BaseModel):
     name: str
     url: str
 
 
-@dataclass
-class ReferenceItemRequest:
+class ReferenceItemRequest(BaseModel):
     ref: str
     name: str
     url: str
 
 
-@dataclass
-class RelationRequest:
+class RelationRequest(BaseModel):
     risk_pattern_uuid: str
     usecase_uuid: str
     threat_uuid: str
@@ -101,97 +89,82 @@ class RelationRequest:
     mitigation: str
 
 
-@dataclass
-class RiskPatternRequest:
+class RiskPatternRequest(BaseModel):
     ref: str
     name: str
     desc: str
 
 
-@dataclass
-class RiskRatingRequest:
+class RiskRatingRequest(BaseModel):
     confidentiality: str
     integrity: str
     availability: str
     ease_of_exploitation: str
 
 
-@dataclass
-class StandardRequest:
+class StandardRequest(BaseModel):
     supported_standard_ref: str
     standard_ref: str
 
 
-@dataclass
-class StandardItemRequest:
+class StandardItemRequest(BaseModel):
     ref: str
     supported_standard_ref: str
     standard_ref: str
 
 
-@dataclass
-class SupportedStandardRequest:
+class SupportedStandardRequest(BaseModel):
     supported_standard_ref: str
     supported_standard_name: str
 
 
-@dataclass
-class TestRequest:
+class TestRequest(BaseModel):
     steps: str
 
 
-@dataclass
-class ThreatRequest:
+class ThreatRequest(BaseModel):
     ref: str
     name: str
     desc: str
 
 
-@dataclass
-class ThreatUpdateRequest:
+class ThreatUpdateRequest(BaseModel):
     ref: str
     name: str
     desc: str
 
 
-@dataclass
-class UsecaseRequest:
+class UsecaseRequest(BaseModel):
     ref: str
     name: str
     desc: str
 
 
-@dataclass
-class WeaknessRequest:
+class WeaknessRequest(BaseModel):
     ref: str
     name: str
     desc: str
     impact: str
 
 
-@dataclass
-class CopyVersionRequest:
+class CopyVersionRequest(BaseModel):
     src_version: str
     ref: str
 
 
-@dataclass
-class ChangelogRequest:
+class ChangelogRequest(BaseModel):
     from_version: str
     to_version: str
 
 
-@dataclass
-class ChangelogVersionRequest:
+class ChangelogVersionRequest(BaseModel):
     version: str
 
 
-@dataclass
-class ContentReportRequest:
+class ContentReportRequest(BaseModel):
     version: str
     library: str
 
 
-@dataclass
-class SuggestionRequest:
+class SuggestionRequest(BaseModel):
     text: str

@@ -21,7 +21,6 @@ def get_project_facade() -> ProjectFacade:
 @router.get("/project")
 async def get_current_project(project_facade: ProjectFacade = Depends(get_project_facade)) -> ILEProject:
     """Get current project"""
-    print("test")
     return project_facade.get_current_project()
 
 
@@ -37,7 +36,7 @@ async def clean_folder(folder: str, project_facade: ProjectFacade = Depends(get_
     project_facade.clean_folder(folder)
 
 
-@router.post("/project")
+@router.post("/project/new")
 async def create_new_project(project: IRBaseElement, project_facade: ProjectFacade = Depends(get_project_facade)) -> ILEProject:
     """Create new project"""
     return project_facade.create_new_project(project)

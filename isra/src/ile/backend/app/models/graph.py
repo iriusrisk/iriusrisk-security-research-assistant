@@ -1,70 +1,60 @@
-from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional
+from pydantic import BaseModel, Field
 
 
-@dataclass
-class Node:
+class Node(BaseModel):
     """Graph node"""
     id: str
     name: str
     color: Optional[str] = None
 
 
-@dataclass
-class Link:
+class Link(BaseModel):
     """Graph link"""
     source: str
     target: str
     color: Optional[str] = None
 
 
-@dataclass
-class Graph:
+class Graph(BaseModel):
     """Graph structure"""
-    nodes: List[Node] = field(default_factory=list)
-    links: List[Link] = field(default_factory=list)
+    nodes: List[Node] = Field(default_factory=list)
+    links: List[Link] = Field(default_factory=list)
 
 
-@dataclass
-class GraphList:
+class GraphList(BaseModel):
     """List of graphs"""
-    graphs: List[Graph] = field(default_factory=list)
+    graphs: List[Graph] = Field(default_factory=list)
 
 
-@dataclass
 class IRNode(Node):
     """IriusRisk specific node"""
     node_type: str = ""
 
 
-@dataclass
 class RuleNode(Node):
     """Rule node"""
     rule_name: str = ""
 
 
-@dataclass
-class Change:
+class Change(BaseModel):
     """Change item"""
     type: str
     description: str
 
 
-@dataclass
-class ChangelogItem:
+class ChangelogItem(BaseModel):
     """Changelog item"""
     item: str
-    changes: List[Change] = field(default_factory=list)
+    changes: List[Change] = Field(default_factory=list)
 
 
-@dataclass
-class ChangelogReport:
+class ChangelogReport(BaseModel):
     """Changelog report"""
-    items: List[ChangelogItem] = field(default_factory=list)
+    items: List[ChangelogItem] = Field(default_factory=list)
 
 
-@dataclass
-class LibrarySummary:
+class LibrarySummary(BaseModel):
     """Library summary"""
     ref: str
     name: str
@@ -72,7 +62,6 @@ class LibrarySummary:
     num_risk_patterns: int = 0
 
 
-@dataclass
-class LibrarySummariesResponse:
+class LibrarySummariesResponse(BaseModel):
     """Library summaries response"""
-    summaries: List[LibrarySummary] = field(default_factory=list)
+    summaries: List[LibrarySummary] = Field(default_factory=list)

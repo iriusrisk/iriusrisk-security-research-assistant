@@ -34,7 +34,13 @@ class ProjectService:
     def create_project(self, project: IRBaseElement) -> ILEProject:
         """Create new project"""
         logger.info(f"Creating new project {project.ref}")
-        self.data_service.set_project(ILEProject(project))
+        new_project = ILEProject(
+            ref=project.ref,
+            name=project.name,
+            desc=project.desc,
+            uuid=project.uuid
+        )
+        self.data_service.set_project(new_project)
         return self.data_service.get_project()
     
     def list_projects(self) -> List[str]:
@@ -134,13 +140,13 @@ class ProjectService:
         """List version names"""
         project = self.data_service.get_project()
         return VersionNamesResponse(
-            project_ref=project.ref,
-            version_names=list(project.versions.keys())
+            project=project.ref,
+            versions=list(project.versions.keys())
         )
     
     def create_version(self, ref: str) -> None:
         """Create new version"""
-        version = ILEVersion(ref)
+        version = ILEVersion(version=ref)
         self.data_service.put_version(version)
     
     def get_project_report(self) -> IRProjectReport:

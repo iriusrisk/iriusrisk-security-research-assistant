@@ -2,7 +2,7 @@
 Data service for IriusRisk Library Editor API
 """
 
-from typing import Dict, List, Set
+from typing import Dict, List, Set, Optional
 from isra.src.ile.backend.app.configuration.safety import Safety
 from isra.src.ile.backend.app.models import (
     ILEProject, ILEVersion, IRBaseElement, IRLibrary,
@@ -15,8 +15,20 @@ from isra.src.ile.backend.app.models import (
 class DataService:
     """Service for managing project data and generating reports"""
     
+    _instance: Optional['DataService'] = None
+    
+    def __new__(cls) -> 'DataService':
+        """
+        Singleton pattern implementation
+        """
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+    
     def __init__(self):
-        self.project: ILEProject = None
+        if not hasattr(self, '_initialized'):
+            self.project: ILEProject = None
+            self._initialized = True
     
     def set_project(self, project: ILEProject) -> None:
         """Set current project with validation"""
@@ -121,11 +133,9 @@ class DataService:
     def get_project_report(self) -> IRProjectReport:
         """Get project report"""
         project_report = IRProjectReport(
-            project=IRBaseElement(
-                ref=self.project.ref,
-                name=self.project.name,
-                desc=self.project.desc
-            )
+            ref=self.project.ref,
+            name=self.project.name,
+            desc=self.project.desc
         )
         
         for v in self.project.versions.values():
@@ -134,7 +144,7 @@ class DataService:
             for l in v.libraries.values():
                 library_report = self.create_library_report(v.version, l.ref)
                 library_reports.append(library_report)
-            version_report.library_report = library_reports
+            version_report.library_reports = library_reports
             project_report.version_reports.append(version_report)
         
         return project_report
