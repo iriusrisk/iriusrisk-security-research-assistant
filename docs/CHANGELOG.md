@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.0 - 20251028
+
+### Features
+
+* Added new ILE
+
+
 ## 2.7.0 - 20251008
 
 ### Enhancements

@@ -59,3 +59,5 @@ coverage.xml
 docs/_build/
 
 ../../srt-cicd-scripts/modified.txt
+
+node_modules
