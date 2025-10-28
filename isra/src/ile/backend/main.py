@@ -4,6 +4,7 @@ Main FastAPI application for IriusRisk Library Editor
 
 import os
 import logging
+from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -84,6 +85,7 @@ def create_app() -> FastAPI:
     app.include_router(changelog_router)
     app.include_router(test_router)
     
+
     # Health check endpoint
     @app.get("/health")
     async def health_check():

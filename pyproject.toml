@@ -4,6 +4,7 @@ version = "3.0.0"
 description = "IriusRisk Security Research Assistant: a tool to create components as code"
 authors = ["Alvaro Reyes <areyes@iriusrisk.com>"]
 readme = "README.md"
+include = ["frontend/build"]
 
 [tool.poetry.scripts]
 isra = "isra.main:app"
