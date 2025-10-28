@@ -26,7 +26,7 @@ const CleanVersion = (props) => {
     const [removed, setRemoved] = useState([]);
 
     const cleanVersion = () => {
-        axios.get('/version/' + version + '/clean')
+        axios.get('/api/version/' + version + '/clean')
             .then(res => {
                 if (res.status === 200) {
                     successToast("Version cleaned successfully");

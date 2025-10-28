@@ -44,7 +44,7 @@ const RunContentTests = ({version}) => {
     const [showErrors, setShowErrors] = useState([]);
 
     useEffect(() => {
-        axios.get('/version/' + version + '/test')
+        axios.get('/api/version/' + version + '/test')
             .then(res => {
                 setData(res.data);
             })

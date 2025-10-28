@@ -25,7 +25,7 @@ const ComponentsReport = (props) => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        axios.get('/version/' + version)
+        axios.get('/api/version/' + version)
             .then(res => {
                 let fullVersion = res.data;
                 let its = [];

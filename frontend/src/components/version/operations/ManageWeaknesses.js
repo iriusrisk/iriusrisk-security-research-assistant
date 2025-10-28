@@ -52,7 +52,7 @@ const ManageWeaknesses = (props) => {
     const dataRef = useRef([]);
 
     const addWeakness = useCallback((weakness) => {
-        axios.post('/version/'+version+'/weakness', weakness)
+        axios.post('/api/version/'+version+'/weakness', weakness)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Add the returned object from the API to the state
@@ -67,7 +67,7 @@ const ManageWeaknesses = (props) => {
     }, [version]);
 
     const updateWeakness = useCallback((updatedWeakness) => {
-        axios.put('/version/'+version+'/weakness', updatedWeakness)
+        axios.put('/api/version/'+version+'/weakness', updatedWeakness)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Update the state with the returned object from the API
@@ -94,7 +94,7 @@ const ManageWeaknesses = (props) => {
     }, []);
 
     const deleteWeaknesses = useCallback((rowData) => {
-        axios.delete('/version/'+version+'/weakness', {data: rowData})
+        axios.delete('/api/version/'+version+'/weakness', {data: rowData})
             .then(res => {
                 if (res.status === 200) {
                     successToast("Weakness/es deleted");
@@ -112,7 +112,7 @@ const ManageWeaknesses = (props) => {
     }, [version]);
 
     useEffect(() => {
-        axios.get('/version/' + version + '/weakness',)
+        axios.get('/api/version/' + version + '/weakness',)
             .then(res => {
                 setData(res.data);
                 dataRef.current = res.data;
@@ -255,13 +255,13 @@ const WeaknessDetailPanel = (props) => {
             type: "weakness",
             ref: data.ref
         };
-        axios.post('/version/' + version + '/suggestions', postdata)
+        axios.post('/api/version/' + version + '/suggestions', postdata)
             .then(res => {
                 setLibrarySuggestions(res.data.librarySuggestions);
                 setRelationSuggestions(res.data.relationSuggestions);
             })
             .catch(err => failedToast(err));
-        axios.get('/version/'+version+'/reference', )
+        axios.get('/api/version/'+version+'/reference', )
             .then(res => {
                 setReferenceSuggestions(sortArrayByKey(res.data, "name"));
             })
@@ -284,7 +284,7 @@ const WeaknessDetailPanel = (props) => {
             impact: formData.get('impact') || "100",
             steps: data.test?.steps || ""
         };
-        axios.put('/version/'+version+'/weakness', postdata)
+        axios.put('/api/version/'+version+'/weakness', postdata)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     setData(res.data);
@@ -343,7 +343,7 @@ const WeaknessDetailPanel = (props) => {
             referenceUuid: referenceObj.uuid
         };
         
-        axios.put('/version/' + version + '/weakness/reference', referenceItemRequest)
+        axios.put('/api/version/' + version + '/weakness/reference', referenceItemRequest)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     setData(res.data);
@@ -367,7 +367,7 @@ const WeaknessDetailPanel = (props) => {
             referenceUuid: referenceUuid
         };
         
-        axios.delete('/version/' + version + '/weakness/reference', { data: referenceItemRequest })
+        axios.delete('/api/version/' + version + '/weakness/reference', { data: referenceItemRequest })
             .then(res => {
                 if (res.status === 200 && res.data) {
                     setData(res.data);

@@ -61,13 +61,13 @@ const CreateElements = (props) => {
     const [selectedStandard, setSelectedStandard] = useState("");
 
     const loadSuggestions = useCallback(() => {
-        axios.get('/version/' + version + '/reference',)
+        axios.get('/api/version/' + version + '/reference',)
             .then(res => {
                 setReferenceSuggestions(sortArrayByKey(res.data, "name"));
             })
             .catch(err => failedToast(err));
 
-        axios.get('/version/' + version + '/standard',)
+        axios.get('/api/version/' + version + '/standard',)
             .then(res => {
                 let mymap = new Map();
                 res.data.forEach(o => {

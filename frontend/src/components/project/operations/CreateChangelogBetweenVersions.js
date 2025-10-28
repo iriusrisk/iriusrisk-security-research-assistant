@@ -134,7 +134,7 @@ const CreateChangelogBetweenVersions = (props) => {
         };
 
         try {
-            const response = await axios.post('/project/diff/versions/summaries', requestData);
+            const response = await axios.post('/api/project/diff/versions/summaries', requestData);
             setLibrarySummaries(response.data);
             successToast("Library summaries loaded");
         } catch (error) {
@@ -153,7 +153,7 @@ const CreateChangelogBetweenVersions = (props) => {
         };
 
         try {
-            const response = await axios.post('/project/diff/versions/library', requestData);
+            const response = await axios.post('/api/project/diff/versions/library', requestData);
             setLibraryDetails(response.data);
             setSelectedLibrary(libraryRef);
             successToast("Library details loaded");

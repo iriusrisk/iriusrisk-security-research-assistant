@@ -32,7 +32,7 @@ const LoadProject = (props) => {
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
-        axios.get('/project/list')
+        axios.get('/api/project/list')
             .then(res => {
                 if(res.status === 200){
                     if(res.data.length === 0){
@@ -53,7 +53,7 @@ const LoadProject = (props) => {
     };
 
     const handleSubmit = (event) => {
-        axios.get('/project/load/' + selectedProject)
+        axios.get('/api/project/load/' + selectedProject)
             .then(res => {
                 let versions = [];
                 res.data.versions.forEach(element => versions.push(element.version));

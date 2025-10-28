@@ -36,7 +36,7 @@ const CleanFolders = (props) => {
     };
 
     const handleSubmit = (event) => {
-        axios.get('/project/cleanFolder/' + selectedProject)
+        axios.get('/api/project/cleanFolder/' + selectedProject)
             .then(() => {
                 successToast("Folder cleaned successfully");
             })

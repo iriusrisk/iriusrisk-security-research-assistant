@@ -52,7 +52,7 @@ const ManageControls = (props) => {
     const dataRef = useRef([]);
 
     const addControl = useCallback((control) => {
-        axios.post('/version/' + version + '/control', control)
+        axios.post('/api/version/' + version + '/control', control)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Add the returned object from the API to the state
@@ -67,7 +67,7 @@ const ManageControls = (props) => {
     }, [version]);
 
     const updateControl = useCallback((updatedControl) => {
-        axios.put('/version/' + version + '/control', updatedControl)
+        axios.put('/api/version/' + version + '/control', updatedControl)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Update the state with the returned object from the API
@@ -94,7 +94,7 @@ const ManageControls = (props) => {
     }, []);
 
     const deleteControls = useCallback((rowData) => {
-        axios.delete('/version/' + version + '/control', {data: rowData})
+        axios.delete('/api/version/' + version + '/control', {data: rowData})
             .then(res => {
                 if (res.status === 200) {
                     successToast("Control/s deleted");
@@ -112,7 +112,7 @@ const ManageControls = (props) => {
     }, [version]);
 
     useEffect(() => {
-        axios.get('/version/' + version + '/control',)
+        axios.get('/api/version/' + version + '/control',)
             .then(res => {
                 setData(res.data);
                 dataRef.current = res.data;
@@ -290,24 +290,24 @@ const ControlDetailPanel = (props) => {
             type: "control",
             ref: data.uuid
         };
-        axios.post('/version/' + version + '/suggestions', postdata)
+        axios.post('/api/version/' + version + '/suggestions', postdata)
             .then(res => {
                 setLibrarySuggestions(res.data.librarySuggestions);
                 setRelationSuggestions(res.data.relationSuggestions);
             })
             .catch(err => failedToast(err));
-        axios.get('/version/' + version + '/reference',)
+        axios.get('/api/version/' + version + '/reference',)
             .then(res => {
                 setReferenceSuggestions(sortArrayByKey(res.data, "name"));
             })
             .catch(err => failedToast(err));
 
-        axios.get('/version/' + version + '/standard',)
+        axios.get('/api/version/' + version + '/standard',)
             .then(res => {
                 setStandardSuggestions(sortArrayByKey(res.data, "standardRef"));
             })
             .catch(err => failedToast(err));
-    }, [version, data.ref]);
+    }, [version, data.uuid]);
 
     useEffect(() => {
         loadSuggestions();
@@ -330,7 +330,7 @@ const ControlDetailPanel = (props) => {
             scope: data.scope || [],
             mitre: data.mitre || []
         };
-        axios.put('/version/' + version + '/control', postdata)
+        axios.put('/api/version/' + version + '/control', postdata)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     setData(res.data);
@@ -389,7 +389,7 @@ const ControlDetailPanel = (props) => {
             referenceUuid: referenceObj.uuid
         };
         
-        axios.put('/version/' + version + '/control/reference', referenceItemRequest)
+        axios.put('/api/version/' + version + '/control/reference', referenceItemRequest)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     setData(res.data);
@@ -413,7 +413,7 @@ const ControlDetailPanel = (props) => {
             referenceUuid: referenceUuid
         };
         
-        axios.delete('/version/' + version + '/control/reference', { data: referenceItemRequest })
+        axios.delete('/api/version/' + version + '/control/reference', { data: referenceItemRequest })
             .then(res => {
                 if (res.status === 200 && res.data) {
                     setData(res.data);
@@ -456,7 +456,7 @@ const ControlDetailPanel = (props) => {
             referenceUuid: referenceObj.uuid
         };
         
-        axios.put('/version/' + version + '/control/reference', referenceItemRequest)
+        axios.put('/api/version/' + version + '/control/reference', referenceItemRequest)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     setData(res.data);
@@ -480,7 +480,7 @@ const ControlDetailPanel = (props) => {
             referenceUuid: referenceUuid
         };
         
-        axios.delete('/version/' + version + '/control/reference', { data: referenceItemRequest })
+        axios.delete('/api/version/' + version + '/control/reference', { data: referenceItemRequest })
             .then(res => {
                 if (res.status === 200 && res.data) {
                     setData(res.data);
@@ -523,7 +523,7 @@ const ControlDetailPanel = (props) => {
             standardUuid: standardObj.uuid
         };
         
-        axios.put('/version/' + version + '/control/standard', standardItemRequest)
+        axios.put('/api/version/' + version + '/control/standard', standardItemRequest)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     setData(res.data);
@@ -547,7 +547,7 @@ const ControlDetailPanel = (props) => {
             standardUuid: standardUuid
         };
         
-        axios.delete('/version/' + version + '/control/standard', { data: standardItemRequest })
+        axios.delete('/api/version/' + version + '/control/standard', { data: standardItemRequest })
             .then(res => {
                 if (res.status === 200 && res.data) {
                     setData(res.data);

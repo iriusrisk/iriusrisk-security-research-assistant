@@ -37,7 +37,7 @@ const ManageVersion = (props) => {
     const [selectedVersionFile, setSelectedVersionFile] = useState("");
 
     useEffect(() => {
-        axios.get('/project/versions')
+        axios.get('/api/project/versions')
             .then(res => {
                 if(res.data.versions.length > 0){
                     setVersions(res.data.versions);
@@ -46,7 +46,7 @@ const ManageVersion = (props) => {
             })
             .catch(err => failedToast(err));
 
-        axios.get('/version/list')
+        axios.get('/api/version/list')
             .then(res => {
                 if(res.status === 200){
                     if(res.data.length !== 0){
@@ -69,7 +69,7 @@ const ManageVersion = (props) => {
     };
 
     const handleSubmit = (event) => {
-        axios.post('/project/version/' + ref)
+        axios.post('/api/project/version/' + ref)
             .then(res => {
                 easyToast(res, "Version created successfully", "Creating version failed");
                 //props.handleVersionChange()
@@ -90,7 +90,7 @@ const ManageVersion = (props) => {
     };
 
     const handleSubmitDelete = (event) => {
-        axios.delete('/project/version/' + selectedVersionFirst)
+        axios.delete('/api/project/version/' + selectedVersionFirst)
             .then(res => {
                 easyToast(res, "Version deleted successfully", "Deleting version failed");
                 if(res.status === 200){
@@ -114,7 +114,7 @@ const ManageVersion = (props) => {
             "srcVersion": selectedVersionFirst,
             "ref": ref
         };
-        axios.post('/project/version/copy', postData)
+        axios.post('/api/project/version/copy', postData)
             .then(res => {
                 easyToast(res, "Version copied successfully", "Copying version failed");
                 if(res.status === 200){
@@ -134,7 +134,7 @@ const ManageVersion = (props) => {
     };
 
     const handleSubmitLoad = (event) => {
-        axios.get('/project/version/load/' + selectedVersionFile)
+        axios.get('/api/project/version/load/' + selectedVersionFile)
             .then(res => {
                 easyToast(res, "Version loaded successfully", "Loading version failed");
                 if(res.status === 200){

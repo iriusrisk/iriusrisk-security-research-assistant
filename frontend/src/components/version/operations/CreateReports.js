@@ -48,7 +48,7 @@ const CreateReports = (props) => {
     };
 
     useEffect(() => {
-        axios.get('/version/' + version + "/report")
+        axios.get('/api/version/' + version + "/report")
             .then(res => {
                 let av = [];
                 res.data.libraryReport.forEach(value => {

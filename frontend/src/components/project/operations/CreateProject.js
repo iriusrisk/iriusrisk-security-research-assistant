@@ -36,7 +36,7 @@ const CreateProject = (props) => {
             "name": "",
             "desc": ""
         };
-        axios.post('/project', project)
+        axios.post('/api/project', project)
             .then(res => {
                 if(res.status === 200){
                     let versions = Object.keys(res.data.versions);

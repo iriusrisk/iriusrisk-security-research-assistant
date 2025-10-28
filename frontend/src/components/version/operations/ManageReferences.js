@@ -25,7 +25,7 @@ const ManageReferences = (props) => {
     const dataRef = useRef([]);
 
     const addReference = useCallback((reference) => {
-        axios.post('/version/'+version+'/reference', reference)
+        axios.post('/api/version/'+version+'/reference', reference)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Add the returned object from the API to the state
@@ -38,7 +38,7 @@ const ManageReferences = (props) => {
     }, [version]);
 
     const updateReference = useCallback((updatedReference) => {
-        axios.put('/version/'+version+'/reference', updatedReference)
+        axios.put('/api/version/'+version+'/reference', updatedReference)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Update the state with the returned object from the API
@@ -58,7 +58,7 @@ const ManageReferences = (props) => {
     }, [version]);
 
     const deleteReferences = useCallback((rowData) => {
-        axios.delete('/version/'+version+'/reference', {data: rowData})
+        axios.delete('/api/version/'+version+'/reference', {data: rowData})
             .then(res => {
                 if (res.status === 200) {
                     successToast("Reference/s deleted");
@@ -76,7 +76,7 @@ const ManageReferences = (props) => {
     }, [version]);
 
     useEffect(() => {
-        axios.get('/version/' + version + '/reference',)
+        axios.get('/api/version/' + version + '/reference',)
             .then(res => {
                 setData(res.data);
                 dataRef.current = res.data;

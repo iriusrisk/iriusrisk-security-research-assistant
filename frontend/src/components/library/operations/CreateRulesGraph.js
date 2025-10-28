@@ -29,7 +29,7 @@ const CreateRulesGraph = (props) => {
     const [graph3d, setGraph3d] = useState(false);
 
     useEffect(() => {
-        axios.get('/version/' + version + "/" + library + "/getRulesGraph")
+        axios.get('/api/version/' + version + "/" + library + "/getRulesGraph")
             .then(res => {
                 if(res.status === 200){
                     setData(res.data);

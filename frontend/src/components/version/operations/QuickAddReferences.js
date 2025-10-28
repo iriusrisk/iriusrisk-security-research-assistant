@@ -16,7 +16,7 @@ const QuickAddReferences = ({version, update}) => {
                 name: name,
                 url: url
             };
-            axios.post('/version/'+version+'/reference', reference)
+            axios.post('/api/version/'+version+'/reference', reference)
                 .then(res => {
                     easyToast(res, "Reference added", "Reference couldn't be added");
                     if(res.status === 200){

@@ -52,7 +52,7 @@ const ManageThreats = (props) => {
     const dataRef = useRef([]);
 
     const addThreat = useCallback((threat) => {
-        axios.post('/version/'+version+'/threat', threat)
+        axios.post('/api/version/'+version+'/threat', threat)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Add the returned object from the API to the state
@@ -67,7 +67,7 @@ const ManageThreats = (props) => {
     }, [version]);
 
     const updateThreat = useCallback((updatedThreat) => {
-        axios.put('/version/'+version+'/threat', updatedThreat)
+        axios.put('/api/version/'+version+'/threat', updatedThreat)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Update the state with the returned object from the API
@@ -94,7 +94,7 @@ const ManageThreats = (props) => {
     }, []);
 
     const deleteThreats = useCallback((rowData) => {
-        axios.delete('/version/'+version+'/threat', {data: rowData})
+        axios.delete('/api/version/'+version+'/threat', {data: rowData})
             .then(res => {
                 if (res.status === 200) {
                     successToast("Threat/s deleted");
@@ -112,7 +112,7 @@ const ManageThreats = (props) => {
     }, [version]);
 
     useEffect(() => {
-        axios.get('/version/' + version + '/threat',)
+        axios.get('/api/version/' + version + '/threat',)
             .then(res => {
                 setData(res.data);
                 dataRef.current = res.data;
@@ -250,13 +250,13 @@ const ThreatDetailPanel = (props) => {
             type: "threat",
             ref: data.ref
         };
-        axios.post('/version/' + version + '/suggestions', postdata)
+        axios.post('/api/version/' + version + '/suggestions', postdata)
             .then(res => {
                 setLibrarySuggestions(res.data.librarySuggestions);
                 setRelationSuggestions(res.data.relationSuggestions);
             })
             .catch(err => failedToast(err));
-        axios.get('/version/'+version+'/reference', )
+        axios.get('/api/version/'+version+'/reference', )
             .then(res => {
                 setReferenceSuggestions(sortArrayByKey(res.data, "name"));
             })
@@ -287,7 +287,7 @@ const ThreatDetailPanel = (props) => {
             mitre: data.mitre || [],
             stride: data.stride || []
         };
-        axios.put('/version/'+version+'/threat', postdata)
+        axios.put('/api/version/'+version+'/threat', postdata)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     setData(res.data);
@@ -340,7 +340,7 @@ const ThreatDetailPanel = (props) => {
             referenceUuid: referenceObj.uuid
         };
         
-        axios.put('/version/' + version + '/threat/reference', referenceItemRequest)
+        axios.put('/api/version/' + version + '/threat/reference', referenceItemRequest)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     setData(res.data);
@@ -364,7 +364,7 @@ const ThreatDetailPanel = (props) => {
             referenceUuid: referenceUuid
         };
         
-        axios.delete('/version/' + version + '/threat/reference', { data: referenceItemRequest })
+        axios.delete('/api/version/' + version + '/threat/reference', { data: referenceItemRequest })
             .then(res => {
                 if (res.status === 200 && res.data) {
                     setData(res.data);

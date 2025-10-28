@@ -79,11 +79,11 @@ def create_app() -> FastAPI:
     )
     
     # Include routers
-    app.include_router(project_router)
-    app.include_router(library_router)
-    app.include_router(version_router)
-    app.include_router(changelog_router)
-    app.include_router(test_router)
+    app.include_router(project_router, prefix="/api")
+    app.include_router(library_router, prefix="/api")
+    app.include_router(version_router, prefix="/api")
+    app.include_router(changelog_router, prefix="/api")
+    app.include_router(test_router, prefix="/api")
     
     # Check if we should serve static files
     serve_static = os.environ.get('SERVE_STATIC', 'false').lower() == 'true'

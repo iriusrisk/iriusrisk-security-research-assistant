@@ -208,7 +208,7 @@ const Version = (props) => {
     const [libraryReport, setLibraryReport] = useState([]);
 
     const fetchVersionData = (versionParam) => {
-        axios.get('/version/' + versionParam + "/report")
+        axios.get('/api/version/' + versionParam + "/report")
             .then(res => {
                 setVersionReport(res.data);
                 setLibraryReport(res.data.libraryReport);
@@ -227,7 +227,7 @@ const Version = (props) => {
     }, [versionId, version]);
 
     const exportToXML = () => {
-        axios.get('/version/' + version + "/export/xml")
+        axios.get('/api/version/' + version + "/export/xml")
             .then(res => {
                 easyToast(res, "Version exported to XML successfully (/output/" + version + ")", "Export failed");
             })
@@ -235,7 +235,7 @@ const Version = (props) => {
     };
 
     const exportToXLSX = () => {
-        axios.get('/version/' + version + "/export/xlsx")
+        axios.get('/api/version/' + version + "/export/xlsx")
             .then(res => {
                 easyToast(res, "Version exported to XLSX successfully (/output/" + version + ")", "Export failed");
             })
@@ -267,7 +267,7 @@ const Version = (props) => {
         const library = parts[parts.length - 1];
         const versionParam = parts[parts.length - 2];
 
-        axios.get('/version/' + versionParam + "/" + library + "/export/xml")
+        axios.get('/api/version/' + versionParam + "/" + library + "/export/xml")
             .then(res => {
                 easyToast(res, "Library exported to XML successfully (/output/" + versionParam + "/" + library + ")", "Export failed")
             })
@@ -275,7 +275,7 @@ const Version = (props) => {
     };
 
     const fixNonASCIIValues = () => {
-        axios.get('/version/' + version + "/fix/ascii")
+        axios.get('/api/version/' + version + "/fix/ascii")
             .then(res => {
                 easyToast(res, "ASCII Values fixed successfully", "ASCII fix failed")
             })
@@ -302,7 +302,7 @@ const Version = (props) => {
     };
 
     const saveVersion = () => {
-        axios.get('/version/' + version + '/save')
+        axios.get('/api/version/' + version + '/save')
             .then(res => {
                 easyToast(res, "Version saved successfully", "Saving version failed");
             })

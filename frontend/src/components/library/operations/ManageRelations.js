@@ -44,7 +44,7 @@ const ManageRelations = (props) => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get('/version/' + version + '/' + library + '/riskPattern')
+        axios.get('/api/version/' + version + '/' + library + '/riskPattern')
             .then(res => {
                 setRps(sortArrayByKey(res.data, "ref"));
             })
@@ -52,7 +52,7 @@ const ManageRelations = (props) => {
     }, [version, library]);
 
     const updateTable = (value) => {
-        axios.get('/version/' + version + '/' + library + '/relation')
+        axios.get('/api/version/' + version + '/' + library + '/relation')
             .then(res => {
                 setSelectedRp(value);
                 // Filter relations for the selected risk pattern
@@ -77,7 +77,7 @@ const ManageRelations = (props) => {
             mitigation: newData.mitigation || "100"
         };
 
-        axios.post('/version/' + version + '/' + library + '/relation', relation)
+        axios.post('/api/version/' + version + '/' + library + '/relation', relation)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Update the table with the returned relation object
@@ -102,7 +102,7 @@ const ManageRelations = (props) => {
             mitigation: newData.mitigation || "100"
         };
 
-        axios.put('/version/' + version + '/' + library + '/relation', updatedRelation)
+        axios.put('/api/version/' + version + '/' + library + '/relation', updatedRelation)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Update the table with the returned relation object
@@ -127,7 +127,7 @@ const ManageRelations = (props) => {
             r["riskPatternUuid"] = selectedRp;
         }
 
-        axios.delete('/version/' + version + '/' + library + '/relation', {data: rowData})
+        axios.delete('/api/version/' + version + '/' + library + '/relation', {data: rowData})
             .then(res => {
                 if(res.status === 200){
                     successToast("Relation/s deleted");

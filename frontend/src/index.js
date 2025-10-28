@@ -224,7 +224,7 @@ const useProjectState = () => {
 
   const loadProjectData = useCallback(async () => {
     try {
-      const res = await axios.get('/project/versions');
+      const res = await axios.get('/api/project/versions');
       if (res.data.versions.length !== 0) {
         handleProjectChange(res.data.project, res.data.versions);
       }
@@ -268,7 +268,7 @@ const useVersionManagement = (handleProjectChange) => {
 
   const handleItemClickRemove = useCallback(async ({ event, props }) => {
     try {
-      const res = await axios.delete('/project/version/' + props.key);
+      const res = await axios.delete('/api/project/version/' + props.key);
       easyToast(res, "Version deleted successfully", "Deleting version failed");
       if (res.status === 200) {
         handleProjectChange(res.data.project, res.data.versions);
@@ -286,7 +286,7 @@ const useVersionManagement = (handleProjectChange) => {
           "srcVersion": props.key,
           "ref": newVersion
         };
-        const res = await axios.post('/project/version/copy', postData);
+        const res = await axios.post('/api/project/version/copy', postData);
         easyToast(res, "Version copied successfully", "Copying version failed");
         if (res.status === 200) {
           handleProjectChange(res.data.project, res.data.versions);
@@ -302,10 +302,10 @@ const useVersionManagement = (handleProjectChange) => {
 
   const handleItemClickQuickReload = useCallback(async ({ event, props }) => {
     try {
-      const res = await axios.get('/version/' + props.key + '/quickreload');
+      const res = await axios.get('/api/version/' + props.key + '/quickreload');
       easyToast(res, "Quick reload done successfully", "Quick reload failed");
       if (res.status === 200) {
-        const projectRes = await axios.get('/project/versions');
+        const projectRes = await axios.get('/api/project/versions');
         handleProjectChange(projectRes.data.project, projectRes.data.versions);
       }
     } catch (err) {
@@ -317,7 +317,7 @@ const useVersionManagement = (handleProjectChange) => {
   const handleItemClickNew = useCallback(async () => {
     if (newVersion !== "") {
       try {
-        const res = await axios.post('/project/version/' + newVersion);
+        const res = await axios.post('/api/project/version/' + newVersion);
         easyToast(res, "Version created successfully", "Creating version failed");
         if (res.status === 200) {
           handleProjectChange(res.data.project, res.data.versions);
@@ -344,7 +344,7 @@ const useVersionManagement = (handleProjectChange) => {
 const useProjectActions = (project, handleProjectChange) => {
   const save = useCallback(async () => {
     try {
-      const res = await axios.get('/project/save');
+      const res = await axios.get('/api/project/save');
       easyToast(res, "Project saved successfully", "Saving project failed");
     } catch (err) {
       failedToast("Saving project failed: " + err);
@@ -353,7 +353,7 @@ const useProjectActions = (project, handleProjectChange) => {
 
   const restore = useCallback(async () => {
     try {
-      const res = await axios.get('/project/load/' + project);
+      const res = await axios.get('/api/project/load/' + project);
       easyToast(res, "Project restored successfully", "Restoring project failed");
     } catch (err) {
       failedToast("Restoring project failed: " + err);
@@ -371,7 +371,7 @@ const Home = () => {
 
   useEffect(() => {
     // Load current project status
-    axios.get('/project/versions')
+    axios.get('/api/project/versions')
       .then(res => {
         if (res.data.versions.length > 0) {
           setProjectStatus(res.data);

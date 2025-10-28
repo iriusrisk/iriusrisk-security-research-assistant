@@ -112,7 +112,7 @@ const CreateChangelogBetweenLibraries = (props) => {
             "secondLibrary": selectedLibrarySecond
         };
 
-        axios.post('/project/diff/libraries', data)
+        axios.post('/api/project/diff/libraries', data)
             .then(res => {
                 if(res.data.equalRevisionNumber){
                     failedToast("Libraries have the same revision number")

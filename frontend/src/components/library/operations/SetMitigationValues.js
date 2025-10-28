@@ -32,7 +32,7 @@ const SetMitigationValues = (props) => {
     const [accordion2, setAccordion2] = useState(false);
 
     useEffect(() => {
-        axios.get('/version/' + version + '/' + library + '/checkMitigation')
+        axios.get('/api/version/' + version + '/' + library + '/checkMitigation')
             .then(res => {
                 setAccordion1(true);
                 setData(res.data);
@@ -45,7 +45,7 @@ const SetMitigationValues = (props) => {
     };
 
     const balanceMitigation = () => {
-        axios.get('/version/' + version + '/' + library + '/balanceMitigation')
+        axios.get('/api/version/' + version + '/' + library + '/balanceMitigation')
             .then(res => {
                 easyToast(res, "Mitigation values balanced", "Mitigation balance failed");
                 setData(res.data);

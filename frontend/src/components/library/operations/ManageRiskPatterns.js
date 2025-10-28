@@ -43,7 +43,7 @@ const ManageRiskPatterns = (props) => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get('/version/' + version + '/' + library + '/riskPattern')
+        axios.get('/api/version/' + version + '/' + library + '/riskPattern')
             .then(res => {
                 setData(res.data);
             })
@@ -58,7 +58,7 @@ const ManageRiskPatterns = (props) => {
             desc: RiskPattern.desc || ""
         };
 
-        axios.post('/version/' + version + '/' + library + '/riskPattern', requestData)
+        axios.post('/api/version/' + version + '/' + library + '/riskPattern', requestData)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Update the table with the returned risk pattern object
@@ -75,7 +75,7 @@ const ManageRiskPatterns = (props) => {
     const deleteRiskPatterns = (rowData) => {
         let _data = [...data];
 
-        axios.delete('/version/' + version + '/' + library + '/riskPattern', {data: rowData})
+        axios.delete('/api/version/' + version + '/' + library + '/riskPattern', {data: rowData})
             .then(res => {
                 if(res.status === 200){
                     successToast("Risk pattern/s deleted");
@@ -166,7 +166,7 @@ const RiskPatternDetailPanel = (props) => {
             desc: data.desc || ""
         };
 
-        axios.put('/version/' + version + '/' + library + '/riskPattern', requestData)
+        axios.put('/api/version/' + version + '/' + library + '/riskPattern', requestData)
             .then(res => {
                 easyToast(res, "RiskPattern update", "RiskPattern couldn't be updated");
             })

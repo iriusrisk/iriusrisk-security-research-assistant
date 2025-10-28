@@ -314,7 +314,7 @@ const AdvancedRelationCanvas = (props) => {
 
     const loadLibraries = useCallback(() => {
         if (!version) return;
-        axios.get('/version/' + version + '/library')
+        axios.get('/api/version/' + version + '/library')
             .then(res => {
                 setLibraries(res.data);
             })
@@ -325,10 +325,10 @@ const AdvancedRelationCanvas = (props) => {
         if (!version) return;
         setLoading(true);
         Promise.all([
-            axios.get('/version/' + version + '/usecase'),
-            axios.get('/version/' + version + '/threat'),
-            axios.get('/version/' + version + '/weakness'),
-            axios.get('/version/' + version + '/control'),
+            axios.get('/api/version/' + version + '/usecase'),
+            axios.get('/api/version/' + version + '/threat'),
+            axios.get('/api/version/' + version + '/weakness'),
+            axios.get('/api/version/' + version + '/control'),
         ]).then(([usecasesRes, threatsRes, weaknessesRes, controlsRes]) => {
             setUsecases(sortArrayByKey(usecasesRes.data, "ref"));
             setThreats(sortArrayByKey(threatsRes.data, "ref"));

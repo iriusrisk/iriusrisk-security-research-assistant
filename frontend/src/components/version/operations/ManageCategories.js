@@ -23,7 +23,7 @@ const ManageCategories = ({ version }) => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get('/version/' + version + '/category')
+        axios.get('/api/version/' + version + '/category')
             .then(res => {
                 setData(res.data);
             })
@@ -31,7 +31,7 @@ const ManageCategories = ({ version }) => {
     }, [version]);
 
     const addCategory = (Category) => {
-        axios.post('/version/' + version + '/category', Category)
+        axios.post('/api/version/' + version + '/category', Category)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Update the table with the returned category object
@@ -46,7 +46,7 @@ const ManageCategories = ({ version }) => {
     };
 
     const updateCategory = (postdata) => {
-        axios.put('/version/' + version + '/category', postdata)
+        axios.put('/api/version/' + version + '/category', postdata)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Update the table with the returned category object
@@ -67,7 +67,7 @@ const ManageCategories = ({ version }) => {
     const deleteCategories = (rowData) => {
         let _data = [...data];
 
-        axios.delete('/version/' + version + '/category', { data: rowData })
+        axios.delete('/api/version/' + version + '/category', { data: rowData })
             .then(res => {
                 if (res.status === 200) {
                     successToast("Category/ies deleted");

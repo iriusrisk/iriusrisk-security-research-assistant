@@ -46,13 +46,13 @@ const ManageComponents = (props) => {
     const [suggestions, setSuggestions] = useState([]);
 
     useEffect(() => {
-        axios.get('/version/' + version + '/' + library + '/component')
+        axios.get('/api/version/' + version + '/' + library + '/component')
             .then(res => {
                 setData(res.data);
             })
             .catch(err => failedToast(err));
 
-        axios.get('/version/' + version + '/' + library + '/riskPattern')
+        axios.get('/api/version/' + version + '/' + library + '/riskPattern')
             .then(res => {
                 setSuggestions(res.data);
             })
@@ -60,7 +60,7 @@ const ManageComponents = (props) => {
     }, [version, library]);
 
     const addComponent = (Component) => {
-        return axios.post('/version/' + version + '/' + library + '/component', Component)
+        return axios.post('/api/version/' + version + '/' + library + '/component', Component)
             .then(res => {
                 easyToast(res, "Component added", "Component couldn't be added");
                 return res.data; // Return the created component data
@@ -82,7 +82,7 @@ const ManageComponents = (props) => {
             riskPatternRefs: newComponent.riskPatternRefs || []
         };
 
-        return axios.put('/version/' + version + '/' + library + '/component', postdata)
+        return axios.put('/api/version/' + version + '/' + library + '/component', postdata)
             .then(res => {
                 easyToast(res, "Component updated", "Component couldn't be updated");
                 return res.data; // Return the updated component data
@@ -96,7 +96,7 @@ const ManageComponents = (props) => {
     const deleteComponents = (rowData) => {
         let _data = [...data];
 
-        axios.delete('/version/' + version + '/' + library + '/component', {data: rowData})
+        axios.delete('/api/version/' + version + '/' + library + '/component', {data: rowData})
             .then(res => {
                 if(res.status === 200){
                     successToast("Component/s deleted");

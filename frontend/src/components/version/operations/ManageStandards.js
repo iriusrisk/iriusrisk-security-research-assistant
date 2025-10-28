@@ -38,7 +38,7 @@ const ManageStandards = ({ version }) => {
     const [data, setData] = useState([]);
     
     useEffect(() => {
-        axios.get('/version/' + version + '/standard')
+        axios.get('/api/version/' + version + '/standard')
             .then(res => {
                 setData(res.data);
             })
@@ -46,7 +46,7 @@ const ManageStandards = ({ version }) => {
     }, [version]);
 
     const addStandard = (standard) => {
-        axios.post('/version/' + version + '/standard', standard)
+        axios.post('/api/version/' + version + '/standard', standard)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Update the table with the returned standard object
@@ -61,7 +61,7 @@ const ManageStandards = ({ version }) => {
     };
 
     const updateStandard = (postdata) => {
-        axios.put('/version/' + version + '/standard', postdata)
+        axios.put('/api/version/' + version + '/standard', postdata)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Update the table with the returned standard object
@@ -82,7 +82,7 @@ const ManageStandards = ({ version }) => {
     const deleteStandards = (rowData) => {
         let _data = [...data];
 
-        axios.delete('/version/' + version + '/standard', { data: rowData })
+        axios.delete('/api/version/' + version + '/standard', { data: rowData })
             .then(res => {
                 if (res.status === 200) {
                     successToast("Standard/s deleted");

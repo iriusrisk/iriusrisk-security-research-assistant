@@ -116,7 +116,7 @@ const MergeLibraries = (props) => {
             "dstLibrary": selectedLibrarySecond
         };
 
-        axios.post('/project/mergeLibraries', data)
+        axios.post('/api/project/mergeLibraries', data)
             .then(res => {
                 if(res.data.length === 0){
                     successToast("Nothing to merge");
@@ -140,7 +140,7 @@ const MergeLibraries = (props) => {
             "srcVersion": selectedVersionFirst
         };
 
-        axios.post('/project/generateFullLibrary', data)
+        axios.post('/api/project/generateFullLibrary', data)
             .then(res => {
                 successToast("Generated. Reload and check full_version");
                 setIsGenerating(false);

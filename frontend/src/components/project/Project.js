@@ -117,7 +117,7 @@ const Project = (props) => {
     }, []);
 
     const saveProject = () => {
-        axios.get('/project/save')
+        axios.get('/api/project/save')
             .then(res => {
                 easyToast(res, "Project saved successfully", "Saving project failed");
             })

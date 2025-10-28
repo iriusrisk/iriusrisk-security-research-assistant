@@ -41,7 +41,7 @@ const ManageUsecases = (props) => {
     const dataRef = useRef([]);
 
     const addUsecase = useCallback((usecase) => {
-        axios.post('/version/'+version+'/usecase', usecase)
+        axios.post('/api/version/'+version+'/usecase', usecase)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Add the returned object from the API to the state
@@ -56,7 +56,7 @@ const ManageUsecases = (props) => {
     }, [version]);
 
     const updateUsecase = useCallback((updatedUsecase) => {
-        axios.put('/version/'+version+'/usecase', updatedUsecase)
+        axios.put('/api/version/'+version+'/usecase', updatedUsecase)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Update the state with the returned object from the API
@@ -83,7 +83,7 @@ const ManageUsecases = (props) => {
     }, []);
 
     const deleteUsecases = useCallback((rowData) => {
-        axios.delete('/version/'+version+'/usecase', {data: rowData})
+        axios.delete('/api/version/'+version+'/usecase', {data: rowData})
             .then(res => {
                 if (res.status === 200) {
                     successToast("Usecase/s deleted");
@@ -101,7 +101,7 @@ const ManageUsecases = (props) => {
     }, [version]);
 
     useEffect(() => {
-        axios.get('/version/' + version + '/usecase',)
+        axios.get('/api/version/' + version + '/usecase',)
             .then(res => {
                 setData(res.data);
                 dataRef.current = res.data;
@@ -206,7 +206,7 @@ const UsecaseDetailPanel = (props) => {
             desc: data.desc || "",
         };
 
-        axios.put('/version/'+version+'/usecase', postdata)
+        axios.put('/api/version/'+version+'/usecase', postdata)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     setData(res.data);

@@ -204,7 +204,7 @@ const Library = (props) => {
     const [edit, setEdit] = useState(false);
 
     useEffect(() => {
-        axios.get('/version/' + version + "/" + library + "/report")
+        axios.get('/api/version/' + version + "/" + library + "/report")
             .then(res => {
                 setLibraryReport(res.data);
             })
@@ -212,7 +212,7 @@ const Library = (props) => {
     }, [version, library]);
 
     const exportToXML = () => {
-        axios.get('/version/' + version + "/" + library + "/export/xml")
+        axios.get('/api/version/' + version + "/" + library + "/export/xml")
             .then(res => {
                 easyToast(res, "Library exported to XML successfully (/output/" + version + "/" + library + ")", "Export failed")
             })
@@ -220,7 +220,7 @@ const Library = (props) => {
     };
 
     const exportToXLSX = () => {
-        axios.get('/version/' + version + "/" + library + "/export/xlsx")
+        axios.get('/api/version/' + version + "/" + library + "/export/xlsx")
             .then(res => {
                 easyToast(res, "Library exported to XLSX successfully (/output/" + version + "/" + library + ")", "Export failed")
             })
@@ -241,7 +241,7 @@ const Library = (props) => {
             enabled: event.target.enabled.value
         };
 
-        axios.put('/version/' + version + "/" + library, data)
+        axios.put('/api/version/' + version + "/" + library, data)
             .then(res => {
                 setLibraryReport(res.data);
                 setEdit(false);
