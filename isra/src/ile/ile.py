@@ -36,6 +36,20 @@ def start_backend(port: int, app_dir: str):
         print("[yellow]Please run: poetry install[/yellow]")
         return None
     
+    # Find the project root by looking for pyproject.toml
+    current_dir = Path(__file__).parent
+    project_root = None
+    
+    # Walk up the directory tree to find pyproject.toml
+    for parent in current_dir.parents:
+        if (parent / "pyproject.toml").exists():
+            project_root = parent
+            break
+    
+    if not project_root:
+        print("[red]Could not find project root (pyproject.toml not found)[/red]")
+        return None
+    
     # Set environment variables for the backend
     env = os.environ.copy()
     env['APPDIR'] = app_dir
@@ -50,9 +64,62 @@ def start_backend(port: int, app_dir: str):
             "--host", "127.0.0.1", 
             "--port", str(port),
             "--reload"
-        ], cwd=Path(__file__).parent.parent.parent.parent, env=env)
+        ], cwd=project_root, env=env)
         
         print(f"[green]Backend server started on http://127.0.0.1:{port}[/green]")
+        return backend_process
+        
+    except Exception as e:
+        print(f"[red]Error starting backend server: {e}[/red]")
+        print("[yellow]Make sure all dependencies are installed with: poetry install[/yellow]")
+        return None
+
+
+def start_backend_with_static(port: int, app_dir: str, static_dir: str):
+    """Start the Python FastAPI backend server with static file serving"""
+    global backend_process
+    
+    # Check if uvicorn is available
+    try:
+        subprocess.run([sys.executable, "-m", "uvicorn", "--help"], check=True, capture_output=True)
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        print("[red]uvicorn is not installed. Installing dependencies...[/red]")
+        print("[yellow]Please run: poetry install[/yellow]")
+        return None
+    
+    # Find the project root by looking for pyproject.toml
+    current_dir = Path(__file__).parent
+    project_root = None
+    
+    # Walk up the directory tree to find pyproject.toml
+    for parent in current_dir.parents:
+        if (parent / "pyproject.toml").exists():
+            project_root = parent
+            break
+    
+    if not project_root:
+        print("[red]Could not find project root (pyproject.toml not found)[/red]")
+        return None
+    
+    # Set environment variables for the backend
+    env = os.environ.copy()
+    env['APPDIR'] = app_dir
+    env['SERVER_PORT'] = str(port)
+    env['SERVER_HOST'] = '127.0.0.1'
+    env['STATIC_DIR'] = static_dir
+    env['SERVE_STATIC'] = 'true'
+    
+    try:
+        # Start the backend server
+        backend_process = subprocess.Popen([
+            sys.executable, "-m", "uvicorn", 
+            "isra.src.ile.backend.main:app", 
+            "--host", "127.0.0.1", 
+            "--port", str(port),
+            "--reload"
+        ], cwd=project_root, env=env)
+        
+        print(f"[green]Backend server with static files started on http://127.0.0.1:{port}[/green]")
         return backend_process
         
     except Exception as e:
@@ -65,8 +132,22 @@ def start_frontend(port: int, backend_port: int):
     """Start the React frontend development server"""
     global frontend_process
     
-    # Get the frontend directory
-    frontend_dir = Path(__file__).parent.parent.parent.parent / "frontend"
+    # Get the frontend directory - find it relative to the project root
+    # First, find the project root by looking for pyproject.toml
+    current_dir = Path(__file__).parent
+    project_root = None
+    
+    # Walk up the directory tree to find pyproject.toml
+    for parent in current_dir.parents:
+        if (parent / "pyproject.toml").exists():
+            project_root = parent
+            break
+    
+    if not project_root:
+        print("[red]Could not find project root (pyproject.toml not found)[/red]")
+        return None
+    
+    frontend_dir = project_root / "frontend"
     
     # Check if npm is available
     try:
@@ -126,9 +207,9 @@ def cleanup_processes():
 
 
 @app.command()
-def run():
+def backend():
     """
-    Run the ILE application (backend API + frontend dev server)
+    Start only the ILE backend server
     """
     # Validate configuration
     if get_property("ile_root_folder") == "":
@@ -140,14 +221,12 @@ def run():
         raise typer.Exit(-1)
     
     backend_port = int(get_property("ile_port"))
-    frontend_port = backend_port + 1
     
-    print("[bold blue]IriusRisk Library Editor")
-    print("1. This will run the backend API and frontend development server on separate ports.")
+    print("[bold blue]IriusRisk Library Editor - Backend Only")
+    print("1. This will start only the backend API server.")
     print("2. All elements will be stored where you have indicated in the ile_root_folder.")
-    print("3. The application will be accessible in your web browser.")
+    print("3. The backend API will be accessible on the configured port.")
     print(f"[green]Backend API: http://127.0.0.1:{backend_port}[/green]")
-    print(f"[green]Frontend UI: http://127.0.0.1:{frontend_port}[/green]")
     
     try:
         # Start backend server
@@ -157,15 +236,56 @@ def run():
             print("[red]Failed to start backend server[/red]")
             raise typer.Exit(-1)
         
-        # Wait a moment for backend to start
-        time.sleep(2)
+        print(f"[bold green]ILE Backend is now running![/bold green]")
+        print(f"[green]Backend API: http://127.0.0.1:{backend_port}[/green]")
+        print("[yellow]Press Ctrl+C to stop the server[/yellow]")
         
+        # Keep the main process alive and handle cleanup
+        try:
+            while True:
+                time.sleep(1)
+                # Check if process is still running
+                if backend_process and backend_process.poll() is not None:
+                    print("[red]Backend server stopped unexpectedly[/red]")
+                    break
+        except KeyboardInterrupt:
+            print("\n[yellow]Shutting down ILE Backend...[/yellow]")
+        finally:
+            cleanup_processes()
+            print("[green]ILE Backend stopped successfully[/green]")
+            
+    except Exception as e:
+        print(f"[red]Error while launching ILE Backend: {e}[/red]")
+        cleanup_processes()
+        raise typer.Exit(-1)
+
+
+@app.command()
+def frontend():
+    """
+    Start only the ILE frontend server
+    """
+    # Validate configuration
+    if get_property("ile_port") == "":
+        print("[red]No ILE port has been defined. Please configure 'ile_port' in your settings.[/red]")
+        raise typer.Exit(-1)
+    
+    backend_port = int(get_property("ile_port"))
+    frontend_port = 9000
+    
+    print("[bold blue]IriusRisk Library Editor - Frontend Only")
+    print("1. This will start only the React frontend development server.")
+    print("2. The frontend will run on port 9000.")
+    print("3. Make sure the backend is running separately.")
+    print(f"[green]Frontend UI: http://127.0.0.1:{frontend_port}[/green]")
+    print(f"[yellow]Backend should be running on: http://127.0.0.1:{backend_port}[/yellow]")
+    
+    try:
         # Start frontend server
         print("[blue]Starting frontend server...[/blue]")
         frontend_proc = start_frontend(frontend_port, backend_port)
         if not frontend_proc:
             print("[red]Failed to start frontend server[/red]")
-            cleanup_processes()
             raise typer.Exit(-1)
         
         # Wait a moment for frontend to start
@@ -177,21 +297,101 @@ def run():
         except:
             pass  # Browser opening is optional
         
-        print(f"[bold green]ILE is now running![/bold green]")
-        print(f"[green]Backend API: http://127.0.0.1:{backend_port}[/green]")
+        print(f"[bold green]ILE Frontend is now running![/bold green]")
         print(f"[green]Frontend UI: http://127.0.0.1:{frontend_port}[/green]")
-        print("[yellow]Press Ctrl+C to stop the servers[/yellow]")
+        print("[yellow]Press Ctrl+C to stop the server[/yellow]")
         
         # Keep the main process alive and handle cleanup
         try:
             while True:
                 time.sleep(1)
-                # Check if processes are still running
-                if backend_process and backend_process.poll() is not None:
-                    print("[red]Backend server stopped unexpectedly[/red]")
-                    break
+                # Check if process is still running
                 if frontend_process and frontend_process.poll() is not None:
                     print("[red]Frontend server stopped unexpectedly[/red]")
+                    break
+        except KeyboardInterrupt:
+            print("\n[yellow]Shutting down ILE Frontend...[/yellow]")
+        finally:
+            cleanup_processes()
+            print("[green]ILE Frontend stopped successfully[/green]")
+            
+    except Exception as e:
+        print(f"[red]Error while launching ILE Frontend: {e}[/red]")
+        cleanup_processes()
+        raise typer.Exit(-1)
+
+
+@app.command()
+def run():
+    """
+    Run the ILE application (backend API + compiled frontend)
+    """
+    # Validate configuration
+    if get_property("ile_root_folder") == "":
+        print("[red]No ILE root folder has been defined. Please configure 'ile_root_folder' in your settings.[/red]")
+        raise typer.Exit(-1)
+    
+    if get_property("ile_port") == "":
+        print("[red]No ILE port has been defined. Please configure 'ile_port' in your settings.[/red]")
+        raise typer.Exit(-1)
+    
+    backend_port = int(get_property("ile_port"))
+    
+    # Check if frontend build exists
+    current_dir = Path(__file__).parent
+    project_root = None
+    
+    # Walk up the directory tree to find pyproject.toml
+    for parent in current_dir.parents:
+        if (parent / "pyproject.toml").exists():
+            project_root = parent
+            break
+    
+    if not project_root:
+        print("[red]Could not find project root (pyproject.toml not found)[/red]")
+        raise typer.Exit(-1)
+    
+    frontend_build_dir = project_root / "frontend" / "build"
+    
+    if not frontend_build_dir.exists():
+        print("[red]Frontend build directory not found. Please build the frontend first.[/red]")
+        print("[yellow]Run: cd frontend && npm run build[/yellow]")
+        raise typer.Exit(-1)
+    
+    print("[bold blue]IriusRisk Library Editor")
+    print("1. This will run the backend API and serve the compiled frontend.")
+    print("2. All elements will be stored where you have indicated in the ile_root_folder.")
+    print("3. The application will be accessible in your web browser.")
+    print(f"[green]Application: http://127.0.0.1:{backend_port}[/green]")
+    
+    try:
+        # Start backend server with static file serving
+        print("[blue]Starting backend server with static file serving...[/blue]")
+        backend_proc = start_backend_with_static(backend_port, get_property("ile_root_folder"), str(frontend_build_dir))
+        if not backend_proc:
+            print("[red]Failed to start backend server[/red]")
+            raise typer.Exit(-1)
+        
+        # Wait a moment for backend to start
+        time.sleep(2)
+        
+        # Open browser
+        try:
+            webbrowser.open(f"http://127.0.0.1:{backend_port}")
+        except:
+            pass  # Browser opening is optional
+        
+        print(f"[bold green]ILE is now running![/bold green]")
+        print(f"[green]Application: http://127.0.0.1:{backend_port}[/green]")
+        print("[yellow]Press Ctrl+C to stop the server[/yellow]")
+        
+        # Keep the main process alive and handle cleanup
+        try:
+            while True:
+                time.sleep(1)
+                # Check if process is still running
+                if backend_process and backend_process.poll() is not None:
+                    print("[red]Backend server stopped unexpectedly[/red]")
                     break
         except KeyboardInterrupt:
             print("\n[yellow]Shutting down ILE...[/yellow]")

@@ -61,7 +61,3 @@ docs/_build/
 ../../srt-cicd-scripts/modified.txt
 
 frontend/node_modules/
-frontend/src/
-frontend/public/
-frontend/package.json
-frontend/package-lock.json

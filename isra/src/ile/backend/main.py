@@ -85,22 +85,64 @@ def create_app() -> FastAPI:
     app.include_router(changelog_router)
     app.include_router(test_router)
     
-
-    # Health check endpoint
-    @app.get("/health")
-    async def health_check():
-        """Health check endpoint"""
-        return {"status": "healthy", "service": "IriusRisk Library Editor API"}
+    # Check if we should serve static files
+    serve_static = os.environ.get('SERVE_STATIC', 'false').lower() == 'true'
+    static_dir = os.environ.get('STATIC_DIR', '')
     
-    # Root endpoint
-    @app.get("/")
-    async def root():
-        """Root endpoint"""
-        return {
-            "message": "IriusRisk Library Editor API",
-            "version": "2.0.0",
-            "docs": "/docs"
-        }
+    if serve_static and static_dir and Path(static_dir).exists():
+        # Mount static files
+        app.mount("/static", StaticFiles(directory=Path(static_dir) / "static"), name="static")
+        
+        # Serve the main React app for all non-API routes
+        @app.get("/{full_path:path}")
+        async def serve_react_app(full_path: str):
+            """Serve the React app for all non-API routes"""
+            # Don't serve React app for API routes and FastAPI built-in routes
+            api_routes = [
+                'project', 'version', 'changelog', 'test',  # API route prefixes
+                'docs', 'redoc', 'openapi.json', 'health',  # FastAPI built-in routes
+                'static'  # Static files
+            ]
+            
+            if any(full_path.startswith(route) for route in api_routes):
+                return {"error": "Not found"}
+            
+            # Serve index.html for all other routes (React Router will handle routing)
+            index_file = Path(static_dir) / "index.html"
+            if index_file.exists():
+                return FileResponse(str(index_file))
+            else:
+                return {"error": "Frontend not found"}
+        
+        # Override the root endpoint to serve the React app
+        @app.get("/")
+        async def serve_root():
+            """Serve the React app root"""
+            index_file = Path(static_dir) / "index.html"
+            if index_file.exists():
+                return FileResponse(str(index_file))
+            else:
+                return {
+                    "message": "IriusRisk Library Editor API",
+                    "version": "2.0.0",
+                    "docs": "/docs"
+                }
+    else:
+        # Health check endpoint
+        @app.get("/health")
+        async def health_check():
+            """Health check endpoint"""
+            return {"status": "healthy", "service": "IriusRisk Library Editor API"}
+        
+        # Root endpoint
+        @app.get("/")
+        async def root():
+            """Root endpoint"""
+            return {
+                "message": "IriusRisk Library Editor API",
+                "version": "2.0.0",
+                "docs": "/docs"
+            }
     
     return app
 
