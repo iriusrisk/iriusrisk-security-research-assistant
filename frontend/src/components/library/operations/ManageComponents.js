@@ -77,9 +77,9 @@ const ManageComponents = (props) => {
             ref: newComponent.ref,
             name: newComponent.name,
             desc: newComponent.desc,
-            categoryRef: newComponent.categoryRef,
+            category_ref: newComponent.category_ref,
             newVisible: newComponent.visible,
-            riskPatternRefs: newComponent.riskPatternRefs || []
+            risk_pattern_refs: newComponent.risk_pattern_refs || []
         };
 
         return axios.put('/api/version/' + version + '/' + library + '/component', postdata)
@@ -111,9 +111,9 @@ const ManageComponents = (props) => {
 
     const addRiskPattern = (id, event) => {
         const dataAdd = [...data];
-        const index = dataAdd[id].riskPatternRefs.indexOf(event.target.value);
+        const index = dataAdd[id].risk_pattern_refs.indexOf(event.target.value);
         if (index === -1) {
-            dataAdd[id].riskPatternRefs.push(event.target.value);
+            dataAdd[id].risk_pattern_refs.push(event.target.value);
             updateComponent(dataAdd[id])
                 .then(updatedComponent => {
                     const updatedData = [...data];
@@ -131,9 +131,9 @@ const ManageComponents = (props) => {
 
     const deleteRiskPattern = (id, value) => {
         const dataDelete = [...data];
-        const index = dataDelete[id].riskPatternRefs.indexOf(value);
+        const index = dataDelete[id].risk_pattern_refs.indexOf(value);
         if (index > -1) {
-            dataDelete[id].riskPatternRefs.splice(index, 1);
+            dataDelete[id].risk_pattern_refs.splice(index, 1);
             updateComponent(dataDelete[id])
                 .then(updatedComponent => {
                     const updatedData = [...data];
@@ -148,14 +148,14 @@ const ManageComponents = (props) => {
     };
 
     const tags = (rowData, classes) => {
-        if(!rowData.hasOwnProperty("riskPatternRefs")){
-            rowData.riskPatternRefs = [];
+        if(!rowData.hasOwnProperty("risk_pattern_refs")){
+            rowData.risk_pattern_refs = [];
         }
         return (
             <Grid>
-                {rowData.riskPatternRefs.length > 0 &&
+                {rowData.risk_pattern_refs.length > 0 &&
                     <div>
-                    { rowData.riskPatternRefs.map((value, index) => {
+                    { rowData.risk_pattern_refs.map((value, index) => {
                      return <Button variant="outlined" startIcon={<ClearIcon />} className={classes.redHover} key={index} onClick={() => deleteRiskPattern(rowData.tableData.id, value)}>{value}</Button>
                     })}
                     </div>
@@ -191,8 +191,8 @@ const ManageComponents = (props) => {
                             { title: 'Ref', editable: 'onAdd', field: 'ref' },
                             { title: 'Name', field: 'name' },
                             { title: 'Desc', field: 'desc' },
-                            { title: 'Category', field: 'categoryRef' },
-                            { title: 'Risk patterns', emptyValue:[], editable: 'never', field: 'riskPatternRefs', render: rowData => {
+                            { title: 'Category', field: 'category_ref' },
+                            { title: 'Risk patterns', emptyValue:[], editable: 'never', field: 'risk_pattern_refs', render: rowData => {
                                     return tags(rowData, classes);
                             }},
                             { title: 'Visible', field: 'visible' },
@@ -217,7 +217,7 @@ const ManageComponents = (props) => {
                             onRowAdd: newData =>
                                 new Promise((resolve, reject) => {
                                     setTimeout(() => {
-                                        newData.riskPatternRefs = [];
+                                        newData.risk_pattern_refs = [];
                                         addComponent(newData)
                                             .then(createdComponent => {
                                                 setData([...data, createdComponent]);

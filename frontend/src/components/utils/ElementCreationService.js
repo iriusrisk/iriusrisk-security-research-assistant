@@ -24,7 +24,7 @@ export const ELEMENT_TYPES = {
                 confidentiality: data.riskRating.confidentiality,
                 integrity: data.riskRating.integrity,
                 availability: data.riskRating.availability,
-                easeOfExploitation: data.riskRating.easeOfExploitation
+                ease_of_exploitation: data.riskRating.ease_of_exploitation
             },
             scope: data.scope || [],
             stride: data.stride || []
@@ -141,7 +141,7 @@ export const validateElementData = (elementType, data) => {
         if (config.fields.includes('riskRating')) {
             const riskRating = data.riskRating;
             if (!riskRating.confidentiality || !riskRating.integrity || 
-                !riskRating.availability || !riskRating.easeOfExploitation) {
+                !riskRating.availability || !riskRating.ease_of_exploitation) {
                 errors.push('All risk rating fields are required for threats');
             }
         }
@@ -182,7 +182,7 @@ export const getDefaultFormData = (elementType) => {
             confidentiality: "",
             integrity: "",
             availability: "",
-            easeOfExploitation: "",
+            ease_of_exploitation: "",
         },
         references: [],
         standards: [],
@@ -215,7 +215,7 @@ export const extractFormData = (event, formData) => {
             confidentiality: form.confidentiality?.value || formData.riskRating.confidentiality,
             integrity: form.integrity?.value || formData.riskRating.integrity,
             availability: form.availability?.value || formData.riskRating.availability,
-            easeOfExploitation: form.easeOfExploitation?.value || formData.riskRating.easeOfExploitation,
+            ease_of_exploitation: form.ease_of_exploitation?.value || formData.riskRating.ease_of_exploitation,
         },
         scope: formData.scope || [],
         stride: formData.stride || []

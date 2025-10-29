@@ -284,13 +284,13 @@ const CreateChangelogBetweenVersions = (props) => {
                                                     <ListItem 
                                                         key={`added-${index}`}
                                                         className={classes.libraryItem}
-                                                        onClick={() => fetchLibraryDetails(library.libraryRef)}
+                                                        onClick={() => fetchLibraryDetails(library.library_ref)}
                                                     >
                                                         <ListItemIcon>
                                                             {getChangeIcon(library.changeType)}
                                                         </ListItemIcon>
                                                         <ListItemText 
-                                                            primary={library.libraryName}
+                                                            primary={library.library_name}
                                                             secondary={`${getChangeText(library.changeType)} • Revision: ${library.newRevision}`}
                                                         />
                                                     </ListItem>
@@ -310,13 +310,13 @@ const CreateChangelogBetweenVersions = (props) => {
                                                     <ListItem 
                                                         key={`deleted-${index}`}
                                                         className={classes.libraryItem}
-                                                        onClick={() => fetchLibraryDetails(library.libraryRef)}
+                                                        onClick={() => fetchLibraryDetails(library.library_ref)}
                                                     >
                                                         <ListItemIcon>
                                                             {getChangeIcon(library.changeType)}
                                                         </ListItemIcon>
                                                         <ListItemText 
-                                                            primary={library.libraryName}
+                                                            primary={library.library_name}
                                                             secondary={`${getChangeText(library.changeType)} • Revision: ${library.oldRevision}`}
                                                         />
                                                     </ListItem>
@@ -336,13 +336,13 @@ const CreateChangelogBetweenVersions = (props) => {
                                                     <ListItem 
                                                         key={`modified-${index}`}
                                                         className={classes.libraryItem}
-                                                        onClick={() => fetchLibraryDetails(library.libraryRef)}
+                                                        onClick={() => fetchLibraryDetails(library.library_ref)}
                                                     >
                                                         <ListItemIcon>
                                                             {getChangeIcon(library.changeType)}
                                                         </ListItemIcon>
                                                         <ListItemText 
-                                                            primary={library.libraryName}
+                                                            primary={library.library_name}
                                                             secondary={`${getChangeText(library.changeType)} • ${library.oldRevision} → ${library.newRevision}`}
                                                         />
                                                     </ListItem>

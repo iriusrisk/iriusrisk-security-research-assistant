@@ -111,6 +111,13 @@ class VersionService:
     
     def _import_files_recursively(self, directory: Path, version_ref: str) -> None:
         """Import files recursively from directory"""
+        # Check if version exists, create it if it doesn't
+        version = self.data_service.get_version(version_ref)
+        if version is None:
+            logger.info(f"Version {version_ref} does not exist, creating it")
+            version = ILEVersion(version=version_ref)
+            self.data_service.put_version(version)
+        
         for file_path in directory.iterdir():
             if file_path.is_dir():
                 self._import_files_recursively(file_path, version_ref)
@@ -118,22 +125,29 @@ class VersionService:
                 try:
                     if file_path.suffix == ".xml":
                         with open(file_path, 'rb') as f:
-                            self.io_facade.import_library_xml(file_path.name, f, self.data_service.get_version(version_ref))
+                            self.io_facade.import_library_xml(file_path.name, f, version)
                     elif file_path.suffix == ".xlsx":
                         with open(file_path, 'rb') as f:
-                            self.io_facade.import_library_xlsx(file_path.name, f, self.data_service.get_version(version_ref))
+                            self.io_facade.import_library_xlsx(file_path.name, f, version)
                 except Exception as e:
                     logger.error(f"Error when importing {file_path.name}: {e}")
     
     def import_library_to_version(self, version_ref: str, submissions: List[UploadFile]) -> None:
         """Import library files to version"""
+        # Check if version exists, create it if it doesn't
+        version = self.data_service.get_version(version_ref)
+        if version is None:
+            logger.info(f"Version {version_ref} does not exist, creating it")
+            version = ILEVersion(version=version_ref)
+            self.data_service.put_version(version)
+        
         for file in submissions:
             try:
                 filename = file.filename
                 if filename.endswith(".xml"):
-                    self.io_facade.import_library_xml(filename, file.file, self.data_service.get_version(version_ref))
+                    self.io_facade.import_library_xml(filename, file.file, version)
                 elif filename.endswith(".xlsx"):
-                    self.io_facade.import_library_xlsx(filename, file.file, self.data_service.get_version(version_ref))
+                    self.io_facade.import_library_xlsx(filename, file.file, version)
             except Exception as e:
                 logger.error(f"Error when importing {filename}: {e}")
                 raise RuntimeError("Error when importing") from e
@@ -142,6 +156,8 @@ class VersionService:
         """Export version to folder"""
         logger.info(f"Exporting {version_ref} to {format}")
         version = self.data_service.get_version(version_ref)
+        if version is None:
+            raise ValueError(f"Version '{version_ref}' not found")
         
         version_path = Path(ILEConstants.OUTPUT_FOLDER) / version.version
         version_path.mkdir(parents=True, exist_ok=True)

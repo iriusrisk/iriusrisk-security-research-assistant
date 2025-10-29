@@ -156,9 +156,21 @@ class ProjectService:
     def merge_libraries(self, merge_library_request: MergeLibraryRequest) -> List[str]:
         """Merge libraries"""
         src_version = self.data_service.get_version(merge_library_request.src_version)
+        if src_version is None:
+            raise ValueError(f"Source version '{merge_library_request.src_version}' not found")
+        
         src_library = self.data_service.get_library(merge_library_request.src_version, merge_library_request.src_library)
+        if src_library is None:
+            raise ValueError(f"Source library '{merge_library_request.src_library}' not found in version '{merge_library_request.src_version}'")
+        
         dst_version = self.data_service.get_version(merge_library_request.dst_version)
+        if dst_version is None:
+            raise ValueError(f"Destination version '{merge_library_request.dst_version}' not found")
+        
         dst_library = self.data_service.get_library(merge_library_request.dst_version, merge_library_request.dst_library)
+        if dst_library is None:
+            raise ValueError(f"Destination library '{merge_library_request.dst_library}' not found in version '{merge_library_request.dst_version}'")
+        
         result = []
         
         # We have to copy components, risk patterns and rules to dstLibrary

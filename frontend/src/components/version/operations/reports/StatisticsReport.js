@@ -32,19 +32,19 @@ const StatisticsReport = (props) => {
 
                 for (const [libKey, libValue] of Object.entries(fullVersion.libraries)) {
                     if (libraries.includes(libKey)) {
-                        for (const [rpKey, rpValue] of Object.entries(libValue.riskPatterns)) {
+                        for (const [rpKey, rpValue] of Object.entries(libValue.risk_patterns)) {
                             let uc = new Set();
                             let t = new Set();
                             let w = new Set();
                             let c = new Set();
 
                             // Filter relations by risk pattern before counting elements
-                            const filteredRelations = Object.values(libValue.relations).filter(v => v.riskPatternUuid === rpKey);
+                            const filteredRelations = Object.values(libValue.relations).filter(v => v.risk_pattern_uuid === rpKey);
                             filteredRelations.forEach(v => {
-                                uc.add(v.usecaseUuid);
-                                t.add(v.threatUuid);
-                                w.add(v.weaknessUuid);
-                                c.add(v.controlUuid);
+                                uc.add(v.usecase_uuid);
+                                t.add(v.threat_uuid);
+                                w.add(v.weakness_uuid);
+                                c.add(v.control_uuid);
                             });
 
                             t.delete("");

@@ -56,7 +56,7 @@ const CreateElements = (props) => {
 
     // Suggestions and references state
     const [referenceSuggestions, setReferenceSuggestions] = useState([]);
-    const [standardRefs, setStandardRefs] = useState(new Map());
+    const [standard_refs, setStandardRefs] = useState(new Map());
     const [standardValues, setStandardValues] = useState([]);
     const [selectedStandard, setSelectedStandard] = useState("");
 
@@ -71,15 +71,15 @@ const CreateElements = (props) => {
             .then(res => {
                 let mymap = new Map();
                 res.data.forEach(o => {
-                    if (mymap.has(o.supportedStandardRef)) {
-                        mymap.set(o.supportedStandardRef, [...mymap.get(o.supportedStandardRef), o])
+                    if (mymap.has(o.supported_standard_ref)) {
+                        mymap.set(o.supported_standard_ref, [...mymap.get(o.supported_standard_ref), o])
                     } else {
-                        mymap.set(o.supportedStandardRef, [])
+                        mymap.set(o.supported_standard_ref, [])
                     }
                 });
 
                 mymap.forEach((value, key) => {
-                    sortArrayByKey(value, "standardRef");
+                    sortArrayByKey(value, "standard_ref");
                 });
                 mymap = new Map([...mymap].sort());
 
@@ -221,7 +221,7 @@ const CreateElements = (props) => {
                 };
             } else {
                 failedToast(
-                    "Standard " + value.supportedStandardRef + "(" + value.standardRef + ") already exists in this element");
+                    "Standard " + value.supported_standard_ref + "(" + value.standard_ref + ") already exists in this element");
                 return prevData;
             }
         });
@@ -245,7 +245,7 @@ const CreateElements = (props) => {
     const getStandardRefs = (event) => {
         const value = event.target.value;
         setSelectedStandard(value);
-        setStandardValues(standardRefs.get(value) || []);
+        setStandardValues(standard_refs.get(value) || []);
     };
 
     const setElementTypeHandler = (event) => {
@@ -354,7 +354,7 @@ const CreateElements = (props) => {
                                                return <Button variant="outlined" startIcon={<ClearIcon/>}
                                                               style={classes.redHover}
                                                               key={index} onClick={() => deleteStandard(
-                                                   value)}>{value.supportedStandardRef} ({value.standardRef})</Button>
+                                                   value)}>{value.supported_standard_ref} ({value.standard_ref})</Button>
                                            })}
                                        </div>
                                       }
@@ -366,7 +366,7 @@ const CreateElements = (props) => {
                                               onChange={getStandardRefs}
                                           >
                                               <option key={2345678} disabled value=""></option>
-                                              {[...standardRefs.keys()].map((value, index) => {
+                                              {[...standard_refs.keys()].map((value, index) => {
                                                   return <option key={index}
                                                                  value={value}>{value}</option>
                                               })}
@@ -379,7 +379,7 @@ const CreateElements = (props) => {
                                                return <Button variant="outlined" startIcon={<AddIcon/>}
                                                               style={classes.redHover}
                                                               key={index} onClick={() => addStandard(
-                                                   value)}>{value.standardRef}</Button>
+                                                   value)}>{value.standard_ref}</Button>
                                            })}
                                        </div>
                                       }
@@ -420,9 +420,9 @@ const CreateElements = (props) => {
                                  variant="outlined"
                                  margin="normal"
                                  fullWidth
-                                 id="easeOfExploitation"
+                                 id="ease_of_exploitation"
                                  label="Ease of Exploitation"
-                                 defaultValue={formData.riskRating.easeOfExploitation}
+                                 defaultValue={formData.riskRating.ease_of_exploitation}
                              />
                          </div>
                         }

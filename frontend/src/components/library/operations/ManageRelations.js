@@ -56,7 +56,7 @@ const ManageRelations = (props) => {
             .then(res => {
                 setSelectedRp(value);
                 // Filter relations for the selected risk pattern
-                const filteredData = res.data.filter(relation => relation.riskPatternUuid === value);
+                const filteredData = res.data.filter(relation => relation.risk_pattern_uuid === value);
                 setData(filteredData);
             })
             .catch(err => failedToast(err));
@@ -69,11 +69,11 @@ const ManageRelations = (props) => {
 
     const addRelation = (newData) => {
         const relation = {
-            riskPatternUuid: selectedRp,
-            usecaseUuid: newData.usecaseUuid || "",
-            threatUuid: newData.threatUuid || "",
-            weaknessUuid: newData.weaknessUuid || "",
-            controlUuid: newData.controlUuid || "",
+            risk_pattern_uuid: selectedRp,
+            usecase_uuid: newData.usecase_uuid || "",
+            threat_uuid: newData.threat_uuid || "",
+            weakness_uuid: newData.weakness_uuid || "",
+            control_uuid: newData.control_uuid || "",
             mitigation: newData.mitigation || "100"
         };
 
@@ -94,11 +94,11 @@ const ManageRelations = (props) => {
     const updateRelation = (oldData, newData) => {
         const updatedRelation = {
             uuid: newData.uuid,
-            riskPatternUuid: selectedRp,
-            usecaseUuid: newData.usecaseUuid || "",
-            threatUuid: newData.threatUuid || "",
-            weaknessUuid: newData.weaknessUuid || "",
-            controlUuid: newData.controlUuid || "",
+            risk_pattern_uuid: selectedRp,
+            usecase_uuid: newData.usecase_uuid || "",
+            threat_uuid: newData.threat_uuid || "",
+            weakness_uuid: newData.weakness_uuid || "",
+            control_uuid: newData.control_uuid || "",
             mitigation: newData.mitigation || "100"
         };
 
@@ -124,7 +124,7 @@ const ManageRelations = (props) => {
         let _data = [...data];
 
         for(const r of rowData){
-            r["riskPatternUuid"] = selectedRp;
+            r["risk_pattern_uuid"] = selectedRp;
         }
 
         axios.delete('/api/version/' + version + '/' + library + '/relation', {data: rowData})
@@ -168,22 +168,22 @@ const ManageRelations = (props) => {
                         columns={[
                             { 
                                 title: 'Usecase UUID', 
-                                field: 'usecaseUuid',
+                                field: 'usecase_uuid',
                                 editable: 'always'
                             },
                             { 
                                 title: 'Threat UUID', 
-                                field: 'threatUuid',
+                                field: 'threat_uuid',
                                 editable: 'always'
                             },
                             { 
                                 title: 'Weakness UUID', 
-                                field: 'weaknessUuid',
+                                field: 'weakness_uuid',
                                 editable: 'always'
                             },
                             { 
                                 title: 'Control UUID', 
-                                field: 'controlUuid',
+                                field: 'control_uuid',
                                 editable: 'always'
                             },
                             { 

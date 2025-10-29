@@ -400,8 +400,8 @@ const AdvancedRelationCanvas = (props) => {
         const grouped = {};
         
         libraryRelations.forEach(relation => {
-            const rpUuid = relation.riskPatternUuid;
-            const ucUuid = relation.usecaseUuid;
+            const rpUuid = relation.risk_pattern_uuid;
+            const ucUuid = relation.usecase_uuid;
             
             if (!grouped[rpUuid]) {
                 grouped[rpUuid] = {};
@@ -425,13 +425,13 @@ const AdvancedRelationCanvas = (props) => {
         const sourceRelation = sourceRelations.find(r => {
             switch (type) {
                 case ItemTypes.USECASE:
-                    return r.usecaseUuid === item.uuid;
+                    return r.usecase_uuid === item.uuid;
                 case ItemTypes.THREAT:
-                    return r.threatUuid === item.uuid;
+                    return r.threat_uuid === item.uuid;
                 case ItemTypes.WEAKNESS:
-                    return r.weaknessUuid === item.uuid;
+                    return r.weakness_uuid === item.uuid;
                 case ItemTypes.CONTROL:
-                    return r.controlUuid === item.uuid;
+                    return r.control_uuid === item.uuid;
                 default:
                     return false;
             }
@@ -447,41 +447,41 @@ const AdvancedRelationCanvas = (props) => {
         if (targetType === 'riskpattern') {
             // Dropping into a risk pattern - create new use case relation
             newRelation = {
-                riskPatternUuid: targetRiskPatternUuid,
-                usecaseUuid: type === ItemTypes.USECASE ? item.uuid : sourceRelation.usecaseUuid,
-                threatUuid: type === ItemTypes.THREAT ? item.uuid : sourceRelation.threatUuid,
-                weaknessUuid: type === ItemTypes.WEAKNESS ? item.uuid : sourceRelation.weaknessUuid,
-                controlUuid: type === ItemTypes.CONTROL ? item.uuid : sourceRelation.controlUuid,
+                risk_pattern_uuid: targetRiskPatternUuid,
+                usecase_uuid: type === ItemTypes.USECASE ? item.uuid : sourceRelation.usecase_uuid,
+                threat_uuid: type === ItemTypes.THREAT ? item.uuid : sourceRelation.threat_uuid,
+                weakness_uuid: type === ItemTypes.WEAKNESS ? item.uuid : sourceRelation.weakness_uuid,
+                control_uuid: type === ItemTypes.CONTROL ? item.uuid : sourceRelation.control_uuid,
                 mitigation: sourceRelation.mitigation
             };
         } else if (targetType === 'threat') {
             // Dropping into a threat - update the threat's weakness/control
             newRelation = {
-                riskPatternUuid: targetRiskPatternUuid,
-                usecaseUuid: targetUsecaseUuid,
-                threatUuid: targetRiskPatternUuid, // This is actually the threat UUID
-                weaknessUuid: type === ItemTypes.WEAKNESS ? item.uuid : sourceRelation.weaknessUuid,
-                controlUuid: type === ItemTypes.CONTROL ? item.uuid : sourceRelation.controlUuid,
+                risk_pattern_uuid: targetRiskPatternUuid,
+                usecase_uuid: targetUsecaseUuid,
+                threat_uuid: targetRiskPatternUuid, // This is actually the threat UUID
+                weakness_uuid: type === ItemTypes.WEAKNESS ? item.uuid : sourceRelation.weakness_uuid,
+                control_uuid: type === ItemTypes.CONTROL ? item.uuid : sourceRelation.control_uuid,
                 mitigation: sourceRelation.mitigation
             };
         } else if (targetType === 'weakness') {
             // Dropping into a weakness - update the weakness's control
             newRelation = {
-                riskPatternUuid: targetRiskPatternUuid,
-                usecaseUuid: targetUsecaseUuid,
-                threatUuid: targetRiskPatternUuid, // This is actually the threat UUID
-                weaknessUuid: targetUsecaseUuid, // This is actually the weakness UUID
-                controlUuid: type === ItemTypes.CONTROL ? item.uuid : sourceRelation.controlUuid,
+                risk_pattern_uuid: targetRiskPatternUuid,
+                usecase_uuid: targetUsecaseUuid,
+                threat_uuid: targetRiskPatternUuid, // This is actually the threat UUID
+                weakness_uuid: targetUsecaseUuid, // This is actually the weakness UUID
+                control_uuid: type === ItemTypes.CONTROL ? item.uuid : sourceRelation.control_uuid,
                 mitigation: sourceRelation.mitigation
             };
         } else {
             // Default: dropping into a use case
             newRelation = {
-                riskPatternUuid: targetRiskPatternUuid,
-                usecaseUuid: targetUsecaseUuid,
-                threatUuid: type === ItemTypes.THREAT ? item.uuid : sourceRelation.threatUuid,
-                weaknessUuid: type === ItemTypes.WEAKNESS ? item.uuid : sourceRelation.weaknessUuid,
-                controlUuid: type === ItemTypes.CONTROL ? item.uuid : sourceRelation.controlUuid,
+                risk_pattern_uuid: targetRiskPatternUuid,
+                usecase_uuid: targetUsecaseUuid,
+                threat_uuid: type === ItemTypes.THREAT ? item.uuid : sourceRelation.threat_uuid,
+                weakness_uuid: type === ItemTypes.WEAKNESS ? item.uuid : sourceRelation.weakness_uuid,
+                control_uuid: type === ItemTypes.CONTROL ? item.uuid : sourceRelation.control_uuid,
                 mitigation: sourceRelation.mitigation
             };
         }
@@ -494,7 +494,7 @@ const AdvancedRelationCanvas = (props) => {
                     if (type === ItemTypes.USECASE) {
                         // Remove the entire use case branch from source
                         const relationsToRemove = sourceRelations.filter(r => 
-                            r.usecaseUuid === item.uuid
+                            r.usecase_uuid === item.uuid
                         );
                         
                         if (relationsToRemove.length > 0) {
@@ -508,7 +508,7 @@ const AdvancedRelationCanvas = (props) => {
                     } else if (type === ItemTypes.THREAT) {
                         // Remove the entire threat branch from source
                         const relationsToRemove = sourceRelations.filter(r => 
-                            r.threatUuid === item.uuid
+                            r.threat_uuid === item.uuid
                         );
                         
                         if (relationsToRemove.length > 0) {
@@ -523,8 +523,8 @@ const AdvancedRelationCanvas = (props) => {
                         // For weakness and control, update the relation
                         const updatedRelation = {
                             ...sourceRelation,
-                            riskPatternUuid: targetRiskPatternUuid,
-                            usecaseUuid: targetUsecaseUuid
+                            risk_pattern_uuid: targetRiskPatternUuid,
+                            usecase_uuid: targetUsecaseUuid
                         };
                         
                         axios.put(`/version/${version}/${sourceLibrary}/relation`, updatedRelation)
@@ -658,11 +658,11 @@ const AdvancedRelationCanvas = (props) => {
                                                             </DropZone>
 
                                                             {grouped[rpUuid][ucUuid].map(relation => {
-                                                                const threat = getElement(relation.threatUuid, threats);
+                                                                const threat = getElement(relation.threat_uuid, threats);
                                                                 if (!threat) return null;
 
-                                                                const hasWeakness = !!relation.weaknessUuid;
-                                                                const hasControl = !!relation.controlUuid;
+                                                                const hasWeakness = !!relation.weakness_uuid;
+                                                                const hasControl = !!relation.control_uuid;
                                                                 const threatId = `threat-${library}-${threat.uuid}`;
                                                                 const isThreatExpanded = isExpanded(threatId);
 
@@ -708,10 +708,10 @@ const AdvancedRelationCanvas = (props) => {
                                                                                             </Typography>
                                                                                         </DropZone>
                                                                                         
-                                                                                        {relation.weaknessUuid && (
+                                                                                        {relation.weakness_uuid && (
                                                                                             <div>
                                                                                                 {(() => {
-                                                                                                    const weakness = getElement(relation.weaknessUuid, weaknesses);
+                                                                                                    const weakness = getElement(relation.weakness_uuid, weaknesses);
                                                                                                     if (!weakness) return null;
                                                                                                     
                                                                                                     return (
@@ -751,10 +751,10 @@ const AdvancedRelationCanvas = (props) => {
                                                                                                                             </Typography>
                                                                                                                         </DropZone>
                                                                                                                         
-                                                                                                                        {relation.controlUuid && (
+                                                                                                                        {relation.control_uuid && (
                                                                                                                             <div>
                                                                                                                                 {(() => {
-                                                                                                                                    const control = getElement(relation.controlUuid, controls);
+                                                                                                                                    const control = getElement(relation.control_uuid, controls);
                                                                                                                                     if (!control) return null;
                                                                                                     
                                                                                                                                     return (

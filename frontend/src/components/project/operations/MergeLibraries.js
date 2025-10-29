@@ -54,13 +54,13 @@ const MergeLibraries = (props) => {
     useEffect(() => {
         axios.get(`/project/report`)
             .then(res => {
-                if(res.data.versionReports.length > 0){
+                if(res.data.version_reports.length > 0){
                     let vers = [];
                     let map = {};
-                    res.data.versionReports.forEach((version) => {
+                    res.data.version_reports.forEach((version) => {
                         let list = [];
-                        version.libraryReport.forEach((lib) => {
-                            list.push(lib.libraryRef);
+                        version.library_reports.forEach((lib) => {
+                            list.push(lib.library_ref);
                         });
                         vers.push(version.version);
                         map[version.version] = list;

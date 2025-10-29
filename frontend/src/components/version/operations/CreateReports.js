@@ -51,11 +51,11 @@ const CreateReports = (props) => {
         axios.get('/api/version/' + version + "/report")
             .then(res => {
                 let av = [];
-                res.data.libraryReport.forEach(value => {
-                    if (value.libraryRef === "all-libraries") {
+                res.data.library_reports.forEach(value => {
+                    if (value.library_ref === "all-libraries") {
                         failedToast("There is a library called 'all-libraries'. This may produce conflicts");
                     }
-                    av.push(value.libraryRef);
+                    av.push(value.library_ref);
                     sortStringArrayInsensitiveCase(av);
                 });
                 setAvailableLibraries(av);

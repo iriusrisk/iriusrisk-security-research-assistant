@@ -92,7 +92,7 @@ const ImportLibraryToVersion = ({version}) => {
     const classes = useStyles();
 
     const handleSubmit = (event) => {
-        axios.get("/version/"+version+"/import/folder")
+        axios.get("/api/version/"+version+"/import/folder")
             .then(res => {
                 easyToast(res, "Imported libraries successfully", "Importing libraries failed");
             })

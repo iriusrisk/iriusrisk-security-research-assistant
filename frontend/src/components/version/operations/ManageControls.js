@@ -164,8 +164,8 @@ const ManageControls = (props) => {
                                 // customFilterAndSearch: (value, rowData) => {
                                 //     if (typeof rowData.standards !== "undefined") {
                                 //         let s = rowData.standards.filter(
-                                //             x => x.standardRef.toUpperCase().startsWith(value.toUpperCase()) ||
-                                //                  x.supportedStandardRef.toUpperCase()
+                                //             x => x.standard_ref.toUpperCase().startsWith(value.toUpperCase()) ||
+                                //                  x.supported_standard_ref.toUpperCase()
                                 //                      .startsWith(value.toUpperCase())).length;
                                 //         return s > 0;
                                 //     } else {
@@ -215,8 +215,8 @@ const ManageControls = (props) => {
                                         newData.cost = "0";
                                         newData.references = [];
                                         newData.standards = [];
-                                        newData.baseStandard = [];
-                                        newData.baseStandardSection = [];
+                                        newData.base_standard = [];
+                                        newData.base_standard_section = [];
                                         newData.scope = [];
                                         newData.mitre = [];
                                         newData.test = {
@@ -241,8 +241,8 @@ const ManageControls = (props) => {
                                             cost: oldData.cost || "0",
                                             references: oldData.references || [],
                                             standards: oldData.standards || [],
-                                            baseStandard: oldData.baseStandard || [],
-                                            baseStandardSection: oldData.baseStandardSection || [],
+                                            base_standard: oldData.base_standard || [],
+                                            base_standard_section: oldData.base_standard_section || [],
                                             scope: oldData.scope || [],
                                             mitre: oldData.mitre || [],
                                             test: oldData.test || {
@@ -304,7 +304,7 @@ const ControlDetailPanel = (props) => {
 
         axios.get('/api/version/' + version + '/standard',)
             .then(res => {
-                setStandardSuggestions(sortArrayByKey(res.data, "standardRef"));
+                setStandardSuggestions(sortArrayByKey(res.data, "standard_ref"));
             })
             .catch(err => failedToast(err));
     }, [version, data.uuid]);
@@ -325,8 +325,8 @@ const ControlDetailPanel = (props) => {
             state: formData.get('state') || "Recommended",
             cost: formData.get('cost') || "0",
             steps: data.test?.steps || "",
-            baseStandard: data.baseStandard || [],
-            baseStandardSection: data.baseStandardSection || [],
+            base_standard: data.base_standard || [],
+            base_standard_section: data.base_standard_section || [],
             scope: data.scope || [],
             mitre: data.mitre || []
         };
@@ -502,8 +502,8 @@ const ControlDetailPanel = (props) => {
             return;
         }
         
-        // Find the standard object by standardRef
-        const standardObj = standardSuggestions.find(std => std.standardRef === standardValue);
+        // Find the standard object by standard_ref
+        const standardObj = standardSuggestions.find(std => std.standard_ref === standardValue);
         if (!standardObj) {
             failedToast("Standard not found");
             return;
@@ -604,7 +604,7 @@ const ControlDetailPanel = (props) => {
                                     <Grid container spacing={3}>
                                         <Grid item xs={12}>
                                             <Typography>
-                                                {value.usecaseUuid} / {value.threatUuid} / {value.weaknessUuid} / {value.controlUuid}
+                                                {value.usecase_uuid} / {value.threat_uuid} / {value.weakness_uuid} / {value.control_uuid}
                                             </Typography>
                                         </Grid>
                                     </Grid>
@@ -674,9 +674,9 @@ const ControlDetailPanel = (props) => {
                     Base Standard
                 </Typography>
                 <Grid>
-                    {data.baseStandard && data.baseStandard.length > 0 &&
+                    {data.base_standard && data.base_standard.length > 0 &&
                      <div>
-                         { data.baseStandard.map((baseStandardItem, index) => {
+                         { data.base_standard.map((base_standardItem, index) => {
                              return (
                                  <Button 
                                      variant="outlined" 
@@ -685,11 +685,11 @@ const ControlDetailPanel = (props) => {
                                      style={{ margin: '4px' }} 
                                      key={index} 
                                      onClick={() => {
-                                         const newBaseStandard = data.baseStandard.filter((_, i) => i !== index);
-                                         setData({...data, baseStandard: newBaseStandard});
+                                         const newBaseStandard = data.base_standard.filter((_, i) => i !== index);
+                                         setData({...data, base_standard: newBaseStandard});
                                      }}
                                  >
-                                     {baseStandardItem}
+                                     {base_standardItem}
                                  </Button>
                              );
                          })}
@@ -707,8 +707,8 @@ const ControlDetailPanel = (props) => {
                                     if (e.key === 'Enter') {
                                         e.preventDefault();
                                         if (newBaseStandardItem.trim()) {
-                                            const newBaseStandard = [...(data.baseStandard || []), newBaseStandardItem.trim()];
-                                            setData({...data, baseStandard: newBaseStandard});
+                                            const newBaseStandard = [...(data.base_standard || []), newBaseStandardItem.trim()];
+                                            setData({...data, base_standard: newBaseStandard});
                                             setNewBaseStandardItem("");
                                         }
                                     }
@@ -721,8 +721,8 @@ const ControlDetailPanel = (props) => {
                                 color="primary"
                                 onClick={() => {
                                     if (newBaseStandardItem.trim()) {
-                                        const newBaseStandard = [...(data.baseStandard || []), newBaseStandardItem.trim()];
-                                        setData({...data, baseStandard: newBaseStandard});
+                                        const newBaseStandard = [...(data.base_standard || []), newBaseStandardItem.trim()];
+                                        setData({...data, base_standard: newBaseStandard});
                                         setNewBaseStandardItem("");
                                     }
                                 }}
@@ -736,9 +736,9 @@ const ControlDetailPanel = (props) => {
                     Base Standard Section
                 </Typography>
                 <Grid>
-                    {data.baseStandardSection && data.baseStandardSection.length > 0 &&
+                    {data.base_standard_section && data.base_standard_section.length > 0 &&
                      <div>
-                         { data.baseStandardSection.map((baseStandardSectionItem, index) => {
+                         { data.base_standard_section.map((base_standard_sectionItem, index) => {
                              return (
                                  <Button 
                                      variant="outlined" 
@@ -747,11 +747,11 @@ const ControlDetailPanel = (props) => {
                                      style={{ margin: '4px' }} 
                                      key={index} 
                                      onClick={() => {
-                                         const newBaseStandardSection = data.baseStandardSection.filter((_, i) => i !== index);
-                                         setData({...data, baseStandardSection: newBaseStandardSection});
+                                         const newBaseStandardSection = data.base_standard_section.filter((_, i) => i !== index);
+                                         setData({...data, base_standard_section: newBaseStandardSection});
                                      }}
                                  >
-                                     {baseStandardSectionItem}
+                                     {base_standard_sectionItem}
                                  </Button>
                              );
                          })}
@@ -769,8 +769,8 @@ const ControlDetailPanel = (props) => {
                                     if (e.key === 'Enter') {
                                         e.preventDefault();
                                         if (newBaseStandardSectionItem.trim()) {
-                                            const newBaseStandardSection = [...(data.baseStandardSection || []), newBaseStandardSectionItem.trim()];
-                                            setData({...data, baseStandardSection: newBaseStandardSection});
+                                            const newBaseStandardSection = [...(data.base_standard_section || []), newBaseStandardSectionItem.trim()];
+                                            setData({...data, base_standard_section: newBaseStandardSection});
                                             setNewBaseStandardSectionItem("");
                                         }
                                     }
@@ -783,8 +783,8 @@ const ControlDetailPanel = (props) => {
                                 color="primary"
                                 onClick={() => {
                                     if (newBaseStandardSectionItem.trim()) {
-                                        const newBaseStandardSection = [...(data.baseStandardSection || []), newBaseStandardSectionItem.trim()];
-                                        setData({...data, baseStandardSection: newBaseStandardSection});
+                                        const newBaseStandardSection = [...(data.base_standard_section || []), newBaseStandardSectionItem.trim()];
+                                        setData({...data, base_standard_section: newBaseStandardSection});
                                         setNewBaseStandardSectionItem("");
                                     }
                                 }}
@@ -968,7 +968,7 @@ const ControlDetailPanel = (props) => {
                          {Object.entries(data.standards).map(([key, standardUuid], index) => {
                              // Find the standard by UUID
                              const standardObj = standardSuggestions.find(std => std.uuid === standardUuid);
-                             const standardName = standardObj ? `${standardObj.supportedStandardRef} (${standardObj.standardRef})` : standardUuid;
+                             const standardName = standardObj ? `${standardObj.supported_standard_ref} (${standardObj.standard_ref})` : standardUuid;
                              
                              return (
                                  <Button 
@@ -994,7 +994,7 @@ const ControlDetailPanel = (props) => {
                         >
                             <option key={2345678} disabled value=""></option>
                             {standardSuggestions.map((value, index) => {
-                                return <option key={index} value={value.standardRef}>{value.supportedStandardRef} | {value.standardRef}</option>
+                                return <option key={index} value={value.standard_ref}>{value.supported_standard_ref} | {value.standard_ref}</option>
                             })}
                         </Select>
                     </FormControl>

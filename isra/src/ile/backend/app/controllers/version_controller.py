@@ -2,7 +2,7 @@
 Version controller for IriusRisk Library Editor API
 """
 
-from fastapi import APIRouter, Depends, UploadFile, File, Form
+from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException
 from typing import List, Collection
 from isra.src.ile.backend.app.models import (
     ILEVersion, IRCategoryComponent, IRControl, IRLibrary, IRReference, 
@@ -86,7 +86,10 @@ async def fix_non_ascii_values(version_ref: str, version_facade: VersionFacade =
 @router.get("/version/{version_ref}/report")
 async def get_version_report(version_ref: str, version_facade: VersionFacade = Depends(get_version_facade)) -> IRVersionReport:
     """Get version report"""
-    return version_facade.create_version_report(version_ref)
+    try:
+        return version_facade.create_version_report(version_ref)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
 
 
 @router.get("/version/{version_ref}/library")

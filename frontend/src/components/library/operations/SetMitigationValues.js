@@ -27,7 +27,7 @@ const SetMitigationValues = (props) => {
     
     const [version, setVersion] = useState(match.params.id);
     const [library, setLibrary] = useState(match.params.lib);
-    const [data, setData] = useState({"riskPatterns": []});
+    const [data, setData] = useState({"risk_patterns": []});
     const [accordion1, setAccordion1] = useState(false);
     const [accordion2, setAccordion2] = useState(false);
 
@@ -61,18 +61,18 @@ const SetMitigationValues = (props) => {
                     <Typography variant="h4">
                         Set mitigation values
                     </Typography>
-                    {data.riskPatterns.length === 0 &&
+                    {data.risk_patterns.length === 0 &&
                      <Typography variant="h6">
                          Mitigation values are correct
                      </Typography>
                     }
-                    {data.riskPatterns.length !== 0 &&
+                    {data.risk_patterns.length !== 0 &&
                     <Accordion expanded={accordion1} onChange={handleAccordion1}>
                         <AccordionSummary
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
-                            <Typography variant="h6">Wrong mitigation values ({data.riskPatterns.length})</Typography>
+                            <Typography variant="h6">Wrong mitigation values ({data.risk_patterns.length})</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                              <div>
@@ -84,7 +84,7 @@ const SetMitigationValues = (props) => {
                                      Balance mitigation values automatically
                                  </Button>
                              <Grid container spacing={3}>
-                                 {data.riskPatterns.map((value, index) => {
+                                 {data.risk_patterns.map((value, index) => {
                                      return <Grid key={index} item>
                                          <Typography variant="h6">Risk pattern: {value.ref}</Typography>
                                          <Grid container>

@@ -152,44 +152,58 @@ class DataService:
     def create_version_report(self, version_ref: str) -> IRVersionReport:
         """Create version report"""
         v = self.get_version(version_ref)
-        version_report = IRVersionReport()
-        version_report.version = v.version
+        if v is None:
+            raise ValueError(f"Version '{version_ref}' not found")
         
-        version_report.num_libraries = len(v.libraries)
-        version_report.num_risk_patterns = sum(len(lib.risk_patterns) for lib in v.libraries.values())
-        version_report.num_usecases = len(v.usecases)
-        version_report.num_threats = len(v.threats)
-        version_report.num_weaknesses = len(v.weaknesses)
-        version_report.num_controls = len(v.controls)
-        version_report.num_references = len(v.references)
-        version_report.num_standards = len(v.standards)
-        version_report.num_categories = len(v.categories)
-        version_report.num_components = sum(len(lib.component_definitions) for lib in v.libraries.values())
-        version_report.num_rules = sum(len(lib.rules) for lib in v.libraries.values())
+        # Calculate all the counts
+        num_libraries = len(v.libraries)
+        num_risk_patterns = sum(len(lib.risk_patterns) for lib in v.libraries.values())
+        num_usecases = len(v.usecases)
+        num_threats = len(v.threats)
+        num_weaknesses = len(v.weaknesses)
+        num_controls = len(v.controls)
+        num_references = len(v.references)
+        num_standards = len(v.standards)
+        num_categories = len(v.categories)
+        num_components = sum(len(lib.component_definitions) for lib in v.libraries.values())
+        num_rules = sum(len(lib.rules) for lib in v.libraries.values())
         
+        # Create library reports
         library_reports = []
         for l in v.libraries.values():
             library_report = self.create_library_report(v.version, l.ref)
             library_reports.append(library_report)
-        version_report.library_report = library_reports
+        
+        # Create the version report with all data
+        version_report = IRVersionReport(
+            version=v.version,
+            num_libraries=num_libraries,
+            num_risk_patterns=num_risk_patterns,
+            num_usecases=num_usecases,
+            num_threats=num_threats,
+            num_weaknesses=num_weaknesses,
+            num_controls=num_controls,
+            num_references=num_references,
+            num_standards=num_standards,
+            num_categories=num_categories,
+            num_components=num_components,
+            num_rules=num_rules,
+            library_reports=library_reports
+        )
         
         return version_report
     
     def create_library_report(self, version_ref: str, library_ref: str) -> IRLibraryReport:
         """Create library report"""
-        l = self.get_version(version_ref).get_library(library_ref)
-        library_report = IRLibraryReport()
+        v = self.get_version(version_ref)
+        if v is None:
+            raise ValueError(f"Version '{version_ref}' not found")
         
-        library_report.library_ref = l.ref
-        library_report.library_name = l.name
-        library_report.library_desc = l.desc
-        library_report.revision = l.revision
-        library_report.enabled = l.enabled
-        library_report.library_filename = l.filename
-        library_report.num_component_definitions = len(l.component_definitions)
-        library_report.num_risk_patterns = len(l.risk_patterns)
-        library_report.num_rules = len(l.rules)
+        l = v.get_library(library_ref)
+        if l is None:
+            raise ValueError(f"Library '{library_ref}' not found in version '{version_ref}'")
         
+        # Calculate counts
         library_usecases: Set[str] = set()
         library_threats: Set[str] = set()
         
@@ -197,7 +211,19 @@ class DataService:
             library_usecases.add(re.usecase_uuid)
             library_threats.add(re.threat_uuid)
         
-        library_report.num_usecases = len(library_usecases)
-        library_report.num_threats = len(library_threats)
+        # Create the library report with all data
+        library_report = IRLibraryReport(
+            library_ref=l.ref,
+            library_name=l.name,
+            library_desc=l.desc,
+            revision=l.revision,
+            enabled=l.enabled,
+            library_filename=l.filename,
+            num_component_definitions=len(l.component_definitions),
+            num_risk_patterns=len(l.risk_patterns),
+            num_rules=len(l.rules),
+            num_usecases=len(library_usecases),
+            num_threats=len(library_threats)
+        )
         
         return library_report

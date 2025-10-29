@@ -259,13 +259,13 @@ const Library = (props) => {
                 {/* Header Section */}
                 <Paper className={classes.header} elevation={3}>
                     <Typography variant="h4" className={classes.libraryTitle}>
-                        {libraryReport.libraryName} ({libraryReport.libraryRef})
+                        {libraryReport.library_name} ({libraryReport.library_ref})
                     </Typography>
                     <Typography variant="subtitle1" className={classes.headerSubtitle}>
                         Revision {libraryReport.revision}
                     </Typography>
                     <Typography variant="body1" className={classes.headerDescription}>
-                        {ReactHtmlParser(libraryReport.libraryDesc)}
+                        {ReactHtmlParser(libraryReport.library_desc)}
                     </Typography>
                     <Button
                         variant="contained"
@@ -295,7 +295,7 @@ const Library = (props) => {
                                             id="libraryRef"
                                             label="Library Reference"
                                             disabled
-                                            defaultValue={libraryReport.libraryRef}
+                                            defaultValue={libraryReport.library_ref}
                                             size="small"
                                         />
                                     </Grid>
@@ -303,7 +303,7 @@ const Library = (props) => {
                                         <TextField
                                             variant="outlined"
                                             fullWidth
-                                            defaultValue={libraryReport.libraryName}
+                                            defaultValue={libraryReport.library_name}
                                             label="Library Name"
                                             id="libraryName"
                                             size="small"
@@ -315,7 +315,7 @@ const Library = (props) => {
                                             fullWidth
                                             multiline
                                             rows={3}
-                                            defaultValue={libraryReport.libraryDesc}
+                                            defaultValue={libraryReport.library_desc}
                                             label="Description"
                                             id="libraryDesc"
                                             size="small"
@@ -335,7 +335,7 @@ const Library = (props) => {
                                         <TextField
                                             variant="outlined"
                                             fullWidth
-                                            defaultValue={libraryReport.libraryFilename}
+                                            defaultValue={libraryReport.library_filename}
                                             label="Filename"
                                             id="libraryFilename"
                                             size="small"
@@ -395,7 +395,7 @@ const Library = (props) => {
                                 <CardContent className={classes.metricContent}>
                                     <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
                                         <Typography variant="h4" className={classes.metricValue}>
-                                            {libraryReport.numRiskPatterns}
+                                            {libraryReport.num_risk_patterns}
                                         </Typography>
                                         <Typography variant="caption" className={classes.metricLabel}>
                                             Risk Patterns
@@ -409,7 +409,7 @@ const Library = (props) => {
                                 <CardContent className={classes.metricContent}>
                                     <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
                                         <Typography variant="h4" className={classes.metricValue}>
-                                            {libraryReport.numUsecases}
+                                            {libraryReport.num_usecases}
                                         </Typography>
                                         <Typography variant="caption" className={classes.metricLabel}>
                                             Use Cases
@@ -423,7 +423,7 @@ const Library = (props) => {
                                 <CardContent className={classes.metricContent}>
                                     <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
                                         <Typography variant="h4" className={classes.metricValue}>
-                                            {libraryReport.numThreats}
+                                            {libraryReport.num_threats}
                                         </Typography>
                                         <Typography variant="caption" className={classes.metricLabel}>
                                             Threats
@@ -437,7 +437,7 @@ const Library = (props) => {
                                 <CardContent className={classes.metricContent}>
                                     <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
                                         <Typography variant="h4" className={classes.metricValue}>
-                                            {libraryReport.numRules}
+                                            {libraryReport.num_rules}
                                         </Typography>
                                         <Typography variant="caption" className={classes.metricLabel}>
                                             Rules
@@ -451,7 +451,7 @@ const Library = (props) => {
                                 <CardContent className={classes.metricContent}>
                                     <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
                                         <Typography variant="h4" className={classes.metricValue}>
-                                            {libraryReport.numComponentDefinitions}
+                                            {libraryReport.num_component_definitions}
                                         </Typography>
                                         <Typography variant="caption" className={classes.metricLabel}>
                                             Component Definitions

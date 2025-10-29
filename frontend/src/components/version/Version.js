@@ -211,7 +211,7 @@ const Version = (props) => {
         axios.get('/api/version/' + versionParam + "/report")
             .then(res => {
                 setVersionReport(res.data);
-                setLibraryReport(res.data.libraryReport);
+                setLibraryReport(res.data.library_reports);
             })
             .catch(err => failedToast(err));
     };
@@ -252,7 +252,7 @@ const Version = (props) => {
         };
         console.log(postData);
 
-        axios.delete("/version/" + versionParam + "/library", { data: postData })
+        axios.delete("/api/version/" + versionParam + "/library", { data: postData })
             .then(res => {
                 easyToast(res, "Library deleted successfully", "Deleting library failed");
                 if (res.status === 200) {
@@ -291,7 +291,7 @@ const Version = (props) => {
             "libraryRef": library
         };
 
-        axios.put("/version/" + versionParam + "/library", postData)
+        axios.put("/api/version/" + versionParam + "/library", postData)
             .then(res => {
                 easyToast(res, "Library revision incremented successfully", "Incrementing library revision failed");
                 if (res.status === 200) {
@@ -311,8 +311,8 @@ const Version = (props) => {
 
     // Sort library report for display
     const sortedLibraryReport = [...libraryReport].sort((a, b) =>
-        (a.libraryRef.toLowerCase() > b.libraryRef.toLowerCase()) ? 1 :
-            ((b.libraryRef.toLowerCase() > a.libraryRef.toLowerCase()) ? -1 : 0)
+        (a.library_ref.toLowerCase() > b.library_ref.toLowerCase()) ? 1 :
+            ((b.library_ref.toLowerCase() > a.library_ref.toLowerCase()) ? -1 : 0)
     );
 
     return (
@@ -340,7 +340,7 @@ const Version = (props) => {
                                 <CardContent className={classes.metricContent}>
                                     <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
                                         <Typography variant="h4" className={classes.metricValue}>
-                                            {versionReport.numLibraries}
+                                            {versionReport.num_libraries}
                                         </Typography>
                                         <Typography variant="caption" className={classes.metricLabel}>
                                             Libraries
@@ -354,7 +354,7 @@ const Version = (props) => {
                                 <CardContent className={classes.metricContent}>
                                     <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
                                         <Typography variant="h4" className={classes.metricValue}>
-                                            {versionReport.numRiskPatterns}
+                                            {versionReport.num_risk_patterns}
                                         </Typography>
                                         <Typography variant="caption" className={classes.metricLabel}>
                                             Risk Patterns
@@ -368,7 +368,7 @@ const Version = (props) => {
                                 <CardContent className={classes.metricContent}>
                                     <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
                                         <Typography variant="h4" className={classes.metricValue}>
-                                            {versionReport.numUsecases}
+                                            {versionReport.num_usecases}
                                         </Typography>
                                         <Typography variant="caption" className={classes.metricLabel}>
                                             Use Cases
@@ -382,7 +382,7 @@ const Version = (props) => {
                                 <CardContent className={classes.metricContent}>
                                     <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
                                         <Typography variant="h4" className={classes.metricValue}>
-                                            {versionReport.numThreats}
+                                            {versionReport.num_threats}
                                         </Typography>
                                         <Typography variant="caption" className={classes.metricLabel}>
                                             Threats
@@ -396,7 +396,7 @@ const Version = (props) => {
                                 <CardContent className={classes.metricContent}>
                                     <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
                                         <Typography variant="h4" className={classes.metricValue}>
-                                            {versionReport.numWeaknesses}
+                                            {versionReport.num_weaknesses}
                                         </Typography>
                                         <Typography variant="caption" className={classes.metricLabel}>
                                             Weaknesses
@@ -410,7 +410,7 @@ const Version = (props) => {
                                 <CardContent className={classes.metricContent}>
                                     <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
                                         <Typography variant="h4" className={classes.metricValue}>
-                                            {versionReport.numControls}
+                                            {versionReport.num_controls}
                                         </Typography>
                                         <Typography variant="caption" className={classes.metricLabel}>
                                             Controls
@@ -424,7 +424,7 @@ const Version = (props) => {
                                 <CardContent className={classes.metricContent}>
                                     <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
                                         <Typography variant="h4" className={classes.metricValue}>
-                                            {versionReport.numCategories}
+                                            {versionReport.num_categories}
                                         </Typography>
                                         <Typography variant="caption" className={classes.metricLabel}>
                                             Categories
@@ -438,7 +438,7 @@ const Version = (props) => {
                                 <CardContent className={classes.metricContent}>
                                     <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
                                         <Typography variant="h4" className={classes.metricValue}>
-                                            {versionReport.numReferences}
+                                            {versionReport.num_references}
                                         </Typography>
                                         <Typography variant="caption" className={classes.metricLabel}>
                                             References
@@ -452,7 +452,7 @@ const Version = (props) => {
                                 <CardContent className={classes.metricContent}>
                                     <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
                                         <Typography variant="h4" className={classes.metricValue}>
-                                            {versionReport.numStandards}
+                                            {versionReport.num_standards}
                                         </Typography>
                                         <Typography variant="caption" className={classes.metricLabel}>
                                             Standards
@@ -466,7 +466,7 @@ const Version = (props) => {
                                 <CardContent className={classes.metricContent}>
                                     <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
                                         <Typography variant="h4" className={classes.metricValue}>
-                                            {versionReport.numComponents}
+                                            {versionReport.num_components}
                                         </Typography>
                                         <Typography variant="caption" className={classes.metricLabel}>
                                             Components
@@ -480,7 +480,7 @@ const Version = (props) => {
                                 <CardContent className={classes.metricContent}>
                                     <Box display="flex" flexDirection="column" alignItems="center" textAlign="center">
                                         <Typography variant="h4" className={classes.metricValue}>
-                                            {versionReport.numRules}
+                                            {versionReport.num_rules}
                                         </Typography>
                                         <Typography variant="caption" className={classes.metricLabel}>
                                             Rules
@@ -776,12 +776,12 @@ const Version = (props) => {
                                     delete={deleteLibrary}
                                     download={exportLibraryToXML}
                                     revision={incrementRevision}
-                                    title={value.libraryRef + " (" + value.revision + ")"}
-                                    subtitle={"Threats: " + value.numThreats}
-                                    subtitle2={"Rules: " + value.numRules}
-                                    subtitle3={"Components: " + value.numComponentDefinitions}
-                                    subtitle4={"Risk Patterns: " + value.numRiskPatterns}
-                                    link={"/version/" + version + "/" + value.libraryRef}
+                                    title={value.library_ref + " (" + value.revision + ")"}
+                                    subtitle={"Threats: " + value.num_threats}
+                                    subtitle2={"Rules: " + value.num_rules}
+                                    subtitle3={"Components: " + value.num_component_definitions}
+                                    subtitle4={"Risk Patterns: " + value.num_risk_patterns}
+                                    link={"/version/" + version + "/" + value.library_ref}
                                 />
                             </Grid>
                         ))}

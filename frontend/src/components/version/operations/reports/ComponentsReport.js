@@ -39,8 +39,8 @@ const ComponentsReport = (props) => {
                     if (libraries.includes(libKey)) {
                         const categoryMap = new Map();
 
-                        Object.values(libValue.componentDefinitions).forEach(comp => {
-                            let categoryName = categoryNames.get(comp.categoryRef);
+                        Object.values(libValue.component_definitions).forEach(comp => {
+                            let categoryName = categoryNames.get(comp.category_ref);
                             if (categoryMap.has(categoryName)) {
                                 categoryMap.get(categoryName).push(comp.name);
                             } else {

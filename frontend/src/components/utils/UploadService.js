@@ -9,7 +9,7 @@ class UploadService {
             return undefined;
         });
 
-        return http.post("/version/"+version+"/import", formData, {
+        return http.post("/api/version/"+version+"/import", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },

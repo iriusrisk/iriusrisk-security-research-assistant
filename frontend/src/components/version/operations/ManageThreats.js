@@ -185,7 +185,7 @@ const ManageThreats = (props) => {
                                             confidentiality: "100",
                                             integrity: "100",
                                             availability: "100",
-                                            easeOfExploitation: "100"
+                                            ease_of_exploitation: "100"
                                         };
                                         newData.references = [];
                                         newData.mitre = [];
@@ -207,7 +207,7 @@ const ManageThreats = (props) => {
                                                 confidentiality: "100",
                                                 integrity: "100",
                                                 availability: "100",
-                                                easeOfExploitation: "100"
+                                                ease_of_exploitation: "100"
                                             },
                                             mitre: oldData.mitre || [],
                                             stride: oldData.stride || [],
@@ -282,7 +282,7 @@ const ThreatDetailPanel = (props) => {
                 confidentiality: formData.get('confidentiality') || "",
                 integrity: formData.get('integrity') || "",
                 availability: formData.get('availability') || "",
-                easeOfExploitation: formData.get('easeOfExploitation') || "",
+                ease_of_exploitation: formData.get('ease_of_exploitation') || "",
             },
             mitre: data.mitre || [],
             stride: data.stride || []
@@ -500,10 +500,10 @@ const ThreatDetailPanel = (props) => {
                     variant="outlined"
                     margin="normal"
                     fullWidth
-                    id="easeOfExploitation"
-                    name="easeOfExploitation"
+                    id="ease_of_exploitation"
+                    name="ease_of_exploitation"
                     label="Ease of Exploitation"
-                    defaultValue={data.riskRating?.easeOfExploitation || "100"}
+                    defaultValue={data.riskRating?.ease_of_exploitation || "100"}
                 />
                 <Typography variant="body1">
                     Mitre

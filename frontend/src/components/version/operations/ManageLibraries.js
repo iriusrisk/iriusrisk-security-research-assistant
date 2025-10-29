@@ -36,7 +36,7 @@ const ManageLibraries = ({ version }) => {
         let postData = {
             "libraryRef": ref
         };
-        axios.post("/version/" + version + "/library", postData)
+        axios.post("/api/version/" + version + "/library", postData)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Update the libraries list with the returned library object
