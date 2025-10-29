@@ -79,7 +79,13 @@ class EnvironmentConfig:
         Returns:
             bool: True if successful
         """
-        return PropertiesManager.create_default_config()
+        # Create default config file
+        config_created = PropertiesManager.create_default_config()
+        
+        # Copy resource files to config folder
+        resources_copied = PropertiesManager.copy_resource_files()
+        
+        return config_created and resources_copied
     
     def get_user_config(self) -> Dict[str, str]:
         """

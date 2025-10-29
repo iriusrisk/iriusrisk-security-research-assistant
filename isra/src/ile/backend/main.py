@@ -12,6 +12,7 @@ from fastapi.responses import FileResponse
 from contextlib import asynccontextmanager
 
 from isra.src.ile.backend.app.configuration import config_factory
+from isra.src.ile.backend.app.configuration.properties_manager import PropertiesManager
 from isra.src.ile.backend.app.controllers.project_controller import router as project_router
 from isra.src.ile.backend.app.controllers.library_controller import router as library_router
 from isra.src.ile.backend.app.controllers.version_controller import router as version_router
@@ -21,6 +22,27 @@ from isra.src.ile.backend.app.controllers.test_controller import router as test_
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+
+def load_project_on_startup():
+    """
+    Load project on startup if configured in properties
+    """
+    try:
+        load_on_startup = PropertiesManager.get_property("load-project-on-startup")
+        if load_on_startup and load_on_startup.strip():
+            logger.info(f"Loading project on startup: {load_on_startup}")
+            
+            # Import here to avoid circular references
+            from isra.src.ile.backend.app.services.project_service import ProjectService
+            
+            project_service = ProjectService()
+            project_service.load_project_from_file(load_on_startup.strip())
+            logger.info(f"Successfully loaded project: {load_on_startup}")
+        else:
+            logger.debug("No project configured for startup loading")
+    except Exception as e:
+        logger.error(f"Failed to load project on startup: {e}")
 
 
 @asynccontextmanager
@@ -44,6 +66,9 @@ async def lifespan(app: FastAPI):
     
     # Initialize default config if needed
     env_config.initialize_default_config()
+    
+    # Load project on startup if configured
+    load_project_on_startup()
     
     logger.info("IriusRisk Library Editor API started successfully")
     

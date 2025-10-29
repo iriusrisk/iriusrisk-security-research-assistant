@@ -4,6 +4,8 @@ Properties manager for handling configuration properties
 
 import os
 import logging
+import shutil
+from pathlib import Path
 from typing import Optional
 from isra.src.ile.backend.app.configuration.constants import ILEConstants
 
@@ -177,4 +179,49 @@ class PropertiesManager:
             
         except Exception as e:
             logger.error(f"Error creating default configuration: {e}")
+            return False
+    
+    @staticmethod
+    def copy_resource_files() -> bool:
+        """
+        Copy resource files to config folder if they don't exist
+        
+        Returns:
+            bool: True if successful, False otherwise
+        """
+        try:
+            # Get the resources directory path
+            current_dir = Path(__file__).parent
+            resources_dir = current_dir.parent.parent.parent.parent / "resources"
+            
+            if not resources_dir.exists():
+                logger.warning(f"Resources directory not found: {resources_dir}")
+                return False
+            
+            # Ensure config directory exists
+            config_dir = Path(ILEConstants.CONFIG_FOLDER)
+            config_dir.mkdir(parents=True, exist_ok=True)
+            
+            # List of resource files to copy
+            resource_files = [
+                "ysc_schema.json"
+            ]
+            
+            # Copy each resource file if it doesn't exist in config
+            for resource_file in resource_files:
+                source_file = resources_dir / resource_file
+                dest_file = config_dir / resource_file
+                
+                if source_file.exists() and not dest_file.exists():
+                    shutil.copy2(source_file, dest_file)
+                    logger.info(f"Copied resource file: {resource_file}")
+                elif not source_file.exists():
+                    logger.warning(f"Resource file not found: {source_file}")
+                else:
+                    logger.debug(f"Resource file already exists: {dest_file}")
+
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error copying resource files: {e}")
             return False
