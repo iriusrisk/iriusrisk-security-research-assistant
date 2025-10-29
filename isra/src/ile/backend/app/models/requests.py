@@ -20,6 +20,12 @@ class CategoryRequest(BaseModel):
     name: str
 
 
+class CategoryUpdateRequest(BaseModel):
+    uuid: str
+    ref: str
+    name: str
+
+
 class ComponentRequest(BaseModel):
     ref: str
     name: str
@@ -46,7 +52,7 @@ class ControlUpdateRequest(BaseModel):
     uuid: str
     ref: str
     name: str
-    desc: str
+    desc: str = ""
     state: str
     cost: str
     steps: str
@@ -77,6 +83,12 @@ class MergeLibraryRequest(BaseModel):
 
 
 class ReferenceRequest(BaseModel):
+    name: str
+    url: str
+
+
+class ReferenceUpdateRequest(BaseModel):
+    uuid: str
     name: str
     url: str
 
@@ -114,6 +126,12 @@ class StandardRequest(BaseModel):
     standard_ref: str
 
 
+class StandardUpdateRequest(BaseModel):
+    uuid: str
+    supported_standard_ref: str
+    standard_ref: str
+
+
 class StandardItemRequest(BaseModel):
     ref: str
     supported_standard_ref: str
@@ -121,6 +139,12 @@ class StandardItemRequest(BaseModel):
 
 
 class SupportedStandardRequest(BaseModel):
+    supported_standard_ref: str
+    supported_standard_name: str
+
+
+class SupportedStandardUpdateRequest(BaseModel):
+    uuid: str
     supported_standard_ref: str
     supported_standard_name: str
 
@@ -136,15 +160,23 @@ class ThreatRequest(BaseModel):
 
 
 class ThreatUpdateRequest(BaseModel):
+    uuid: str
     ref: str
     name: str
-    desc: str
+    desc: str = ""
 
 
 class UsecaseRequest(BaseModel):
     ref: str
     name: str
     desc: str
+
+
+class UsecaseUpdateRequest(BaseModel):
+    uuid: str
+    ref: str
+    name: str
+    desc: str = ""
 
 
 class WeaknessRequest(BaseModel):

@@ -283,10 +283,10 @@ const useVersionManagement = (handleProjectChange) => {
     if (newVersion !== "") {
       try {
         const postData = {
-          "srcVersion": props.key,
+          "src_version": props.key,
           "ref": newVersion
         };
-        const res = await axios.post('/api/project/version/copy', postData);
+        const res = await axios.post('/api/project/version/' + props.key + '/copy', postData);
         easyToast(res, "Version copied successfully", "Copying version failed");
         if (res.status === 200) {
           handleProjectChange(res.data.project, res.data.versions);

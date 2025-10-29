@@ -7,11 +7,11 @@ from typing import List, Collection
 from isra.src.ile.backend.app.models import (
     ILEVersion, IRCategoryComponent, IRControl, IRLibrary, IRReference, 
     IRStandard, IRSupportedStandard, IRThreat, IRUseCase, IRWeakness,
-    IRSuggestions, IRVersionReport, CategoryRequest, ControlRequest,
+    IRSuggestions, IRVersionReport, CategoryRequest, CategoryUpdateRequest, ControlRequest,
     ControlUpdateRequest, LibraryRequest, ReferenceItemRequest,
-    StandardItemRequest, ReferenceRequest, StandardRequest,
-    SuggestionRequest, SupportedStandardRequest, ThreatRequest,
-    ThreatUpdateRequest, UsecaseRequest, WeaknessRequest
+    StandardItemRequest, ReferenceRequest, ReferenceUpdateRequest, StandardRequest, StandardUpdateRequest,
+    SuggestionRequest, SupportedStandardRequest, SupportedStandardUpdateRequest, ThreatRequest,
+    ThreatUpdateRequest, UsecaseRequest, UsecaseUpdateRequest, WeaknessRequest
 )
 from isra.src.ile.backend.app.facades.version_facade import VersionFacade
 
@@ -135,7 +135,7 @@ async def add_reference(version_ref: str, body: ReferenceRequest, version_facade
 
 
 @router.put("/version/{version_ref}/reference")
-async def update_reference(version_ref: str, body: IRReference, version_facade: VersionFacade = Depends(get_version_facade)) -> IRReference:
+async def update_reference(version_ref: str, body: ReferenceUpdateRequest, version_facade: VersionFacade = Depends(get_version_facade)) -> IRReference:
     """Update reference"""
     return version_facade.update_reference(version_ref, body)
 
@@ -160,7 +160,7 @@ async def add_category(version_ref: str, body: CategoryRequest, version_facade: 
 
 
 @router.put("/version/{version_ref}/category")
-async def update_category(version_ref: str, body: IRCategoryComponent, version_facade: VersionFacade = Depends(get_version_facade)) -> IRCategoryComponent:
+async def update_category(version_ref: str, body: CategoryUpdateRequest, version_facade: VersionFacade = Depends(get_version_facade)) -> IRCategoryComponent:
     """Update category"""
     return version_facade.update_category(version_ref, body)
 
@@ -185,7 +185,7 @@ async def add_supported_standard(version_ref: str, body: SupportedStandardReques
 
 
 @router.put("/version/{version_ref}/supportedStandard")
-async def update_supported_standard(version_ref: str, body: IRSupportedStandard, version_facade: VersionFacade = Depends(get_version_facade)) -> IRSupportedStandard:
+async def update_supported_standard(version_ref: str, body: SupportedStandardUpdateRequest, version_facade: VersionFacade = Depends(get_version_facade)) -> IRSupportedStandard:
     """Update supported standard"""
     return version_facade.update_supported_standard(version_ref, body)
 
@@ -210,7 +210,7 @@ async def add_standard(version_ref: str, body: StandardRequest, version_facade: 
 
 
 @router.put("/version/{version_ref}/standard")
-async def update_standard(version_ref: str, body: IRStandard, version_facade: VersionFacade = Depends(get_version_facade)) -> IRStandard:
+async def update_standard(version_ref: str, body: StandardUpdateRequest, version_facade: VersionFacade = Depends(get_version_facade)) -> IRStandard:
     """Update standard"""
     return version_facade.update_standard(version_ref, body)
 
@@ -321,9 +321,12 @@ async def add_usecase(version_ref: str, body: UsecaseRequest, version_facade: Ve
 
 
 @router.put("/version/{version_ref}/usecase")
-async def update_usecase(version_ref: str, body: IRUseCase, version_facade: VersionFacade = Depends(get_version_facade)) -> IRUseCase:
+async def update_usecase(version_ref: str, body: UsecaseUpdateRequest, version_facade: VersionFacade = Depends(get_version_facade)) -> IRUseCase:
     """Update use case"""
-    return version_facade.update_usecase(version_ref, body)
+    try:
+        return version_facade.update_usecase(version_ref, body)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
 
 
 @router.delete("/version/{version_ref}/usecase")

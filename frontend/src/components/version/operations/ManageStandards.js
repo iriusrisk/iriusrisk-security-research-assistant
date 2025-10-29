@@ -137,7 +137,19 @@ const ManageStandards = ({ version }) => {
                         onRowUpdate: (newData, oldData) =>
                             new Promise((resolve) => {
                                 setTimeout(() => {
-                                    updateStandard(newData);
+                                    // Validate required fields
+                                    if (!oldData.uuid || !newData.supportedStandardRef || !newData.standardRef) {
+                                        failedToast("UUID, supported standard ref, and standard ref are required fields");
+                                        resolve();
+                                        return;
+                                    }
+                                    
+                                    const updatedStandard = {
+                                        uuid: oldData.uuid,
+                                        supported_standard_ref: newData.supportedStandardRef || newData.supported_standard_ref,
+                                        standard_ref: newData.standardRef || newData.standard_ref
+                                    };
+                                    updateStandard(updatedStandard);
                                     resolve();
                                 }, 100)
                             }),

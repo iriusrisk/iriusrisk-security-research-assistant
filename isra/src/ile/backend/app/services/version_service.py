@@ -17,10 +17,10 @@ from isra.src.ile.backend.app.models import (
     ILEVersion, IRCategoryComponent, IRComponentDefinition, IRControl,
     IRLibrary, IRReference, IRRelation, IRRiskPattern, IRRiskRating,
     IRStandard, IRSupportedStandard, IRThreat, IRUseCase, IRWeakness,
-    IRSuggestions, IRVersionReport, CategoryRequest, ControlRequest,
-    ControlUpdateRequest, ReferenceItemRequest, ReferenceRequest,
-    StandardItemRequest, StandardRequest, SupportedStandardRequest,
-    ThreatRequest, ThreatUpdateRequest, UsecaseRequest, WeaknessRequest
+    IRSuggestions, IRVersionReport, CategoryRequest, CategoryUpdateRequest, ControlRequest,
+    ControlUpdateRequest, ReferenceItemRequest, ReferenceRequest, ReferenceUpdateRequest,
+    StandardItemRequest, StandardRequest, StandardUpdateRequest, SupportedStandardRequest, SupportedStandardUpdateRequest,
+    ThreatRequest, ThreatUpdateRequest, UsecaseRequest, UsecaseUpdateRequest, WeaknessRequest
 )
 from isra.src.ile.backend.app.services.data_service import DataService
 from isra.src.ile.backend.app.facades.io_facade import IOFacade
@@ -195,18 +195,20 @@ class VersionService:
         """Add supported standard"""
         v = self.data_service.get_version(version_ref)
         standard = IRSupportedStandard(
-            ref=st.ref,
-            name=st.name,
-            desc=st.desc
+            supported_standard_ref=st.supported_standard_ref,
+            supported_standard_name=st.supported_standard_name
         )
         v.supported_standards[standard.uuid] = standard
         return standard
     
-    def update_supported_standard(self, version_ref: str, updated: IRSupportedStandard) -> IRSupportedStandard:
+    def update_supported_standard(self, version_ref: str, updated: SupportedStandardUpdateRequest) -> IRSupportedStandard:
         """Update supported standard"""
         v = self.data_service.get_version(version_ref)
-        v.supported_standards[updated.uuid] = updated
-        return updated
+        standard = v.supported_standards[updated.uuid]
+        standard.supported_standard_ref = updated.supported_standard_ref
+        standard.supported_standard_name = updated.supported_standard_name
+        v.supported_standards[updated.uuid] = standard
+        return standard
     
     def delete_supported_standard(self, version_ref: str, st: IRSupportedStandard) -> None:
         """Delete supported standard"""
@@ -221,18 +223,20 @@ class VersionService:
         """Add standard"""
         v = self.data_service.get_version(version_ref)
         standard = IRStandard(
-            ref=st.ref,
-            name=st.name,
-            desc=st.desc
+            supported_standard_ref=st.supported_standard_ref,
+            standard_ref=st.standard_ref
         )
         v.standards[standard.uuid] = standard
         return standard
     
-    def update_standard(self, version_ref: str, updated: IRStandard) -> IRStandard:
+    def update_standard(self, version_ref: str, updated: StandardUpdateRequest) -> IRStandard:
         """Update standard"""
         v = self.data_service.get_version(version_ref)
-        v.standards[updated.uuid] = updated
-        return updated
+        standard = v.standards[updated.uuid]
+        standard.supported_standard_ref = updated.supported_standard_ref
+        standard.standard_ref = updated.standard_ref
+        v.standards[updated.uuid] = standard
+        return standard
     
     def delete_standard(self, version_ref: str, st: IRStandard) -> None:
         """Delete standard"""
@@ -251,19 +255,20 @@ class VersionService:
         """Add reference"""
         v = self.data_service.get_version(version_ref)
         ref = IRReference(
-            ref=body.ref,
             name=body.name,
-            desc=body.desc,
             url=body.url
         )
         v.references[ref.uuid] = ref
         return ref
     
-    def update_reference(self, version_ref: str, body: IRReference) -> IRReference:
+    def update_reference(self, version_ref: str, body: ReferenceUpdateRequest) -> IRReference:
         """Update reference"""
         v = self.data_service.get_version(version_ref)
-        v.references[body.uuid] = body
-        return body
+        reference = v.references[body.uuid]
+        reference.name = body.name
+        reference.url = body.url
+        v.references[body.uuid] = reference
+        return reference
     
     def delete_reference(self, version_ref: str, body: IRReference) -> None:
         """Delete reference"""
@@ -285,11 +290,14 @@ class VersionService:
         v.categories[category.uuid] = category
         return category
     
-    def update_category(self, version_ref: str, new_cat: IRCategoryComponent) -> IRCategoryComponent:
+    def update_category(self, version_ref: str, new_cat: CategoryUpdateRequest) -> IRCategoryComponent:
         """Update category"""
         v = self.data_service.get_version(version_ref)
-        v.categories[new_cat.uuid] = new_cat
-        return new_cat
+        category = v.categories[new_cat.uuid]
+        category.ref = new_cat.ref
+        category.name = new_cat.name
+        v.categories[new_cat.uuid] = category
+        return category
     
     def delete_category(self, version_ref: str, ref: str) -> None:
         """Delete category"""
@@ -466,11 +474,17 @@ class VersionService:
         v.usecases[uc.uuid] = uc
         return uc
     
-    def update_usecase(self, version_ref: str, new_usecase: IRUseCase) -> IRUseCase:
+    def update_usecase(self, version_ref: str, new_usecase: UsecaseUpdateRequest) -> IRUseCase:
         """Update use case"""
         v = self.data_service.get_version(version_ref)
-        v.usecases[new_usecase.uuid] = new_usecase
-        return new_usecase
+        if new_usecase.uuid not in v.usecases:
+            raise ValueError(f"Use case with UUID {new_usecase.uuid} not found")
+        usecase = v.usecases[new_usecase.uuid]
+        usecase.ref = new_usecase.ref
+        usecase.name = new_usecase.name
+        usecase.desc = new_usecase.desc
+        v.usecases[new_usecase.uuid] = usecase
+        return usecase
     
     def delete_usecase(self, version_ref: str, usecase: IRUseCase) -> None:
         """Delete use case"""

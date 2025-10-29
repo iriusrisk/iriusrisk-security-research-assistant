@@ -27,12 +27,12 @@ from isra.src.ile.backend.app.models.graph import (
 
 # Request/Response models
 from isra.src.ile.backend.app.models.requests import (
-    VersionNamesResponse, ILEError, CategoryRequest, ComponentRequest,
+    VersionNamesResponse, ILEError, CategoryRequest, CategoryUpdateRequest, ComponentRequest,
     ControlRequest, ControlUpdateRequest, LibraryRequest, LibraryUpdateRequest,
-    MergeLibraryRequest, ReferenceRequest, ReferenceItemRequest, RelationRequest,
-    RiskPatternRequest, RiskRatingRequest, StandardRequest, StandardItemRequest,
-    SupportedStandardRequest, TestRequest, ThreatRequest, ThreatUpdateRequest,
-    UsecaseRequest, WeaknessRequest, CopyVersionRequest, ChangelogRequest,
+    MergeLibraryRequest, ReferenceRequest, ReferenceUpdateRequest, ReferenceItemRequest, RelationRequest,
+    RiskPatternRequest, RiskRatingRequest, StandardRequest, StandardUpdateRequest, StandardItemRequest,
+    SupportedStandardRequest, SupportedStandardUpdateRequest, TestRequest, ThreatRequest, ThreatUpdateRequest,
+    UsecaseRequest, UsecaseUpdateRequest, WeaknessRequest, CopyVersionRequest, ChangelogRequest,
     ChangelogVersionRequest, ContentReportRequest, SuggestionRequest
 )
 
@@ -59,11 +59,11 @@ __all__ = [
     'ChangelogReport', 'LibrarySummary', 'LibrarySummariesResponse',
     
     # Request/Response models
-    'VersionNamesResponse', 'ILEError', 'CategoryRequest', 'ComponentRequest',
+    'VersionNamesResponse', 'ILEError', 'CategoryRequest', 'CategoryUpdateRequest', 'ComponentRequest',
     'ControlRequest', 'ControlUpdateRequest', 'LibraryRequest', 'LibraryUpdateRequest',
-    'MergeLibraryRequest', 'ReferenceRequest', 'ReferenceItemRequest', 'RelationRequest',
-    'RiskPatternRequest', 'RiskRatingRequest', 'StandardRequest', 'StandardItemRequest',
-    'SupportedStandardRequest', 'TestRequest', 'ThreatRequest', 'ThreatUpdateRequest',
-    'UsecaseRequest', 'WeaknessRequest', 'CopyVersionRequest', 'ChangelogRequest',
+    'MergeLibraryRequest', 'ReferenceRequest', 'ReferenceUpdateRequest', 'ReferenceItemRequest', 'RelationRequest',
+    'RiskPatternRequest', 'RiskRatingRequest', 'StandardRequest', 'StandardUpdateRequest', 'StandardItemRequest',
+    'SupportedStandardRequest', 'SupportedStandardUpdateRequest', 'TestRequest', 'ThreatRequest', 'ThreatUpdateRequest',
+    'UsecaseRequest', 'UsecaseUpdateRequest', 'WeaknessRequest', 'CopyVersionRequest', 'ChangelogRequest',
     'ChangelogVersionRequest', 'ContentReportRequest', 'SuggestionRequest'
 ]

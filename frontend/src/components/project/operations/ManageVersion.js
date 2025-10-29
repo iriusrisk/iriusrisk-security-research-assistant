@@ -114,7 +114,7 @@ const ManageVersion = (props) => {
             "src_version": selectedVersionFirst,
             "ref": ref
         };
-        axios.post('/api/project/version/copy', postData)
+        axios.post('/api/project/version/' + selectedVersionFirst + '/copy', postData)
             .then(res => {
                 easyToast(res, "Version copied successfully", "Copying version failed");
                 if(res.status === 200){
@@ -134,7 +134,7 @@ const ManageVersion = (props) => {
     };
 
     const handleSubmitLoad = (event) => {
-        axios.get('/api/project/version/load/' + selectedVersionFile)
+        axios.get('/api/project/version/' + selectedVersionFile + '/load')
             .then(res => {
                 easyToast(res, "Version loaded successfully", "Loading version failed");
                 if(res.status === 200){

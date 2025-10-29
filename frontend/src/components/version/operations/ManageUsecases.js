@@ -164,6 +164,13 @@ const ManageUsecases = (props) => {
                             onRowUpdate: (newData, oldData) =>
                                 new Promise((resolve) => {
                                     setTimeout(() => {
+                                        // Validate required fields
+                                        if (!oldData.uuid || !newData.ref || !newData.name) {
+                                            failedToast("UUID, ref, and name are required fields");
+                                            resolve();
+                                            return;
+                                        }
+                                        
                                         const updatedUsecase = {
                                             uuid: oldData.uuid,
                                             ref: newData.ref,
@@ -199,10 +206,20 @@ const UsecaseDetailPanel = (props) => {
         event.preventDefault();
         
         const formData = new FormData(event.target);
+        const uuid = formData.get('uuid');
+        const ref = formData.get('ref');
+        const name = formData.get('name');
+        
+        // Validate required fields
+        if (!uuid || !ref || !name) {
+            failedToast("UUID, ref, and name are required fields");
+            return;
+        }
+        
         const postdata = {
-            uuid: formData.get('uuid') || "",
-            ref: formData.get('ref') || "",
-            name: formData.get('name') || "",
+            uuid: uuid,
+            ref: ref,
+            name: name,
             desc: data.desc || "",
         };
 

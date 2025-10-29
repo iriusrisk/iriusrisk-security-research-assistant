@@ -7,11 +7,11 @@ from fastapi import UploadFile
 from isra.src.ile.backend.app.models import (
     ILEVersion, IRCategoryComponent, IRControl, IRLibrary, IRReference, 
     IRStandard, IRSupportedStandard, IRThreat, IRUseCase, IRWeakness,
-    IRSuggestions, IRTestReport, IRVersionReport, CategoryRequest, 
+    IRSuggestions, IRTestReport, IRVersionReport, CategoryRequest, CategoryUpdateRequest,
     ControlRequest, ControlUpdateRequest, LibraryRequest, ReferenceItemRequest,
-    StandardItemRequest, ReferenceRequest, StandardRequest, SuggestionRequest,
-    SupportedStandardRequest, ThreatRequest, ThreatUpdateRequest, 
-    UsecaseRequest, WeaknessRequest
+    StandardItemRequest, ReferenceRequest, ReferenceUpdateRequest, StandardRequest, StandardUpdateRequest, SuggestionRequest,
+    SupportedStandardRequest, SupportedStandardUpdateRequest, ThreatRequest, ThreatUpdateRequest, 
+    UsecaseRequest, UsecaseUpdateRequest, WeaknessRequest
 )
 from isra.src.ile.backend.app.services.version_service import VersionService
 from isra.src.ile.backend.app.services.test_service import TestService
@@ -80,7 +80,7 @@ class VersionFacade:
         """Add supported standard"""
         return self.version_service.add_supported_standard(version_ref, st)
     
-    def update_supported_standard(self, version_ref: str, updated: IRSupportedStandard) -> IRSupportedStandard:
+    def update_supported_standard(self, version_ref: str, updated: SupportedStandardUpdateRequest) -> IRSupportedStandard:
         """Update supported standard"""
         return self.version_service.update_supported_standard(version_ref, updated)
     
@@ -96,7 +96,7 @@ class VersionFacade:
         """Add standard"""
         return self.version_service.add_standard(version_ref, st)
     
-    def update_standard(self, version_ref: str, updated: IRStandard) -> IRStandard:
+    def update_standard(self, version_ref: str, updated: StandardUpdateRequest) -> IRStandard:
         """Update standard"""
         return self.version_service.update_standard(version_ref, updated)
     
@@ -116,7 +116,7 @@ class VersionFacade:
         """Add reference"""
         return self.version_service.add_reference(version_ref, body)
     
-    def update_reference(self, version_ref: str, body: IRReference) -> IRReference:
+    def update_reference(self, version_ref: str, body: ReferenceUpdateRequest) -> IRReference:
         """Update reference"""
         return self.version_service.update_reference(version_ref, body)
     
@@ -132,7 +132,7 @@ class VersionFacade:
         """Add category"""
         return self.version_service.add_category(version_ref, body)
     
-    def update_category(self, version_ref: str, new_cat: IRCategoryComponent) -> IRCategoryComponent:
+    def update_category(self, version_ref: str, new_cat: CategoryUpdateRequest) -> IRCategoryComponent:
         """Update category"""
         return self.version_service.update_category(version_ref, new_cat)
     
@@ -240,7 +240,7 @@ class VersionFacade:
         """Add use case"""
         return self.version_service.add_usecase(version_ref, usecase)
     
-    def update_usecase(self, version_ref: str, new_usecase: IRUseCase) -> IRUseCase:
+    def update_usecase(self, version_ref: str, new_usecase: UsecaseUpdateRequest) -> IRUseCase:
         """Update use case"""
         return self.version_service.update_usecase(version_ref, new_usecase)
     

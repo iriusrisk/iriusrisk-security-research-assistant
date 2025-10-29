@@ -121,7 +121,19 @@ const ManageCategories = ({ version }) => {
                             onRowUpdate: (newData, oldData) =>
                                 new Promise((resolve) => {
                                     setTimeout(() => {
-                                        updateCategory(newData);
+                                        // Validate required fields
+                                        if (!oldData.uuid || !newData.ref || !newData.name) {
+                                            failedToast("UUID, ref, and name are required fields");
+                                            resolve();
+                                            return;
+                                        }
+                                        
+                                        const updatedCategory = {
+                                            uuid: oldData.uuid,
+                                            ref: newData.ref,
+                                            name: newData.name
+                                        };
+                                        updateCategory(updatedCategory);
                                         resolve();
                                     }, 100)
                                 }),
