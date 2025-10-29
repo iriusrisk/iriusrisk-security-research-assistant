@@ -94,9 +94,9 @@ class ReferenceUpdateRequest(BaseModel):
 
 
 class ReferenceItemRequest(BaseModel):
-    ref: str
-    name: str
-    url: str
+    item_uuid: str
+    item_type: str
+    reference_uuid: str
 
 
 class RelationRequest(BaseModel):
@@ -109,6 +109,7 @@ class RelationRequest(BaseModel):
 
 
 class RiskPatternRequest(BaseModel):
+    uuid: str = ""
     ref: str
     name: str
     desc: str
@@ -157,6 +158,9 @@ class ThreatRequest(BaseModel):
     ref: str
     name: str
     desc: str
+    risk_rating: RiskRatingRequest
+    mitre: List[str] = Field(default_factory=list)
+    stride: List[str] = Field(default_factory=list)
 
 
 class ThreatUpdateRequest(BaseModel):
@@ -164,6 +168,14 @@ class ThreatUpdateRequest(BaseModel):
     ref: str
     name: str
     desc: str = ""
+    risk_rating: RiskRatingRequest
+    mitre: List[str] = Field(default_factory=list)
+    stride: List[str] = Field(default_factory=list)
+    references_to_add: List[str] = Field(default_factory=list, alias="referencesToAdd")
+    references_to_delete: List[str] = Field(default_factory=list, alias="referencesToDelete")
+    
+    class Config:
+        populate_by_name = True
 
 
 class UsecaseRequest(BaseModel):

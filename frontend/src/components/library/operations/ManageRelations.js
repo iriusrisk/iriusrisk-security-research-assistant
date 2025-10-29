@@ -189,7 +189,6 @@ const ManageRelations = (props) => {
                             { 
                                 title: 'Mitigation', 
                                 field: 'mitigation',
-                                type: 'numeric',
                                 editable: 'always'
                             },
                         ]}

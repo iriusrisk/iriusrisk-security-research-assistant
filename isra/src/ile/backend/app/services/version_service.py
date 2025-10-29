@@ -285,7 +285,7 @@ class VersionService:
         category = IRCategoryComponent(
             ref=body.ref,
             name=body.name,
-            desc=body.desc
+            desc=""
         )
         v.categories[category.uuid] = category
         return category
@@ -432,7 +432,14 @@ class VersionService:
             ref=threat.ref,
             name=threat.name,
             desc=threat.desc,
-            risk_rating=threat.risk_rating
+            risk_rating=IRRiskRating(
+                confidentiality=threat.risk_rating.confidentiality,
+                integrity=threat.risk_rating.integrity,
+                availability=threat.risk_rating.availability,
+                ease_of_exploitation=threat.risk_rating.ease_of_exploitation
+            ),
+            mitre=threat.mitre,
+            stride=threat.stride
         )
         v.threats[t.uuid] = t
         return t
@@ -449,7 +456,30 @@ class VersionService:
         if new_threat.desc is not None:
             threat.desc = new_threat.desc
         if new_threat.risk_rating is not None:
-            threat.risk_rating = new_threat.risk_rating
+            threat.risk_rating = IRRiskRating(
+                confidentiality=new_threat.risk_rating.confidentiality,
+                integrity=new_threat.risk_rating.integrity,
+                availability=new_threat.risk_rating.availability,
+                ease_of_exploitation=new_threat.risk_rating.ease_of_exploitation
+            )
+        if new_threat.mitre is not None:
+            threat.mitre = new_threat.mitre
+        if new_threat.stride is not None:
+            threat.stride = new_threat.stride
+        
+        # Handle references to add
+        if new_threat.references_to_add is not None:
+            for ref_uuid in new_threat.references_to_add:
+                # Add reference using UUID as both key and value
+                threat.references[ref_uuid] = ref_uuid
+        
+        # Handle references to delete
+        if new_threat.references_to_delete is not None:
+            for ref_uuid in new_threat.references_to_delete:
+                # Remove reference by finding and deleting entries with this UUID as value
+                keys_to_delete = [key for key, value in threat.references.items() if value == ref_uuid]
+                for key in keys_to_delete:
+                    del threat.references[key]
         
         v.threats[threat.uuid] = threat
         return threat

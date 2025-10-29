@@ -105,8 +105,8 @@ def create_app() -> FastAPI:
     
     # Include routers
     app.include_router(project_router, prefix="/api")
-    app.include_router(library_router, prefix="/api")
     app.include_router(version_router, prefix="/api")
+    app.include_router(library_router, prefix="/api")
     app.include_router(changelog_router, prefix="/api")
     app.include_router(test_router, prefix="/api")
     

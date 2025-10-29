@@ -20,7 +20,7 @@ export const ELEMENT_TYPES = {
             ref: data.ref,
             name: data.name,
             desc: data.desc,
-            riskRating: {
+            risk_rating: {
                 confidentiality: data.riskRating.confidentiality,
                 integrity: data.riskRating.integrity,
                 availability: data.riskRating.availability,

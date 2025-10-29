@@ -187,7 +187,6 @@ const ManageThreats = (props) => {
                                             availability: "100",
                                             ease_of_exploitation: "100"
                                         };
-                                        newData.references = [];
                                         newData.mitre = [];
                                         newData.stride = [];
 

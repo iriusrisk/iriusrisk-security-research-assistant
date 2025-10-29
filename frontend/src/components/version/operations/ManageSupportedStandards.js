@@ -105,8 +105,8 @@ const ManageSupportedStandards = ({ version }) => {
                 <MaterialTable
                     title="Standards"
                     columns={[
-                        { title: 'Supported standard ref', field: 'supportedStandardRef' },
-                        { title: 'Supported standard name', field: 'supportedStandardName' },
+                        { title: 'Supported standard ref', field: 'supported_standard_ref' },
+                        { title: 'Supported standard name', field: 'supported_standard_name' },
                         { title: 'UUID', editable: false, field: 'uuid' }
                     ]}
                     data={data}
@@ -138,7 +138,7 @@ const ManageSupportedStandards = ({ version }) => {
                             new Promise((resolve) => {
                                 setTimeout(() => {
                                     // Validate required fields
-                                    if (!oldData.uuid || !newData.supportedStandardRef || !newData.supportedStandardName) {
+                                    if (!oldData.uuid || !newData.supported_standard_ref || !newData.supported_standard_name) {
                                         failedToast("UUID, supported standard ref, and supported standard name are required fields");
                                         resolve();
                                         return;
@@ -146,8 +146,8 @@ const ManageSupportedStandards = ({ version }) => {
                                     
                                     const updatedStandard = {
                                         uuid: oldData.uuid,
-                                        supported_standard_ref: newData.supportedStandardRef || newData.supported_standard_ref,
-                                        supported_standard_name: newData.supportedStandardName || newData.supported_standard_name
+                                        supported_standard_ref: newData.supported_standard_ref,
+                                        supported_standard_name: newData.supported_standard_name
                                     };
                                     updateStandard(updatedStandard);
                                     resolve();

@@ -56,7 +56,7 @@ const LoadProject = (props) => {
         axios.get('/api/project/load/' + selectedProject)
             .then(res => {
                 let versions = [];
-                res.data.versions.forEach(element => versions.push(element.version));
+                Object.keys(res.data.versions).forEach(element => versions.push(element));
                 handleProjectChange(res.data.ref, versions);
                 successToast("Project loaded successfully");
             })

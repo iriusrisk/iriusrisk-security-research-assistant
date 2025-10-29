@@ -105,8 +105,8 @@ const ManageStandards = ({ version }) => {
                 <MaterialTable
                     title="Standards"
                     columns={[
-                        { title: 'Supported standard ref', field: 'supportedStandardRef' },
-                        { title: 'Standard ref', field: 'standardRef' },
+                        { title: 'Supported standard ref', field: 'supported_standard_ref' },
+                        { title: 'Standard ref', field: 'standard_ref' },
                         { title: 'UUID', editable: false, field: 'uuid' }
                     ]}
                     data={data}
@@ -138,7 +138,7 @@ const ManageStandards = ({ version }) => {
                             new Promise((resolve) => {
                                 setTimeout(() => {
                                     // Validate required fields
-                                    if (!oldData.uuid || !newData.supportedStandardRef || !newData.standardRef) {
+                                    if (!oldData.uuid || !newData.supported_standard_ref || !newData.standard_ref) {
                                         failedToast("UUID, supported standard ref, and standard ref are required fields");
                                         resolve();
                                         return;
@@ -146,8 +146,8 @@ const ManageStandards = ({ version }) => {
                                     
                                     const updatedStandard = {
                                         uuid: oldData.uuid,
-                                        supported_standard_ref: newData.supportedStandardRef || newData.supported_standard_ref,
-                                        standard_ref: newData.standardRef || newData.standard_ref
+                                        supported_standard_ref: newData.supported_standard_ref,
+                                        standard_ref: newData.standard_ref
                                     };
                                     updateStandard(updatedStandard);
                                     resolve();
