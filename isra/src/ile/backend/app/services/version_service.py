@@ -175,8 +175,35 @@ class VersionService:
     def get_suggestions(self, version_ref: str, element_type: str, ref: str) -> IRSuggestions:
         """Get suggestions for element"""
         suggestions = IRSuggestions()
-        # Simplified implementation - in full version would provide actual suggestions
-        suggestions.suggestions = []
+        v = self.data_service.get_version(version_ref)
+        
+        for library in v.libraries.values():
+            for relation in library.relations.values():
+                if element_type == "threat":
+                    if relation.threat_uuid == ref:
+                        suggestions.library_suggestions.add(library.ref)
+                        if relation.weakness_uuid and relation.weakness_uuid != "":
+                            suggestions.weakness_suggestions.add(relation.weakness_uuid)
+                        if relation.control_uuid and relation.control_uuid != "":
+                            suggestions.control_suggestions.add(relation.control_uuid)
+                        suggestions.relation_suggestions.add(relation)
+                elif element_type == "weakness":
+                    if relation.weakness_uuid == ref:
+                        suggestions.library_suggestions.add(library.ref)
+                        if relation.threat_uuid and relation.threat_uuid != "":
+                            suggestions.threat_suggestions.add(relation.threat_uuid)
+                        if relation.control_uuid and relation.control_uuid != "":
+                            suggestions.control_suggestions.add(relation.control_uuid)
+                        suggestions.relation_suggestions.add(relation)
+                elif element_type == "control":
+                    if relation.control_uuid == ref:
+                        suggestions.library_suggestions.add(library.ref)
+                        if relation.threat_uuid and relation.threat_uuid != "":
+                            suggestions.threat_suggestions.add(relation.threat_uuid)
+                        if relation.weakness_uuid and relation.weakness_uuid != "":
+                            suggestions.weakness_suggestions.add(relation.weakness_uuid)
+                        suggestions.relation_suggestions.add(relation)
+        
         return suggestions
     
     def fix_non_ascii_values(self, version_ref: str) -> None:
@@ -355,25 +382,85 @@ class VersionService:
         v = self.data_service.get_version(version_ref)
         ref_uuid = reference_item_request.reference_uuid
         item_uuid = reference_item_request.item_uuid
+        item_type = reference_item_request.item_type
         
-        # Find the element and add reference
-        # This is a simplified implementation
-        pass
+        # Generate a unique key for the references map
+        reference_key = str(uuid.uuid4())
+        
+        if item_type == "THREAT":
+            if item_uuid in v.threats:
+                v.threats[item_uuid].references[reference_key] = ref_uuid
+        elif item_type == "CONTROL":
+            if item_uuid in v.controls:
+                v.controls[item_uuid].references[reference_key] = ref_uuid
+        elif item_type == "CONTROL_TEST":
+            if item_uuid in v.controls:
+                v.controls[item_uuid].test.references[reference_key] = ref_uuid
+        elif item_type == "WEAKNESS_TEST":
+            if item_uuid in v.weaknesses:
+                v.weaknesses[item_uuid].test.references[reference_key] = ref_uuid
     
     def delete_reference_from_element(self, version_ref: str, reference_item_request: ReferenceItemRequest) -> None:
         """Delete reference from element"""
-        # Simplified implementation
-        pass
+        v = self.data_service.get_version(version_ref)
+        ref_uuid = reference_item_request.reference_uuid
+        item_uuid = reference_item_request.item_uuid
+        item_type = reference_item_request.item_type
+        
+        if item_type == "THREAT":
+            if item_uuid in v.threats:
+                # Find and remove references that match the value (not the key)
+                keys_to_remove = [key for key, value in v.threats[item_uuid].references.items() 
+                                if value == ref_uuid]
+                for key in keys_to_remove:
+                    del v.threats[item_uuid].references[key]
+        elif item_type == "CONTROL":
+            if item_uuid in v.controls:
+                keys_to_remove = [key for key, value in v.controls[item_uuid].references.items() 
+                                if value == ref_uuid]
+                for key in keys_to_remove:
+                    del v.controls[item_uuid].references[key]
+        elif item_type == "CONTROL_TEST":
+            if item_uuid in v.controls:
+                keys_to_remove = [key for key, value in v.controls[item_uuid].test.references.items() 
+                                if value == ref_uuid]
+                for key in keys_to_remove:
+                    del v.controls[item_uuid].test.references[key]
+        elif item_type == "WEAKNESS_TEST":
+            if item_uuid in v.weaknesses:
+                keys_to_remove = [key for key, value in v.weaknesses[item_uuid].test.references.items() 
+                                if value == ref_uuid]
+                for key in keys_to_remove:
+                    del v.weaknesses[item_uuid].test.references[key]
     
     def add_standard_to_element(self, version_ref: str, standard_item_request: StandardItemRequest) -> None:
         """Add standard to element"""
-        # Simplified implementation
-        pass
+        v = self.data_service.get_version(version_ref)
+        item_uuid = standard_item_request.item_uuid
+        standard_uuid = standard_item_request.standard_uuid
+        item_type = standard_item_request.item_type
+        
+        # Generate a unique key for the standards map
+        standard_key = str(uuid.uuid4())
+        
+        if item_type == "CONTROL":
+            if item_uuid in v.controls:
+                v.controls[item_uuid].standards[standard_key] = standard_uuid
     
     def delete_standard_from_element(self, version_ref: str, standard_item_request: StandardItemRequest) -> None:
         """Delete standard from element"""
-        # Simplified implementation
-        pass
+        v = self.data_service.get_version(version_ref)
+        item_uuid = standard_item_request.item_uuid
+        standard_uuid = standard_item_request.standard_uuid
+        item_type = standard_item_request.item_type
+        
+        if item_type == "CONTROL":
+            if item_uuid in v.controls:
+                # Find and remove standards that match the value (not the key)
+                keys_to_remove = [key for key, value in v.controls[item_uuid].standards.items() 
+                                if value == standard_uuid]
+                for key in keys_to_remove:
+                    del v.controls[item_uuid].standards[key]
     
     def list_weaknesses(self, version_ref: str) -> Collection[IRWeakness]:
         """List weaknesses"""

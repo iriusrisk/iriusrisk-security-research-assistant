@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
-import {easyToast, failedToast, successToast} from "../../utils/toastFunctions";
+import { easyToast, failedToast, successToast } from "../../utils/toastFunctions";
 import MaterialTable from "material-table";
 import CKEditor from '@ckeditor/ckeditor5-react';
 import InlineEditor from '@ckeditor/ckeditor5-build-inline';
@@ -15,7 +15,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import ClearIcon from '@material-ui/icons/Clear';
 import TextField from "@material-ui/core/TextField";
-import {excelDelimiter, sortArrayByKey} from "../../utils/commonFunctions";
+import { excelDelimiter, sortArrayByKey } from "../../utils/commonFunctions";
 import QuickAddReferences from "./QuickAddReferences";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -25,11 +25,11 @@ import ListItem from "@material-ui/core/ListItem";
 
 const useStyles = (theme) => ({
     root: {
-      display: 'flex',
+        display: 'flex',
     },
     container: {
-      paddingTop: theme.spacing(4),
-      paddingBottom: theme.spacing(4),
+        paddingTop: theme.spacing(4),
+        paddingBottom: theme.spacing(4),
     },
     formControl: {
         margin: theme.spacing(1),
@@ -52,7 +52,7 @@ const ManageThreats = (props) => {
     const dataRef = useRef([]);
 
     const addThreat = useCallback((threat) => {
-        axios.post('/api/version/'+version+'/threat', threat)
+        axios.post('/api/version/' + version + '/threat', threat)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Add the returned object from the API to the state
@@ -67,17 +67,17 @@ const ManageThreats = (props) => {
     }, [version]);
 
     const updateThreat = useCallback((updatedThreat) => {
-        axios.put('/api/version/'+version+'/threat', updatedThreat)
+        axios.put('/api/version/' + version + '/threat', updatedThreat)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // Update the state with the returned object from the API
                     setData(prevData => {
-                        const newData = prevData.map(item => 
+                        const newData = prevData.map(item =>
                             item.uuid === updatedThreat.uuid ? res.data : item
                         );
                         return newData;
                     });
-                    dataRef.current = dataRef.current.map(item => 
+                    dataRef.current = dataRef.current.map(item =>
                         item.uuid === updatedThreat.uuid ? res.data : item
                     );
                     easyToast(res, "Threat updated", "Threat couldn't be updated");
@@ -88,13 +88,13 @@ const ManageThreats = (props) => {
 
     const updateThreatSilent = useCallback((updatedThreat) => {
         // Update the ref without triggering a re-render
-        dataRef.current = dataRef.current.map(item => 
+        dataRef.current = dataRef.current.map(item =>
             item.uuid === updatedThreat.uuid ? updatedThreat : item
         );
     }, []);
 
     const deleteThreats = useCallback((rowData) => {
-        axios.delete('/api/version/'+version+'/threat', {data: rowData})
+        axios.delete('/api/version/' + version + '/threat', { data: rowData })
             .then(res => {
                 if (res.status === 200) {
                     successToast("Threat/s deleted");
@@ -120,7 +120,7 @@ const ManageThreats = (props) => {
             .catch(err => failedToast(err));
     }, [version]);
 
-    return(
+    return (
         <div className={classes.root}>
             <CssBaseline />
             <Container maxWidth="lg" className={classes.container}>
@@ -146,7 +146,7 @@ const ManageThreats = (props) => {
                                     return JSON.stringify(rowData.desc);
                                 }
                             }
-                            ]}
+                        ]}
                         data={data}
                         key="threats-table"
                         options={{
@@ -166,9 +166,9 @@ const ManageThreats = (props) => {
                         ]}
                         detailPanel={rowData => {
                             return (
-                                <ThreatDetailPanel 
-                                    version={version} 
-                                    rowData={rowData} 
+                                <ThreatDetailPanel
+                                    version={version}
+                                    rowData={rowData}
                                     onUpdate={updateThreatSilent}
                                 />
                             )
@@ -177,7 +177,7 @@ const ManageThreats = (props) => {
                             onRowAdd: newData =>
                                 new Promise((resolve) => {
                                     setTimeout(() => {
-                                        if(newData.name === undefined){
+                                        if (newData.name === undefined) {
                                             newData.name = "";
                                         }
                                         newData.desc = "";
@@ -245,32 +245,41 @@ const ThreatDetailPanel = (props) => {
     const [newStrideItem, setNewStrideItem] = useState("");
 
     const loadSuggestions = useCallback(() => {
+        // Only load suggestions if we have a ref
+        if (!data.ref) {
+            return;
+        }
+
         let postdata = {
             type: "threat",
             ref: data.ref
         };
         axios.post('/api/version/' + version + '/suggestions', postdata)
             .then(res => {
-                setLibrarySuggestions(res.data.librarySuggestions);
-                setRelationSuggestions(res.data.relationSuggestions);
+                setLibrarySuggestions(res.data.librarySuggestions || []);
+                setRelationSuggestions(res.data.relationSuggestions || []);
             })
-            .catch(err => failedToast(err));
-        axios.get('/api/version/'+version+'/reference', )
+            .catch(err => {
+                console.error('Error loading suggestions:', err);
+                // Don't show error toast for suggestions as it's not critical
+            });
+        axios.get('/api/version/' + version + '/reference')
             .then(res => {
-                setReferenceSuggestions(sortArrayByKey(res.data, "name"));
+                setReferenceSuggestions(sortArrayByKey(res.data || [], "name"));
             })
-            .catch(err => failedToast(err));
+            .catch(err => {
+                console.error('Error loading references:', err);
+                failedToast("Could not load references");
+            });
     }, [version, data.ref]);
 
     useEffect(() => {
         loadSuggestions();
     }, [loadSuggestions]);
 
-
-
     const updateThreatBody = (event) => {
         event.preventDefault();
-        
+
         const formData = new FormData(event.target);
         const postdata = {
             uuid: formData.get('uuid') || "",
@@ -286,7 +295,7 @@ const ThreatDetailPanel = (props) => {
             mitre: data.mitre || [],
             stride: data.stride || []
         };
-        axios.put('/api/version/'+version+'/threat', postdata)
+        axios.put('/api/version/' + version + '/threat', postdata)
             .then(res => {
                 if (res.status === 200 && res.data) {
                     setData(res.data);
@@ -307,7 +316,7 @@ const ThreatDetailPanel = (props) => {
     };
 
     const handleDescChangeEditor = (data) => {
-        let newData = {...data};
+        let newData = { ...data };
         newData.desc = data;
         setData(newData);
     };
@@ -317,28 +326,28 @@ const ThreatDetailPanel = (props) => {
         if (!referenceValue || referenceValue.trim() === "") {
             return;
         }
-        
+
         // Find the reference object by name
         const referenceObj = referenceSuggestions.find(ref => ref.name === referenceValue);
         if (!referenceObj) {
             failedToast("Reference not found");
             return;
         }
-        
+
         // Check if reference already exists
         const referenceExists = Object.values(data.references || {}).includes(referenceObj.uuid);
         if (referenceExists) {
             failedToast("Reference " + referenceValue + " already exists in this threat");
             return;
         }
-        
+
         // Call the API to add reference
         const referenceItemRequest = {
             item_uuid: data.uuid,
             item_type: "THREAT",
             reference_uuid: referenceObj.uuid
         };
-        
+
         axios.put('/api/version/' + version + '/threat/reference', referenceItemRequest)
             .then(res => {
                 if (res.status === 200 && res.data) {
@@ -362,7 +371,7 @@ const ThreatDetailPanel = (props) => {
             item_type: "THREAT",
             reference_uuid: referenceUuid
         };
-        
+
         axios.delete('/api/version/' + version + '/threat/reference', { data: referenceItemRequest })
             .then(res => {
                 if (res.status === 200 && res.data) {
@@ -395,15 +404,15 @@ const ThreatDetailPanel = (props) => {
         }
     };
 
-    return(
+    return (
         <div>
             <form style={classes.form} onSubmit={updateThreatBody}>
-                { librarySuggestions.length !== 0 &&
-                  <div>
-                      { librarySuggestions.map((value, index) => {
-                          return <Button key={index}>{value}</Button>
-                      })}
-                  </div>
+                {librarySuggestions.length !== 0 &&
+                    <div>
+                        {librarySuggestions.map((value, index) => {
+                            return <Button key={index}>{value}</Button>
+                        })}
+                    </div>
                 }
                 <Accordion expanded={accordion}>
                     <AccordionSummary
@@ -461,12 +470,12 @@ const ThreatDetailPanel = (props) => {
                     Description
                 </Typography>
                 <CKEditor
-                    editor={ InlineEditor }
+                    editor={InlineEditor}
                     id="desc"
                     data={data.desc}
-                    onBlur={ ( event, editor ) => {
+                    onBlur={(event, editor) => {
                         handleDescChangeEditor(editor.getData());
-                    } }
+                    }}
                 />
                 <TextField
                     variant="outlined"
@@ -509,25 +518,25 @@ const ThreatDetailPanel = (props) => {
                 </Typography>
                 <Grid>
                     {data.mitre && data.mitre.length > 0 &&
-                     <div>
-                         { data.mitre.map((mitreItem, index) => {
-                             return (
-                                 <Button 
-                                     variant="outlined" 
-                                     startIcon={<ClearIcon />} 
-                                     
-                                     style={{ margin: '4px' }} 
-                                     key={index} 
-                                     onClick={() => {
-                                         const newMitre = data.mitre.filter((_, i) => i !== index);
-                                         setData({...data, mitre: newMitre});
-                                     }}
-                                 >
-                                     {mitreItem}
-                                 </Button>
-                             );
-                         })}
-                     </div>
+                        <div>
+                            {data.mitre.map((mitreItem, index) => {
+                                return (
+                                    <Button
+                                        variant="outlined"
+                                        startIcon={<ClearIcon />}
+
+                                        style={{ margin: '4px' }}
+                                        key={index}
+                                        onClick={() => {
+                                            const newMitre = data.mitre.filter((_, i) => i !== index);
+                                            setData({ ...data, mitre: newMitre });
+                                        }}
+                                    >
+                                        {mitreItem}
+                                    </Button>
+                                );
+                            })}
+                        </div>
                     }
                     <Grid container spacing={2} alignItems="center">
                         <Grid item xs={9}>
@@ -542,7 +551,7 @@ const ThreatDetailPanel = (props) => {
                                         e.preventDefault();
                                         if (newMitreItem.trim()) {
                                             const newMitre = [...(data.mitre || []), newMitreItem.trim()];
-                                            setData({...data, mitre: newMitre});
+                                            setData({ ...data, mitre: newMitre });
                                             setNewMitreItem("");
                                         }
                                     }
@@ -556,7 +565,7 @@ const ThreatDetailPanel = (props) => {
                                 onClick={() => {
                                     if (newMitreItem.trim()) {
                                         const newMitre = [...(data.mitre || []), newMitreItem.trim()];
-                                        setData({...data, mitre: newMitre});
+                                        setData({ ...data, mitre: newMitre });
                                         setNewMitreItem("");
                                     }
                                 }}
@@ -571,25 +580,25 @@ const ThreatDetailPanel = (props) => {
                 </Typography>
                 <Grid>
                     {data.stride && data.stride.length > 0 &&
-                     <div>
-                         { data.stride.map((strideItem, index) => {
-                             return (
-                                 <Button 
-                                     variant="outlined" 
-                                     startIcon={<ClearIcon />} 
-                                     className={classes.redHover}
-                                     style={{ margin: '4px' }} 
-                                     key={index} 
-                                     onClick={() => {
-                                         const newStride = data.stride.filter((_, i) => i !== index);
-                                         setData({...data, stride: newStride});
-                                     }}
-                                 >
-                                     {strideItem}
-                                 </Button>
-                             );
-                         })}
-                     </div>
+                        <div>
+                            {data.stride.map((strideItem, index) => {
+                                return (
+                                    <Button
+                                        variant="outlined"
+                                        startIcon={<ClearIcon />}
+                                        className={classes.redHover}
+                                        style={{ margin: '4px' }}
+                                        key={index}
+                                        onClick={() => {
+                                            const newStride = data.stride.filter((_, i) => i !== index);
+                                            setData({ ...data, stride: newStride });
+                                        }}
+                                    >
+                                        {strideItem}
+                                    </Button>
+                                );
+                            })}
+                        </div>
                     }
                     <Grid container spacing={2} alignItems="center">
                         <Grid item xs={9}>
@@ -604,7 +613,7 @@ const ThreatDetailPanel = (props) => {
                                         e.preventDefault();
                                         if (newStrideItem.trim()) {
                                             const newStride = [...(data.stride || []), newStrideItem.trim()];
-                                            setData({...data, stride: newStride});
+                                            setData({ ...data, stride: newStride });
                                             setNewStrideItem("");
                                         }
                                     }
@@ -618,7 +627,7 @@ const ThreatDetailPanel = (props) => {
                                 onClick={() => {
                                     if (newStrideItem.trim()) {
                                         const newStride = [...(data.stride || []), newStrideItem.trim()];
-                                        setData({...data, stride: newStride});
+                                        setData({ ...data, stride: newStride });
                                         setNewStrideItem("");
                                     }
                                 }}
@@ -633,26 +642,26 @@ const ThreatDetailPanel = (props) => {
                 </Typography>
                 <Grid>
                     {data.references && Object.keys(data.references).length > 0 &&
-                     <div>
-                         { Object.entries(data.references).map(([key, referenceUuid]) => {
-                             // Find the reference name by UUID
-                             const referenceObj = referenceSuggestions.find(ref => ref.uuid === referenceUuid);
-                             const referenceName = referenceObj ? referenceObj.name : referenceUuid;
-                             
-                             return (
-                                 <Button 
-                                     variant="outlined" 
-                                     startIcon={<ClearIcon />} 
-                                     className={classes.redHover}
-                                     style={{ margin: '4px' }} 
-                                     key={key} 
-                                     onClick={() => deleteReference(referenceUuid)}
-                                 >
-                                     {referenceName}
-                                 </Button>
-                             );
-                         })}
-                     </div>
+                        <div>
+                            {Object.entries(data.references).map(([key, referenceUuid]) => {
+                                // Find the reference name by UUID
+                                const referenceObj = referenceSuggestions.find(ref => ref.uuid === referenceUuid);
+                                const referenceName = referenceObj ? referenceObj.name : referenceUuid;
+
+                                return (
+                                    <Button
+                                        variant="outlined"
+                                        startIcon={<ClearIcon />}
+                                        className={classes.redHover}
+                                        style={{ margin: '4px' }}
+                                        key={key}
+                                        onClick={() => deleteReference(referenceUuid)}
+                                    >
+                                        {referenceName}
+                                    </Button>
+                                );
+                            })}
+                        </div>
                     }
                     <FormControl variant="filled" className={classes.formControl}>
                         <InputLabel htmlFor="outlined-age-native-simple">Add reference</InputLabel>
@@ -667,7 +676,7 @@ const ThreatDetailPanel = (props) => {
                             })}
                         </Select>
                     </FormControl>
-                    <QuickAddReferences version={version} update={loadSuggestions}/>
+                    <QuickAddReferences version={version} update={loadSuggestions} />
                 </Grid>
                 <Button
                     type="submit"

@@ -134,9 +134,9 @@ class StandardUpdateRequest(BaseModel):
 
 
 class StandardItemRequest(BaseModel):
-    ref: str
-    supported_standard_ref: str
-    standard_ref: str
+    item_uuid: str
+    item_type: str
+    standard_uuid: str
 
 
 class SupportedStandardRequest(BaseModel):
@@ -223,4 +223,5 @@ class ContentReportRequest(BaseModel):
 
 
 class SuggestionRequest(BaseModel):
-    text: str
+    type: str
+    ref: str
