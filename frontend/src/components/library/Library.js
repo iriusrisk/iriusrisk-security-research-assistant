@@ -233,11 +233,11 @@ const Library = (props) => {
 
     const updateLibrary = (event) => {
         let data = {
-            ref: event.target.libraryRef.value,
-            name: event.target.libraryName.value,
-            desc: event.target.libraryDesc.value,
+            ref: event.target.library_ref.value,
+            name: event.target.library_name.value,
+            desc: event.target.library_desc.value,
             revision: event.target.revision.value,
-            filename: event.target.libraryFilename.value,
+            filename: event.target.library_filename.value,
             enabled: event.target.enabled.value
         };
 
@@ -292,7 +292,8 @@ const Library = (props) => {
                                         <TextField
                                             variant="outlined"
                                             fullWidth
-                                            id="libraryRef"
+                                            id="library_ref"
+                                            name="library_ref"
                                             label="Library Reference"
                                             disabled
                                             defaultValue={libraryReport.library_ref}
@@ -305,7 +306,8 @@ const Library = (props) => {
                                             fullWidth
                                             defaultValue={libraryReport.library_name}
                                             label="Library Name"
-                                            id="libraryName"
+                                            id="library_name"
+                                            name="library_name"
                                             size="small"
                                         />
                                     </Grid>
@@ -317,7 +319,8 @@ const Library = (props) => {
                                             rows={3}
                                             defaultValue={libraryReport.library_desc}
                                             label="Description"
-                                            id="libraryDesc"
+                                            id="library_desc"
+                                            name="library_desc"
                                             size="small"
                                         />
                                     </Grid>
@@ -337,7 +340,8 @@ const Library = (props) => {
                                             fullWidth
                                             defaultValue={libraryReport.library_filename}
                                             label="Filename"
-                                            id="libraryFilename"
+                                            id="library_filename"
+                                            name="library_filename"
                                             size="small"
                                         />
                                     </Grid>

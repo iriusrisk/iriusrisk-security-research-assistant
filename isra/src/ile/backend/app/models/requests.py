@@ -29,28 +29,35 @@ class ComponentRequest(BaseModel):
 
 
 class ControlRequest(BaseModel):
+    uuid: str
     ref: str
     name: str
     desc: str
     state: str
     cost: str
+    steps: str
+    base_standard: List[str]
+    base_standard_section: List[str]
+    scope: List[str]
+    mitre: List[str]
 
 
 class ControlUpdateRequest(BaseModel):
+    uuid: str
     ref: str
     name: str
     desc: str
     state: str
     cost: str
+    steps: str
+    base_standard: List[str]
+    base_standard_section: List[str]
+    scope: List[str]
+    mitre: List[str]
 
 
 class LibraryRequest(BaseModel):
-    ref: str
-    name: str
-    desc: str
-    revision: str
-    filename: str
-    enabled: str
+    library_ref: str
 
 
 class LibraryUpdateRequest(BaseModel):
@@ -155,6 +162,11 @@ class CopyVersionRequest(BaseModel):
 class ChangelogRequest(BaseModel):
     from_version: str
     to_version: str
+    first_version: Optional[str] = None
+    first_library: Optional[str] = None
+    second_version: Optional[str] = None
+    second_library: Optional[str] = None
+    library_ref: Optional[str] = None
 
 
 class ChangelogVersionRequest(BaseModel):

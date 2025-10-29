@@ -83,6 +83,7 @@ async def delete_version(version: str, project_facade: ProjectFacade = Depends(g
 @router.post("/project/version/copy")
 async def copy_version(body: CopyVersionRequest, project_facade: ProjectFacade = Depends(get_project_facade)) -> VersionNamesResponse:
     """Copy version"""
+    print(body)
     project_facade.copy_version(body.src_version, body.ref)
     return project_facade.list_version_names()
 

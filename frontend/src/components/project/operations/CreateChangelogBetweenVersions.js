@@ -129,8 +129,8 @@ const CreateChangelogBetweenVersions = (props) => {
 
         setLoading(true);
         const requestData = {
-            "firstVersion": selectedVersionFirst,
-            "secondVersion": selectedVersionSecond,
+            "from_version": selectedVersionFirst,
+            "to_version": selectedVersionSecond,
         };
 
         try {
@@ -147,9 +147,9 @@ const CreateChangelogBetweenVersions = (props) => {
     const fetchLibraryDetails = useCallback(async (libraryRef) => {
         setLoadingLibrary(true);
         const requestData = {
-            "firstVersion": selectedVersionFirst,
-            "secondVersion": selectedVersionSecond,
-            "libraryRef": libraryRef
+            "from_version": selectedVersionFirst,
+            "to_version": selectedVersionSecond,
+            "library_ref": libraryRef
         };
 
         try {

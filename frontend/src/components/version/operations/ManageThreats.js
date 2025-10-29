@@ -181,7 +181,7 @@ const ManageThreats = (props) => {
                                             newData.name = "";
                                         }
                                         newData.desc = "";
-                                        newData.riskRating = {
+                                        newData.risk_rating = {
                                             confidentiality: "100",
                                             integrity: "100",
                                             availability: "100",
@@ -203,7 +203,7 @@ const ManageThreats = (props) => {
                                             ref: newData.ref,
                                             name: newData.name,
                                             desc: oldData.desc || "",
-                                            riskRating: oldData.riskRating || {
+                                            risk_rating: oldData.risk_rating || {
                                                 confidentiality: "100",
                                                 integrity: "100",
                                                 availability: "100",
@@ -278,7 +278,7 @@ const ThreatDetailPanel = (props) => {
             ref: formData.get('ref') || "",
             name: formData.get('name') || "",
             desc: data.desc || "",
-            riskRating: {
+            risk_rating: {
                 confidentiality: formData.get('confidentiality') || "",
                 integrity: formData.get('integrity') || "",
                 availability: formData.get('availability') || "",
@@ -335,9 +335,9 @@ const ThreatDetailPanel = (props) => {
         
         // Call the API to add reference
         const referenceItemRequest = {
-            itemUuid: data.uuid,
-            itemType: "THREAT",
-            referenceUuid: referenceObj.uuid
+            item_uuid: data.uuid,
+            item_type: "THREAT",
+            reference_uuid: referenceObj.uuid
         };
         
         axios.put('/api/version/' + version + '/threat/reference', referenceItemRequest)
@@ -359,9 +359,9 @@ const ThreatDetailPanel = (props) => {
     const deleteReference = (referenceUuid) => {
         // Call the API to delete reference
         const referenceItemRequest = {
-            itemUuid: data.uuid,
-            itemType: "THREAT",
-            referenceUuid: referenceUuid
+            item_uuid: data.uuid,
+            item_type: "THREAT",
+            reference_uuid: referenceUuid
         };
         
         axios.delete('/api/version/' + version + '/threat/reference', { data: referenceItemRequest })
@@ -421,7 +421,7 @@ const ThreatDetailPanel = (props) => {
                                     <Grid container spacing={3}>
                                         <Grid item xs={12}>
                                             <Typography>
-                                                {value.usecaseRef} / {value.threatRef} / {value.weaknessRef} / {value.controlRef}
+                                                {value.usecase_ref} / {value.threat_ref} / {value.weakness_ref} / {value.control_ref}
                                             </Typography>
                                         </Grid>
                                     </Grid>
@@ -476,7 +476,7 @@ const ThreatDetailPanel = (props) => {
                     id="confidentiality"
                     name="confidentiality"
                     label="Confidentiality"
-                    defaultValue={data.riskRating?.confidentiality || "100"}
+                    defaultValue={data.risk_rating?.confidentiality || "100"}
                 />
                 <TextField
                     variant="outlined"
@@ -485,7 +485,7 @@ const ThreatDetailPanel = (props) => {
                     id="integrity"
                     name="integrity"
                     label="Integrity"
-                    defaultValue={data.riskRating?.integrity || "100"}
+                    defaultValue={data.risk_rating?.integrity || "100"}
                 />
                 <TextField
                     variant="outlined"
@@ -494,7 +494,7 @@ const ThreatDetailPanel = (props) => {
                     id="availability"
                     name="availability"
                     label="Availability"
-                    defaultValue={data.riskRating?.availability || "100"}
+                    defaultValue={data.risk_rating?.availability || "100"}
                 />
                 <TextField
                     variant="outlined"
@@ -503,7 +503,7 @@ const ThreatDetailPanel = (props) => {
                     id="ease_of_exploitation"
                     name="ease_of_exploitation"
                     label="Ease of Exploitation"
-                    defaultValue={data.riskRating?.ease_of_exploitation || "100"}
+                    defaultValue={data.risk_rating?.ease_of_exploitation || "100"}
                 />
                 <Typography variant="body1">
                     Mitre

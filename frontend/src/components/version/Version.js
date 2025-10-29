@@ -248,7 +248,7 @@ const Version = (props) => {
         const versionParam = parts[parts.length - 2];
 
         let postData = {
-            "libraryRef": library
+            "library_ref": library
         };
         console.log(postData);
 
@@ -288,7 +288,7 @@ const Version = (props) => {
         const versionParam = parts[parts.length - 2];
 
         const postData = {
-            "libraryRef": library
+            "library_ref": library
         };
 
         axios.put("/api/version/" + versionParam + "/library", postData)

@@ -384,9 +384,9 @@ const ControlDetailPanel = (props) => {
         
         // Call the API to add reference
         const referenceItemRequest = {
-            itemUuid: data.uuid,
-            itemType: "CONTROL",
-            referenceUuid: referenceObj.uuid
+            item_uuid: data.uuid,
+            item_type: "CONTROL",
+            reference_uuid: referenceObj.uuid
         };
         
         axios.put('/api/version/' + version + '/control/reference', referenceItemRequest)
@@ -408,9 +408,9 @@ const ControlDetailPanel = (props) => {
     const deleteReference = (referenceUuid) => {
         // Call the API to delete reference
         const referenceItemRequest = {
-            itemUuid: data.uuid,
-            itemType: "CONTROL",
-            referenceUuid: referenceUuid
+            item_uuid: data.uuid,
+            item_type: "CONTROL",
+            reference_uuid: referenceUuid
         };
         
         axios.delete('/api/version/' + version + '/control/reference', { data: referenceItemRequest })
@@ -451,9 +451,9 @@ const ControlDetailPanel = (props) => {
         
         // Call the API to add reference
         const referenceItemRequest = {
-            itemUuid: data.uuid,
-            itemType: "CONTROL_TEST",
-            referenceUuid: referenceObj.uuid
+            item_uuid: data.uuid,
+            item_type: "CONTROL_TEST",
+            reference_uuid: referenceObj.uuid
         };
         
         axios.put('/api/version/' + version + '/control/reference', referenceItemRequest)
@@ -475,9 +475,9 @@ const ControlDetailPanel = (props) => {
     const deleteTestReference = (referenceUuid) => {
         // Call the API to delete reference
         const referenceItemRequest = {
-            itemUuid: data.uuid,
-            itemType: "CONTROL_TEST",
-            referenceUuid: referenceUuid
+            item_uuid: data.uuid,
+            item_type: "CONTROL_TEST",
+            reference_uuid: referenceUuid
         };
         
         axios.delete('/api/version/' + version + '/control/reference', { data: referenceItemRequest })
@@ -518,9 +518,9 @@ const ControlDetailPanel = (props) => {
         
         // Call the API to add standard
         const standardItemRequest = {
-            itemUuid: data.uuid,
-            itemType: "CONTROL",
-            standardUuid: standardObj.uuid
+            item_uuid: data.uuid,
+            item_type: "CONTROL",
+            standard_uuid: standardObj.uuid
         };
         
         axios.put('/api/version/' + version + '/control/standard', standardItemRequest)
@@ -542,9 +542,9 @@ const ControlDetailPanel = (props) => {
     const deleteStandard = (standardUuid) => {
         // Call the API to delete standard
         const standardItemRequest = {
-            itemUuid: data.uuid,
-            itemType: "CONTROL",
-            standardUuid: standardUuid
+            item_uuid: data.uuid,
+            item_type: "CONTROL",
+            standard_uuid: standardUuid
         };
         
         axios.delete('/api/version/' + version + '/control/standard', { data: standardItemRequest })

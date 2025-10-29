@@ -34,7 +34,7 @@ const ManageLibraries = ({ version }) => {
 
     const createLibrary = () => {
         let postData = {
-            "libraryRef": ref
+            "library_ref": ref
         };
         axios.post("/api/version/" + version + "/library", postData)
             .then(res => {

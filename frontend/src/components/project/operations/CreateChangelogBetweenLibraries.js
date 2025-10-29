@@ -106,10 +106,10 @@ const CreateChangelogBetweenLibraries = (props) => {
 
     const handleSubmit = (event) => {
         let data = {
-            "firstVersion": selectedVersionFirst,
-            "firstLibrary": selectedLibraryFirst,
-            "secondVersion": selectedVersionSecond,
-            "secondLibrary": selectedLibrarySecond
+            "first_version": selectedVersionFirst,
+            "first_library": selectedLibraryFirst,
+            "second_version": selectedVersionSecond,
+            "second_library": selectedLibrarySecond
         };
 
         axios.post('/api/project/diff/libraries', data)

@@ -78,7 +78,7 @@ const ManageComponents = (props) => {
             name: newComponent.name,
             desc: newComponent.desc,
             category_ref: newComponent.category_ref,
-            newVisible: newComponent.visible,
+            visible: newComponent.visible,
             risk_pattern_refs: newComponent.risk_pattern_refs || []
         };
 

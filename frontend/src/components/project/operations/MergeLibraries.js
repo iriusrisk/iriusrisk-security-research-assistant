@@ -110,10 +110,10 @@ const MergeLibraries = (props) => {
     const handleSubmit = (event) => {
         setIsLoading(true);
         let data = {
-            "srcVersion": selectedVersionFirst,
-            "srcLibrary": selectedLibraryFirst,
-            "dstVersion": selectedVersionSecond,
-            "dstLibrary": selectedLibrarySecond
+            "src_version": selectedVersionFirst,
+            "src_library": selectedLibraryFirst,
+            "dst_version": selectedVersionSecond,
+            "dst_library": selectedLibrarySecond
         };
 
         axios.post('/api/project/mergeLibraries', data)
@@ -137,7 +137,7 @@ const MergeLibraries = (props) => {
     const handleSubmitGenerateFullLibrary = (event) => {
         setIsGenerating(true);
         let data = {
-            "srcVersion": selectedVersionFirst
+            "src_version": selectedVersionFirst
         };
 
         axios.post('/api/project/generateFullLibrary', data)

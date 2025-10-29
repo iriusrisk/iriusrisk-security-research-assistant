@@ -111,7 +111,7 @@ const ManageVersion = (props) => {
 
     const handleSubmitCopy = (event) => {
         let postData = {
-            "srcVersion": selectedVersionFirst,
+            "src_version": selectedVersionFirst,
             "ref": ref
         };
         axios.post('/api/project/version/copy', postData)

@@ -338,9 +338,9 @@ const WeaknessDetailPanel = (props) => {
         
         // Call the API to add reference
         const referenceItemRequest = {
-            itemUuid: data.uuid,
-            itemType: "WEAKNESS_TEST",
-            referenceUuid: referenceObj.uuid
+            item_uuid: data.uuid,
+            item_type: "WEAKNESS_TEST",
+            reference_uuid: referenceObj.uuid
         };
         
         axios.put('/api/version/' + version + '/weakness/reference', referenceItemRequest)
@@ -362,9 +362,9 @@ const WeaknessDetailPanel = (props) => {
     const deleteTestReference = (referenceUuid) => {
         // Call the API to delete reference
         const referenceItemRequest = {
-            itemUuid: data.uuid,
-            itemType: "WEAKNESS_TEST",
-            referenceUuid: referenceUuid
+            item_uuid: data.uuid,
+            item_type: "WEAKNESS_TEST",
+            reference_uuid: referenceUuid
         };
         
         axios.delete('/api/version/' + version + '/weakness/reference', { data: referenceItemRequest })
@@ -424,7 +424,7 @@ const WeaknessDetailPanel = (props) => {
                                     <Grid container spacing={3}>
                                         <Grid item xs={12}>
                                             <Typography>
-                                                {value.usecaseRef} / {value.threatRef} / {value.weaknessRef} / {value.controlRef}
+                                                {value.usecase_ref} / {value.threat_ref} / {value.weakness_ref} / {value.control_ref}
                                             </Typography>
                                         </Grid>
                                     </Grid>
