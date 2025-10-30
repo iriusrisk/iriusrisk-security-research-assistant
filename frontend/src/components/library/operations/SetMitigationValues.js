@@ -25,11 +25,10 @@ const SetMitigationValues = (props) => {
     const classes = useStyles();
     const { match } = props;
     
-    const [version, setVersion] = useState(match.params.id);
-    const [library, setLibrary] = useState(match.params.lib);
+    const [version] = useState(match.params.id);
+    const [library] = useState(match.params.lib);
     const [data, setData] = useState({"risk_patterns": []});
     const [accordion1, setAccordion1] = useState(false);
-    const [accordion2, setAccordion2] = useState(false);
 
     useEffect(() => {
         axios.get('/api/version/' + version + '/' + library + '/checkMitigation')

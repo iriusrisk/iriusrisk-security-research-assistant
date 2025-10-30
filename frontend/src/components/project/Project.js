@@ -5,13 +5,10 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import SimpleCard from "../utils/SimpleCard";
 import { easyToast, failedToast } from "../utils/toastFunctions";
 import { ForceGraph2D } from "react-force-graph";
 import { Link } from "react-router-dom";
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -107,10 +104,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Project = (props) => {
     const classes = useStyles();
-    const { project, handleProjectChange } = props;
-    const [data, setData] = useState({ "nodes": [], "links": [] });
-    const [graph, setGraph] = useState(false);
-    const inputOpenFileRef = React.useRef();
+    const { project } = props;
+    const [data] = useState({ "nodes": [], "links": [] });
+    const [graph] = useState(false);
 
     useEffect(() => {
         // Component did mount logic can go here

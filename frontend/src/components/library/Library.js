@@ -4,7 +4,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import SimpleCard from "../utils/SimpleCard";
 import axios from 'axios';
 import ReactHtmlParser from 'react-html-parser';
 import { Link } from "react-router-dom";
@@ -18,9 +17,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import {
-    LibraryBooks as LibraryIcon,
     Assessment as AssessmentIcon,
-    Build as BuildIcon,
     Edit as EditIcon,
     Save as SaveIcon,
     Close as CloseIcon,
@@ -32,7 +29,6 @@ import {
     Link as LinkIcon,
     Settings as SettingsIcon,
     ShowChart as GraphIcon,
-    Assignment
 } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -198,8 +194,8 @@ const Library = (props) => {
     const classes = useStyles();
     const { match } = props;
 
-    const [version, setVersion] = useState(match.params.id);
-    const [library, setLibrary] = useState(match.params.lib);
+    const version = match.params.id;
+    const library = match.params.lib;
     const [libraryReport, setLibraryReport] = useState([]);
     const [edit, setEdit] = useState(false);
 

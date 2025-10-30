@@ -46,10 +46,10 @@ const useStyles = (theme) => ({
 });
 
 const CreateElements = (props) => {
-    const [version, setVersion] = useState(props.version);
+    const [version] = useState(props.version);
     const [elementType, setElementType] = useState("Use case");
     // Use the custom hook for element creation
-    const { isCreating, createElement, reset } = useElementCreation(version);
+    const { isCreating, createElement } = useElementCreation(version);
     
     // Form data state
     const [formData, setFormData] = useState(getDefaultFormData());

@@ -5,9 +5,6 @@ import Container from '@material-ui/core/Container';
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import Changelog from "./Changelog";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Accordion from "@material-ui/core/Accordion";
 import { failedToast, successToast, warnToast } from "../../utils/toastFunctions";
 import Grid from "@material-ui/core/Grid";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -91,7 +88,7 @@ const CreateChangelogBetweenVersions = (props) => {
     const [librarySummaries, setLibrarySummaries] = useState(null);
     const [selectedLibrary, setSelectedLibrary] = useState(null);
     const [libraryDetails, setLibraryDetails] = useState(null);
-    const [expanded, setExpanded] = useState("");
+    // const [expanded, setExpanded] = useState("");
     const [loading, setLoading] = useState(false);
     const [loadingLibrary, setLoadingLibrary] = useState(false);
 
@@ -164,9 +161,9 @@ const CreateChangelogBetweenVersions = (props) => {
         }
     }, [selectedVersionFirst, selectedVersionSecond]);
 
-    const handleExpandAccordion = useCallback((panel) => (event, newExpanded) => {
-        setExpanded(newExpanded ? panel : false);
-    }, []);
+    // const handleExpandAccordion = useCallback((panel) => (event, newExpanded) => {
+    //     setExpanded(newExpanded ? panel : false);
+    // }, []);
 
     const getChangeIcon = (changeType) => {
         switch (changeType) {

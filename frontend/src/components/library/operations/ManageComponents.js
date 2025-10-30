@@ -40,8 +40,8 @@ const ManageComponents = (props) => {
     const classes = useStyles();
     const { match } = props;
     
-    const [version, setVersion] = useState(match.params.id);
-    const [library, setLibrary] = useState(match.params.lib);
+    const version = match.params.id;
+    const library = match.params.lib;
     const [data, setData] = useState([]);
     const [suggestions, setSuggestions] = useState([]);
 

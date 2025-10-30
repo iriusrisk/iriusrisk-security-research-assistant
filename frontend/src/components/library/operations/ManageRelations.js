@@ -37,8 +37,8 @@ const ManageRelations = (props) => {
     const classes = useStyles();
     const { match } = props;
     
-    const [version, setVersion] = useState(match.params.id);
-    const [library, setLibrary] = useState(match.params.lib);
+    const version = match.params.id;
+    const library = match.params.lib;
     const [rps, setRps] = useState([]);
     const [selectedRp, setSelectedRp] = useState("");
     const [data, setData] = useState([]);

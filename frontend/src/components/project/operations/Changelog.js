@@ -35,7 +35,7 @@ const Changelog = (props) => {
     const { classes, data: propsData, noGraph: propsNoGraph } = props;
     const [data, setData] = useState(propsData);
     const [elements, setElements] = useState({});
-    const [noGraph, setNoGraph] = useState(propsNoGraph !== undefined ? propsNoGraph : false);
+    const [noGraph] = useState(propsNoGraph !== undefined ? propsNoGraph : false);
     const [selectedNode, setSelectedNode] = useState("");
 
     useEffect(() => {

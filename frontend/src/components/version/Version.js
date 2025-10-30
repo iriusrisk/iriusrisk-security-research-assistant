@@ -7,13 +7,10 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import SimpleCard from "../utils/SimpleCard";
 import { easyToast, failedToast } from "../utils/toastFunctions";
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { Link } from "react-router-dom";
-import IconButton from "@material-ui/core/IconButton";
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
-import Chip from '@material-ui/core/Chip';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -28,7 +25,6 @@ import {
     Category as CategoryIcon,
     Book as ReferenceIcon,
     Star as StandardIcon,
-    Build as BuildIcon,
     Assessment as AssessmentIcon,
     Description as ReportIcon,
     ImportExport as ImportIcon,

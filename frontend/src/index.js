@@ -23,8 +23,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Logo from './assets/logo.png';
-import Background from './assets/background.png';
-import Background2 from './assets/background2.png';
 import Collapse from "@material-ui/core/Collapse";
 import Button from "@material-ui/core/Button";
 import { ChevronLeft, Menu } from '@material-ui/icons';
@@ -367,7 +365,6 @@ const useProjectActions = (project, handleProjectChange) => {
 const Home = () => {
   const classes = useStyles();
   const [projectStatus, setProjectStatus] = useState({ project: "", versions: [] });
-  const [recentActivity, setRecentActivity] = useState([]);
 
   useEffect(() => {
     // Load current project status
@@ -593,7 +590,7 @@ const Dashboard = () => {
   // Custom hooks
   const { project, versions, handleProjectChange, loadProjectData } = useProjectState();
   const { open, openVersions, toggleDrawer, handleCollapseVersions } = useDrawerState();
-  const { newVersion, setNewVersion, handleItemClickRemove, handleItemClickCopy, handleItemClickQuickReload, handleItemClickNew } = useVersionManagement(handleProjectChange);
+  const { setNewVersion, handleItemClickRemove, handleItemClickCopy, handleItemClickQuickReload, handleItemClickNew } = useVersionManagement(handleProjectChange);
   const { save, restore } = useProjectActions(project, handleProjectChange);
 
   // Context menu

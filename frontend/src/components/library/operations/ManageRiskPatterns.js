@@ -38,8 +38,8 @@ const ManageRiskPatterns = (props) => {
     const classes = useStyles();
     const { match } = props;
     
-    const [version, setVersion] = useState(match.params.id);
-    const [library, setLibrary] = useState(match.params.lib);
+    const [version] = useState(match.params.id);
+    const [library] = useState(match.params.lib);
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -155,7 +155,6 @@ const RiskPatternDetailPanel = (props) => {
     const { version, library, rowData } = props;
     
     const [data, setData] = useState(rowData);
-    const [suggestions, setSuggestions] = useState([]);
 
     const updateRiskPatternBody = (event) => {
         // Structure the data according to RiskPatternRequest model
