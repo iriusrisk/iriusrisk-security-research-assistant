@@ -64,7 +64,7 @@ class LibraryService:
         
         lib = self.data_service.get_library(version_ref, library_ref)
         rules = lib.rules
-        risk_patterns = lib.risk_patterns
+        risk_patterns = lib.risk_patterns  # Dict keyed by uuid
         component_definitions = {comp.ref: comp for comp in lib.component_definitions.values()}
         
         for r in rules:
@@ -77,13 +77,13 @@ class LibraryService:
                 condition_ids.add(new_condition.id)
             
             for a in r.actions:
-                new_action = RuleNode(a.name, a.value, "ACTION", risk_patterns)
+                new_action = RuleNode(a.name, a.value, "", risk_patterns, project=a.project)
                 
                 if not g.has_node_value(new_action.id):
                     g.nodes.append(new_action)
                 
                 for cond in condition_ids:
-                    g.links.append(Link(cond, new_action.id))
+                    g.links.append(Link(source=cond, target=new_action.id))
         
         return g
     

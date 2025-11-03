@@ -90,12 +90,12 @@ class ChangelogService:
             self._add_weaknesses_to_graph(root.id)
             self._add_references_to_graph(root.id)
         
-        self.graph.rev_first = self.first.revision
-        self.graph.rev_second = self.second.revision
+        self.graph.revFirst = self.first.revision
+        self.graph.revSecond = self.second.revision
         
-        if self.graph.changelog_list and self.first.revision == self.second.revision:
+        if self.graph.changelogList and self.first.revision == self.second.revision:
             logger.info("This library has the same revision number but it has changes")
-            self.graph.equal_revision_number = True
+            self.graph.equalRevisionNumber = True
         
         return self.graph
     
@@ -159,18 +159,18 @@ class ChangelogService:
         
         for rel_id in added_relations:
             item = ChangelogItem()
-            item.type = "ADDED"
-            item.element_type = "Relation"
-            item.element_ref = rel_id
-            item.description = f"Added relation {rel_id}"
+            item.action = "N"
+            item.element = "Relation"
+            item.elementRef = rel_id
+            item.info = f"Added relation {rel_id}"
             report.items.append(item)
         
         for rel_id in removed_relations:
             item = ChangelogItem()
-            item.type = "REMOVED"
-            item.element_type = "Relation"
-            item.element_ref = rel_id
-            item.description = f"Removed relation {rel_id}"
+            item.action = "D"
+            item.element = "Relation"
+            item.elementRef = rel_id
+            item.info = f"Removed relation {rel_id}"
             report.items.append(item)
         
         return report
@@ -209,23 +209,27 @@ class ChangelogService:
     def _get_change(self, changes: List[Change], field: str, old_value: str, new_value: str) -> None:
         """Add change to list if values are different"""
         if old_value != new_value:
-            change = Change()
-            change.field = field
-            change.old_value = old_value
-            change.new_value = new_value
+            change = Change(field=field, old=old_value, new=new_value)
             changes.append(change)
     
-    def _add_item_to_changelog_list(self, category: str, name: str, type: str, changes: List[Change]) -> None:
+    def _add_item_to_changelog_list(self, category: str, name: str, action: str, changes: List[Change]) -> None:
         """Add item to changelog list"""
         if not self.graph:
             return
         
         item = ChangelogItem()
-        item.category = category
-        item.name = name
-        item.type = type
+        item.element = category
+        item.elementRef = name
+        item.action = action
         item.changes = changes
-        self.graph.changelog_list.append(item)
+        # Set info based on action
+        if action == "N":
+            item.info = f"The element {name} has been added"
+        elif action == "D":
+            item.info = f"The element {name} has been deleted"
+        elif action == "E":
+            item.info = f"The element {name} has been modified"
+        self.graph.changelogList.append(item)
     
     def _add_categories_to_graph(self, parent_id: str) -> bool:
         """Add categories to graph"""
