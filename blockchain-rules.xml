@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright (c) 2012-2025 IriusRisk SL. All rights reserved.The content of this library is the property of IriusRisk SL and may only be used in whole or in part with a valid license for IriusRisk.-->
+<library ref="blockchain-rules" name="Blockchain - Rules" enabled="true" revision="46" tags="">
+  <desc>This library holds the rules for the components in the Blockchain - Rules library</desc>
+  <categoryComponents/>
+  <componentDefinitions/>
+  <supportedStandards/>
+  <riskPatterns/>
+  <rules>
+    <rule name="Q - Security Context - CD-V2-BLOCKCHAIN-ACCOUNT-ABSTRACTION" module="component" generatedByGui="true" matchesAllConditions="true">
+      <conditions>
+        <condition name="CONDITION_COMPONENT_DEFINITION" field="id" value="CD-V2-BLOCKCHAIN-ACCOUNT-ABSTRACTION"/>
+      </conditions>
+      <actions>
+        <action project="" value="provided.question.C-BLOCKCHAIN-ACCOUNT-ABSTRACTION-CNT-07_::_Security Context_::_Is multi-provider failover implemented?_::_7000_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-ACCOUNT-ABSTRACTION-CNT-08_::_Security Context_::_Is censorship mitigation implemented?_::_7001_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-ACCOUNT-ABSTRACTION-CNT-02_::_Security Context_::_Do you implement defense-in-depth policies?_::_7002_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-ACCOUNT-ABSTRACTION-CNT-01_::_Security Context_::_Is the audited pattern and testing implemented?_::_7003_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-ACCOUNT-ABSTRACTION-CNT-03_::_Security Context_::_Is the threshold-based recovery mechanism implemented?_::_7004_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-ACCOUNT-ABSTRACTION-CNT-04_::_Security Context_::_Is recovery scope constrained?_::_7005_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-ACCOUNT-ABSTRACTION-CNT-05_::_Security Context_::_Do you implement strict sponsorship policies?_::_7006_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-ACCOUNT-ABSTRACTION-CNT-06_::_Security Context_::_Is rate-limiting funds implemented?_::_7007_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-ACCOUNT-ABSTRACTION-CNT-09_::_Security Context_::_Do you implement ERC-4337 nonce and domain rules?_::_7008_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-ACCOUNT-ABSTRACTION-CNT-10_::_Security Context_::_Is batch approval separated from transfer flows?_::_7009_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+      </actions>
+    </rule>
+    <rule name="Q - Security Context - CD-V2-BLOCKCHAIN-NETWORK" module="component" generatedByGui="true" matchesAllConditions="true">
+      <conditions>
+        <condition name="CONDITION_COMPONENT_DEFINITION" field="id" value="CD-V2-BLOCKCHAIN-NETWORK"/>
+      </conditions>
+      <actions>
+        <action project="" value="provided.question.C-BLOCKCHAIN-NETWORK-CNT-03_::_Security Context_::_Are multiple defenses in place to mitigate the risk of a 51% attack?_::_7000_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-NETWORK-CNT-01_::_Security Context_::_Is robust endpoint protection implemented across the blockchain network?_::_7001_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-NETWORK-CNT-02_::_Security Context_::_Does the blockchain network use a secure routing protocol to prevent malicious traffic manipulation?_::_7002_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-NETWORK-CNT-04_::_Security Context_::_Is there an effective identity verification mechanism to prevent Sybil attacks?_::_7003_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+      </actions>
+    </rule>
+    <rule name="Q - Security Context - CD-V2-BLOCKCHAIN-NODE" module="component" generatedByGui="true" matchesAllConditions="true">
+      <conditions>
+        <condition name="CONDITION_COMPONENT_DEFINITION" field="id" value="CD-V2-BLOCKCHAIN-NODE"/>
+      </conditions>
+      <actions>
+        <action project="" value="provided.question.C-BLOCKCHAIN-NODE-CNT-02_::_Security Context_::_Do you limit traffic rates and connections per IP?_::_7000_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-NODE-CNT-03_::_Security Context_::_Do you use redundancy and health checks?_::_7001_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-NODE-CNT-07_::_Security Context_::_Is CI/CD pipeline implemented for configurations and builds?_::_7002_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-NODE-CNT-06_::_Security Context_::_Do you apply patches promptly after testing?_::_7003_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-NODE-CNT-01_::_Security Context_::_Is host hardening implemented for the system?_::_7004_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-NODE-CNT-08_::_Security Context_::_Is RPC restricted with firewall and authentication?_::_7005_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-NODE-CNT-09_::_Security Context_::_Is TLS encryption implemented for RPC communication?_::_7006_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-NODE-CNT-04_::_Security Context_::_Do you maintain diverse peer controls?_::_7007_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-NODE-CNT-05_::_Security Context_::_Is abnormal peer churn alert implemented?_::_7008_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-NODE-CNT-10_::_Security Context_::_Do you implement a clear fork policy?_::_7009_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+      </actions>
+    </rule>
+    <rule name="Q - Security Context - CD-V2-BLOCKCHAIN-ORACLE" module="component" generatedByGui="true" matchesAllConditions="true">
+      <conditions>
+        <condition name="CONDITION_COMPONENT_DEFINITION" field="id" value="CD-V2-BLOCKCHAIN-ORACLE"/>
+      </conditions>
+      <actions>
+        <action project="" value="provided.question.C-BLOCKCHAIN-ORACLE-CNT-02_::_Security Context_::_Is the diversification of data sources in the blockchain oracle currently active?_::_7000_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-ORACLE-CNT-04_::_Security Context_::_Is the Oracle solution transparent and equipped with robust monitoring systems in the Blockchain?_::_7001_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-ORACLE-CNT-03_::_Security Context_::_Is the verification of node operator reputation in Blockchain Oracle currently in place?_::_7002_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-BLOCKCHAIN-ORACLE-CNT-01_::_Security Context_::_Is the integration with premium data provider for a blockchain oracle in place?_::_7003_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+      </actions>
+    </rule>
+    <rule name="Q - Security Context - CD-V2-CONSENSUS-MECHANISMS" module="component" generatedByGui="true" matchesAllConditions="true">
+      <conditions>
+        <condition name="CONDITION_COMPONENT_DEFINITION" field="id" value="CD-V2-CONSENSUS-MECHANISMS"/>
+      </conditions>
+      <actions>
+        <action project="" value="provided.question.C-CONSENSUS-MECHANISMS-CNT-02_::_Security Context_::_Is the mitigation for Eclipse Attacks in Consensus Mechanisms currently implemented in your system?_::_7000_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-CONSENSUS-MECHANISMS-CNT-03_::_Security Context_::_Is the mitigation for long range attacks in Consensus Mechanisms currently up and running?_::_7001_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-CONSENSUS-MECHANISMS-CNT-06_::_Security Context_::_Is the Sybil attack prevention in the Consensus Mechanisms currently implemented?_::_7002_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-CONSENSUS-MECHANISMS-CNT-01_::_Security Context_::_Is the defense against 51% attacks in consensus mechanisms currently implemented?_::_7003_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-CONSENSUS-MECHANISMS-CNT-04_::_Security Context_::_Is the mitigation of the nothing-at-stake attack in Consensus Mechanisms implemented in your system?_::_7004_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-CONSENSUS-MECHANISMS-CNT-05_::_Security Context_::_Is the prevention of selfish mining attacks in Consensus Mechanisms currently in place?_::_7005_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+      </actions>
+    </rule>
+    <rule name="Q - Security Context - CD-V2-DISTRIBUTED-LEDGER" module="component" generatedByGui="true" matchesAllConditions="true">
+      <conditions>
+        <condition name="CONDITION_COMPONENT_DEFINITION" field="id" value="CD-V2-DISTRIBUTED-LEDGER"/>
+      </conditions>
+      <actions>
+        <action project="" value="provided.question.C-DISTRIBUTED-LEDGER-C001_::_Security Context_::_Is rate limiting currently active on the network?_::_7000_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-DISTRIBUTED-LEDGER-C003_::_Security Context_::_Are regular security audits of smart contracts currently conducted?_::_7001_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-DISTRIBUTED-LEDGER-C002_::_Security Context_::_Is the network decentralized with many participants to prevent control by a single entity?_::_7002_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+      </actions>
+    </rule>
+    <rule name="Q - Security Context - CD-V2-RPC-NODE" module="component" generatedByGui="true" matchesAllConditions="true">
+      <conditions>
+        <condition name="CONDITION_COMPONENT_DEFINITION" field="id" value="CD-V2-RPC-NODE"/>
+      </conditions>
+      <actions>
+        <action project="" value="provided.question.C-RPC-NODE-CNT-01_::_Security Context_::_Do you adopt private RPC endpoints backed by SLAs?_::_7000_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-RPC-NODE-CNT-02_::_Security Context_::_Does the application have failover endpoints?_::_7001_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-RPC-NODE-CNT-07_::_Security Context_::_Do you apply rate limits and request batching?_::_7002_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-RPC-NODE-CNT-08_::_Security Context_::_Is horizontal scaling with monitoring implemented?_::_7003_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-RPC-NODE-CNT-04_::_Security Context_::_Do you restrict endpoint access using IP allowlists?_::_7004_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-RPC-NODE-CNT-03_::_Security Context_::_Do you protect and rotate API keys?_::_7005_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-RPC-NODE-CNT-05_::_Security Context_::_Do you enforce HTTPS and WSS exclusively?_::_7006_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-RPC-NODE-CNT-06_::_Security Context_::_Does the system use MEV protection or private routing?_::_7007_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-RPC-NODE-CNT-09_::_Security Context_::_Does the provider offer high accuracy and uptime infrastructure?_::_7008_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+      </actions>
+    </rule>
+    <rule name="Q - Security Context - CD-V2-SMART-CONTRACT" module="component" generatedByGui="true" matchesAllConditions="true">
+      <conditions>
+        <condition name="CONDITION_COMPONENT_DEFINITION" field="id" value="CD-V2-SMART-CONTRACT"/>
+      </conditions>
+      <actions>
+        <action project="" value="provided.question.C-SMART-CONTRACT-CNT-01_::_Security Context_::_Is the access control design for the smart contract already implemented?_::_7000_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-SMART-CONTRACT-CNT-05_::_Security Context_::_Is the use of require(), assert(), and revert() statements for contract safety in smart contracts presently in place?_::_7001_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-SMART-CONTRACT-CNT-06_::_Security Context_::_Is the smart contracts testing and verification process currently in place?_::_7002_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-SMART-CONTRACT-CNT-02_::_Security Context_::_Is the code complexity of the Smart Contract reduced and made simpler, using methods like modular functions and established libraries?_::_7003_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-SMART-CONTRACT-CNT-03_::_Security Context_::_Is the disaster recovery plan for smart contracts presently in place?_::_7004_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+        <action project="" value="provided.question.C-SMART-CONTRACT-CNT-04_::_Security Context_::_Is the secure governance system for smart contracts already established or is it a requirement?_::_7005_::_true_::_false_::_" name="INSERT_COMPONENT_QUESTION_GROUP"/>
+      </actions>
+    </rule>
+  </rules>
+</library>

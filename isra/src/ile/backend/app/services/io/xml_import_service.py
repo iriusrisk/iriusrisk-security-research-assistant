@@ -4,7 +4,7 @@ XML import service for IriusRisk Library Editor API
 
 import logging
 import xml.etree.ElementTree as ET
-from typing import BinaryIO, List, Optional, Dict, Set
+from typing import BinaryIO, List, Optional, Dict
 from xml.etree.ElementTree import Element
 
 from isra.src.ile.backend.app.models import (
@@ -13,7 +13,6 @@ from isra.src.ile.backend.app.models import (
     IRRule, IRRuleAction, IRRuleCondition, IRStandard, IRSupportedStandard,
     IRTest, IRThreat, IRUseCase, IRWeakness
 )
-from isra.src.ile.backend.app.services.io.xml_service import XMLService
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +21,7 @@ class XMLImportService:
     """Service for importing XML library files"""
     
     def __init__(self):
-        self.xml_service = XMLService()
+        pass
     
     def import_library_xml(self, filename: str, library: BinaryIO, version_element: ILEVersion) -> None:
         """Import library from XML stream"""
@@ -67,10 +66,10 @@ class XMLImportService:
     
     def _set_component_definitions(self, root: Element, new_library: IRLibrary) -> None:
         """Set component definitions from XML"""
-        for e in self.xml_service.get_nodes(root.findall("componentDefinition")):
+        for e in root.iter("componentDefinition"):
             component_definition = self._get_component_definition_from_xml(e)
             
-            for ee in self.xml_service.get_nodes(e.findall("riskPattern")):
+            for ee in e.iter("riskPattern"):
                 component_definition.risk_pattern_refs.append(ee.get("ref"))
             
             new_library.component_definitions[component_definition.uuid] = component_definition
@@ -95,7 +94,7 @@ class XMLImportService:
     
     def _set_category_components(self, root: Element, version: ILEVersion) -> None:
         """Set category components from XML"""
-        for e in self.xml_service.get_nodes(root.findall("categoryComponent")):
+        for e in root.iter("categoryComponent"):
             category_component = IRCategoryComponent(
                 uuid=e.get("uuid", ""),
                 ref=e.get("ref", ""),
@@ -106,21 +105,21 @@ class XMLImportService:
     
     def _set_supported_standards(self, root: Element, version_element: ILEVersion) -> None:
         """Set supported standards from XML"""
-        for e in self.xml_service.get_nodes(root.findall("supportedStandard")):
+        for e in root.iter("supportedStandard"):
             uuid = e.get("uuid", "")
             if uuid not in version_element.supported_standards:
                 supported_standard = IRSupportedStandard(
                     uuid=uuid,
-                    ref=e.get("ref", ""),
-                    name=e.get("name", "")
+                    supported_standard_ref=e.get("ref", ""),
+                    supported_standard_name=e.get("name", "")
                 )
                 version_element.supported_standards[uuid] = supported_standard
     
     def _set_risk_patterns(self, root: Element, new_library: IRLibrary, version_element: ILEVersion) -> None:
         """Set risk patterns from XML"""
-        risk_patterns_elem = self.xml_service.get_element_by_name(root, "riskPatterns")
+        risk_patterns_elem = root.find("riskPatterns")
         if risk_patterns_elem is not None:
-            for e in self.xml_service.get_nodes(risk_patterns_elem.findall("riskPattern")):
+            for e in risk_patterns_elem.iter("riskPattern"):
                 # Weaknesses will be compiled in version
                 weaknesses = self._set_weaknesses(e, version_element)
                 
@@ -140,15 +139,15 @@ class XMLImportService:
     
     def _set_rules(self, root: Element, new_library: IRLibrary) -> None:
         """Set rules from XML"""
-        for e in self.xml_service.get_nodes(root.findall("rule")):
+        for e in root.iter("rule"):
             rule = IRRule(
                 name=e.get("name", ""),
                 module=e.get("module", ""),
-                generated_by_gui=e.get("generatedByGui", "")
+                gui=e.get("generatedByGui", "")
             )
             
             # Conditions
-            for cond in self.xml_service.get_nodes(e.findall("condition")):
+            for cond in e.iter("condition"):
                 condition = IRRuleCondition(
                     name=cond.get("name", ""),
                     field=cond.get("field", ""),
@@ -157,7 +156,7 @@ class XMLImportService:
                 rule.conditions.append(condition)
             
             # Actions
-            for act in self.xml_service.get_nodes(e.findall("action")):
+            for act in e.iter("action"):
                 action = IRRuleAction(
                     name=act.get("name", ""),
                     value=act.get("value", ""),
@@ -170,21 +169,22 @@ class XMLImportService:
     def _set_weaknesses(self, e: Element, version_element: ILEVersion) -> Dict[str, IRWeakness]:
         """Set weaknesses from XML"""
         weaknesses_in_risk_pattern = {}
-        for weakness_element in self.xml_service.get_nodes(e.findall("weakness")):
-            if weakness_element.hasAttribute("impact"):
+        for weakness_element in e.iter("weakness"):
+            if weakness_element.get("impact") is not None:
                 ref = weakness_element.get("ref", "")
-                if ref not in version_element.weaknesses:
-                    weakness_uuid = weakness_element.get("uuid", "")
+                weakness_uuid = weakness_element.get("uuid", "")
+                # Check if weakness with this ref or uuid already exists
+                if weakness_uuid not in version_element.weaknesses and not any(w.ref == ref for w in version_element.weaknesses.values()):
                     weakness_ref = weakness_element.get("ref", "")
                     weakness_name = weakness_element.get("name", "")
                     weakness_desc_elem = weakness_element.find("desc")
                     weakness_desc = weakness_desc_elem.text if weakness_desc_elem is not None else ""
                     impact = weakness_element.get("impact", "")
                     
-                    test_element = self.xml_service.get_element_by_name(weakness_element, "test")
+                    test_element = weakness_element.find("test")
                     if test_element is not None:
-                        steps_element = self.xml_service.get_element_by_name(test_element, "steps")
-                        test_steps = steps_element.text if steps_element is not None else ""
+                        steps_element = test_element.find("steps")
+                        test_steps = steps_element.text if steps_element is not None and steps_element.text is not None else ""
                         
                         test_object = IRTest(steps=test_steps)
                         test_object.uuid = test_element.get("uuid", "")
@@ -217,11 +217,12 @@ class XMLImportService:
     def _set_controls(self, e: Element, version_element: ILEVersion) -> Dict[str, IRControl]:
         """Set controls from XML"""
         controls_in_risk_pattern = {}
-        for control_element in self.xml_service.get_nodes(e.findall("countermeasure")):
-            if control_element.hasAttribute("state"):
+        for control_element in e.iter("countermeasure"):
+            if control_element.get("state") is not None:
                 ref = control_element.get("ref", "")
-                if ref not in version_element.controls:
-                    control_uuid = control_element.get("uuid", "")
+                control_uuid = control_element.get("uuid", "")
+                # Check if control with this ref or uuid already exists
+                if control_uuid not in version_element.controls and not any(c.ref == ref for c in version_element.controls.values()):
                     control_ref = control_element.get("ref", "")
                     control_name = control_element.get("name", "")
                     control_desc_elem = control_element.find("desc")
@@ -229,10 +230,10 @@ class XMLImportService:
                     state = control_element.get("state", "")
                     cost = control_element.get("cost", "")
                     
-                    test_element = self.xml_service.get_element_by_name(control_element, "test")
+                    test_element = control_element.find("test")
                     if test_element is not None:
-                        steps_element = self.xml_service.get_element_by_name(test_element, "steps")
-                        test_steps = steps_element.text if steps_element is not None else ""
+                        steps_element = test_element.find("steps")
+                        test_steps = steps_element.text if steps_element is not None and steps_element.text is not None else ""
                         
                         test_object = IRTest(steps=test_steps)
                         test_object.uuid = test_element.get("uuid", "")
@@ -260,15 +261,15 @@ class XMLImportService:
                         )
                         
                         # Handle implementations
-                        for st in self.xml_service.get_nodes(control_element.findall("implementation")):
+                        for st in control_element.iter("implementation"):
                             platform = st.get("platform", "")
-                            desc_elem = self.xml_service.get_element_by_name(st, "desc")
+                            desc_elem = st.find( "desc")
                             desc = desc_elem.text if desc_elem is not None else ""
                             desc = desc.replace("\n", "").replace(" ", "")
                             control.implementations.append(f"{platform}_::_{desc}")
                         
                         # Handle standards
-                        for st in self.xml_service.get_nodes(control_element.findall("standard")):
+                        for st in control_element.iter("standard"):
                             xml_standard_uuid = st.get("uuid", "")
                             supported_standard_ref = st.get("supportedStandardRef", "")
                             standard_ref = st.get("ref", "")
@@ -287,7 +288,7 @@ class XMLImportService:
                                 control.standards[xml_standard_uuid] = new_standard.uuid
                         
                         # Handle custom fields
-                        for custom_field in self.xml_service.get_nodes(control_element.findall("customField")):
+                        for custom_field in control_element.iter("customField"):
                             ref = custom_field.get("ref", "")
                             value = custom_field.get("value", "")
                             
@@ -335,7 +336,7 @@ class XMLImportService:
     def _set_usecases(self, e: Element, version_element: ILEVersion, new_library: IRLibrary, 
                      weaknesses: Dict[str, IRWeakness], controls: Dict[str, IRControl], risk_pattern: IRRiskPattern) -> None:
         """Set use cases from XML"""
-        for a in self.xml_service.get_nodes(e.findall("usecase")):
+        for a in e.iter("usecase"):
             usecase = IRUseCase(
                 uuid=a.get("uuid", ""),
                 ref=a.get("ref", ""),
@@ -343,7 +344,7 @@ class XMLImportService:
                 desc=a.get("desc", "")
             )
             
-            threats = self.xml_service.get_nodes(a.findall("threat"))
+            threats = a.iter("threat")
             if not threats:
                 relation = IRRelation(
                     risk_pattern_uuid=risk_pattern.uuid,
@@ -368,19 +369,18 @@ class XMLImportService:
                             desc=threat_desc
                         )
                         
-                        threat_rr = self.xml_service.get_nodes(th.findall("riskRating"))
+                        threat_rr = th.find("riskRating")
                         if threat_rr:
-                            rr = threat_rr[0]
                             risk_rating = IRRiskRating(
-                                confidentiality=rr.get("confidentiality", ""),
-                                integrity=rr.get("integrity", ""),
-                                availability=rr.get("availability", ""),
-                                ease_of_exploitation=rr.get("easeOfExploitation", "")
+                                confidentiality=threat_rr.get("confidentiality", ""),
+                                integrity=threat_rr.get("integrity", ""),
+                                availability=threat_rr.get("availability", ""),
+                                ease_of_exploitation=threat_rr.get("easeOfExploitation", "")
                             )
                             threat.risk_rating = risk_rating
                         
                         # Handle custom fields
-                        for custom_field in self.xml_service.get_nodes(a.findall("customField")):
+                        for custom_field in a.iter("customField"):
                             ref = custom_field.get("ref", "")
                             value = custom_field.get("value", "")
                             
@@ -406,10 +406,10 @@ class XMLImportService:
                     
                     th_control_refs = set()
                     
-                    for w in self.xml_service.get_nodes(th.findall("weakness")):
+                    for w in th.iter("weakness"):
                         weakness_ref = w.get("ref", "")
                         
-                        wc_list = self.xml_service.get_nodes(w.findall("countermeasure"))
+                        wc_list = w.iter("countermeasure")
                         if not wc_list:
                             relation = IRRelation(
                                 risk_pattern_uuid=risk_pattern.uuid,
@@ -434,10 +434,10 @@ class XMLImportService:
                                 th_control_refs.add(wc.get("ref", ""))
                                 new_library.relations[relation.uuid] = relation
                     
-                    for c in self.xml_service.get_nodes(th.findall("countermeasure")):
+                    for c in th.iter("countermeasure"):
                         if c.get("ref", "") not in th_control_refs:
                             relation = IRRelation(
-                                risk_pattern_uuid=risk_pattern.ref,
+                                risk_pattern_uuid=risk_pattern.uuid,
                                 usecase_uuid=usecase.uuid,
                                 threat_uuid=threat_uuid,
                                 weakness_uuid="",
@@ -452,9 +452,9 @@ class XMLImportService:
     def _get_references_from_xml(self, e: Element) -> List[IRReference]:
         """Get references from XML element"""
         references_list = []
-        references = self.xml_service.get_element_by_name(e, "references")
+        references = e.find("references")
         if references is not None:
-            for r in self.xml_service.get_nodes(references.findall("reference")):
+            for r in references.iter("reference"):
                 uuid = r.get("uuid", "")
                 name = r.get("name", "")
                 url = r.get("url", "")

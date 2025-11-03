@@ -284,24 +284,24 @@ const ControlDetailPanel = (props) => {
     const [newMitreItem, setNewMitreItem] = useState("");
 
     const loadSuggestions = useCallback(() => {
-        // Only load suggestions if we have a ref
-        if (!data.ref) {
-            return;
+        // Load suggestions only if we have a ref
+        if (data.ref) {
+            let postdata = {
+                type: "control",
+                ref: data.ref
+            };
+            axios.post('/api/version/' + version + '/suggestions', postdata)
+                .then(res => {
+                    setLibrarySuggestions(res.data.librarySuggestions || []);
+                    setRelationSuggestions(res.data.relationSuggestions || []);
+                })
+                .catch(err => {
+                    console.error('Error loading suggestions:', err);
+                    // Don't show error toast for suggestions as it's not critical
+                });
         }
-
-        let postdata = {
-            type: "control",
-            ref: data.ref
-        };
-        axios.post('/api/version/' + version + '/suggestions', postdata)
-            .then(res => {
-                setLibrarySuggestions(res.data.librarySuggestions || []);
-                setRelationSuggestions(res.data.relationSuggestions || []);
-            })
-            .catch(err => {
-                console.error('Error loading suggestions:', err);
-                // Don't show error toast for suggestions as it's not critical
-            });
+        
+        // Load references (version-wide resources)
         axios.get('/api/version/' + version + '/reference')
             .then(res => {
                 setReferenceSuggestions(sortArrayByKey(res.data || [], "name"));
@@ -309,6 +309,16 @@ const ControlDetailPanel = (props) => {
             .catch(err => {
                 console.error('Error loading references:', err);
                 failedToast("Could not load references");
+            });
+        
+        // Load standards (version-wide resources)
+        axios.get('/api/version/' + version + '/standard')
+            .then(res => {
+                setStandardSuggestions(sortArrayByKey(res.data || [], "standard_ref"));
+            })
+            .catch(err => {
+                console.error('Error loading standards:', err);
+                failedToast("Could not load standards");
             });
     }, [version, data.ref]);
 

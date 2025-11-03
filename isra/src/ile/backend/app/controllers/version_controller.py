@@ -50,11 +50,12 @@ async def clean_version(version_ref: str, version_facade: VersionFacade = Depend
     return version_facade.clean_version(version_ref)
 
 
-@router.post("/version/{version_ref}/import")
+@router.post("/version/{version_ref}/import", status_code=200)
 async def import_library_to_version(version_ref: str, files: List[UploadFile] = File(...),
-                                    version_facade: VersionFacade = Depends(get_version_facade)) -> None:
+                                    version_facade: VersionFacade = Depends(get_version_facade)) -> dict:
     """Import library to version"""
     version_facade.import_library_to_version(version_ref, files)
+    return {"status": "success", "message": "Library imported successfully"}
 
 
 @router.get("/version/{version_ref}/import/folder")

@@ -14,24 +14,7 @@ logger = logging.getLogger(__name__)
 
 class XMLService:
     """Utility class for XML operations"""
-    
-    @staticmethod
-    def get_nodes(node_list) -> List[Element]:
-        """Get element nodes from node list"""
-        elements = []
-        for node in node_list:
-            if hasattr(node, 'tag'):  # Element node
-                elements.append(node)
-        return elements
-    
-    @staticmethod
-    def get_element_by_name(parent: Element, name: str) -> Optional[Element]:
-        """Get element by name from parent"""
-        for child in parent:
-            if child.tag == name:
-                return child
-        return None
-    
+
     @staticmethod
     def validate_xml_schema(xml_path: str) -> bool:
         """Validate XML against schema"""

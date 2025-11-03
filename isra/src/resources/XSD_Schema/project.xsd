@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2012-2022 IriusRisk SL. All rights reserved
+  -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:include schemaLocation="trustZones/trust-zones.xsd"/>
+    <xs:include schemaLocation="questions/wizard-questions.xsd"/>
+    <xs:include schemaLocation="assets/assets.xsd"/>
+    <xs:include schemaLocation="supportedStandards/supported-standards.xsd"/>
+    <xs:include schemaLocation="settings/settings.xsd"/>
+    <xs:include schemaLocation="customFields/customFields.xsd"/>
+    <xs:include schemaLocation="dataflows/dataflows.xsd"/>
+    <xs:include schemaLocation="components/components.xsd"/>
+    <xs:include schemaLocation="diagram/diagram.xsd"/>
+    <xs:include schemaLocation="threadFixScans/threadfix-scans.xsd"/>
+    <xs:complexType name="projectType">
+        <xs:all>
+            <xs:element type="xs:string" name="desc"/>
+            <xs:element type="diagramType" name="diagram"/>
+            <xs:element type="trustZonesGlobalType" name="trustZones"/>
+            <xs:element type="questionsType" name="questions"/>
+            <xs:element type="assetsType" name="assets"/>
+            <xs:element type="customFieldsType" name="customFields"/>
+            <xs:element type="settingsType" name="settings"/>
+            <xs:element type="dataflowsType" name="dataflows"/>
+            <xs:element type="componentsType" name="components"/>
+            <xs:element type="threadFixScansType" name="threadFixScans" minOccurs="0"/>
+        </xs:all>
+        <xs:attribute type="xs:string" name="ref" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:boolean" name="isSyncing"/>
+        <xs:attribute type="xs:string" name="tags" use="required"/>
+        <xs:attribute type="xs:string" name="modelUpdated"/>
+        <xs:attribute type="xs:string" name="workflowState" use="required"/>
+        <xs:attribute type="xs:string" name="locked" use="optional"/>
+    </xs:complexType>
+
+    <xs:element type="projectType" name="project"/>
+
+</xs:schema>

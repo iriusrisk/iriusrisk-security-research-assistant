@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState, useCallback } from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter, NavLink, Route, Switch } from "react-router-dom";
+import { HashRouter, NavLink, Route, Switch, useHistory } from "react-router-dom";
 import clsx from 'clsx';
 import * as serviceWorker from './serviceWorker';
 import axios from 'axios';
@@ -263,6 +263,7 @@ const useDrawerState = () => {
 // Custom hook for version management
 const useVersionManagement = (handleProjectChange) => {
   const [newVersion, setNewVersion] = useState("");
+  const history = useHistory();
 
   const handleItemClickRemove = useCallback(async ({ event, props }) => {
     try {
@@ -319,6 +320,7 @@ const useVersionManagement = (handleProjectChange) => {
         easyToast(res, "Version created successfully", "Creating version failed");
         if (res.status === 200) {
           handleProjectChange(res.data.project, res.data.versions);
+          history.push('/version/' + newVersion);
         }
       } catch (err) {
         failedToast("Creating version failed: " + err);
@@ -326,7 +328,7 @@ const useVersionManagement = (handleProjectChange) => {
     } else {
       failedToast("No version name defined");
     }
-  }, [newVersion, handleProjectChange]);
+  }, [newVersion, handleProjectChange, history]);
 
   return {
     newVersion,

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2012-2022 IriusRisk SL. All rights reserved
+  -->
+
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:include schemaLocation="risk-rating.xsd"/>
+    <xs:include schemaLocation="../../countermeasures/references.xsd"/>
+    <xs:include schemaLocation="../../../customFields/customFields.xsd"/>
+    <xs:include schemaLocation="weaknesses-ref.xsd"/>
+    <xs:include schemaLocation="countermeasures-ref.xsd"/>
+    <xs:include schemaLocation="../../../settings/settings.xsd"/>
+    <xs:complexType name="threatType">
+        <xs:all>
+            <xs:element type="xs:string" name="desc"/>
+            <xs:element type="riskRatingType" name="riskRating"/>
+            <xs:element type="referencesType" name="references"/>
+            <xs:element type="countermeasuresRefType" name="countermeasures"/>
+            <xs:element type="weaknessesRefType" name="weaknesses"/>
+            <xs:element type="customFieldsType" name="customFields" minOccurs="0"/>
+            <xs:element type="settingsType" name="settings" minOccurs="0"/>
+        </xs:all>
+        <xs:attribute type="xs:string" name="ref" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="issueId" use="optional"/>
+        <xs:attribute type="xs:string" name="issueLink" use="optional"/>
+        <xs:attribute type="xs:string" name="state" use="required"/>
+        <xs:attribute type="xs:string" name="source" use="required"/>
+        <xs:attribute type="xs:string" name="owner" use="required"/>
+        <xs:attribute type="xs:string" name="library" use="required"/>
+        <xs:attribute type="xs:string" name="editable" use="optional"/>
+        <xs:attribute type="xs:boolean" name="edited" use="optional"/>
+    </xs:complexType>
+</xs:schema>

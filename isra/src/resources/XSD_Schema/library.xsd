@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2012-2022 IriusRisk SL. All rights reserved
+  -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:include schemaLocation="supportedStandards/supported-standards-library.xsd"/>
+    <xs:include schemaLocation="customFields/customFields-library.xsd"/>
+    <xs:include schemaLocation="dataflows/dataflows.xsd"/>
+    <xs:include schemaLocation="components/components-library.xsd"/>
+    <xs:include schemaLocation="categoryComponents/category-components-library.xsd"/>
+    <xs:include schemaLocation="componentDefinitions/component-definitions-library.xsd"/>
+    <xs:include schemaLocation="rules/rules.xsd"/>
+    <xs:complexType name="libraryType">
+        <xs:all>
+            <xs:element type="xs:string" name="desc"/>
+            <xs:element type="categoryComponentsLibraryType" name="categoryComponents"/>
+            <xs:element type="componentDefinitionsLibraryType" name="componentDefinitions"/>
+            <xs:element type="customFieldsLibraryType" name="customFields" minOccurs="0"/>
+            <xs:element type="dataflowsType" name="dataflows" minOccurs="0"/>
+            <xs:element type="supportedStandardsLibraryType" name="supportedStandards"/>
+            <xs:element type="componentsLibraryType" name="riskPatterns"/>
+            <xs:element type="rulesType" name="rules"/>
+        </xs:all>
+        <xs:attribute type="xs:string" name="ref" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="enabled"/>
+        <xs:attribute type="xs:integer" name="revision" use="required"/>
+        <xs:attribute type="xs:string" name="tags" use="required"/>
+    </xs:complexType>
+
+    <xs:element type="libraryType" name="library"/>
+</xs:schema>

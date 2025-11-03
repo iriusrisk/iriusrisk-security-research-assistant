@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2012-2022 IriusRisk SL. All rights reserved
+  -->
+
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:complexType name="threadFixScanControlType">
+        <xs:attribute type="xs:string" name="controlRef" use="required"/>
+        <xs:attribute type="xs:string" name="componentRef" use="required"/>
+    </xs:complexType>
+</xs:schema>

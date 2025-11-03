@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2012-2022 IriusRisk SL. All rights reserved
+  -->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="../tags/tags-tag.xsd"/>
+    <xs:include schemaLocation="weaknesses/weaknesses-library.xsd"/>
+    <xs:include schemaLocation="countermeasures/countermeasures-library.xsd"/>
+    <xs:include schemaLocation="useCases/usecases-library.xsd"/>
+    <xs:complexType name="componentLibraryType">
+        <xs:all>
+            <xs:element type="tagsTagType" minOccurs="0" name="tags"/>
+            <xs:element type="weaknessesLibraryType" name="weaknesses"/>
+            <xs:element type="countermeasuresLibraryType" name="countermeasures"/>
+            <xs:element type="usecasesLibraryType" name="usecases"/>
+        </xs:all>
+        <xs:attribute type="xs:string" name="ref" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="desc" use="required"/>
+        <xs:attribute type="xs:string" name="tags" use="optional"/>
+        <xs:attribute type="xs:string" name="position" use="optional"/>
+        <xs:attribute type="xs:string" name="groupName" use="optional"/>
+        <xs:attribute type="xs:string" name="library" use="optional"/>
+        <xs:attribute type="xs:string" name="diagramPositionX" use="optional"/>
+        <xs:attribute type="xs:string" name="diagramPositionY" use="optional"/>
+        <xs:attribute type="xs:string" name="componentDefinitionRef" use="optional"/>
+        <xs:attribute type="xs:string" name="parentComponentRef" use="optional"/>
+        <xs:attribute type="xs:string" name="uuid" use="optional"/>
+    </xs:complexType>
+</xs:schema>
