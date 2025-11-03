@@ -78,7 +78,7 @@ class XMLExportService:
         # Get all controls used in this library
         control_uuids = set()
         for rp in lib.risk_patterns.values():
-            relations = {rel for rel in lib.relations.values() if rel.risk_pattern_uuid == rp.uuid}
+            relations = [rel for rel in lib.relations.values() if rel.risk_pattern_uuid == rp.uuid]
             for rel in relations:
                 if rel.control_uuid:
                     control_uuids.add(rel.control_uuid)
@@ -92,7 +92,7 @@ class XMLExportService:
                     if standard:
                         # Find the supported standard by its ref
                         for supported_standard in version.supported_standards.values():
-                            if supported_standard.ref == standard.supported_standard_ref:
+                            if supported_standard.supported_standard_ref == standard.supported_standard_ref:
                                 supported_standard_uuids.add(supported_standard.uuid)
                                 break
         
@@ -100,14 +100,14 @@ class XMLExportService:
         if supported_standard_uuids:
             sorted_supported_standards = sorted(
                 [version.supported_standards[uuid] for uuid in supported_standard_uuids if uuid in version.supported_standards],
-                key=lambda x: x.ref
+                key=lambda x: x.supported_standard_ref
             )
             
             for supported_standard in sorted_supported_standards:
                 std_elem = ET.SubElement(supported_standards_elem, "supportedStandard")
                 std_elem.set("uuid", supported_standard.uuid)
-                std_elem.set("ref", supported_standard.ref)
-                std_elem.set("name", supported_standard.name)
+                std_elem.set("ref", supported_standard.supported_standard_ref)
+                std_elem.set("name", supported_standard.supported_standard_name)
     
     def _set_component_definitions_and_categories(self, root: Element, lib: IRLibrary, version: ILEVersion) -> None:
         """Set component definitions and categories in XML"""
@@ -470,7 +470,7 @@ class XMLExportService:
             rule_elem = ET.SubElement(rules_elem, "rule")
             rule_elem.set("name", r.name)
             rule_elem.set("module", r.module)
-            rule_elem.set("generatedByGui", r.generated_by_gui)
+            rule_elem.set("generatedByGui", r.gui)
             rule_elem.set("matchesAllConditions", "true")
             
             # Conditions

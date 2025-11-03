@@ -1,7 +1,7 @@
-from typing import Dict, List, Optional, Set
+from typing import Dict, List
 import uuid
 from pydantic import BaseModel, Field
-from .base import IRBaseElement, IRBaseElementNoUUID, ItemType
+from .base import IRBaseElement, IRBaseElementNoUUID
 
 
 class IRRiskRating(BaseModel):
@@ -170,7 +170,7 @@ class IRControl(IRBaseElement):
     """Control definition"""
     standards: Dict[str, str] = Field(default_factory=dict)
     references: Dict[str, str] = Field(default_factory=dict)
-    implementations: Set[str] = Field(default_factory=set)
+    implementations: List[str] = Field(default_factory=list)
     test: IRTest = Field(default_factory=lambda: IRTest())
     state: str = "Recommended"
     cost: str = "0"

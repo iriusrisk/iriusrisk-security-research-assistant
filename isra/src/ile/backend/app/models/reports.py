@@ -1,4 +1,4 @@
-from typing import List, Dict, Set
+from typing import List
 from pydantic import BaseModel, Field
 from .base import IRBaseElement
 
@@ -59,11 +59,11 @@ class IRMitigationReport(BaseModel):
 
 class IRSuggestions(BaseModel):
     """Suggestions"""
-    library_suggestions: Set[str] = Field(default_factory=set)
-    threat_suggestions: Set[str] = Field(default_factory=set)
-    weakness_suggestions: Set[str] = Field(default_factory=set)
-    control_suggestions: Set[str] = Field(default_factory=set)
-    relation_suggestions: Set['IRRelation'] = Field(default_factory=set)
+    library_suggestions: List[str] = Field(default_factory=list)
+    threat_suggestions: List[str] = Field(default_factory=list)
+    weakness_suggestions: List[str] = Field(default_factory=list)
+    control_suggestions: List[str] = Field(default_factory=list)
+    relation_suggestions: List['IRRelation'] = Field(default_factory=list)
 
 
 class IRTestReport(BaseModel):

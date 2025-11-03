@@ -319,7 +319,7 @@ class XLSXExportService:
             
             self._set_value_and_color(sheet, working_row, ExcelConstants.RULES_NAME, rule.name, r_color, False)
             self._set_value_and_color(sheet, working_row, ExcelConstants.RULES_MODULE, rule.module, r_color, False)
-            self._set_value_and_color(sheet, working_row, ExcelConstants.RULES_GUI, rule.generated_by_gui, r_color, False)
+            self._set_value_and_color(sheet, working_row, ExcelConstants.RULES_GUI, rule.gui, r_color, False)
             
             # Conditions
             cond_working_row = rule_working_row
@@ -445,7 +445,7 @@ class XLSXExportService:
         
         for supported_standard in version.supported_standards.values():
             color = ExcelConstants.LIBRARY_STANDARD_COLOR_1 if standard_color else ExcelConstants.LIBRARY_STANDARD_COLOR_2
-            values = [supported_standard.name, supported_standard.ref, supported_standard.uuid]
+            values = [supported_standard.supported_standard_name, supported_standard.supported_standard_ref, supported_standard.uuid]
             
             for i, value in enumerate(values, 1):
                 self._set_value_and_color(sheet, working_row, i, value, color, False)
