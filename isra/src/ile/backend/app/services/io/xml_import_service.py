@@ -23,6 +23,24 @@ class XMLImportService:
     def __init__(self):
         pass
     
+    def _get_text_from_element(self, element: Optional[Element]) -> str:
+        """Safely get text from XML element, returning empty string if element is None or text cannot be retrieved
+        
+        Args:
+            element: XML Element to extract text from, can be None
+        
+        Returns:
+            Text content of the element, or empty string if element is None, text is None, or any error occurs
+        """
+        try:
+            if element is None:
+                return ""
+            if element.text is None:
+                return ""
+            return element.text
+        except Exception:
+            return ""
+    
     def import_library_xml(self, filename: str, library: BinaryIO, version_element: ILEVersion) -> None:
         """Import library from XML stream"""
         try:
@@ -34,7 +52,7 @@ class XMLImportService:
             library_name = root.get("name", "")
             library_ref = root.get("ref", "")
             library_desc = root.find("desc")
-            library_desc_text = library_desc.text if library_desc is not None else ""
+            library_desc_text = self._get_text_from_element(library_desc)
             library_revision = root.get("revision", "1")
             library_enabled = root.get("enabled", "true")
             
@@ -178,13 +196,13 @@ class XMLImportService:
                     weakness_ref = weakness_element.get("ref", "")
                     weakness_name = weakness_element.get("name", "")
                     weakness_desc_elem = weakness_element.find("desc")
-                    weakness_desc = weakness_desc_elem.text if weakness_desc_elem is not None else ""
+                    weakness_desc = self._get_text_from_element(weakness_desc_elem)
                     impact = weakness_element.get("impact", "")
                     
                     test_element = weakness_element.find("test")
                     if test_element is not None:
                         steps_element = test_element.find("steps")
-                        test_steps = steps_element.text if steps_element is not None and steps_element.text is not None else ""
+                        test_steps = self._get_text_from_element(steps_element)
                         
                         test_object = IRTest(steps=test_steps)
                         test_object.uuid = test_element.get("uuid", "")
@@ -226,14 +244,14 @@ class XMLImportService:
                     control_ref = control_element.get("ref", "")
                     control_name = control_element.get("name", "")
                     control_desc_elem = control_element.find("desc")
-                    control_desc = control_desc_elem.text if control_desc_elem is not None else ""
+                    control_desc = self._get_text_from_element(control_desc_elem)
                     state = control_element.get("state", "")
                     cost = control_element.get("cost", "")
                     
                     test_element = control_element.find("test")
                     if test_element is not None:
                         steps_element = test_element.find("steps")
-                        test_steps = steps_element.text if steps_element is not None and steps_element.text is not None else ""
+                        test_steps = self._get_text_from_element(steps_element)
                         
                         test_object = IRTest(steps=test_steps)
                         test_object.uuid = test_element.get("uuid", "")
@@ -264,7 +282,7 @@ class XMLImportService:
                         for st in control_element.iter("implementation"):
                             platform = st.get("platform", "")
                             desc_elem = st.find( "desc")
-                            desc = desc_elem.text if desc_elem is not None else ""
+                            desc = self._get_text_from_element(desc_elem)
                             desc = desc.replace("\n", "").replace(" ", "")
                             control.implementations.append(f"{platform}_::_{desc}")
                         
@@ -382,7 +400,7 @@ class XMLImportService:
                     
                     if threat_uuid not in version_element.threats:
                         threat_desc_elem = th.find("desc")
-                        threat_desc = threat_desc_elem.text if threat_desc_elem is not None else ""
+                        threat_desc = self._get_text_from_element(threat_desc_elem)
                         threat = IRThreat(
                             uuid=threat_uuid,
                             ref=th.get("ref", ""),
