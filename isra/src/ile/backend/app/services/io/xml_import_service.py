@@ -336,6 +336,27 @@ class XMLImportService:
     def _set_usecases(self, e: Element, version_element: ILEVersion, new_library: IRLibrary, 
                      weaknesses: Dict[str, IRWeakness], controls: Dict[str, IRControl], risk_pattern: IRRiskPattern) -> None:
         """Set use cases from XML"""
+        
+        def _get_weakness_uuid_by_ref(weakness_ref: str) -> str:
+            """Get weakness UUID by ref, checking local dict first, then version_element"""
+            if weakness_ref in weaknesses:
+                return weaknesses[weakness_ref].uuid
+            # Look up in version_element.weaknesses by ref
+            for weakness in version_element.weaknesses.values():
+                if weakness.ref == weakness_ref:
+                    return weakness.uuid
+            return ""
+        
+        def _get_control_uuid_by_ref(control_ref: str) -> str:
+            """Get control UUID by ref, checking local dict first, then version_element"""
+            if control_ref in controls:
+                return controls[control_ref].uuid
+            # Look up in version_element.controls by ref
+            for control in version_element.controls.values():
+                if control.ref == control_ref:
+                    return control.uuid
+            return ""
+        
         for a in e.iter("usecase"):
             usecase = IRUseCase(
                 uuid=a.get("uuid", ""),
@@ -408,6 +429,7 @@ class XMLImportService:
                     
                     for w in th.iter("weakness"):
                         weakness_ref = w.get("ref", "")
+                        weakness_uuid = _get_weakness_uuid_by_ref(weakness_ref)
                         
                         wc_list = w.iter("countermeasure")
                         if not wc_list:
@@ -415,7 +437,7 @@ class XMLImportService:
                                 risk_pattern_uuid=risk_pattern.uuid,
                                 usecase_uuid=usecase.uuid,
                                 threat_uuid=threat_uuid,
-                                weakness_uuid=weaknesses[weakness_ref].uuid,
+                                weakness_uuid=weakness_uuid,
                                 control_uuid="",
                                 mitigation=""
                             )
@@ -423,25 +445,28 @@ class XMLImportService:
                         else:
                             for wc in wc_list:
                                 control_ref = wc.get("ref", "")
+                                control_uuid = _get_control_uuid_by_ref(control_ref)
                                 relation = IRRelation(
                                     risk_pattern_uuid=risk_pattern.uuid,
                                     usecase_uuid=usecase.uuid,
                                     threat_uuid=threat_uuid,
-                                    weakness_uuid=weaknesses[weakness_ref].uuid,
-                                    control_uuid=controls[control_ref].uuid,
+                                    weakness_uuid=weakness_uuid,
+                                    control_uuid=control_uuid,
                                     mitigation=wc.get("mitigation", "")
                                 )
                                 th_control_refs.add(wc.get("ref", ""))
                                 new_library.relations[relation.uuid] = relation
                     
                     for c in th.iter("countermeasure"):
-                        if c.get("ref", "") not in th_control_refs:
+                        control_ref = c.get("ref", "")
+                        if control_ref not in th_control_refs:
+                            control_uuid = _get_control_uuid_by_ref(control_ref)
                             relation = IRRelation(
                                 risk_pattern_uuid=risk_pattern.uuid,
                                 usecase_uuid=usecase.uuid,
                                 threat_uuid=threat_uuid,
                                 weakness_uuid="",
-                                control_uuid=controls[c.get("ref", "")].uuid,
+                                control_uuid=control_uuid,
                                 mitigation=c.get("mitigation", "")
                             )
                             new_library.relations[relation.uuid] = relation
