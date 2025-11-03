@@ -93,7 +93,7 @@ const CreateChangelogBetweenVersions = (props) => {
     const [loadingLibrary, setLoadingLibrary] = useState(false);
 
     useEffect(() => {
-        axios.get(`/project/versions`)
+        axios.get(`/api/project/versions`)
             .then(res => {
                 if (res.data.versions.length > 0) {
                     setVersions(res.data.versions);

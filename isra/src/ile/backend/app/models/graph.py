@@ -1,6 +1,10 @@
 import uuid
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union, Set, TYPE_CHECKING
+from collections import OrderedDict
 from pydantic import BaseModel, Field
+
+if TYPE_CHECKING:
+    from isra.src.ile.backend.app.models.elements import IRExtendedRelation
 
 
 class Node(BaseModel):
@@ -35,7 +39,9 @@ class Graph(BaseModel):
 
 class GraphList(BaseModel):
     """List of graphs"""
-    graphs: List[Graph] = Field(default_factory=list)
+    graphs: Dict[str, Graph] = Field(default_factory=dict)
+    deleted_libraries: List[str] = Field(default_factory=list)
+    added_libraries: List[str] = Field(default_factory=list)
 
 
 class IRNode(Node):
@@ -441,17 +447,23 @@ class ChangelogItem(BaseModel):
 
 class ChangelogReport(BaseModel):
     """Changelog report"""
-    items: List[ChangelogItem] = Field(default_factory=list)
+    deleted: Set[Any] = Field(default_factory=set)  # IRExtendedRelation
+    added: Set[Any] = Field(default_factory=set)  # IRExtendedRelation
+    new_countermeasures: Dict[str, List[Any]] = Field(default_factory=dict)  # List[IRExtendedRelation]
 
 
 class LibrarySummary(BaseModel):
     """Library summary"""
     ref: str
     name: str
-    num_components: int = 0
-    num_risk_patterns: int = 0
+    status: str  # "ADDED", "DELETED", "MODIFIED"
+    old_revision: Optional[str] = None
+    new_revision: Optional[str] = None
+    has_changes: bool = True
 
 
 class LibrarySummariesResponse(BaseModel):
     """Library summaries response"""
-    summaries: List[LibrarySummary] = Field(default_factory=list)
+    added_libraries: List[LibrarySummary] = Field(default_factory=list)
+    deleted_libraries: List[LibrarySummary] = Field(default_factory=list)
+    modified_libraries: List[LibrarySummary] = Field(default_factory=list)

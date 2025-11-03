@@ -49,7 +49,7 @@ const CreateChangelogBetweenLibraries = (props) => {
     const [data, setData] = useState({"nodes":[], "links":[], "changelogList":[]});
 
     useEffect(() => {
-        axios.get(`/project/report`)
+        axios.get(`/api/project/report`)
             .then(res => {
                 if(res.data.version_reports.length > 0){
                     let vers = [];
