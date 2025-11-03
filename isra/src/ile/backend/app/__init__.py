@@ -32,7 +32,7 @@ from isra.src.ile.backend.app.models.requests import (
     MergeLibraryRequest, ReferenceRequest, ReferenceItemRequest, RelationRequest,
     RiskPatternRequest, RiskRatingRequest, StandardRequest, StandardItemRequest,
     SupportedStandardRequest, TestRequest, ThreatRequest, ThreatUpdateRequest,
-    UsecaseRequest, WeaknessRequest, CopyVersionRequest, ChangelogRequest,
+    UsecaseRequest, WeaknessRequest, WeaknessUpdateRequest, CopyVersionRequest, ChangelogRequest,
     ChangelogVersionRequest, ContentReportRequest, SuggestionRequest
 )
 
@@ -64,6 +64,6 @@ __all__ = [
     'MergeLibraryRequest', 'ReferenceRequest', 'ReferenceItemRequest', 'RelationRequest',
     'RiskPatternRequest', 'RiskRatingRequest', 'StandardRequest', 'StandardItemRequest',
     'SupportedStandardRequest', 'TestRequest', 'ThreatRequest', 'ThreatUpdateRequest',
-    'UsecaseRequest', 'WeaknessRequest', 'CopyVersionRequest', 'ChangelogRequest',
+    'UsecaseRequest', 'WeaknessRequest', 'WeaknessUpdateRequest', 'CopyVersionRequest', 'ChangelogRequest',
     'ChangelogVersionRequest', 'ContentReportRequest', 'SuggestionRequest'
 ]

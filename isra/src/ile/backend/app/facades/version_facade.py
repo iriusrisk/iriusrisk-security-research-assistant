@@ -13,6 +13,7 @@ from isra.src.ile.backend.app.models import (
     SupportedStandardRequest, SupportedStandardUpdateRequest, ThreatRequest, ThreatUpdateRequest, 
     UsecaseRequest, UsecaseUpdateRequest, WeaknessRequest
 )
+from isra.src.ile.backend.app.models.requests import WeaknessUpdateRequest
 from isra.src.ile.backend.app.services.version_service import VersionService
 from isra.src.ile.backend.app.services.test_service import TestService
 
@@ -184,7 +185,7 @@ class VersionFacade:
         """Add weakness"""
         return self.version_service.add_weakness(version_ref, weakness)
     
-    def update_weakness(self, version_ref: str, new_weakness: WeaknessRequest) -> IRWeakness:
+    def update_weakness(self, version_ref: str, new_weakness: WeaknessUpdateRequest) -> IRWeakness:
         """Update weakness"""
         return self.version_service.update_weakness(version_ref, new_weakness)
     

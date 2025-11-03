@@ -173,7 +173,7 @@ class ThreatUpdateRequest(BaseModel):
     stride: List[str] = Field(default_factory=list)
     references_to_add: List[str] = Field(default_factory=list, alias="referencesToAdd")
     references_to_delete: List[str] = Field(default_factory=list, alias="referencesToDelete")
-    
+
     class Config:
         populate_by_name = True
 
@@ -192,6 +192,14 @@ class UsecaseUpdateRequest(BaseModel):
 
 
 class WeaknessRequest(BaseModel):
+    ref: str
+    name: str
+    desc: str
+    impact: str
+
+
+class WeaknessUpdateRequest(BaseModel):
+    uuid: str
     ref: str
     name: str
     desc: str

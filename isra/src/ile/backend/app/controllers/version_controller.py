@@ -6,6 +6,7 @@ from typing import List
 
 from fastapi import APIRouter, Depends, UploadFile, File, HTTPException
 
+from isra.src.ile.backend.app import WeaknessUpdateRequest
 from isra.src.ile.backend.app.facades.version_facade import VersionFacade
 from isra.src.ile.backend.app.models import (
     ILEVersion, IRCategoryComponent, IRControl, IRLibrary, IRReference,
@@ -321,7 +322,7 @@ async def add_weakness(version_ref: str, body: WeaknessRequest,
 
 
 @router.put("/version/{version_ref}/weakness")
-async def update_weakness(version_ref: str, body: WeaknessRequest,
+async def update_weakness(version_ref: str, body: WeaknessUpdateRequest,
                           version_facade: VersionFacade = Depends(get_version_facade)) -> IRWeakness:
     """Update weakness"""
     return version_facade.update_weakness(version_ref, body)

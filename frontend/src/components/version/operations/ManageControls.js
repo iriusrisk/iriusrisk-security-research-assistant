@@ -286,28 +286,33 @@ const ControlDetailPanel = (props) => {
     const [newMitreItem, setNewMitreItem] = useState("");
 
     const loadSuggestions = useCallback(() => {
+        // Only load suggestions if we have a ref
+        if (!data.ref) {
+            return;
+        }
+
         let postdata = {
             type: "control",
-            ref: data.uuid
+            ref: data.ref
         };
         axios.post('/api/version/' + version + '/suggestions', postdata)
             .then(res => {
-                setLibrarySuggestions(res.data.librarySuggestions);
-                setRelationSuggestions(res.data.relationSuggestions);
+                setLibrarySuggestions(res.data.librarySuggestions || []);
+                setRelationSuggestions(res.data.relationSuggestions || []);
             })
-            .catch(err => failedToast(err));
-        axios.get('/api/version/' + version + '/reference',)
+            .catch(err => {
+                console.error('Error loading suggestions:', err);
+                // Don't show error toast for suggestions as it's not critical
+            });
+        axios.get('/api/version/' + version + '/reference')
             .then(res => {
-                setReferenceSuggestions(sortArrayByKey(res.data, "name"));
+                setReferenceSuggestions(sortArrayByKey(res.data || [], "name"));
             })
-            .catch(err => failedToast(err));
-
-        axios.get('/api/version/' + version + '/standard',)
-            .then(res => {
-                setStandardSuggestions(sortArrayByKey(res.data, "standard_ref"));
-            })
-            .catch(err => failedToast(err));
-    }, [version, data.uuid]);
+            .catch(err => {
+                console.error('Error loading references:', err);
+                failedToast("Could not load references");
+            });
+    }, [version, data.ref]);
 
     useEffect(() => {
         loadSuggestions();
