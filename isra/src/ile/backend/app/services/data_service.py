@@ -78,55 +78,94 @@ class DataService:
         self.project.versions.get(version).libraries.pop(library, None)
     
     def get_relations_in_tree(self, lib: IRLibrary) -> Dict[str, IRRiskPatternItem]:
-        """Get relations organized in tree structure"""
+        """Get relations organized in tree structure
+        
+        Tree structure: Risk pattern > Use case > Threat > Weakness > Control
+        
+        Handles various cases:
+        - Relations from risk pattern directly to control (skipping threat/weakness)
+        - Relations without weakness but with control (orphaned control at threat level)
+        - Relations with weakness without control
+        - Relations without weaknesses nor controls
+        - Relations without threats
+        - Always requires risk pattern and use case (minimum)
+        
+        Note: If a control exists without a threat, it cannot be represented in the tree
+        structure and will be skipped, as orphaned controls must be at threat level.
+        """
         risk_patterns = {}
         
         for r in lib.relations.values():
-            rp_ref = r.risk_pattern_uuid
-            u_ref = r.usecase_uuid
-            t_ref = r.threat_uuid
-            w_ref = r.weakness_uuid
-            c_ref = r.control_uuid
+            # Extract UUIDs (not refs, despite variable naming legacy)
+            rp_uuid = r.risk_pattern_uuid
+            u_uuid = r.usecase_uuid
+            t_uuid = r.threat_uuid
+            w_uuid = r.weakness_uuid
+            c_uuid = r.control_uuid
             mit = r.mitigation
             
-            rp = risk_patterns.get(rp_ref)
+            # Risk pattern and use case are always required (minimum)
+            if rp_uuid == "" or u_uuid == "":
+                continue  # Skip invalid relations
+            
+            # Get or create risk pattern
+            rp = risk_patterns.get(rp_uuid)
             if rp is None:
-                rp = IRRiskPatternItem(rp_ref)
+                rp = IRRiskPatternItem(ref=rp_uuid)
                 risk_patterns[rp.ref] = rp
             
-            if u_ref != "":
-                uc = rp.usecases.get(u_ref)
-                if uc is None:
-                    uc = IRUseCaseItem(u_ref)
-                    rp.usecases[uc.ref] = uc
+            # Get or create use case
+            uc = rp.usecases.get(u_uuid)
+            if uc is None:
+                uc = IRUseCaseItem(ref=u_uuid)
+                rp.usecases[uc.ref] = uc
+            
+            # If there's a control, mitigation must be present
+            if c_uuid != "" and mit == "":
+                continue  # Skip relations with control but no mitigation
+            
+            # If there's a control but no threat, we cannot represent it in the tree
+            # structure (orphaned controls require a threat). Still create RP -> UC structure.
+            if c_uuid != "" and t_uuid == "":
+                # Skip this relation as control cannot be represented without threat
+                # RP and UC were already created above, so structure exists for other relations
+                continue
+            
+            # Handle threat level (if threat exists)
+            if t_uuid != "":
+                # Get or create threat
+                t = uc.threats.get(t_uuid)
+                if t is None:
+                    t = IRThreatItem(ref=t_uuid)
+                    uc.threats[t.ref] = t
                 
-                if t_ref != "":
-                    t = uc.threats.get(t_ref)
-                    if t is None:
-                        t = IRThreatItem(t_ref)
-                        uc.threats[t.ref] = t
+                # Case: Has weakness and control
+                if w_uuid != "" and c_uuid != "":
+                    # Get or create weakness
+                    w = t.weaknesses.get(w_uuid)
+                    if w is None:
+                        w = IRWeaknessItem(ref=w_uuid)
+                        t.weaknesses[w.ref] = w
                     
-                    if w_ref != "" and c_ref != "":
-                        # Empty threat, nothing to do
-                        w = t.weaknesses.get(w_ref)
-                        if w is None:
-                            w = IRWeaknessItem(w_ref)
-                            c = IRControlItem(c_ref, mit)
-                            w.controls[c.ref] = c
-                            t.weaknesses[w_ref] = w
-                        else:
-                            c = IRControlItem(c_ref, mit)
-                            t.weaknesses[w_ref].controls[c.ref] = c
-                    elif w_ref == "" and c_ref != "":
-                        # Threat with orphaned control
-                        if c_ref not in t.orphaned_controls:
-                            c = IRControlItem(c_ref, mit)
-                            t.orphaned_controls[c_ref] = c
-                    elif w_ref != "":
-                        # Threat with empty weakness
-                        if w_ref not in t.weaknesses:
-                            w = IRWeaknessItem(w_ref)
-                            t.weaknesses[w_ref] = w
+                    # Add control to weakness
+                    if c_uuid not in w.controls:
+                        c = IRControlItem(ref=c_uuid, mitigation=mit)
+                        w.controls[c.ref] = c
+                
+                # Case: No weakness but has control (orphaned control at threat level)
+                elif w_uuid == "" and c_uuid != "":
+                    if c_uuid not in t.orphaned_controls:
+                        c = IRControlItem(ref=c_uuid, mitigation=mit)
+                        t.orphaned_controls[c_uuid] = c
+                
+                # Case: Has weakness but no control
+                elif w_uuid != "" and c_uuid == "":
+                    if w_uuid not in t.weaknesses:
+                        w = IRWeaknessItem(ref=w_uuid)
+                        t.weaknesses[w.ref] = w
+                
+                # Case: No weakness and no control (just threat)
+                # Nothing to do, threat already created above
         
         return risk_patterns
     

@@ -208,14 +208,17 @@ class XMLExportService:
         
         if rp_item:
             # Sort use cases by ref
+            # uc.ref is the UUID (from get_relations_in_tree), version.usecases is keyed by UUID
             sorted_usecases = sorted(
-                [version.usecases[uc.ref] for uc in rp_item.usecases.values() if uc.ref in version.usecases],
+                [version.usecases[uc_uuid] for uc_uuid, uc in rp_item.usecases.items() 
+                 if uc_uuid in version.usecases],
                 key=lambda x: x.ref
             )
             
             for usecase in sorted_usecases:
-                # Find the corresponding use case item
-                uc = next((item for item in rp_item.usecases.values() if item.ref == usecase.uuid), None)
+                # Get the corresponding use case item (uc.ref is the UUID)
+                uc_uuid = usecase.uuid
+                uc = rp_item.usecases.get(uc_uuid)
                 if not uc:
                     continue
                 
@@ -230,17 +233,17 @@ class XMLExportService:
                 threats_elem = ET.SubElement(uc_elem, "threats")
                 
                 # Sort threats by ref
+                # threat_item.ref is the UUID (from get_relations_in_tree), version.threats is keyed by UUID
                 sorted_threats = sorted(
-                    [version.threats[threat_item.ref] for threat_item in uc.threats.values() 
-                     if threat_item.ref in version.threats],
+                    [version.threats[t_uuid] for t_uuid, threat_item in uc.threats.items() 
+                     if t_uuid in version.threats],
                     key=lambda x: x.ref
                 )
                 
                 for th in sorted_threats:
-                    # Find the corresponding threat item
-                    threat_item = next((item for item in uc.threats.values() 
-                                      if version.threats.get(item.ref) and 
-                                      version.threats[item.ref].uuid == th.uuid), None)
+                    # Get the corresponding threat item (threat_item.ref is the UUID)
+                    t_uuid = th.uuid
+                    threat_item = uc.threats.get(t_uuid)
                     if not threat_item:
                         continue
                     
@@ -281,28 +284,31 @@ class XMLExportService:
                     
                     # Weaknesses
                     weaknesses_elem = ET.SubElement(th_elem, "weaknesses")
-                    for w_ref, w_item in threat_item.weaknesses.items():
+                    # w_item.ref is the UUID (from get_relations_in_tree), version.weaknesses is keyed by UUID
+                    for w_uuid, w_item in threat_item.weaknesses.items():
+                        if w_uuid not in version.weaknesses:
+                            continue
                         w_elem = ET.SubElement(weaknesses_elem, "weakness")
-                        w_elem.set("ref", version.weaknesses[w_ref].ref)
+                        w_elem.set("ref", version.weaknesses[w_uuid].ref)
                         
                         # Countermeasures
                         countermeasures_elem = ET.SubElement(w_elem, "countermeasures")
-                        for c_ref, c_item in w_item.controls.items():
+                        # c_item.ref is the UUID (from get_relations_in_tree), version.controls is keyed by UUID
+                        for c_uuid, c_item in w_item.controls.items():
+                            if c_uuid not in version.controls:
+                                continue
                             cm_elem = ET.SubElement(countermeasures_elem, "countermeasure")
-                            cm_elem.set("ref", version.controls[c_item.ref].ref)
+                            cm_elem.set("ref", version.controls[c_uuid].ref)
                             cm_elem.set("mitigation", c_item.mitigation)
                     
-                    # Countermeasures
+                    # Orphaned controls (controls without weaknesses, directly under threat)
                     countermeasures_elem = ET.SubElement(th_elem, "countermeasures")
-                    for c_ref, mitigation in threat_item.controls.items():
+                    # c_item.ref is the UUID (from get_relations_in_tree), version.controls is keyed by UUID
+                    for c_uuid, c_item in threat_item.orphaned_controls.items():
+                        if c_uuid not in version.controls:
+                            continue
                         cm_elem = ET.SubElement(countermeasures_elem, "countermeasure")
-                        cm_elem.set("ref", version.controls[c_ref].ref)
-                        cm_elem.set("mitigation", mitigation)
-                    
-                    # Orphaned controls
-                    for c_ref, c_item in threat_item.orphaned_controls.items():
-                        cm_elem = ET.SubElement(countermeasures_elem, "countermeasure")
-                        cm_elem.set("ref", version.controls[c_item.ref].ref)
+                        cm_elem.set("ref", version.controls[c_uuid].ref)
                         cm_elem.set("mitigation", c_item.mitigation)
                     
                     # Custom fields
