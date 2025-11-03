@@ -67,6 +67,8 @@ class XMLImportService:
                 filename=filename,
                 enabled=library_enabled
             )
+
+            print(f"Importing library: {new_library.ref}")
             
             # Import various elements
             self._set_category_components(root, version_element)
@@ -191,8 +193,8 @@ class XMLImportService:
             if weakness_element.get("impact") is not None:
                 ref = weakness_element.get("ref", "")
                 weakness_uuid = weakness_element.get("uuid", "")
-                # Check if weakness with this ref or uuid already exists
-                if weakness_uuid not in version_element.weaknesses and not any(w.ref == ref for w in version_element.weaknesses.values()):
+                # Check if weakness with this uuid already exists (UUID is the unique identifier)
+                if weakness_uuid not in version_element.weaknesses:
                     weakness_ref = weakness_element.get("ref", "")
                     weakness_name = weakness_element.get("name", "")
                     weakness_desc_elem = weakness_element.find("desc")
@@ -239,8 +241,8 @@ class XMLImportService:
             if control_element.get("state") is not None:
                 ref = control_element.get("ref", "")
                 control_uuid = control_element.get("uuid", "")
-                # Check if control with this ref or uuid already exists
-                if control_uuid not in version_element.controls and not any(c.ref == ref for c in version_element.controls.values()):
+                # Check if control with this uuid already exists (UUID is the unique identifier)
+                if control_uuid not in version_element.controls:
                     control_ref = control_element.get("ref", "")
                     control_name = control_element.get("name", "")
                     control_desc_elem = control_element.find("desc")
