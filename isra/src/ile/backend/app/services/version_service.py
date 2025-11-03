@@ -210,8 +210,55 @@ class VersionService:
     def fix_non_ascii_values(self, version_ref: str) -> None:
         """Fix non-ASCII values in version"""
         logger.info(f"Fixing non-ASCII values in version {version_ref}")
-        # Simplified implementation - would fix non-ASCII characters
-        pass
+        version = self.data_service.get_version(version_ref)
+        
+        # Fix risk patterns in libraries
+        for library in version.libraries.values():
+            for risk_pattern in library.risk_patterns.values():
+                risk_pattern.name = self._fix_ascii(risk_pattern.ref, risk_pattern.name)
+                risk_pattern.desc = self._fix_ascii(risk_pattern.ref, risk_pattern.desc)
+            
+            # Fix component definitions in libraries
+            for component_def in library.component_definitions.values():
+                component_def.name = self._fix_ascii(component_def.ref, component_def.name)
+                component_def.desc = self._fix_ascii(component_def.ref, component_def.desc)
+        
+        # Fix use cases
+        for usecase in version.usecases.values():
+            usecase.name = self._fix_ascii(usecase.ref, usecase.name)
+            usecase.desc = self._fix_ascii(usecase.ref, usecase.desc)
+        
+        # Fix threats
+        for threat in version.threats.values():
+            threat.name = self._fix_ascii(threat.ref, threat.name)
+            threat.desc = self._fix_ascii(threat.ref, threat.desc)
+        
+        # Fix weaknesses
+        for weakness in version.weaknesses.values():
+            weakness.name = self._fix_ascii(weakness.ref, weakness.name)
+            weakness.desc = self._fix_ascii(weakness.ref, weakness.desc)
+            weakness.test.steps = self._fix_ascii(weakness.ref, weakness.test.steps)
+        
+        # Fix controls
+        for control in version.controls.values():
+            control.name = self._fix_ascii(control.ref, control.name)
+            control.desc = self._fix_ascii(control.ref, control.desc)
+            control.test.steps = self._fix_ascii(control.ref, control.test.steps)
+    
+    def _fix_ascii(self, ref: str, text: str) -> str:
+        """Fix non-ASCII characters in text"""
+        if not text:
+            return text
+        
+        result = text
+        for char in text:
+            code = ord(char)
+            if code in ILEConstants.NON_ASCII_CODES:
+                replacement = ILEConstants.NON_ASCII_CODES[code]
+                logger.debug(f"{ref}: Replaced {char} with {replacement}")
+                result = result.replace(char, replacement)
+        
+        return result
     
     # CRUD operations for various elements
     
