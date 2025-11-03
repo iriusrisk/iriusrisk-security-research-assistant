@@ -40,13 +40,21 @@ const useStyles = makeStyles((theme) => ({
 
 const RunContentTests = ({version}) => {
     const classes = useStyles();
-    const [data, setData] = useState({testResults: {}});
-    const [showErrors, setShowErrors] = useState([]);
+    const [data, setData] = useState({
+        numSuccessTests: 0,
+        numFailedTests: 0,
+        testResults: {}
+    });
+    const [showErrors, setShowErrors] = useState('');
 
     useEffect(() => {
         axios.get('/api/version/' + version + '/test')
             .then(res => {
-                setData(res.data);
+                setData({
+                    numSuccessTests: res.data.num_success_tests ?? res.data.numSuccessTests ?? 0,
+                    numFailedTests: res.data.num_failed_tests ?? res.data.numFailedTests ?? 0,
+                    testResults: res.data.test_results ?? res.data.testResults ?? {}
+                });
             })
             .catch(err => failedToast(err));
     }, [version]);
@@ -71,7 +79,7 @@ const RunContentTests = ({version}) => {
                     </Grid>
                     <Grid item xs={3}>
                         <List>
-                            {Object.keys(data.testResults).sort().map((value, index) => {
+                            {data.testResults && Object.keys(data.testResults).sort().map((value, index) => {
                                 return <div key={index}>
                                     {data.testResults[value].length === 0 &&
                                      <ListItem className={classes.rootGreen}
@@ -87,7 +95,7 @@ const RunContentTests = ({version}) => {
                         </List>
                     </Grid>
                     <Grid item xs={9}>
-                        {showErrors.length !== 0 &&
+                        {showErrors && data.testResults && data.testResults[showErrors] &&
                          <div>
                              <Typography variant="h6">
                                  {showErrors}

@@ -214,13 +214,13 @@ class TestService:
             "IMPORT_RISK_PATTERN_ORIGIN", "IMPORT_RISK_PATTERN_DESTINATION"
         }
         
-        rules = set()
+        rules = []
         for l in v.libraries.values():
-            rules.update(l.rules)
+            rules.extend(l.rules)
         
-        component_definitions = set()
+        component_definitions = []
         for l in v.libraries.values():
-            component_definitions.update(l.component_definitions.values())
+            component_definitions.extend(l.component_definitions.values())
         
         exceptions = ["mitre-attack-framework"]
         
@@ -250,9 +250,9 @@ class TestService:
         errors = []
         
         all_risk_patterns = set()
-        component_definitions = set()
+        component_definitions = []
         for l in v.libraries.values():
-            component_definitions.update(l.component_definitions.values())
+            component_definitions.extend(l.component_definitions.values())
             for rp in l.risk_patterns.values():
                 all_risk_patterns.add(rp.ref)
         
@@ -266,10 +266,10 @@ class TestService:
         """Test for wrong library references in rules"""
         errors = []
         libraries = set()
-        rules = set()
+        rules = []
         
         for l in v.libraries.values():
-            rules.update(l.rules)
+            rules.extend(l.rules)
             libraries.add(l.ref)
         
         for r in rules:
@@ -291,9 +291,9 @@ class TestService:
     def test_unhandled_rules_elements(self, v: ILEVersion) -> List[str]:
         """Test for unhandled rule elements"""
         errors = []
-        rules = set()
+        rules = []
         for l in v.libraries.values():
-            rules.update(l.rules)
+            rules.extend(l.rules)
         
         # Hardcoded: If the condition/action is not here we need to add them
         handled_conditions = {

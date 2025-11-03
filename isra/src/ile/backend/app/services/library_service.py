@@ -95,7 +95,7 @@ class LibraryService:
         report = IRMitigationReport()
         
         for rp in lib.risk_patterns.values():
-            s = IRMitigationRiskPattern(rp.ref)
+            s = IRMitigationRiskPattern(risk_pattern_ref=rp.ref)
             risk_pattern_tree = self.data_service.get_relations_in_tree(lib)
             rp_item = risk_pattern_tree.get(rp.uuid)
             
@@ -114,12 +114,12 @@ class LibraryService:
                         # First part: find if the threat has incorrect mitigation values
                         mitigation_count = 0
                         
-                        threat_rels = {
+                        threat_rels = [
                             rel for rel in lib.relations.values()
                             if (rel.risk_pattern_uuid == rp.uuid and
                                 rel.usecase_uuid == uc.ref and
                                 rel.threat_uuid == t.ref)
-                        }
+                        ]
                         
                         already_checked = set()
                         for rel in threat_rels:
@@ -139,13 +139,14 @@ class LibraryService:
                             logger.info(message)
                             logger.info(f"Total mitigation: {mitigation_count}")
                             
-                            item = IRMitigationItem()
-                            item.usecase_ref = uc.ref
-                            item.threat_ref = t.ref
-                            item.message = message
-                            item.total = str(mitigation_count)
-                            item.relations = list(threat_rels)
-                            item.error = True
+                            item = IRMitigationItem(
+                                usecase_ref=uc.ref,
+                                threat_ref=t.ref,
+                                message=message,
+                                total=str(mitigation_count),
+                                relations=threat_rels,
+                                error=True
+                            )
                             
                             s.threats.append(item)
             
