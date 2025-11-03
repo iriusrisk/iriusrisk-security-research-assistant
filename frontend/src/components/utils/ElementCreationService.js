@@ -83,7 +83,7 @@ export const createElementWithUpdate = async (elementType, version, data) => {
 
     try {
         // Step 1: Create the element with basic data
-        const createResponse = await axios.post(
+        const createResponse = await axios.post("/api/"+
             config.createEndpoint(version), 
             config.createRequest(data)
         );
@@ -103,7 +103,7 @@ export const createElementWithUpdate = async (elementType, version, data) => {
                 }
             };
             
-            await axios.put(
+            await axios.put("/api/"+
                 config.updateEndpoint(version),
                 updateData
             );

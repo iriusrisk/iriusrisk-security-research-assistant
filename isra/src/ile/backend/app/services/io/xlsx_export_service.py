@@ -3,19 +3,16 @@ XLSX export service for IriusRisk Library Editor API
 """
 
 import logging
-from typing import Dict, List, Set
+from typing import List
 from pathlib import Path
 
-import openpyxl
-from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
-from openpyxl.workbook import Workbook
+import pandas as pd
+import xlsxwriter
+from xlsxwriter.utility import xl_col_to_name
 
 from isra.src.ile.backend.app.configuration import ExcelConstants
 from isra.src.ile.backend.app.models import (
-    ILEVersion, IRCategoryComponent, IRComponentDefinition, IRControl,
-    IRLibrary, IRReference, IRRelation, IRRiskPattern, IRRule,
-    IRRuleAction, IRRuleCondition, IRStandard, IRSupportedStandard,
-    IRTest, IRThreat, IRUseCase, IRWeakness
+    ILEVersion, IRLibrary
 )
 from isra.src.ile.backend.app.services.data_service import DataService
 
@@ -33,134 +30,165 @@ class XLSXExportService:
         xlsx_file_path = Path(version_path) / lib.filename.replace("xml", "xlsx")
         
         try:
-            # Create workbook
-            workbook = openpyxl.Workbook()
+            # Create ExcelWriter with xlsxwriter engine
+            with pd.ExcelWriter(xlsx_file_path, engine='xlsxwriter') as writer:
+                workbook = writer.book
+                
+                # Create sheet content - each method creates DataFrame and writes it
+                # Then applies styling using xlsxwriter
+                self._create_risk_patterns_sheet(writer, workbook, lib)
+                self._create_rules_sheet(writer, workbook, lib)
+                self._create_library_properties_sheet(writer, workbook, lib)
+                self._create_relations_sheet(writer, workbook, lib)
+                self._create_references_sheet(writer, workbook, lib, version)
+                self._create_usecases_sheet(writer, workbook, lib, version)
+                self._create_threats_sheet(writer, workbook, lib, version)
+                self._create_weaknesses_sheet(writer, workbook, lib, version)
+                self._create_controls_sheet(writer, workbook, lib, version)
+                self._create_components_sheet(writer, workbook, lib, version)
+                self._create_standards_sheet(writer, workbook, lib, version)
+                self._create_supported_standards_sheet(writer, workbook, lib, version)
             
-            # Remove default sheet
-            workbook.remove(workbook.active)
-            
-            # Create sheets
-            risk_patterns_sheet = workbook.create_sheet("Risk Patterns")
-            usecases_sheet = workbook.create_sheet("Use Cases")
-            threats_sheet = workbook.create_sheet("Threats")
-            weaknesses_sheet = workbook.create_sheet("Weaknesses")
-            controls_sheet = workbook.create_sheet("Controls")
-            references_sheet = workbook.create_sheet("References")
-            relations_sheet = workbook.create_sheet("Relations")
-            rules_sheet = workbook.create_sheet("Rules")
-            properties_sheet = workbook.create_sheet("Library properties")
-            components_sheet = workbook.create_sheet("Components")
-            standards_sheet = workbook.create_sheet("Standards")
-            supported_standards_sheet = workbook.create_sheet("Supported standards")
-            
-            # Create sheet content
-            self._create_risk_patterns_sheet(risk_patterns_sheet, lib)
-            self._create_rules_sheet(rules_sheet, lib)
-            self._create_library_properties_sheet(properties_sheet, lib)
-            self._create_relations_sheet(relations_sheet, lib)
-            self._create_references_sheet(references_sheet, lib, version)
-            self._create_usecases_sheet(usecases_sheet, lib, version)
-            self._create_threats_sheet(threats_sheet, lib, version)
-            self._create_weaknesses_sheet(weaknesses_sheet, lib, version)
-            self._create_controls_sheet(controls_sheet, lib, version)
-            self._create_components_sheet(components_sheet, lib, version)
-            self._create_standards_sheet(standards_sheet, lib, version)
-            self._create_supported_standards_sheet(supported_standards_sheet, lib, version)
-            
-            # Save workbook
-            workbook.save(xlsx_file_path)
             logger.info(f"Export process finished: {xlsx_file_path}")
             
         except Exception as e:
             logger.error(f"Exception while saving {lib.ref} to XLSX: {e}")
             raise RuntimeError(f"Failed to export library to XLSX: {e}") from e
     
-    def _create_references_sheet(self, sheet, lib: IRLibrary, version: ILEVersion) -> None:
+    def _create_format(self, workbook: xlsxwriter.Workbook, color: str, header: bool = False) -> xlsxwriter.format.Format:
+        """Create xlsxwriter format with color and styling"""
+        format_dict = {
+            'bg_color': f"#{color}",
+            'border': 1,
+            'border_color': '#FFFFFF',
+            'align': 'center',
+            'valign': 'vcenter',
+            'text_wrap': not header,
+        }
+        if header:
+            format_dict['bold'] = True
+            format_dict['font_color'] = '#FFFFFF'
+        else:
+            format_dict['font_color'] = '#000000'
+        
+        return workbook.add_format(format_dict)
+    
+    def _apply_column_widths(self, worksheet: xlsxwriter.worksheet.Worksheet, num_cols: int, width: float = 30.0) -> None:
+        """Apply column widths to worksheet"""
+        for i in range(num_cols):
+            worksheet.set_column(i, i, width)
+    
+    def _apply_row_heights(self, worksheet: xlsxwriter.worksheet.Worksheet, num_rows: int, height: float = 15.0) -> None:
+        """Apply row heights to worksheet"""
+        for i in range(num_rows):
+            worksheet.set_row(i, height)
+    
+    def _create_references_sheet(self, writer: pd.ExcelWriter, workbook: xlsxwriter.Workbook, lib: IRLibrary, version: ILEVersion) -> None:
         """Create references sheet"""
-        # Headers
-        self._set_value_and_color(sheet, 1, 1, "Name", ExcelConstants.RISK_PATTERN_HEADER, True)
-        self._set_value_and_color(sheet, 1, 2, "URL", ExcelConstants.RISK_PATTERN_HEADER, True)
-        self._set_value_and_color(sheet, 1, 3, "UUID", ExcelConstants.RISK_PATTERN_HEADER, True)
-        
-        alternating_color = True
-        working_row = 2
-        
+        # Create DataFrame
+        data = []
         for reference in version.references.values():
-            color = ExcelConstants.RISK_PATTERN_COLOR_1 if alternating_color else ExcelConstants.RISK_PATTERN_COLOR_2
-            self._set_value_and_color(sheet, working_row, 1, reference.name, color, False)
-            self._set_value_and_color(sheet, working_row, 2, reference.url, color, False)
-            self._set_value_and_color(sheet, working_row, 3, reference.uuid, color, False)
-            
-            alternating_color = not alternating_color
-            working_row += 1
+            data.append({
+                'Name': reference.name,
+                'URL': reference.url,
+                'UUID': reference.uuid
+            })
+        
+        df = pd.DataFrame(data)
+        df.to_excel(writer, sheet_name='References', index=False, header=True)
+        
+        # Apply styling
+        worksheet = writer.sheets['References']
+        header_format = self._create_format(workbook, ExcelConstants.RISK_PATTERN_HEADER, header=True)
+        
+        # Format header row
+        for col_num in range(len(df.columns)):
+            worksheet.write(0, col_num, df.columns[col_num], header_format)
+        
+        # Format data rows with alternating colors
+        for row_num in range(1, len(df) + 1):
+            color = ExcelConstants.RISK_PATTERN_COLOR_1 if row_num % 2 == 1 else ExcelConstants.RISK_PATTERN_COLOR_2
+            row_format = self._create_format(workbook, color, header=False)
+            for col_num in range(len(df.columns)):
+                worksheet.write(row_num, col_num, df.iloc[row_num - 1, col_num], row_format)
         
         # Set column widths
-        sheet.column_dimensions['A'].width = 100.0
-        sheet.column_dimensions['B'].width = 100.0
+        worksheet.set_column(0, 0, 100.0)
+        worksheet.set_column(1, 1, 100.0)
+        worksheet.set_column(2, 2, 30.0)
     
-    def _create_risk_patterns_sheet(self, sheet, lib: IRLibrary) -> None:
+    def _create_risk_patterns_sheet(self, writer: pd.ExcelWriter, workbook: xlsxwriter.Workbook, lib: IRLibrary) -> None:
         """Create risk patterns sheet"""
-        # Headers
-        self._set_value_and_color(sheet, 1, 1, "Ref", ExcelConstants.RISK_PATTERN_HEADER, True)
-        self._set_value_and_color(sheet, 1, 2, "Name", ExcelConstants.RISK_PATTERN_HEADER, True)
-        self._set_value_and_color(sheet, 1, 3, "Desc", ExcelConstants.RISK_PATTERN_HEADER, True)
-        self._set_value_and_color(sheet, 1, 4, "UUID", ExcelConstants.RISK_PATTERN_HEADER, True)
-        
-        alternating_color = True
-        working_row = 2
-        
+        # Create DataFrame
+        data = []
         for rp in lib.risk_patterns.values():
-            color = ExcelConstants.RISK_PATTERN_COLOR_1 if alternating_color else ExcelConstants.RISK_PATTERN_COLOR_2
-            self._set_value_and_color(sheet, working_row, 1, rp.ref, color, False)
-            self._set_value_and_color(sheet, working_row, 2, rp.name, color, False)
-            self._set_value_and_color(sheet, working_row, 3, rp.desc, color, False)
-            self._set_value_and_color(sheet, working_row, 4, rp.uuid, color, False)
-            
-            alternating_color = not alternating_color
-            working_row += 1
+            data.append({
+                'Ref': rp.ref,
+                'Name': rp.name,
+                'Desc': rp.desc,
+                'UUID': rp.uuid
+            })
         
-        self._adjust_height_and_width(sheet, working_row, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
+        df = pd.DataFrame(data)
+        df.to_excel(writer, sheet_name='Risk Patterns', index=False, header=True)
+        
+        # Apply styling
+        worksheet = writer.sheets['Risk Patterns']
+        header_format = self._create_format(workbook, ExcelConstants.RISK_PATTERN_HEADER, header=True)
+        
+        # Format header row
+        for col_num in range(len(df.columns)):
+            worksheet.write(0, col_num, df.columns[col_num], header_format)
+        
+        # Format data rows with alternating colors
+        for row_num in range(1, len(df) + 1):
+            color = ExcelConstants.RISK_PATTERN_COLOR_1 if row_num % 2 == 1 else ExcelConstants.RISK_PATTERN_COLOR_2
+            row_format = self._create_format(workbook, color, header=False)
+            for col_num in range(len(df.columns)):
+                worksheet.write(row_num, col_num, df.iloc[row_num - 1, col_num], row_format)
+        
+        self._adjust_height_and_width(worksheet, len(df) + 1, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
     
-    def _create_usecases_sheet(self, sheet, lib: IRLibrary, version: ILEVersion) -> None:
+    def _create_usecases_sheet(self, writer: pd.ExcelWriter, workbook: xlsxwriter.Workbook, lib: IRLibrary, version: ILEVersion) -> None:
         """Create use cases sheet"""
-        # Headers
-        self._set_value_and_color(sheet, 1, 1, "Ref", ExcelConstants.USE_CASE_HEADER, True)
-        self._set_value_and_color(sheet, 1, 2, "Name", ExcelConstants.USE_CASE_HEADER, True)
-        self._set_value_and_color(sheet, 1, 3, "Desc", ExcelConstants.USE_CASE_HEADER, True)
-        self._set_value_and_color(sheet, 1, 4, "UUID", ExcelConstants.USE_CASE_HEADER, True)
-        
-        alternating_color = True
-        working_row = 2
-        
+        # Create DataFrame
+        data = []
         usecases = self._get_list_from_relations(lib, "usecases")
         
         for uc_ref in usecases:
             usecase = version.usecases.get(uc_ref)
             if usecase:
-                color = ExcelConstants.USE_CASE_COLOR_1 if alternating_color else ExcelConstants.USE_CASE_COLOR_2
-                self._set_value_and_color(sheet, working_row, 1, usecase.ref, color, False)
-                self._set_value_and_color(sheet, working_row, 2, usecase.name, color, False)
-                self._set_value_and_color(sheet, working_row, 3, usecase.desc, color, False)
-                self._set_value_and_color(sheet, working_row, 4, usecase.uuid, color, False)
-                
-                alternating_color = not alternating_color
-                working_row += 1
+                data.append({
+                    'Ref': usecase.ref,
+                    'Name': usecase.name,
+                    'Desc': usecase.desc,
+                    'UUID': usecase.uuid
+                })
         
-        self._adjust_height_and_width(sheet, working_row, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
+        df = pd.DataFrame(data)
+        df.to_excel(writer, sheet_name='Use Cases', index=False, header=True)
+        
+        # Apply styling
+        worksheet = writer.sheets['Use Cases']
+        header_format = self._create_format(workbook, ExcelConstants.USE_CASE_HEADER, header=True)
+        
+        # Format header row
+        for col_num in range(len(df.columns)):
+            worksheet.write(0, col_num, df.columns[col_num], header_format)
+        
+        # Format data rows with alternating colors
+        for row_num in range(1, len(df) + 1):
+            color = ExcelConstants.USE_CASE_COLOR_1 if row_num % 2 == 1 else ExcelConstants.USE_CASE_COLOR_2
+            row_format = self._create_format(workbook, color, header=False)
+            for col_num in range(len(df.columns)):
+                worksheet.write(row_num, col_num, df.iloc[row_num - 1, col_num], row_format)
+        
+        self._adjust_height_and_width(worksheet, len(df) + 1, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
     
-    def _create_threats_sheet(self, sheet, lib: IRLibrary, version: ILEVersion) -> None:
+    def _create_threats_sheet(self, writer: pd.ExcelWriter, workbook: xlsxwriter.Workbook, lib: IRLibrary, version: ILEVersion) -> None:
         """Create threats sheet"""
-        # Headers
-        headers = [
-            "Ref", "Name", "Desc", "Confidentiality", "Integrity", "Availability",
-            "Ease Of Exploitation", "References", "Mitre", "STRIDE", "UUID"
-        ]
-        for i, header in enumerate(headers, 1):
-            self._set_value_and_color(sheet, 1, i, header, ExcelConstants.THREAT_HEADER, True)
-        
-        alternating_color = True
-        working_row = 2
-        
+        # Create DataFrame
+        data = []
         threats = self._get_list_from_relations(lib, "threats")
         
         for threat_ref in threats:
@@ -170,37 +198,44 @@ class XLSXExportService:
                 threat_references = [f"{key}:{value}" for key, value in threat.references.items()]
                 refs = ExcelConstants.SEPARATOR.join(threat_references)
                 
-                color = ExcelConstants.THREAT_COLOR_1 if alternating_color else ExcelConstants.THREAT_COLOR_2
-                values = [
-                    threat.ref, threat.name, threat.desc,
-                    threat.risk_rating.confidentiality if threat.risk_rating else "",
-                    threat.risk_rating.integrity if threat.risk_rating else "",
-                    threat.risk_rating.availability if threat.risk_rating else "",
-                    threat.risk_rating.ease_of_exploitation if threat.risk_rating else "",
-                    refs,
-                    ExcelConstants.SEPARATOR.join(threat.mitre or []),
-                    ExcelConstants.SEPARATOR.join(threat.stride or []),
-                    threat.uuid
-                ]
-                
-                for i, value in enumerate(values, 1):
-                    self._set_value_and_color(sheet, working_row, i, value, color, False)
-                
-                alternating_color = not alternating_color
-                working_row += 1
+                data.append({
+                    'Ref': threat.ref,
+                    'Name': threat.name,
+                    'Desc': threat.desc,
+                    'Confidentiality': threat.risk_rating.confidentiality if threat.risk_rating else "",
+                    'Integrity': threat.risk_rating.integrity if threat.risk_rating else "",
+                    'Availability': threat.risk_rating.availability if threat.risk_rating else "",
+                    'Ease Of Exploitation': threat.risk_rating.ease_of_exploitation if threat.risk_rating else "",
+                    'References': refs,
+                    'Mitre': ExcelConstants.SEPARATOR.join(threat.mitre or []),
+                    'STRIDE': ExcelConstants.SEPARATOR.join(threat.stride or []),
+                    'UUID': threat.uuid
+                })
         
-        self._adjust_height_and_width(sheet, working_row, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
+        df = pd.DataFrame(data)
+        df.to_excel(writer, sheet_name='Threats', index=False, header=True)
+        
+        # Apply styling
+        worksheet = writer.sheets['Threats']
+        header_format = self._create_format(workbook, ExcelConstants.THREAT_HEADER, header=True)
+        
+        # Format header row
+        for col_num in range(len(df.columns)):
+            worksheet.write(0, col_num, df.columns[col_num], header_format)
+        
+        # Format data rows with alternating colors
+        for row_num in range(1, len(df) + 1):
+            color = ExcelConstants.THREAT_COLOR_1 if row_num % 2 == 1 else ExcelConstants.THREAT_COLOR_2
+            row_format = self._create_format(workbook, color, header=False)
+            for col_num in range(len(df.columns)):
+                worksheet.write(row_num, col_num, df.iloc[row_num - 1, col_num], row_format)
+        
+        self._adjust_height_and_width(worksheet, len(df) + 1, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
     
-    def _create_weaknesses_sheet(self, sheet, lib: IRLibrary, version: ILEVersion) -> None:
+    def _create_weaknesses_sheet(self, writer: pd.ExcelWriter, workbook: xlsxwriter.Workbook, lib: IRLibrary, version: ILEVersion) -> None:
         """Create weaknesses sheet"""
-        # Headers
-        headers = ["Ref", "Name", "Desc", "Impact", "Test Steps", "Test References", "UUID"]
-        for i, header in enumerate(headers, 1):
-            self._set_value_and_color(sheet, 1, i, header, ExcelConstants.WEAKNESS_HEADER, True)
-        
-        alternating_color = True
-        working_row = 2
-        
+        # Create DataFrame
+        data = []
         weaknesses = self._get_list_from_relations(lib, "weaknesses")
         
         for weakness_ref in weaknesses:
@@ -210,34 +245,40 @@ class XLSXExportService:
                 test_references = [f"{key}:{value}" for key, value in weakness.test.references.items()]
                 t_refs = ExcelConstants.SEPARATOR.join(test_references)
                 
-                color = ExcelConstants.WEAKNESS_COLOR_1 if alternating_color else ExcelConstants.WEAKNESS_COLOR_2
-                values = [
-                    weakness.ref, weakness.name, weakness.desc, weakness.impact,
-                    weakness.test.steps, t_refs, weakness.uuid
-                ]
-                
-                for i, value in enumerate(values, 1):
-                    self._set_value_and_color(sheet, working_row, i, value, color, False)
-                
-                alternating_color = not alternating_color
-                working_row += 1
+                data.append({
+                    'Ref': weakness.ref,
+                    'Name': weakness.name,
+                    'Desc': weakness.desc,
+                    'Impact': weakness.impact,
+                    'Test Steps': weakness.test.steps,
+                    'Test References': t_refs,
+                    'UUID': weakness.uuid
+                })
         
-        self._adjust_height_and_width(sheet, working_row, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
+        df = pd.DataFrame(data)
+        df.to_excel(writer, sheet_name='Weaknesses', index=False, header=True)
+        
+        # Apply styling
+        worksheet = writer.sheets['Weaknesses']
+        header_format = self._create_format(workbook, ExcelConstants.WEAKNESS_HEADER, header=True)
+        
+        # Format header row
+        for col_num in range(len(df.columns)):
+            worksheet.write(0, col_num, df.columns[col_num], header_format)
+        
+        # Format data rows with alternating colors
+        for row_num in range(1, len(df) + 1):
+            color = ExcelConstants.WEAKNESS_COLOR_1 if row_num % 2 == 1 else ExcelConstants.WEAKNESS_COLOR_2
+            row_format = self._create_format(workbook, color, header=False)
+            for col_num in range(len(df.columns)):
+                worksheet.write(row_num, col_num, df.iloc[row_num - 1, col_num], row_format)
+        
+        self._adjust_height_and_width(worksheet, len(df) + 1, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
     
-    def _create_controls_sheet(self, sheet, lib: IRLibrary, version: ILEVersion) -> None:
+    def _create_controls_sheet(self, writer: pd.ExcelWriter, workbook: xlsxwriter.Workbook, lib: IRLibrary, version: ILEVersion) -> None:
         """Create controls sheet"""
-        # Headers
-        headers = [
-            "Ref", "Name", "Desc", "State", "Cost", "References", "Test Steps",
-            "Test References", "Standards", "Implementations", "Base Standard",
-            "Base Standard Section", "Scope", "MITRE", "UUID"
-        ]
-        for i, header in enumerate(headers, 1):
-            self._set_value_and_color(sheet, 1, i, header, ExcelConstants.COUNTERMEASURE_HEADER, True)
-        
-        alternating_color = True
-        working_row = 2
-        
+        # Create DataFrame
+        data = []
         controls = self._get_list_from_relations(lib, "controls")
         
         for control_ref in controls:
@@ -258,249 +299,303 @@ class XLSXExportService:
                 # Format implementations
                 impl = ExcelConstants.SEPARATOR.join(control.implementations)
                 
-                color = ExcelConstants.COUNTERMEASURE_COLOR_1 if alternating_color else ExcelConstants.COUNTERMEASURE_COLOR_2
-                values = [
-                    control.ref, control.name, control.desc, control.state, control.cost,
-                    refs, control.test.steps, t_refs, sts, impl,
-                    ExcelConstants.SEPARATOR.join(control.base_standard or []),
-                    ExcelConstants.SEPARATOR.join(control.base_standard_section or []),
-                    ExcelConstants.SEPARATOR.join(control.scope or []),
-                    ExcelConstants.SEPARATOR.join(control.mitre or []),
-                    control.uuid
-                ]
-                
-                for i, value in enumerate(values, 1):
-                    self._set_value_and_color(sheet, working_row, i, value, color, False)
-                
-                alternating_color = not alternating_color
-                working_row += 1
+                data.append({
+                    'Ref': control.ref,
+                    'Name': control.name,
+                    'Desc': control.desc,
+                    'State': control.state,
+                    'Cost': control.cost,
+                    'References': refs,
+                    'Test Steps': control.test.steps,
+                    'Test References': t_refs,
+                    'Standards': sts,
+                    'Implementations': impl,
+                    'Base Standard': ExcelConstants.SEPARATOR.join(control.base_standard or []),
+                    'Base Standard Section': ExcelConstants.SEPARATOR.join(control.base_standard_section or []),
+                    'Scope': ExcelConstants.SEPARATOR.join(control.scope or []),
+                    'MITRE': ExcelConstants.SEPARATOR.join(control.mitre or []),
+                    'UUID': control.uuid
+                })
         
-        self._adjust_height_and_width(sheet, working_row, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
+        df = pd.DataFrame(data)
+        df.to_excel(writer, sheet_name='Controls', index=False, header=True)
+        
+        # Apply styling
+        worksheet = writer.sheets['Controls']
+        header_format = self._create_format(workbook, ExcelConstants.COUNTERMEASURE_HEADER, header=True)
+        
+        # Format header row
+        for col_num in range(len(df.columns)):
+            worksheet.write(0, col_num, df.columns[col_num], header_format)
+        
+        # Format data rows with alternating colors
+        for row_num in range(1, len(df) + 1):
+            color = ExcelConstants.COUNTERMEASURE_COLOR_1 if row_num % 2 == 1 else ExcelConstants.COUNTERMEASURE_COLOR_2
+            row_format = self._create_format(workbook, color, header=False)
+            for col_num in range(len(df.columns)):
+                worksheet.write(row_num, col_num, df.iloc[row_num - 1, col_num], row_format)
+        
+        self._adjust_height_and_width(worksheet, len(df) + 1, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
     
-    def _create_relations_sheet(self, sheet, lib: IRLibrary) -> None:
+    def _create_relations_sheet(self, writer: pd.ExcelWriter, workbook: xlsxwriter.Workbook, lib: IRLibrary) -> None:
         """Create relations sheet"""
-        # Headers
-        headers = ["Risk Pattern", "Use Case", "Threat", "Weakness", "Control", "Mitigation"]
-        for i, header in enumerate(headers, 1):
-            self._set_value_and_color(sheet, 1, i, header, ExcelConstants.RISK_PATTERN_HEADER, True)
-        
-        alternating_color = True
-        working_row = 2
-        
+        # Create DataFrame
+        data = []
         for rel in lib.relations.values():
-            color = ExcelConstants.RISK_PATTERN_COLOR_1 if alternating_color else ExcelConstants.RISK_PATTERN_COLOR_2
-            values = [
-                rel.risk_pattern_uuid, rel.usecase_uuid, rel.threat_uuid,
-                rel.weakness_uuid, rel.control_uuid, rel.mitigation
-            ]
-            
-            for i, value in enumerate(values, 1):
-                self._set_value_and_color(sheet, working_row, i, value, color, False)
-            
-            alternating_color = not alternating_color
-            working_row += 1
+            data.append({
+                'Risk Pattern': rel.risk_pattern_uuid,
+                'Use Case': rel.usecase_uuid,
+                'Threat': rel.threat_uuid,
+                'Weakness': rel.weakness_uuid,
+                'Control': rel.control_uuid,
+                'Mitigation': rel.mitigation
+            })
         
-        self._adjust_height_and_width(sheet, working_row, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
+        df = pd.DataFrame(data)
+        df.to_excel(writer, sheet_name='Relations', index=False, header=True)
+        
+        # Apply styling
+        worksheet = writer.sheets['Relations']
+        header_format = self._create_format(workbook, ExcelConstants.RISK_PATTERN_HEADER, header=True)
+        
+        # Format header row
+        for col_num in range(len(df.columns)):
+            worksheet.write(0, col_num, df.columns[col_num], header_format)
+        
+        # Format data rows with alternating colors
+        for row_num in range(1, len(df) + 1):
+            color = ExcelConstants.RISK_PATTERN_COLOR_1 if row_num % 2 == 1 else ExcelConstants.RISK_PATTERN_COLOR_2
+            row_format = self._create_format(workbook, color, header=False)
+            for col_num in range(len(df.columns)):
+                worksheet.write(row_num, col_num, df.iloc[row_num - 1, col_num], row_format)
+        
+        self._adjust_height_and_width(worksheet, len(df) + 1, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
     
-    def _create_rules_sheet(self, sheet, lib: IRLibrary) -> None:
+    def _create_rules_sheet(self, writer: pd.ExcelWriter, workbook: xlsxwriter.Workbook, lib: IRLibrary) -> None:
         """Create rules sheet"""
-        # Headers
-        self._set_rules_excel_headers(sheet)
+        # Build rows for rules - each rule may span multiple rows due to conditions/actions
+        headers = ["Rule Name", "Module", "Generated by GUI", "Condition Name", "Condition Value", 
+                  "Condition Field", "Action Name", "Action Value", "Action Project"]
+        
+        # Create empty DataFrame to initialize sheet
+        df = pd.DataFrame(columns=headers)
+        df.to_excel(writer, sheet_name='Rules', index=False, header=True)
+        
+        worksheet = writer.sheets['Rules']
+        
+        # Format headers
+        header_formats = {
+            'Rule Name': self._create_format(workbook, ExcelConstants.RULE_HEADER, header=True),
+            'Module': self._create_format(workbook, ExcelConstants.RULE_HEADER, header=True),
+            'Generated by GUI': self._create_format(workbook, ExcelConstants.RULE_HEADER, header=True),
+            'Condition Name': self._create_format(workbook, ExcelConstants.RULE_CONDITION_HEADER, header=True),
+            'Condition Value': self._create_format(workbook, ExcelConstants.RULE_CONDITION_HEADER, header=True),
+            'Condition Field': self._create_format(workbook, ExcelConstants.RULE_CONDITION_HEADER, header=True),
+            'Action Name': self._create_format(workbook, ExcelConstants.RULE_ACTION_HEADER, header=True),
+            'Action Value': self._create_format(workbook, ExcelConstants.RULE_ACTION_HEADER, header=True),
+            'Action Project': self._create_format(workbook, ExcelConstants.RULE_ACTION_HEADER, header=True)
+        }
+        
+        # Write headers
+        for col_num, header in enumerate(headers):
+            worksheet.write(0, col_num, header, header_formats[header])
         
         # Rules data
+        working_row = 1
         rule_color = True
         condition_color = True
         action_color = True
         
-        working_row = 2
         for rule in lib.rules:
-            rule_working_row = working_row
+            rule_start_row = working_row
             r_color = ExcelConstants.RULE_COLOR_1 if rule_color else ExcelConstants.RULE_COLOR_2
+            rule_format = self._create_format(workbook, r_color, header=False)
             
-            self._set_value_and_color(sheet, working_row, ExcelConstants.RULES_NAME, rule.name, r_color, False)
-            self._set_value_and_color(sheet, working_row, ExcelConstants.RULES_MODULE, rule.module, r_color, False)
-            self._set_value_and_color(sheet, working_row, ExcelConstants.RULES_GUI, rule.gui, r_color, False)
+            # Count max rows needed
+            max_rows = max(len(rule.conditions), len(rule.actions), 1)
+            rule_end_row = rule_start_row + max_rows - 1
             
-            # Conditions
-            cond_working_row = rule_working_row
+            # Write rule name, module, GUI (will be merged later)
+            worksheet.write(working_row, 0, rule.name, rule_format)
+            worksheet.write(working_row, 1, rule.module, rule_format)
+            worksheet.write(working_row, 2, rule.gui, rule_format)
+            
+            # Write conditions
+            cond_row = rule_start_row
             for cond in rule.conditions:
                 c_color = ExcelConstants.RULE_CONDITION_COLOR_1 if condition_color else ExcelConstants.RULE_CONDITION_COLOR_2
-                self._set_value_and_color(sheet, cond_working_row, ExcelConstants.RULES_CONDITION_NAME, cond.name, c_color, False)
-                self._set_value_and_color(sheet, cond_working_row, ExcelConstants.RULES_CONDITION_VALUE, cond.value, c_color, False)
-                self._set_value_and_color(sheet, cond_working_row, ExcelConstants.RULES_CONDITION_FIELD, cond.field, c_color, False)
+                cond_format = self._create_format(workbook, c_color, header=False)
+                worksheet.write(cond_row, 3, cond.name, cond_format)
+                worksheet.write(cond_row, 4, cond.value, cond_format)
+                worksheet.write(cond_row, 5, cond.field, cond_format)
                 condition_color = not condition_color
-                cond_working_row += 1
+                cond_row += 1
             
-            # Actions
-            act_working_row = rule_working_row
+            # Write actions
+            act_row = rule_start_row
             for act in rule.actions:
                 a_color = ExcelConstants.RULE_ACTION_COLOR_1 if action_color else ExcelConstants.RULE_ACTION_COLOR_2
-                self._set_value_and_color(sheet, act_working_row, ExcelConstants.RULES_ACTION_NAME, act.name, a_color, False)
-                self._set_value_and_color(sheet, act_working_row, ExcelConstants.RULES_ACTION_VALUE, act.value, a_color, False)
-                self._set_value_and_color(sheet, act_working_row, ExcelConstants.RULES_ACTION_PROJECT, act.project, a_color, False)
+                act_format = self._create_format(workbook, a_color, header=False)
+                worksheet.write(act_row, 6, act.name, act_format)
+                worksheet.write(act_row, 7, act.value, act_format)
+                worksheet.write(act_row, 8, act.project, act_format)
                 action_color = not action_color
-                act_working_row += 1
+                act_row += 1
             
-            # Merge cells for rule name, module, and GUI
-            if rule.actions or rule.conditions:
-                working_row = max(cond_working_row, act_working_row)
+            # Merge cells for rule name, module, and GUI if needed
+            if max_rows > 1:
+                worksheet.merge_range(rule_start_row, 0, rule_end_row, 0, rule.name, rule_format)
+                worksheet.merge_range(rule_start_row, 1, rule_end_row, 1, rule.module, rule_format)
+                worksheet.merge_range(rule_start_row, 2, rule_end_row, 2, rule.gui, rule_format)
             
-            working_row += 1
+            working_row = rule_end_row + 1
             rule_color = not rule_color
         
-        self._adjust_height_and_width(sheet, working_row, ExcelConstants.RULES_LAST_HEADER)
+        self._adjust_height_and_width(worksheet, working_row, ExcelConstants.RULES_LAST_HEADER)
     
-    def _create_library_properties_sheet(self, sheet, lib: IRLibrary) -> None:
+    def _create_library_properties_sheet(self, writer: pd.ExcelWriter, workbook: xlsxwriter.Workbook, lib: IRLibrary) -> None:
         """Create library properties sheet"""
-        # Headers
-        self._set_value_and_color(sheet, 1, 1, "General", ExcelConstants.LIBRARY_PROPERTY_HEADER, True)
-        self._set_value_and_color(sheet, 1, 2, "Values", ExcelConstants.LIBRARY_PROPERTY_HEADER, True)
-        
-        # Library properties
-        properties = [
-            ("Library Name", lib.name),
-            ("Library Ref", lib.ref),
-            ("Library Desc", lib.desc),
-            ("Revision", lib.revision),
-            ("Enabled", lib.enabled)
+        # Create DataFrame
+        data = [
+            {'General': 'Library Name', 'Values': lib.name},
+            {'General': 'Library Ref', 'Values': lib.ref},
+            {'General': 'Library Desc', 'Values': lib.desc},
+            {'General': 'Revision', 'Values': lib.revision},
+            {'General': 'Enabled', 'Values': lib.enabled}
         ]
         
-        for i, (label, value) in enumerate(properties, 2):
-            color1 = ExcelConstants.LIBRARY_PROPERTY_COLOR_1 if i % 2 == 0 else ExcelConstants.LIBRARY_PROPERTY_COLOR_2
-            color2 = ExcelConstants.LIBRARY_PROPERTY_COLOR_1 if i % 2 == 0 else ExcelConstants.LIBRARY_PROPERTY_COLOR_2
-            
-            self._set_value_and_color(sheet, i, 1, label, color1, False)
-            self._set_value_and_color(sheet, i, 2, value, color2, False)
+        df = pd.DataFrame(data)
+        df.to_excel(writer, sheet_name='Library properties', index=False, header=True)
         
-        self._adjust_height_and_width(sheet, 7, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
+        # Apply styling
+        worksheet = writer.sheets['Library properties']
+        header_format = self._create_format(workbook, ExcelConstants.LIBRARY_PROPERTY_HEADER, header=True)
+        
+        # Format header row
+        for col_num in range(len(df.columns)):
+            worksheet.write(0, col_num, df.columns[col_num], header_format)
+        
+        # Format data rows with alternating colors
+        for row_num in range(1, len(df) + 1):
+            color = ExcelConstants.LIBRARY_PROPERTY_COLOR_1 if row_num % 2 == 0 else ExcelConstants.LIBRARY_PROPERTY_COLOR_2
+            row_format = self._create_format(workbook, color, header=False)
+            for col_num in range(len(df.columns)):
+                worksheet.write(row_num, col_num, df.iloc[row_num - 1, col_num], row_format)
+        
+        self._adjust_height_and_width(worksheet, 7, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
     
-    def _create_components_sheet(self, sheet, lib: IRLibrary, version: ILEVersion) -> None:
+    def _create_components_sheet(self, writer: pd.ExcelWriter, workbook: xlsxwriter.Workbook, lib: IRLibrary, version: ILEVersion) -> None:
         """Create components sheet"""
-        # Headers
-        headers = [
-            "Component Definition Name", "Component Definition Ref", "Component Definition Desc",
-            "Category Name", "Category Ref", "Category UUID", "Risk Patterns", "Visible", "Component UUID"
-        ]
-        for i, header in enumerate(headers, 1):
-            self._set_value_and_color(sheet, 1, i, header, ExcelConstants.LIBRARY_COMPONENT_HEADER, True)
-        
-        # Create category lookup
+        # Create DataFrame
+        data = []
         categories_by_ref = {cat.ref: cat for cat in version.categories.values()}
-        
-        component_color = True
-        working_row = 2
         
         for cd in lib.component_definitions.values():
             category = categories_by_ref.get(cd.category_ref)
             
-            color = ExcelConstants.LIBRARY_COMPONENT_COLOR_1 if component_color else ExcelConstants.LIBRARY_COMPONENT_COLOR_2
-            values = [
-                cd.name, cd.ref, cd.desc,
-                category.name if category else "",
-                cd.category_ref,
-                category.uuid if category else "",
-                ",".join(cd.risk_pattern_refs),
-                cd.visible, cd.uuid
-            ]
-            
-            for i, value in enumerate(values, 1):
-                self._set_value_and_color(sheet, working_row, i, value, color, False)
-            
-            working_row += 1
-            component_color = not component_color
+            data.append({
+                'Component Definition Name': cd.name,
+                'Component Definition Ref': cd.ref,
+                'Component Definition Desc': cd.desc,
+                'Category Name': category.name if category else "",
+                'Category Ref': cd.category_ref,
+                'Category UUID': category.uuid if category else "",
+                'Risk Patterns': ",".join(cd.risk_pattern_refs),
+                'Visible': cd.visible,
+                'Component UUID': cd.uuid
+            })
         
-        self._adjust_height_and_width(sheet, working_row, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
+        df = pd.DataFrame(data)
+        df.to_excel(writer, sheet_name='Components', index=False, header=True)
+        
+        # Apply styling
+        worksheet = writer.sheets['Components']
+        header_format = self._create_format(workbook, ExcelConstants.LIBRARY_COMPONENT_HEADER, header=True)
+        
+        # Format header row
+        for col_num in range(len(df.columns)):
+            worksheet.write(0, col_num, df.columns[col_num], header_format)
+        
+        # Format data rows with alternating colors
+        for row_num in range(1, len(df) + 1):
+            color = ExcelConstants.LIBRARY_COMPONENT_COLOR_1 if row_num % 2 == 1 else ExcelConstants.LIBRARY_COMPONENT_COLOR_2
+            row_format = self._create_format(workbook, color, header=False)
+            for col_num in range(len(df.columns)):
+                worksheet.write(row_num, col_num, df.iloc[row_num - 1, col_num], row_format)
+        
+        self._adjust_height_and_width(worksheet, len(df) + 1, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
     
-    def _create_standards_sheet(self, sheet, lib: IRLibrary, version: ILEVersion) -> None:
+    def _create_standards_sheet(self, writer: pd.ExcelWriter, workbook: xlsxwriter.Workbook, lib: IRLibrary, version: ILEVersion) -> None:
         """Create standards sheet"""
-        # Headers
-        headers = ["Supported Standard Ref", "Standard Ref", "Standard UUID"]
-        for i, header in enumerate(headers, 1):
-            self._set_value_and_color(sheet, 1, i, header, ExcelConstants.LIBRARY_STANDARD_HEADER, True)
-        
-        standard_color = True
-        working_row = 2
-        
+        # Create DataFrame
+        data = []
         for standard in version.standards.values():
-            color = ExcelConstants.LIBRARY_STANDARD_COLOR_1 if standard_color else ExcelConstants.LIBRARY_STANDARD_COLOR_2
-            values = [standard.supported_standard_ref, standard.standard_ref, standard.uuid]
-            
-            for i, value in enumerate(values, 1):
-                self._set_value_and_color(sheet, working_row, i, value, color, False)
-            
-            working_row += 1
-            standard_color = not standard_color
+            data.append({
+                'Supported Standard Ref': standard.supported_standard_ref,
+                'Standard Ref': standard.standard_ref,
+                'Standard UUID': standard.uuid
+            })
         
-        self._adjust_height_and_width(sheet, working_row, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
+        df = pd.DataFrame(data)
+        df.to_excel(writer, sheet_name='Standards', index=False, header=True)
+        
+        # Apply styling
+        worksheet = writer.sheets['Standards']
+        header_format = self._create_format(workbook, ExcelConstants.LIBRARY_STANDARD_HEADER, header=True)
+        
+        # Format header row
+        for col_num in range(len(df.columns)):
+            worksheet.write(0, col_num, df.columns[col_num], header_format)
+        
+        # Format data rows with alternating colors
+        for row_num in range(1, len(df) + 1):
+            color = ExcelConstants.LIBRARY_STANDARD_COLOR_1 if row_num % 2 == 1 else ExcelConstants.LIBRARY_STANDARD_COLOR_2
+            row_format = self._create_format(workbook, color, header=False)
+            for col_num in range(len(df.columns)):
+                worksheet.write(row_num, col_num, df.iloc[row_num - 1, col_num], row_format)
+        
+        self._adjust_height_and_width(worksheet, len(df) + 1, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
     
-    def _create_supported_standards_sheet(self, sheet, lib: IRLibrary, version: ILEVersion) -> None:
+    def _create_supported_standards_sheet(self, writer: pd.ExcelWriter, workbook: xlsxwriter.Workbook, lib: IRLibrary, version: ILEVersion) -> None:
         """Create supported standards sheet"""
-        # Headers
-        headers = ["Supported Standard Name", "Supported Standard Ref", "Supported Standard UUID"]
-        for i, header in enumerate(headers, 1):
-            self._set_value_and_color(sheet, 1, i, header, ExcelConstants.LIBRARY_STANDARD_HEADER, True)
-        
-        standard_color = True
-        working_row = 2
-        
+        # Create DataFrame
+        data = []
         for supported_standard in version.supported_standards.values():
-            color = ExcelConstants.LIBRARY_STANDARD_COLOR_1 if standard_color else ExcelConstants.LIBRARY_STANDARD_COLOR_2
-            values = [supported_standard.supported_standard_name, supported_standard.supported_standard_ref, supported_standard.uuid]
-            
-            for i, value in enumerate(values, 1):
-                self._set_value_and_color(sheet, working_row, i, value, color, False)
-            
-            working_row += 1
-            standard_color = not standard_color
+            data.append({
+                'Supported Standard Name': supported_standard.supported_standard_name,
+                'Supported Standard Ref': supported_standard.supported_standard_ref,
+                'Supported Standard UUID': supported_standard.uuid
+            })
         
-        self._adjust_height_and_width(sheet, working_row, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
-    
-    def _set_rules_excel_headers(self, sheet) -> None:
-        """Set rules Excel headers"""
-        headers = [
-            (ExcelConstants.RULES_NAME, "Rule Name", ExcelConstants.RULE_HEADER),
-            (ExcelConstants.RULES_MODULE, "Module", ExcelConstants.RULE_HEADER),
-            (ExcelConstants.RULES_GUI, "Generated by GUI", ExcelConstants.RULE_HEADER),
-            (ExcelConstants.RULES_CONDITION_NAME, "Condition Name", ExcelConstants.RULE_CONDITION_HEADER),
-            (ExcelConstants.RULES_CONDITION_VALUE, "Condition Value", ExcelConstants.RULE_CONDITION_HEADER),
-            (ExcelConstants.RULES_CONDITION_FIELD, "Condition Field", ExcelConstants.RULE_CONDITION_HEADER),
-            (ExcelConstants.RULES_ACTION_NAME, "Action Name", ExcelConstants.RULE_ACTION_HEADER),
-            (ExcelConstants.RULES_ACTION_VALUE, "Action Value", ExcelConstants.RULE_ACTION_HEADER),
-            (ExcelConstants.RULES_ACTION_PROJECT, "Action Project", ExcelConstants.RULE_ACTION_HEADER)
-        ]
+        df = pd.DataFrame(data)
+        df.to_excel(writer, sheet_name='Supported standards', index=False, header=True)
         
-        for col, header, color in headers:
-            self._set_value_and_color(sheet, 1, col, header, color, True)
+        # Apply styling
+        worksheet = writer.sheets['Supported standards']
+        header_format = self._create_format(workbook, ExcelConstants.LIBRARY_STANDARD_HEADER, header=True)
+        
+        # Format header row
+        for col_num in range(len(df.columns)):
+            worksheet.write(0, col_num, df.columns[col_num], header_format)
+        
+        # Format data rows with alternating colors
+        for row_num in range(1, len(df) + 1):
+            color = ExcelConstants.LIBRARY_STANDARD_COLOR_1 if row_num % 2 == 1 else ExcelConstants.LIBRARY_STANDARD_COLOR_2
+            row_format = self._create_format(workbook, color, header=False)
+            for col_num in range(len(df.columns)):
+                worksheet.write(row_num, col_num, df.iloc[row_num - 1, col_num], row_format)
+        
+        self._adjust_height_and_width(worksheet, len(df) + 1, ExcelConstants.RISK_PATTERNS_LAST_HEADER)
     
-    def _adjust_height_and_width(self, sheet, limit_row: int, limit_col: int) -> None:
+    def _adjust_height_and_width(self, worksheet: xlsxwriter.worksheet.Worksheet, limit_row: int, limit_col: int) -> None:
         """Adjust height and width of Excel file"""
-        for i in range(1, limit_col + 1):
-            sheet.column_dimensions[openpyxl.utils.get_column_letter(i)].width = 30.0
+        for i in range(limit_col):
+            worksheet.set_column(i, i, 30.0)
         
-        for i in range(1, limit_row + 1):
-            sheet.row_dimensions[i].height = 15.0
+        for i in range(limit_row):
+            worksheet.set_row(i, 15.0)
     
-    def _set_value_and_color(self, sheet, row: int, col: int, value: str, color: str, header: bool) -> None:
-        """Set value and style at the same time"""
-        cell = sheet.cell(row=row, column=col, value=value)
-        
-        # Create styles
-        font = Font(bold=header, color="FFFFFF" if header else "000000")
-        fill = PatternFill(start_color=color, end_color=color, fill_type="solid")
-        alignment = Alignment(horizontal="center", vertical="center", wrap_text=not header)
-        border = Border(
-            left=Side(style="thin", color="FFFFFF"),
-            right=Side(style="thin", color="FFFFFF"),
-            top=Side(style="thin", color="FFFFFF"),
-            bottom=Side(style="thin", color="FFFFFF")
-        )
-        
-        cell.font = font
-        cell.fill = fill
-        cell.alignment = alignment
-        cell.border = border
-    
-    def _get_list_from_relations(self, lib: IRLibrary, attrib: str) -> Set[str]:
+    def _get_list_from_relations(self, lib: IRLibrary, attrib: str) -> List[str]:
         """Get list of elements from relations"""
         values_in_library = set()
         for rel in lib.relations.values():
@@ -513,4 +608,4 @@ class XLSXExportService:
             elif attrib == "usecases" and rel.usecase_uuid:
                 values_in_library.add(rel.usecase_uuid)
         
-        return values_in_library
+        return list(values_in_library)

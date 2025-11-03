@@ -17,6 +17,9 @@ loguru = "^0.7.2"
 pytest = "^8.3.3"
 beautifulsoup4 = "^4.12.3"
 pandas = "^2.2.3"
+# Note: openpyxl is required by pandas for reading .xlsx files via pandas.read_excel
+# We no longer directly import openpyxl - all Excel operations now use pandas API
+# but pandas.read_excel() requires openpyxl as an engine for .xlsx files
 openpyxl = "^3.1.5"
 lxml = "^5.3.0"
 keyboard = "^0.13.5"
