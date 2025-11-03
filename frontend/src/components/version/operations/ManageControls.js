@@ -210,22 +210,20 @@ const ManageControls = (props) => {
                                         if (newData.name === undefined) {
                                             newData.name = "";
                                         }
-                                        newData.desc = "";
-                                        newData.state = "Recommended";
-                                        newData.cost = "0";
-                                        newData.references = [];
-                                        newData.standards = [];
-                                        newData.base_standard = [];
-                                        newData.base_standard_section = [];
-                                        newData.scope = [];
-                                        newData.mitre = [];
-                                        newData.test = {
+                                        // Prepare control data matching ControlRequest structure
+                                        const controlData = {
+                                            ref: newData.ref || "",
+                                            name: newData.name || "",
+                                            desc: "",
+                                            state: "Recommended",
+                                            cost: "0",
                                             steps: "",
-                                            result: "",
-                                            timestamp: "",
-                                            references: [],
+                                            base_standard: [],
+                                            base_standard_section: [],
+                                            scope: [],
+                                            mitre: []
                                         };
-                                        addControl(newData);
+                                        addControl(controlData);
                                         resolve();
                                     }, 100)
                                 }),

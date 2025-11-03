@@ -35,17 +35,16 @@ class ComponentRequest(BaseModel):
 
 
 class ControlRequest(BaseModel):
-    uuid: str
     ref: str
     name: str
-    desc: str
-    state: str
-    cost: str
-    steps: str
-    base_standard: List[str]
-    base_standard_section: List[str]
-    scope: List[str]
-    mitre: List[str]
+    desc: str = ""
+    state: str = "Recommended"
+    cost: str = "0"
+    steps: str = ""
+    base_standard: List[str] = Field(default_factory=list)
+    base_standard_section: List[str] = Field(default_factory=list)
+    scope: List[str] = Field(default_factory=list)
+    mitre: List[str] = Field(default_factory=list)
 
 
 class ControlUpdateRequest(BaseModel):

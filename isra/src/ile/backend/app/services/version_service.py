@@ -346,9 +346,17 @@ class VersionService:
         ctrl = IRControl(
             ref=control.ref,
             name=control.name,
-            desc=control.desc,
-            state=control.state
+            desc=control.desc or "",
+            state=control.state or "Recommended",
+            cost=control.cost or "0",
+            base_standard=control.base_standard or [],
+            base_standard_section=control.base_standard_section or [],
+            scope=control.scope or [],
+            mitre=control.mitre or []
         )
+        # Set test steps if provided
+        if control.steps:
+            ctrl.test.steps = control.steps
         v.controls[ctrl.uuid] = ctrl
         return ctrl
     
@@ -365,6 +373,18 @@ class VersionService:
             control.desc = new_control.desc
         if new_control.state is not None:
             control.state = new_control.state
+        if new_control.cost is not None:
+            control.cost = new_control.cost
+        if new_control.steps is not None:
+            control.test.steps = new_control.steps
+        if new_control.base_standard is not None:
+            control.base_standard = new_control.base_standard
+        if new_control.base_standard_section is not None:
+            control.base_standard_section = new_control.base_standard_section
+        if new_control.scope is not None:
+            control.scope = new_control.scope
+        if new_control.mitre is not None:
+            control.mitre = new_control.mitre
         
         v.controls[control.uuid] = control
         return control
