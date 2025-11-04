@@ -139,7 +139,7 @@ export default class UploadFiles extends Component {
                             name="btn-upload"
                             style={{ display: 'none' }}
                             type="file"
-                            accept=".xml,.xlsx,.xls"
+                            accept=".xml,.xlsx,.xls,.yaml"
                             multiple={true}
                             onChange={this.selectFile} />
                         <Button

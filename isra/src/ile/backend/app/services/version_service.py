@@ -130,6 +130,9 @@ class VersionService:
                     elif file_path.suffix == ".xlsx":
                         with open(file_path, 'rb') as f:
                             self.io_facade.import_library_xlsx(file_path.name, f, version)
+                    elif file_path.suffix == ".yaml":
+                        with open(file_path, 'rb') as f:
+                            self.io_facade.import_ysc_component(file_path.name, f, version)
                 except Exception as e:
                     logger.error(f"Error when importing {file_path.name}: {e}")
     
@@ -149,6 +152,8 @@ class VersionService:
                     self.io_facade.import_library_xml(filename, file.file, version)
                 elif filename.endswith(".xlsx"):
                     self.io_facade.import_library_xlsx(filename, file.file, version)
+                elif filename.endswith(".yaml"):
+                    self.io_facade.import_ysc_component(filename, file.file, version)
             except Exception as e:
                 logger.error(f"Error when importing {filename}: {e}")
                 raise RuntimeError("Error when importing") from e
