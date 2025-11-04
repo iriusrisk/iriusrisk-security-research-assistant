@@ -22,7 +22,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Logo from './assets/logo.png';
+import Logo from './assets/logo_icm.png';
+import LogoBlack from './assets/logo_icm_black.png';
 import Collapse from "@material-ui/core/Collapse";
 import Button from "@material-ui/core/Button";
 import { ChevronLeft, Menu } from '@material-ui/icons';
@@ -559,9 +560,8 @@ const Home = () => {
     <div style={{ marginTop: '50px' }}>
       {/* Hero Section */}
       <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <Typography variant="h3" style={{ marginBottom: '10px', color: 'black' }}>
-          Welcome to IriusRisk Library Editor
-        </Typography>
+        <img src={LogoBlack} alt="logo" style={{ width: 'auto', height: '100px' }} />
+
         <Typography variant="h6" style={{ color: 'rgba(0,0,0,0.8)', marginBottom: '20px' }}>
           {projectStatus.project 
             ? `Working on project: ${projectStatus.project} (${projectStatus.versions.length} versions)`
@@ -719,7 +719,7 @@ const Dashboard = () => {
           >
             <Menu />
           </IconButton>
-          <img src={Logo} alt="logo" />
+          <img src={Logo} alt="logo" style={{ width: 'auto', height: '60px' }} />
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
           </Typography>
           {project !== "" &&
