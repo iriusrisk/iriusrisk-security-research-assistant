@@ -1,5 +1,5 @@
 """
-Version facade for IriusRisk Library Editor API
+Version facade for IriusRisk Content Manager API
 """
 
 from typing import Collection, List

@@ -1,6 +1,6 @@
 {
-  "short_name": "IRLibraryEditor",
-  "name": "IriusRisk Library Editor",
+  "short_name": "IRContentManager",
+  "name": "IriusRisk Content Manager",
   "icons": [
     {
       "src": "favicon.ico",

@@ -1,5 +1,5 @@
 """
-YSC import service for IriusRisk Library Editor API
+YSC import service for IriusRisk Content Manager API
 """
 
 import logging

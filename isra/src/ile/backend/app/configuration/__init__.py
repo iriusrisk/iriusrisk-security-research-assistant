@@ -1,5 +1,5 @@
 """
-Configuration module for IriusRisk Library Editor
+Configuration module for IriusRisk Content Manager
 """
 
 from isra.src.ile.backend.app.configuration.safety import Safety

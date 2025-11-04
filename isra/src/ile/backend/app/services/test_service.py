@@ -1,5 +1,5 @@
 """
-Test service for IriusRisk Library Editor API
+Test service for IriusRisk Content Manager API
 """
 
 import inspect

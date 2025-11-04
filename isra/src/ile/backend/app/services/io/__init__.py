@@ -1,5 +1,5 @@
 """
-IO services module for IriusRisk Library Editor API
+IO services module for IriusRisk Content Manager API
 """
 
 from .xml_import_service import XMLImportService

@@ -1,5 +1,5 @@
 """
-Test controller for IriusRisk Library Editor API
+Test controller for IriusRisk Content Manager API
 """
 
 from fastapi import APIRouter, Depends

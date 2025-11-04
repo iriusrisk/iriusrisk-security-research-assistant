@@ -1,5 +1,5 @@
 """
-Project controller for IriusRisk Library Editor API
+Project controller for IriusRisk Content Manager API
 """
 
 from fastapi import APIRouter, Depends

@@ -1,5 +1,5 @@
 """
-Library service for IriusRisk Library Editor API
+Library service for IriusRisk Content Manager API
 """
 
 import logging

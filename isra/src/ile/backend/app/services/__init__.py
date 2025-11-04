@@ -1,5 +1,5 @@
 """
-Services module for IriusRisk Library Editor API
+Services module for IriusRisk Content Manager API
 """
 
 from .project_service import ProjectService

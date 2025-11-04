@@ -1,5 +1,5 @@
 """
-XML import service for IriusRisk Library Editor API
+XML import service for IriusRisk Content Manager API
 """
 
 import logging

@@ -1,5 +1,5 @@
 """
-Facades module for IriusRisk Library Editor API
+Facades module for IriusRisk Content Manager API
 """
 
 from isra.src.ile.backend.app.facades.project_facade import ProjectFacade

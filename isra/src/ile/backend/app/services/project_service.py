@@ -1,5 +1,5 @@
 """
-Project service for IriusRisk Library Editor API
+Project service for IriusRisk Content Manager API
 """
 
 import json

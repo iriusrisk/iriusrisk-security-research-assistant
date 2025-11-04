@@ -1,5 +1,5 @@
 """
-Project facade for IriusRisk Library Editor API
+Project facade for IriusRisk Content Manager API
 """
 
 from typing import List

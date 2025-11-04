@@ -1,5 +1,5 @@
 {
-  "name": "iriusrisk-library-editor",
+  "name": "iriusrisk-content-manager",
   "version": "3.0.0",
   "private": true,
   "homepage": ".",
@@ -7,7 +7,7 @@
   "version-string": {
     "CompanyName": "IriusRisk",
     "FileDescription": "IriusRisk",
-    "ProductName": "IriusRisk Library Editor UI"
+    "ProductName": "IriusRisk Content Manager UI"
   },
   "devDependencies": {
     "electron": "^18.1.0",

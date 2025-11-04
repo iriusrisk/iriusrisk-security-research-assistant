@@ -1,5 +1,5 @@
 """
-Changelog service for IriusRisk Library Editor API
+Changelog service for IriusRisk Content Manager API
 """
 
 import logging

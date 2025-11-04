@@ -1,5 +1,5 @@
 """
-Data service for IriusRisk Library Editor API
+Data service for IriusRisk Content Manager API
 """
 
 from typing import Dict, List, Set, Optional

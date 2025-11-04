@@ -1,5 +1,5 @@
 """
-Controllers module for IriusRisk Library Editor API
+Controllers module for IriusRisk Content Manager API
 """
 
 from isra.src.ile.backend.app.controllers.project_controller import router as project_router

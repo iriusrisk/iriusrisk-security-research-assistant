@@ -1,5 +1,5 @@
 """
-Library facade for IriusRisk Library Editor API
+Library facade for IriusRisk Content Manager API
 """
 
 from typing import Collection

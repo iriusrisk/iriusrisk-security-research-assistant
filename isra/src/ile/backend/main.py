@@ -1,5 +1,5 @@
 """
-Main FastAPI application for IriusRisk Library Editor
+Main FastAPI application for IriusRisk Content Manager
 """
 
 import os
@@ -51,7 +51,7 @@ async def lifespan(app: FastAPI):
     Application lifespan manager for startup and shutdown events
     """
     # Startup
-    logger.info("Starting IriusRisk Library Editor API...")
+    logger.info("Starting IriusRisk Content Manager API...")
     
     # Initialize configuration
     env_config = config_factory.get_environment_config()
@@ -70,12 +70,12 @@ async def lifespan(app: FastAPI):
     # Load project on startup if configured
     load_project_on_startup()
     
-    logger.info("IriusRisk Library Editor API started successfully")
+    logger.info("IriusRisk Content Manager API started successfully")
     
     yield
     
     # Shutdown
-    logger.info("Shutting down IriusRisk Library Editor API...")
+    logger.info("Shutting down IriusRisk Content Manager API...")
 
 
 def create_app() -> FastAPI:
@@ -88,7 +88,7 @@ def create_app() -> FastAPI:
     
     # Create FastAPI app
     app = FastAPI(
-        title="IriusRisk Library Editor API",
+        title="IriusRisk Content Manager API",
         description="API for managing IriusRisk security libraries and components",
         version="2.0.0",
         lifespan=lifespan
@@ -127,7 +127,7 @@ def create_app() -> FastAPI:
     @app.get("/health")
     async def health_check():
         """Health check endpoint"""
-        return {"status": "healthy", "service": "IriusRisk Library Editor API"}
+        return {"status": "healthy", "service": "IriusRisk Content Manager API"}
     
     # Determine if we should actually serve static files
     actually_serve_static = False
@@ -192,7 +192,7 @@ def create_app() -> FastAPI:
             """Root endpoint - API information"""
             logger.info("Root endpoint called - returning API information")
             return {
-                "message": "IriusRisk Library Editor API",
+                "message": "IriusRisk Content Manager API",
                 "version": "2.0.0",
                 "docs": "/docs",
                 "api": "/api"

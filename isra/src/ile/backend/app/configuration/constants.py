@@ -1,5 +1,5 @@
 """
-Constants for IriusRisk Library Editor
+Constants for IriusRisk Content Manager
 """
 
 import os
@@ -8,7 +8,7 @@ from typing import Dict
 
 class ILEConstants:
     """
-    Constants for IriusRisk Library Editor
+    Constants for IriusRisk Content Manager
     """
     
     # Get application directory (equivalent to Spring Boot's appdir)

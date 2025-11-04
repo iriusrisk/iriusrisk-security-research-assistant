@@ -1,5 +1,5 @@
 """
-Version service for IriusRisk Library Editor API
+Version service for IriusRisk Content Manager API
 """
 
 import json

@@ -169,7 +169,7 @@ class PropertiesManager:
             
             # Write default properties to file
             with open(config_file_path, 'w', encoding='utf-8') as file:
-                file.write("# IriusRisk Library Editor Configuration\n")
+                file.write("# IriusRisk Content Manager Configuration\n")
                 file.write("# Default configuration file\n\n")
                 for key, value in default_properties.items():
                     file.write(f"{key}={value}\n")

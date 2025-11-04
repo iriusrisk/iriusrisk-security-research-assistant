@@ -1,5 +1,5 @@
 """
-IO facade for IriusRisk Library Editor API
+IO facade for IriusRisk Content Manager API
 """
 
 from typing import BinaryIO

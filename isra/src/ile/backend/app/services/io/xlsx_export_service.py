@@ -1,5 +1,5 @@
 """
-XLSX export service for IriusRisk Library Editor API
+XLSX export service for IriusRisk Content Manager API
 """
 
 import logging

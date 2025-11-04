@@ -1,5 +1,5 @@
 """
-Version controller for IriusRisk Library Editor API
+Version controller for IriusRisk Content Manager API
 """
 
 from typing import List

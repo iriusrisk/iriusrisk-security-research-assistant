@@ -20,7 +20,7 @@ frontend_process = None
 @app.callback()
 def callback():
     """
-    IriusRisk Library Editor
+    IriusRisk Content Manager
     """
 
 
@@ -222,7 +222,7 @@ def backend():
     
     backend_port = int(get_property("ile_port"))
     
-    print("[bold blue]IriusRisk Library Editor - Backend Only")
+    print("[bold blue]IriusRisk Content Manager - Backend Only")
     print("1. This will start only the backend API server.")
     print("2. All elements will be stored where you have indicated in the ile_root_folder.")
     print("3. The backend API will be accessible on the configured port.")
@@ -273,7 +273,7 @@ def frontend():
     backend_port = int(get_property("ile_port"))
     frontend_port = 9000
     
-    print("[bold blue]IriusRisk Library Editor - Frontend Only")
+    print("[bold blue]IriusRisk Content Manager - Frontend Only")
     print("1. This will start only the React frontend development server.")
     print("2. The frontend will run on port 9000.")
     print("3. Make sure the backend is running separately.")
@@ -358,7 +358,7 @@ def run():
         print("[yellow]Run: cd frontend && npm run build[/yellow]")
         raise typer.Exit(-1)
     
-    print("[bold blue]IriusRisk Library Editor")
+    print("[bold blue]IriusRisk Content Manager")
     print("1. This will run the backend API and serve the compiled frontend.")
     print("2. All elements will be stored where you have indicated in the ile_root_folder.")
     print("3. The application will be accessible in your web browser.")

@@ -185,7 +185,7 @@ class ConfigFactory:
             Dict[str, Any]: Application information
         """
         return {
-            'name': 'IriusRisk Library Editor',
+            'name': 'IriusRisk Content Manager',
             'version': '2.0.0',
             'environment': os.getenv('ENVIRONMENT', 'production'),
             'app_dir': ILEConstants._app_dir,
