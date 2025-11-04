@@ -6,6 +6,7 @@ import {successToast, failedToast} from "./toastFunctions";
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { ActivityIndicatorContext } from "./ActivityIndicatorContext";
 
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
@@ -22,6 +23,8 @@ const BorderLinearProgress = withStyles((theme) => ({
 }))(LinearProgress);
 
 export default class UploadFiles extends Component {
+    static contextType = ActivityIndicatorContext;
+
     constructor(props) {
         super(props);
         this.version = props.version;
@@ -70,6 +73,12 @@ export default class UploadFiles extends Component {
           isUploading: true
         });
 
+        // Show activity indicator using context
+        const contextValue = this.context;
+        if (contextValue && contextValue.show) {
+            contextValue.show();
+        }
+
         UploadService.upload(currentFiles, this.version, (event) => {
             this.setState({
               progress: Math.round((100 * event.loaded) / event.total),
@@ -97,6 +106,12 @@ export default class UploadFiles extends Component {
                   isError: true,
                   isUploading: false
                 });
+            })
+            .finally(() => {
+                // Hide activity indicator
+                if (contextValue && contextValue.hide) {
+                    contextValue.hide();
+                }
             });
     }
 

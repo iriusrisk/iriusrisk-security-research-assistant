@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect, useState, useCallback } from 'react';
+import React, { lazy, Suspense, useEffect, useState, useCallback, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter, NavLink, Route, Switch, useHistory } from "react-router-dom";
 import clsx from 'clsx';
@@ -39,6 +39,7 @@ import { Menu as ContextMenu, Item, useContextMenu } from 'react-contexify';
 import 'react-contexify/dist/ReactContexify.css';
 import TextField from "@material-ui/core/TextField";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import { ActivityIndicatorContext } from './components/utils/ActivityIndicatorContext';
 
 // This components are loaded in this way to do code-splitting
 const Library = lazy(() => import('./components/library/Library'));
@@ -76,6 +77,88 @@ const AdvancedRelationCanvas = lazy(() => import('./components/version/operation
 const DRAWER_WIDTH = 240;
 const IRIUSRISK_LIBRARY_EDITOR_VERSION = "1.0";
 const MENU_ID = '1234567890';
+
+// ActivityIndicator Provider Component
+const ActivityIndicatorProvider = ({ children }) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const show = useCallback(() => {
+    setIsVisible(true);
+  }, []);
+
+  const hide = useCallback(() => {
+    setIsVisible(false);
+  }, []);
+
+  return (
+    <ActivityIndicatorContext.Provider value={{ show, hide }}>
+      {children}
+      <ActivityIndicator isVisible={isVisible} />
+    </ActivityIndicatorContext.Provider>
+  );
+};
+
+// ActivityIndicator Component
+const ActivityIndicator = ({ isVisible }) => {
+  useEffect(() => {
+    // Inject keyframes if not already present
+    if (!document.getElementById('spinner-keyframes')) {
+      const style = document.createElement('style');
+      style.id = 'spinner-keyframes';
+      style.textContent = `
+        @keyframes spinner-spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }, []);
+
+  if (!isVisible) return null;
+
+  return (
+    <Box
+      style={{
+        position: 'fixed',
+        top: '80px',
+        right: '24px',
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        padding: '12px 20px',
+        borderRadius: '8px',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+      }}
+    >
+      <div
+        style={{
+          width: '20px',
+          height: '20px',
+          border: '3px solid #f3f3f3',
+          borderTop: '3px solid #01ecb4',
+          borderRadius: '50%',
+          animation: 'spinner-spin 1s linear infinite',
+        }}
+      ></div>
+      <Typography variant="body2" style={{ color: '#333', fontWeight: 500 }}>
+        Processing...
+      </Typography>
+    </Box>
+  );
+};
+
+// Hook to use ActivityIndicator
+export const useActivityIndicator = () => {
+  const context = useContext(ActivityIndicatorContext);
+  if (!context) {
+    // Return default functions if context is not available
+    return { show: () => {}, hide: () => {} };
+  }
+  return context;
+};
 
 // Styles
 const useStyles = makeStyles((theme) => ({
@@ -342,23 +425,31 @@ const useVersionManagement = (handleProjectChange) => {
 
 // Custom hook for project actions
 const useProjectActions = (project, handleProjectChange) => {
+  const { show, hide } = useActivityIndicator();
+
   const save = useCallback(async () => {
+    show();
     try {
       const res = await axios.get('/api/project/save');
       easyToast(res, "Project saved successfully", "Saving project failed");
     } catch (err) {
       failedToast("Saving project failed: " + err);
+    } finally {
+      hide();
     }
-  }, []);
+  }, [show, hide]);
 
   const restore = useCallback(async () => {
+    show();
     try {
       const res = await axios.get('/api/project/load/' + project);
       easyToast(res, "Project restored successfully", "Restoring project failed");
     } catch (err) {
       failedToast("Restoring project failed: " + err);
+    } finally {
+      hide();
     }
-  }, [project]);
+  }, [project, show, hide]);
 
   return { save, restore };
 };
@@ -734,7 +825,9 @@ const Dashboard = () => {
 // ReactDOM Render
 ReactDOM.render(
   <HashRouter>
-    <Dashboard />
+    <ActivityIndicatorProvider>
+      <Dashboard />
+    </ActivityIndicatorProvider>
   </HashRouter>,
   document.getElementById('root')
 );
