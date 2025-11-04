@@ -52,7 +52,7 @@ const MergeLibraries = (props) => {
     const [isGenerating, setIsGenerating] = useState(false);
 
     useEffect(() => {
-        axios.get(`/project/report`)
+        axios.get(`/api/project/report`)
             .then(res => {
                 if(res.data.version_reports.length > 0){
                     let vers = [];

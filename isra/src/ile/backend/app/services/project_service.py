@@ -183,8 +183,10 @@ class ProjectService:
                 dst_library.component_definitions[c.uuid] = c
                 result.append(f"Added component {c.ref}")
                 if not equal_version:
-                    categories.append(c.category_ref)
-        
+                    for x in src_version.categories.values():
+                        if x.ref == c.category_ref:
+                            categories.append(x.uuid)
+                            break
         # Standards
         for c in src_version.standards.values():
             if c.uuid not in dst_version.standards:
@@ -298,7 +300,7 @@ class ProjectService:
         if self.data_service.get_version(full_version_name) is not None:
             self.delete_version(full_version_name)
         
-        full_version = ILEVersion(full_version_name)
+        full_version = ILEVersion(version=full_version_name)
         self.data_service.put_version(full_version)
         full_library = IRLibrary(
             ref=full_library_name,

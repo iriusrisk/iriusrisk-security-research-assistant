@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends
 from typing import List
 from isra.src.ile.backend.app.models import (
     ILEProject, ILEVersion, IRBaseElement, IRProjectReport, 
-    VersionNamesResponse, CopyVersionRequest, MergeLibraryRequest
+    VersionNamesResponse, CopyVersionRequest, MergeLibraryRequest, GenerateFullLibraryRequest
 )
 from isra.src.ile.backend.app.facades.project_facade import ProjectFacade
 
@@ -107,6 +107,6 @@ async def merge_libraries(body: MergeLibraryRequest, project_facade: ProjectFaca
 
 
 @router.post("/project/generateFullLibrary")
-async def generate_full_library_from_version(body: MergeLibraryRequest, project_facade: ProjectFacade = Depends(get_project_facade)) -> ILEVersion:
+async def generate_full_library_from_version(body: GenerateFullLibraryRequest, project_facade: ProjectFacade = Depends(get_project_facade)) -> ILEVersion:
     """Generate full library from version"""
     return project_facade.generate_full_library_from_version(body.src_version)

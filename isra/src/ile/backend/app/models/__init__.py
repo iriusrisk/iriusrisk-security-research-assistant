@@ -32,8 +32,8 @@ from isra.src.ile.backend.app.models.requests import (
     MergeLibraryRequest, ReferenceRequest, ReferenceUpdateRequest, ReferenceItemRequest, RelationRequest,
     RiskPatternRequest, RiskRatingRequest, StandardRequest, StandardUpdateRequest, StandardItemRequest,
     SupportedStandardRequest, SupportedStandardUpdateRequest, TestRequest, ThreatRequest, ThreatUpdateRequest,
-    UsecaseRequest, UsecaseUpdateRequest, WeaknessRequest, WeaknessUpdateRequest, CopyVersionRequest, ChangelogRequest,
-    ChangelogVersionRequest, ContentReportRequest, SuggestionRequest
+    UsecaseRequest, UsecaseUpdateRequest, WeaknessRequest, WeaknessUpdateRequest, CopyVersionRequest, GenerateFullLibraryRequest,
+    ChangelogRequest, ChangelogVersionRequest, ContentReportRequest, SuggestionRequest
 )
 
 __all__ = [
@@ -64,6 +64,6 @@ __all__ = [
     'MergeLibraryRequest', 'ReferenceRequest', 'ReferenceUpdateRequest', 'ReferenceItemRequest', 'RelationRequest',
     'RiskPatternRequest', 'RiskRatingRequest', 'StandardRequest', 'StandardUpdateRequest', 'StandardItemRequest',
     'SupportedStandardRequest', 'SupportedStandardUpdateRequest', 'TestRequest', 'ThreatRequest', 'ThreatUpdateRequest',
-    'UsecaseRequest', 'UsecaseUpdateRequest', 'WeaknessRequest', 'WeaknessUpdateRequest', 'CopyVersionRequest', 'ChangelogRequest',
-    'ChangelogVersionRequest', 'ContentReportRequest', 'SuggestionRequest'
+    'UsecaseRequest', 'UsecaseUpdateRequest', 'WeaknessRequest', 'WeaknessUpdateRequest', 'CopyVersionRequest', 'GenerateFullLibraryRequest',
+    'ChangelogRequest', 'ChangelogVersionRequest', 'ContentReportRequest', 'SuggestionRequest'
 ]

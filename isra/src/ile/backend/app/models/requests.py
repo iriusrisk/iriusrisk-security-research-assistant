@@ -210,6 +210,10 @@ class CopyVersionRequest(BaseModel):
     ref: str
 
 
+class GenerateFullLibraryRequest(BaseModel):
+    src_version: str
+
+
 class ChangelogRequest(BaseModel):
     from_version: str
     to_version: str
