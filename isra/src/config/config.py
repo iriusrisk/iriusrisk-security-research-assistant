@@ -22,6 +22,7 @@ properties_s = None
 def get_info():
     return {
         "components_dir": "Folder where the IriusRisk YAML components are stored",
+        "libraries_dir": "Folder where the IriusRisk XML libraries are stored",
         "gpt_model": "GPT Model to use",
         "ile_root_folder": "Deprecated: Path where the ILE folders (config, projects, versions, output) will be "
                            "created or loaded if they already exist",
