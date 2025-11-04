@@ -80,10 +80,12 @@ class IRNode(Node):
             node_type = arg3 if arg3 is not None else ""
             changes = kwargs.get('changes', [])
         
+        # Include name and other fields in kwargs for Pydantic validation
+        kwargs['name'] = name
+        kwargs['type'] = node_type
+        kwargs['changes'] = changes
+        
         super().__init__(**kwargs)
-        self.name = name
-        self.type = node_type
-        self.changes = changes
         self._set_color_from_type()
     
     def _set_color_from_type(self) -> None:

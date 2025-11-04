@@ -34,15 +34,15 @@ class ChangelogService:
     
     def set_changelog_items(self, changelog_request: ChangelogRequest) -> None:
         """Set changelog items for comparison"""
-        fv = self.data_service.get_version(changelog_request.first_version)
+        fv = self.data_service.get_version(changelog_request.from_version)
         first = None
         if changelog_request.first_library:
-            first = self.data_service.get_library(fv.version, changelog_request.first_library)
+            first = self.data_service.get_library(fv.version, changelog_request.library_ref)
         
-        sv = self.data_service.get_version(changelog_request.second_version)
+        sv = self.data_service.get_version(changelog_request.to_version)
         second = None
         if changelog_request.second_library:
-            second = self.data_service.get_library(sv.version, changelog_request.second_library)
+            second = self.data_service.get_library(sv.version, changelog_request.library_ref)
         
         self.graph = Graph()
         self.fv = fv
@@ -110,6 +110,8 @@ class ChangelogService:
             if l1 in self.sv.libraries:
                 self.first = self.fv.libraries[l1]
                 self.second = self.sv.libraries[l1]
+                # Initialize self.graph before calling get_library_changes() which uses it
+                self.graph = Graph()
                 gl.graphs[l1] = self.get_library_changes()
             else:
                 gl.deleted_libraries.append(self.fv.libraries[l1].name)
@@ -301,6 +303,8 @@ class ChangelogService:
             # This is a modified library - use the existing logic
             self.first = first_library
             self.second = second_library
+            # Initialize self.graph before calling get_library_changes() which uses it
+            self.graph = Graph()
             graph = self.get_library_changes()
         
         return graph

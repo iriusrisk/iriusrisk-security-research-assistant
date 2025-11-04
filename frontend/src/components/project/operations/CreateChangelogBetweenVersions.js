@@ -193,9 +193,9 @@ const CreateChangelogBetweenVersions = (props) => {
 
     const totalChanges = useMemo(() => {
         if (!librarySummaries) return 0;
-        return (librarySummaries.addedLibraries?.length || 0) +
-               (librarySummaries.deletedLibraries?.length || 0) +
-               (librarySummaries.modifiedLibraries?.length || 0);
+        return (librarySummaries.added_libraries?.length || 0) +
+               (librarySummaries.deleted_libraries?.length || 0) +
+               (librarySummaries.modified_libraries?.length || 0);
     }, [librarySummaries]);
 
     return (
@@ -271,24 +271,24 @@ const CreateChangelogBetweenVersions = (props) => {
                                 </Typography>
                                 
                                 <div className={classes.libraryList}>
-                                    {librarySummaries.addedLibraries && librarySummaries.addedLibraries.length > 0 && (
+                                    {librarySummaries.added_libraries && librarySummaries.added_libraries.length > 0 && (
                                         <div>
                                             <Typography variant="h6" className={classes.sectionTitle}>
-                                                Added Libraries ({librarySummaries.addedLibraries.length})
+                                                Added Libraries ({librarySummaries.added_libraries.length})
                                             </Typography>
                                             <List>
-                                                {librarySummaries.addedLibraries.map((library, index) => (
+                                                {librarySummaries.added_libraries.map((library, index) => (
                                                     <ListItem 
                                                         key={`added-${index}`}
                                                         className={classes.libraryItem}
-                                                        onClick={() => fetchLibraryDetails(library.library_ref)}
+                                                        onClick={() => fetchLibraryDetails(library.ref)}
                                                     >
                                                         <ListItemIcon>
-                                                            {getChangeIcon(library.changeType)}
+                                                            {getChangeIcon(library.status)}
                                                         </ListItemIcon>
                                                         <ListItemText 
-                                                            primary={library.library_name}
-                                                            secondary={`${getChangeText(library.changeType)} • Revision: ${library.newRevision}`}
+                                                            primary={library.name}
+                                                            secondary={`${getChangeText(library.status)} • Revision: ${library.new_revision}`}
                                                         />
                                                     </ListItem>
                                                 ))}
@@ -297,24 +297,24 @@ const CreateChangelogBetweenVersions = (props) => {
                                         </div>
                                     )}
 
-                                    {librarySummaries.deletedLibraries && librarySummaries.deletedLibraries.length > 0 && (
+                                    {librarySummaries.deleted_libraries && librarySummaries.deleted_libraries.length > 0 && (
                                         <div>
                                             <Typography variant="h6" className={classes.sectionTitle}>
-                                                Deleted Libraries ({librarySummaries.deletedLibraries.length})
+                                                Deleted Libraries ({librarySummaries.deleted_libraries.length})
                                             </Typography>
                                             <List>
-                                                {librarySummaries.deletedLibraries.map((library, index) => (
+                                                {librarySummaries.deleted_libraries.map((library, index) => (
                                                     <ListItem 
                                                         key={`deleted-${index}`}
                                                         className={classes.libraryItem}
-                                                        onClick={() => fetchLibraryDetails(library.library_ref)}
+                                                        onClick={() => fetchLibraryDetails(library.ref)}
                                                     >
                                                         <ListItemIcon>
-                                                            {getChangeIcon(library.changeType)}
+                                                            {getChangeIcon(library.status)}
                                                         </ListItemIcon>
                                                         <ListItemText 
-                                                            primary={library.library_name}
-                                                            secondary={`${getChangeText(library.changeType)} • Revision: ${library.oldRevision}`}
+                                                            primary={library.name}
+                                                            secondary={`${getChangeText(library.status)} • Revision: ${library.old_revision}`}
                                                         />
                                                     </ListItem>
                                                 ))}
@@ -323,24 +323,24 @@ const CreateChangelogBetweenVersions = (props) => {
                                         </div>
                                     )}
 
-                                    {librarySummaries.modifiedLibraries && librarySummaries.modifiedLibraries.length > 0 && (
+                                    {librarySummaries.modified_libraries && librarySummaries.modified_libraries.length > 0 && (
                                         <div>
                                             <Typography variant="h6" className={classes.sectionTitle}>
-                                                Modified Libraries ({librarySummaries.modifiedLibraries.length})
+                                                Modified Libraries ({librarySummaries.modified_libraries.length})
                                             </Typography>
                                             <List>
-                                                {librarySummaries.modifiedLibraries.map((library, index) => (
+                                                {librarySummaries.modified_libraries.map((library, index) => (
                                                     <ListItem 
                                                         key={`modified-${index}`}
                                                         className={classes.libraryItem}
-                                                        onClick={() => fetchLibraryDetails(library.library_ref)}
+                                                        onClick={() => fetchLibraryDetails(library.ref)}
                                                     >
                                                         <ListItemIcon>
-                                                            {getChangeIcon(library.changeType)}
+                                                            {getChangeIcon(library.status)}
                                                         </ListItemIcon>
                                                         <ListItemText 
-                                                            primary={library.library_name}
-                                                            secondary={`${getChangeText(library.changeType)} • ${library.oldRevision} → ${library.newRevision}`}
+                                                            primary={library.name}
+                                                            secondary={`${getChangeText(library.status)} • ${library.old_revision} → ${library.new_revision}`}
                                                         />
                                                     </ListItem>
                                                 ))}
