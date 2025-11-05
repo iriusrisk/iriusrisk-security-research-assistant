@@ -978,24 +978,42 @@ const ControlDetailPanel = (props) => {
                 <Grid>
                     {data.standards && Object.keys(data.standards).length > 0 &&
                      <div>
-                         {Object.entries(data.standards).map(([key, standardUuid], index) => {
-                             // Find the standard by UUID
-                             const standardObj = standardSuggestions.find(std => std.uuid === standardUuid);
-                             const standardName = standardObj ? `${standardObj.supported_standard_ref} (${standardObj.standard_ref})` : standardUuid;
-                             
-                             return (
-                                 <Button 
-                                     variant="outlined" 
-                                     startIcon={<ClearIcon/>} 
-                                     className={classes.redHover}
-                                     style={{ margin: '4px' }} 
-                                     key={key} 
-                                     onClick={() => deleteStandard(standardUuid)}
-                                 >
-                                     {standardName}
-                                 </Button>
-                             );
-                         })}
+                         {Object.entries(data.standards)
+                             .map(([key, standardUuid]) => {
+                                 // Find the standard by UUID
+                                 const standardObj = standardSuggestions.find(std => std.uuid === standardUuid);
+                                 return { key, standardUuid, standardObj };
+                             })
+                             .sort((a, b) => {
+                                 // Sort by supported_standard_ref first, then standard_ref
+                                 const aSupported = a.standardObj?.supported_standard_ref || '';
+                                 const bSupported = b.standardObj?.supported_standard_ref || '';
+                                 const aStandard = a.standardObj?.standard_ref || '';
+                                 const bStandard = b.standardObj?.standard_ref || '';
+                                 
+                                 // Compare supported_standard_ref first
+                                 if (aSupported !== bSupported) {
+                                     return aSupported.localeCompare(bSupported);
+                                 }
+                                 // If supported_standard_ref is the same, compare standard_ref
+                                 return aStandard.localeCompare(bStandard);
+                             })
+                             .map(({ key, standardUuid, standardObj }) => {
+                                 const standardName = standardObj ? `${standardObj.supported_standard_ref} (${standardObj.standard_ref})` : standardUuid;
+                                 
+                                 return (
+                                     <Button 
+                                         variant="outlined" 
+                                         startIcon={<ClearIcon/>} 
+                                         className={classes.redHover}
+                                         style={{ margin: '4px' }} 
+                                         key={key} 
+                                         onClick={() => deleteStandard(standardUuid)}
+                                     >
+                                         {standardName}
+                                     </Button>
+                                 );
+                             })}
                      </div>
                     }
                     <FormControl variant="filled" className={classes.formControl}>

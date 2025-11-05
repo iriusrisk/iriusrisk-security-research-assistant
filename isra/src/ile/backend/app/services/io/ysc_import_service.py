@@ -13,7 +13,8 @@ from isra.src.ile.backend.app.models import (
     IRRule, IRRuleAction, IRRuleCondition, IRStandard, IRSupportedStandard,
     IRTest, IRThreat, IRUseCase, IRWeakness
 )
-from isra.src.config.constants import OUTPUT_NAME, CATEGORIES_LIST, STRIDE_LIST
+from isra.src.config.constants import OUTPUT_NAME, CATEGORIES_LIST, STRIDE_LIST, OPENCRE_PLUS, CRE_MAPPING_NAME
+from isra.src.config.config import get_resource
 from isra.src.utils.text_functions import generate_identifier_from_ref
 from isra.src.utils.cwe_functions import get_original_cwe_weaknesses, get_cwe_description, get_cwe_impact
 
@@ -24,7 +25,140 @@ class YSCImportService:
     """Service for importing YSC component files"""
     
     def __init__(self):
-        pass
+        self._opencre_mappings = None
+    
+    def _get_opencre_mappings(self):
+        """Get OpenCRE+ mappings, caching the result"""
+        if self._opencre_mappings is None:
+            self._opencre_mappings = get_resource(OPENCRE_PLUS)
+        return self._opencre_mappings
+    
+    def _get_standard_from_opencre(self, baseline_ref: str, base_standard_section: str) -> Dict[str, set]:
+        """
+        Get expanded standards from OpenCRE+ mappings for a given baseline standard and section.
+        Returns a dictionary mapping standard names to sets of sections.
+        """
+        mappings_yaml = self._get_opencre_mappings()
+        
+        # Check if baseline_ref is in CRE_MAPPING_NAME
+        if baseline_ref not in CRE_MAPPING_NAME:
+            return {}
+        
+        opencre_standard_name = CRE_MAPPING_NAME[baseline_ref]
+        standards_to_add = dict()
+        
+        # Now we iterate over the OpenCRE+ keys searching for the standard
+        for cre_id, cre_values in mappings_yaml.items():
+            if opencre_standard_name in cre_values:
+                # Now it may happen that the section doesn't appear exactly as it is in the OpenCRE+, so we
+                # apply special techniques to look for the best match
+                adapted = base_standard_section
+                
+                if adapted in cre_values[opencre_standard_name]:
+                    # If the section of the standard can be found inside the CRE we add all values
+                    # of that standard and the CRE ID
+                    standards_to_add.update(cre_values)
+                    if "CRE" not in standards_to_add:
+                        standards_to_add["CRE"] = set()
+                    standards_to_add["CRE"].add(cre_id)
+        
+        # We convert the lists to sets to remove duplicates
+        standards_to_add = {key: set(value) for key, value in standards_to_add.items()}
+        
+        return standards_to_add
+    
+    def _expand_standards_from_base(self, base_standard: str, base_standard_sections: List[str]) -> Dict[str, List[str]]:
+        """
+        Expand standards from base_standard and base_standard_sections using OpenCRE+ mappings.
+        Returns a dictionary mapping standard names (from OUTPUT_NAME) to lists of sections.
+        """
+        expanded_standards = {}
+        
+        if not base_standard or not base_standard_sections:
+            return expanded_standards
+        
+        # Process each section
+        for base_section in base_standard_sections:
+            if not base_section:
+                continue
+            
+            # Get expanded standards from OpenCRE
+            standards_to_add = self._get_standard_from_opencre(base_standard, base_section)
+            
+            if len(standards_to_add) == 0:
+                # If no standards found, add the base standard itself
+                if base_standard in OUTPUT_NAME:
+                    supported_standard_ref = OUTPUT_NAME[base_standard]["ref"]
+                    if supported_standard_ref not in expanded_standards:
+                        expanded_standards[supported_standard_ref] = []
+                    if base_section not in expanded_standards[supported_standard_ref]:
+                        expanded_standards[supported_standard_ref].append(base_section)
+            else:
+                # Add all expanded standards
+                for standard_name, sections in standards_to_add.items():
+                    # Map standard_name to supported_standard_ref using OUTPUT_NAME
+                    # standard_name from OpenCRE is typically a key in OUTPUT_NAME (like "NIST 800-53 v5", "ASVS", etc.)
+                    supported_standard_ref = None
+                    
+                    # First, check if standard_name is a direct key in OUTPUT_NAME
+                    if standard_name in OUTPUT_NAME:
+                        supported_standard_ref = OUTPUT_NAME[standard_name]["ref"]
+                    else:
+                        # Try to find by matching ref or name
+                        for key, value in OUTPUT_NAME.items():
+                            if value["ref"] == standard_name or value["name"] == standard_name:
+                                supported_standard_ref = value["ref"]
+                                break
+                        
+                        # If not found in OUTPUT_NAME, use the standard_name as-is (might be CRE or other)
+                        if supported_standard_ref is None:
+                            # For CRE, map to OpenCRE
+                            if standard_name == "CRE":
+                                supported_standard_ref = "OpenCRE"
+                            else:
+                                supported_standard_ref = standard_name
+                    
+                    if supported_standard_ref not in expanded_standards:
+                        expanded_standards[supported_standard_ref] = []
+                    
+                    for section in sections:
+                        if section not in expanded_standards[supported_standard_ref]:
+                            expanded_standards[supported_standard_ref].append(section)
+        
+        return expanded_standards
+    
+    def _merge_and_deduplicate_standards(
+        self, 
+        expanded_standards: Dict[str, List[str]], 
+        manual_standards: Dict[str, List[str]]
+    ) -> Dict[str, List[str]]:
+        """
+        Merge expanded standards with manual standards and remove duplicates.
+        Returns a dictionary mapping supported_standard_ref to list of standard_ref sections.
+        """
+        merged = {}
+        
+        # Add expanded standards
+        for supported_standard_ref, sections in expanded_standards.items():
+            if supported_standard_ref not in merged:
+                merged[supported_standard_ref] = []
+            for section in sections:
+                if section not in merged[supported_standard_ref]:
+                    merged[supported_standard_ref].append(section)
+        
+        # Add manual standards (from standards dict in YAML)
+        for standard_name, standard_sections in manual_standards.items():
+            if standard_name in OUTPUT_NAME:
+                supported_standard_ref = OUTPUT_NAME[standard_name]["ref"]
+                if supported_standard_ref not in merged:
+                    merged[supported_standard_ref] = []
+                
+                if isinstance(standard_sections, list):
+                    for section in standard_sections:
+                        if section not in merged[supported_standard_ref]:
+                            merged[supported_standard_ref].append(section)
+        
+        return merged
     
     def _find_library_by_category(self, category_ref: str, version_element: ILEVersion) -> Optional[IRLibrary]:
         """Find existing library that matches the category pattern for components"""
@@ -613,81 +747,65 @@ class YSCImportService:
                     version_element.references[new_reference.uuid] = new_reference
                     control.references[str(uuid.uuid4())] = new_reference.uuid
         
-        # Standards
+        # Standards - expand from base_standard/base_standard_section and merge with manual standards
         standards_data = countermeasure_data.get("standards") or {}
         base_standard = countermeasure_data.get("base_standard") or ""
         base_standard_section = countermeasure_data.get("base_standard_section") or []
         
-        if base_standard and base_standard_section:
-            # Map base_standard to supported_standard_ref using OUTPUT_NAME
-            if base_standard in OUTPUT_NAME:
-                supported_standard_ref = OUTPUT_NAME[base_standard]["ref"]
-                supported_standard_name = OUTPUT_NAME[base_standard]["name"]
-                
-                # Add supported standard if not exists
-                existing_supported_standard = None
-                for ss in version_element.supported_standards.values():
-                    if ss.supported_standard_ref == supported_standard_ref:
-                        existing_supported_standard = ss
-                        break
-                
-                if not existing_supported_standard:
-                    supported_standard = IRSupportedStandard(
-                        supported_standard_ref=supported_standard_ref,
-                        supported_standard_name=supported_standard_name
-                    )
-                    version_element.supported_standards[supported_standard.uuid] = supported_standard
-                
-                # Add standards for each section
-                for section in base_standard_section:
-                    existing_standard = self._check_standard_exists_in_version(
-                        version_element, supported_standard_ref, section
-                    )
-                    if existing_standard:
-                        control.standards[str(uuid.uuid4())] = existing_standard.uuid
-                    else:
-                        new_standard = IRStandard(
-                            supported_standard_ref=supported_standard_ref,
-                            standard_ref=section
-                        )
-                        version_element.standards[new_standard.uuid] = new_standard
-                        control.standards[str(uuid.uuid4())] = new_standard.uuid
+        # Ensure base_standard_section is a list
+        if isinstance(base_standard_section, str):
+            base_standard_section = [base_standard_section]
         
-        # Handle standards from standards dict
-        for standard_name, standard_sections in standards_data.items():
-            if standard_name in OUTPUT_NAME:
-                supported_standard_ref = OUTPUT_NAME[standard_name]["ref"]
-                supported_standard_name = OUTPUT_NAME[standard_name]["name"]
-                
-                # Add supported standard if not exists
-                existing_supported_standard = None
-                for ss in version_element.supported_standards.values():
-                    if ss.supported_standard_ref == supported_standard_ref:
-                        existing_supported_standard = ss
-                        break
-                
-                if not existing_supported_standard:
-                    supported_standard = IRSupportedStandard(
+        # Expand standards from base_standard and base_standard_section
+        expanded_standards = self._expand_standards_from_base(base_standard, base_standard_section)
+        
+        # Merge expanded standards with manual standards and deduplicate
+        all_standards = self._merge_and_deduplicate_standards(expanded_standards, standards_data)
+        
+        # Add all standards to the control
+        for supported_standard_ref, sections in all_standards.items():
+            # Get supported standard name from OUTPUT_NAME
+            supported_standard_name = supported_standard_ref
+            for key, value in OUTPUT_NAME.items():
+                if value["ref"] == supported_standard_ref:
+                    supported_standard_name = value["name"]
+                    break
+            
+            # Add supported standard if not exists
+            existing_supported_standard = None
+            for ss in version_element.supported_standards.values():
+                if ss.supported_standard_ref == supported_standard_ref:
+                    existing_supported_standard = ss
+                    break
+            
+            if not existing_supported_standard:
+                supported_standard = IRSupportedStandard(
+                    supported_standard_ref=supported_standard_ref,
+                    supported_standard_name=supported_standard_name
+                )
+                version_element.supported_standards[supported_standard.uuid] = supported_standard
+            
+            # Add standards for each section
+            for section in sections:
+                existing_standard = self._check_standard_exists_in_version(
+                    version_element, supported_standard_ref, section
+                )
+                if existing_standard:
+                    # Check if this standard is already in the control to avoid duplicates
+                    standard_already_in_control = False
+                    for std_uuid in control.standards.values():
+                        if std_uuid == existing_standard.uuid:
+                            standard_already_in_control = True
+                            break
+                    if not standard_already_in_control:
+                        control.standards[str(uuid.uuid4())] = existing_standard.uuid
+                else:
+                    new_standard = IRStandard(
                         supported_standard_ref=supported_standard_ref,
-                        supported_standard_name=supported_standard_name
+                        standard_ref=section
                     )
-                    version_element.supported_standards[supported_standard.uuid] = supported_standard
-                
-                # Add standards for each section
-                if isinstance(standard_sections, list):
-                    for section in standard_sections:
-                        existing_standard = self._check_standard_exists_in_version(
-                            version_element, supported_standard_ref, section
-                        )
-                        if existing_standard:
-                            control.standards[str(uuid.uuid4())] = existing_standard.uuid
-                        else:
-                            new_standard = IRStandard(
-                                supported_standard_ref=supported_standard_ref,
-                                standard_ref=section
-                            )
-                            version_element.standards[new_standard.uuid] = new_standard
-                            control.standards[str(uuid.uuid4())] = new_standard.uuid
+                    version_element.standards[new_standard.uuid] = new_standard
+                    control.standards[str(uuid.uuid4())] = new_standard.uuid
         
         # Base standard and base standard section
         if base_standard:
@@ -736,82 +854,66 @@ class YSCImportService:
                     version_element.references[new_reference.uuid] = new_reference
                     control.references[str(uuid.uuid4())] = new_reference.uuid
         
-        # Update standards (replace dictionary)
+        # Update standards (replace dictionary) - expand from base_standard/base_standard_section and merge with manual standards
         control.standards.clear()
         standards_data = countermeasure_data.get("standards") or {}
         base_standard = countermeasure_data.get("base_standard") or ""
         base_standard_section = countermeasure_data.get("base_standard_section") or []
         
-        if base_standard and base_standard_section:
-            # Map base_standard to supported_standard_ref using OUTPUT_NAME
-            if base_standard in OUTPUT_NAME:
-                supported_standard_ref = OUTPUT_NAME[base_standard]["ref"]
-                supported_standard_name = OUTPUT_NAME[base_standard]["name"]
-                
-                # Add supported standard if not exists
-                existing_supported_standard = None
-                for ss in version_element.supported_standards.values():
-                    if ss.supported_standard_ref == supported_standard_ref:
-                        existing_supported_standard = ss
-                        break
-                
-                if not existing_supported_standard:
-                    supported_standard = IRSupportedStandard(
-                        supported_standard_ref=supported_standard_ref,
-                        supported_standard_name=supported_standard_name
-                    )
-                    version_element.supported_standards[supported_standard.uuid] = supported_standard
-                
-                # Add standards for each section
-                for section in base_standard_section:
-                    existing_standard = self._check_standard_exists_in_version(
-                        version_element, supported_standard_ref, section
-                    )
-                    if existing_standard:
-                        control.standards[str(uuid.uuid4())] = existing_standard.uuid
-                    else:
-                        new_standard = IRStandard(
-                            supported_standard_ref=supported_standard_ref,
-                            standard_ref=section
-                        )
-                        version_element.standards[new_standard.uuid] = new_standard
-                        control.standards[str(uuid.uuid4())] = new_standard.uuid
+        # Ensure base_standard_section is a list
+        if isinstance(base_standard_section, str):
+            base_standard_section = [base_standard_section]
         
-        # Handle standards from standards dict
-        for standard_name, standard_sections in standards_data.items():
-            if standard_name in OUTPUT_NAME:
-                supported_standard_ref = OUTPUT_NAME[standard_name]["ref"]
-                supported_standard_name = OUTPUT_NAME[standard_name]["name"]
-                
-                # Add supported standard if not exists
-                existing_supported_standard = None
-                for ss in version_element.supported_standards.values():
-                    if ss.supported_standard_ref == supported_standard_ref:
-                        existing_supported_standard = ss
-                        break
-                
-                if not existing_supported_standard:
-                    supported_standard = IRSupportedStandard(
+        # Expand standards from base_standard and base_standard_section
+        expanded_standards = self._expand_standards_from_base(base_standard, base_standard_section)
+        
+        # Merge expanded standards with manual standards and deduplicate
+        all_standards = self._merge_and_deduplicate_standards(expanded_standards, standards_data)
+        
+        # Add all standards to the control
+        for supported_standard_ref, sections in all_standards.items():
+            # Get supported standard name from OUTPUT_NAME
+            supported_standard_name = supported_standard_ref
+            for key, value in OUTPUT_NAME.items():
+                if value["ref"] == supported_standard_ref:
+                    supported_standard_name = value["name"]
+                    break
+            
+            # Add supported standard if not exists
+            existing_supported_standard = None
+            for ss in version_element.supported_standards.values():
+                if ss.supported_standard_ref == supported_standard_ref:
+                    existing_supported_standard = ss
+                    break
+            
+            if not existing_supported_standard:
+                supported_standard = IRSupportedStandard(
+                    supported_standard_ref=supported_standard_ref,
+                    supported_standard_name=supported_standard_name
+                )
+                version_element.supported_standards[supported_standard.uuid] = supported_standard
+            
+            # Add standards for each section
+            for section in sections:
+                existing_standard = self._check_standard_exists_in_version(
+                    version_element, supported_standard_ref, section
+                )
+                if existing_standard:
+                    # Check if this standard is already in the control to avoid duplicates
+                    standard_already_in_control = False
+                    for std_uuid in control.standards.values():
+                        if std_uuid == existing_standard.uuid:
+                            standard_already_in_control = True
+                            break
+                    if not standard_already_in_control:
+                        control.standards[str(uuid.uuid4())] = existing_standard.uuid
+                else:
+                    new_standard = IRStandard(
                         supported_standard_ref=supported_standard_ref,
-                        supported_standard_name=supported_standard_name
+                        standard_ref=section
                     )
-                    version_element.supported_standards[supported_standard.uuid] = supported_standard
-                
-                # Add standards for each section
-                if isinstance(standard_sections, list):
-                    for section in standard_sections:
-                        existing_standard = self._check_standard_exists_in_version(
-                            version_element, supported_standard_ref, section
-                        )
-                        if existing_standard:
-                            control.standards[str(uuid.uuid4())] = existing_standard.uuid
-                        else:
-                            new_standard = IRStandard(
-                                supported_standard_ref=supported_standard_ref,
-                                standard_ref=section
-                            )
-                            version_element.standards[new_standard.uuid] = new_standard
-                            control.standards[str(uuid.uuid4())] = new_standard.uuid
+                    version_element.standards[new_standard.uuid] = new_standard
+                    control.standards[str(uuid.uuid4())] = new_standard.uuid
         
         # Update base standard and base standard section (replace lists)
         if base_standard:
