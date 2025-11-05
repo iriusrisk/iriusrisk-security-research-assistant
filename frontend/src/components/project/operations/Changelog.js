@@ -127,7 +127,7 @@ const Changelog = (props) => {
                                       { ReactHtmlParser (value2.old) }
                                   </Grid>,
                                   <Grid key={index2 + 1000000} item xs={4}>
-                                      { ReactHtmlParser (value2.neww) }
+                                      { ReactHtmlParser (value2.new) }
                                   </Grid>
                               ]
                           })}
@@ -191,7 +191,7 @@ const Changelog = (props) => {
                                                             { ReactHtmlParser (value2.old) }
                                                         </Grid>,
                                                         <Grid key={index2 + 1000000} item xs={4}>
-                                                            { ReactHtmlParser (value2.neww) }
+                                                            { ReactHtmlParser (value2.new) }
                                                         </Grid>
                                                     ]
                                                 })}

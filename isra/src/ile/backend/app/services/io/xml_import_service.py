@@ -411,14 +411,13 @@ class XMLImportService:
                         )
                         
                         threat_rr = th.find("riskRating")
-                        if threat_rr:
-                            risk_rating = IRRiskRating(
-                                confidentiality=threat_rr.get("confidentiality", ""),
-                                integrity=threat_rr.get("integrity", ""),
-                                availability=threat_rr.get("availability", ""),
-                                ease_of_exploitation=threat_rr.get("easeOfExploitation", "")
-                            )
-                            threat.risk_rating = risk_rating
+                        risk_rating = IRRiskRating(
+                            confidentiality=threat_rr.get("confidentiality", ""),
+                            integrity=threat_rr.get("integrity", ""),
+                            availability=threat_rr.get("availability", ""),
+                            ease_of_exploitation=threat_rr.get("easeOfExploitation", "")
+                        )
+                        threat.risk_rating = risk_rating
                         
                         # Handle custom fields
                         for custom_field in a.iter("customField"):

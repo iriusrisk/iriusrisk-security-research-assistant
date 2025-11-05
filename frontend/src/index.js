@@ -41,6 +41,7 @@ import 'react-contexify/dist/ReactContexify.css';
 import TextField from "@material-ui/core/TextField";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { ActivityIndicatorContext } from './components/utils/ActivityIndicatorContext';
+import './index.css';
 
 // This components are loaded in this way to do code-splitting
 const Library = lazy(() => import('./components/library/Library'));

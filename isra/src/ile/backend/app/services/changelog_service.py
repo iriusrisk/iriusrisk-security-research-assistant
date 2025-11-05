@@ -248,15 +248,15 @@ class ChangelogService:
                              old_library.desc != new_library.desc or
                              old_library.filename != new_library.filename or
                              old_library.enabled != new_library.enabled)
-                
-                response.modified_libraries.append(LibrarySummary(
-                    ref=new_library.ref,
-                    name=new_library.name,
-                    status="MODIFIED",
-                    old_revision=old_library.revision,
-                    new_revision=new_library.revision,
-                    has_changes=has_changes
-                ))
+                if has_changes:
+                    response.modified_libraries.append(LibrarySummary(
+                        ref=new_library.ref,
+                        name=new_library.name,
+                        status="MODIFIED",
+                        old_revision=old_library.revision,
+                        new_revision=new_library.revision,
+                        has_changes=has_changes
+                    ))
         
         return response
     
