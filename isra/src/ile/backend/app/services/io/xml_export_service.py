@@ -2,6 +2,7 @@
 XML export service for IriusRisk Content Manager API
 """
 
+import io
 import logging
 import xml.etree.ElementTree as ET
 from datetime import datetime
@@ -47,20 +48,41 @@ class XMLExportService:
             desc_elem = ET.SubElement(root, "desc")
             desc_elem.text = lib.desc
             
-            # Add copyright comment
-            year = datetime.now().year
-            comment = f"Copyright (c) 2012-{year} IriusRisk SL. All rights reserved. The content of this library is the property of IriusRisk SL and may only be used in whole or in part with a valid license for IriusRisk."
-            root.insert(0, ET.Comment(comment))
-            
             # Add various elements
             self._set_component_definitions_and_categories(root, lib, version)
             self._set_supported_standards(root, lib, version)
             self._set_risk_patterns(root, lib, version)
             self._set_rules(root, lib)
             
-            # Create tree and write to file
+            # Create tree and write to buffer first
             tree = ET.ElementTree(root)
-            tree.write(xml_file_path, encoding="utf-8", xml_declaration=True)
+            buffer = io.BytesIO()
+            tree.write(buffer, encoding="utf-8", xml_declaration=True)
+            
+            # Get the XML content as string
+            xml_content = buffer.getvalue().decode("utf-8")
+            
+            # Prepare copyright comment
+            year = datetime.now().year
+            comment = f"Copyright (c) 2012-{year} IriusRisk SL. All rights reserved.The content of this library is the property of IriusRisk SL and may only be used in whole or in part with a valid license for IriusRisk."
+            comment_xml = f"<!--{comment}-->"
+            
+            # Insert copyright comment after XML declaration but before root element
+            # Find the position after the XML declaration
+            if xml_content.startswith("<?xml"):
+                # Find the end of the XML declaration (after ?>)
+                decl_end = xml_content.find("?>") + 2
+                # Get the rest of the content after the declaration
+                rest_content = xml_content[decl_end:].lstrip()
+                # Insert newline and comment after declaration, before root element
+                xml_content = xml_content[:decl_end] + "\n" + comment_xml + "\n" + rest_content
+            else:
+                # Fallback: prepend comment if no declaration found
+                xml_content = comment_xml + "\n" + xml_content
+            
+            # Write final XML to file
+            with open(xml_file_path, "w", encoding="utf-8") as f:
+                f.write(xml_content)
             
             # Validate XML
             is_valid = self.xml_service.validate_xml_schema(str(xml_file_path))
@@ -301,8 +323,27 @@ class XMLExportService:
                             cm_elem.set("ref", version.controls[c_uuid].ref)
                             cm_elem.set("mitigation", c_item.mitigation)
                     
+                    
                     # Orphaned controls (controls without weaknesses, directly under threat)
                     countermeasures_elem = ET.SubElement(th_elem, "countermeasures")
+
+                    # Add countermeasures from weaknesses
+                    countermeasures_to_add = set()
+                    for w_uuid, w_item in threat_item.weaknesses.items():
+                        if w_uuid not in version.weaknesses:
+                            continue
+                        
+                        for c_uuid, c_item in w_item.controls.items():
+                            if c_uuid not in version.controls:
+                                continue
+                            countermeasures_to_add.add((version.controls[c_uuid].ref, c_item.mitigation))
+                    
+                    for c_ref, c_mitigation in countermeasures_to_add:
+                        cm_elem = ET.SubElement(countermeasures_elem, "countermeasure")
+                        cm_elem.set("ref", c_ref)
+                        cm_elem.set("mitigation", c_mitigation)
+
+
                     # c_item.ref is the UUID (from get_relations_in_tree), version.controls is keyed by UUID
                     for c_uuid, c_item in threat_item.orphaned_controls.items():
                         if c_uuid not in version.controls:
@@ -387,6 +428,10 @@ class XMLExportService:
             mitre_elem = ET.SubElement(custom_fields_elem, "customField")
             mitre_elem.set("ref", "SF-C-MITRE")
             mitre_elem.set("value", "|".join(ctr.mitre or []))
+
+            scope_elem = ET.SubElement(custom_fields_elem, "customField")
+            scope_elem.set("ref", "SF-C-SCOPE")
+            scope_elem.set("value", "|".join(ctr.scope or []))
             
             base_standard_elem = ET.SubElement(custom_fields_elem, "customField")
             base_standard_elem.set("ref", "SF-C-STANDARD-BASELINE")
@@ -395,10 +440,6 @@ class XMLExportService:
             base_standard_section_elem = ET.SubElement(custom_fields_elem, "customField")
             base_standard_section_elem.set("ref", "SF-C-STANDARD-SECTION")
             base_standard_section_elem.set("value", "|".join(ctr.base_standard_section or []))
-            
-            scope_elem = ET.SubElement(custom_fields_elem, "customField")
-            scope_elem.set("ref", "SF-C-SCOPE")
-            scope_elem.set("value", "|".join(ctr.scope or []))
             
             # Test
             self._set_test(cm_elem, version, ctr.test)
