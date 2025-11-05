@@ -381,8 +381,16 @@ class YSCImportService:
                     if not cwe_ref.startswith("CWE-"):
                         cwe_ref = f"CWE-{cwe_ref}" if "-" not in cwe_ref else cwe_ref
 
-                    # Check if weakness already exists by ref
-                    existing_weakness = self._find_weakness_by_ref(version_element, cwe_ref)
+                    # Check if weakness already exists by ref, considering relation context
+                    existing_weakness = self._find_weakness_by_ref(
+                        version_element, 
+                        cwe_ref, 
+                        new_library, 
+                        risk_pattern.uuid, 
+                        usecase.uuid, 
+                        threat.uuid, 
+                        control.uuid
+                    )
 
                     if not existing_weakness:
                         # Create new weakness from CWE
@@ -414,16 +422,6 @@ class YSCImportService:
                         cwe_ids = cwe_ref.split(" ")
                         existing_weakness.desc = get_cwe_description(original_cwe_weaknesses, cwe_ids)
                         cwe_impact = countermeasure_data.get("cwe_impact", "100")
-
-                        # Try to get impact from CWE if not provided
-                        if cwe_impact == "100" and len(cwe_ids) > 0:
-                            for cwe_id in cwe_ids:
-                                if "-" in cwe_id:
-                                    cwe_id_number = cwe_id.split("-")[1]
-                                    if cwe_id_number in original_cwe_weaknesses:
-                                        cwe_impact = get_cwe_impact(original_cwe_weaknesses, cwe_id_number)
-                                        break
-
                         existing_weakness.impact = cwe_impact
                         weakness_uuid = existing_weakness.uuid
 
@@ -913,8 +911,60 @@ class YSCImportService:
                 return control
         return None
     
-    def _find_weakness_by_ref(self, version: ILEVersion, weakness_ref: str) -> Optional[IRWeakness]:
-        """Find weakness by ref in version"""
+    def _find_weakness_by_ref(
+        self, 
+        version: ILEVersion, 
+        weakness_ref: str, 
+        library: Optional[IRLibrary] = None,
+        risk_pattern_uuid: Optional[str] = None,
+        usecase_uuid: Optional[str] = None,
+        threat_uuid: Optional[str] = None,
+        control_uuid: Optional[str] = None
+    ) -> Optional[IRWeakness]:
+        """
+        Find weakness by ref in version, considering relation context.
+        
+        If relation context is provided (library, risk_pattern_uuid, usecase_uuid, 
+        threat_uuid, control_uuid), first tries to find a weakness that:
+        1. Has the matching ref
+        2. Is part of a relation that matches all the provided UUIDs
+        
+        If no such weakness is found, also checks if the threat is already related
+        to a weakness with the same ref (even if other relation parts don't match).
+        
+        If still not found or no context is provided, falls back to searching by ref only.
+        """
+        # If relation context is provided, try to find weakness via relations
+        if library and threat_uuid:
+            # First, try to find a relation that matches ALL the context
+            if risk_pattern_uuid and usecase_uuid and control_uuid:
+                for relation in library.relations.values():
+                    if (relation.risk_pattern_uuid == risk_pattern_uuid and
+                        relation.usecase_uuid == usecase_uuid and
+                        relation.threat_uuid == threat_uuid and
+                        relation.control_uuid == control_uuid and
+                        relation.weakness_uuid != ""):
+                        # Found a matching relation, check if the weakness has the matching ref
+                        weakness_uuid = relation.weakness_uuid
+                        if weakness_uuid in version.weaknesses:
+                            weakness = version.weaknesses[weakness_uuid]
+                            if weakness.ref == weakness_ref:
+                                logger.debug(f"Found weakness by ref and full relation context: {weakness_ref}")
+                                return weakness
+            
+            # If not found, check if the threat is already related to a weakness with the same ref
+            # (even if other relation parts don't match)
+            for relation in library.relations.values():
+                if (relation.threat_uuid == threat_uuid and
+                    relation.weakness_uuid != ""):
+                    weakness_uuid = relation.weakness_uuid
+                    if weakness_uuid in version.weaknesses:
+                        weakness = version.weaknesses[weakness_uuid]
+                        if weakness.ref == weakness_ref:
+                            logger.debug(f"Found weakness by ref and threat relation: {weakness_ref}")
+                            return weakness
+        
+        # Fall back to searching by ref only (original behavior)
         for weakness in version.weaknesses.values():
             if weakness.ref == weakness_ref:
                 return weakness
