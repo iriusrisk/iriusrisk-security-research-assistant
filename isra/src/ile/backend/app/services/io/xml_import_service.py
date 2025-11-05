@@ -282,11 +282,12 @@ class XMLImportService:
                         
                         # Handle implementations
                         for st in control_element.iter("implementation"):
+                            imp_uuid = st.get("uuid", "")
                             platform = st.get("platform", "")
                             desc_elem = st.find( "desc")
                             desc = self._get_text_from_element(desc_elem)
                             desc = desc.replace("\n", "").replace(" ", "")
-                            control.implementations.append(f"{platform}_::_{desc}")
+                            control.implementations.append(f"{imp_uuid}_::_{platform}_::_{desc}")
                         
                         # Handle standards
                         for st in control_element.iter("standard"):
@@ -385,8 +386,11 @@ class XMLImportService:
                 desc=a.get("desc", "")
             )
             
-            threats = a.iter("threat")
-            if not threats:
+            # Collect all threats for this usecase
+            threats_list = list(a.iter("threat"))
+            
+            # Case 1: Use case without threats
+            if not threats_list:
                 relation = IRRelation(
                     risk_pattern_uuid=risk_pattern.uuid,
                     usecase_uuid=usecase.uuid,
@@ -397,7 +401,7 @@ class XMLImportService:
                 )
                 new_library.relations[relation.uuid] = relation
             else:
-                for th in threats:
+                for th in threats_list:
                     threat_uuid = th.get("uuid", "")
                     
                     if threat_uuid not in version_element.threats:
@@ -444,13 +448,20 @@ class XMLImportService:
                         
                         version_element.threats[threat.uuid] = threat
                     
+                    # Track if any relations were created for this threat
+                    threat_has_relations = False
                     th_control_refs = set()
                     
-                    for w in th.iter("weakness"):
+                    # Process weaknesses within the threat
+                    weaknesses_list = list(th.iter("weakness"))
+                    for w in weaknesses_list:
                         weakness_ref = w.get("ref", "")
                         weakness_uuid = _get_weakness_uuid_by_ref(weakness_ref)
                         
-                        wc_list = w.iter("countermeasure")
+                        # Collect countermeasures for this weakness
+                        wc_list = list(w.iter("countermeasure"))
+                        
+                        # Case 4: Weakness without controls
                         if not wc_list:
                             relation = IRRelation(
                                 risk_pattern_uuid=risk_pattern.uuid,
@@ -461,7 +472,9 @@ class XMLImportService:
                                 mitigation=""
                             )
                             new_library.relations[relation.uuid] = relation
+                            threat_has_relations = True
                         else:
+                            # Weakness with controls
                             for wc in wc_list:
                                 control_ref = wc.get("ref", "")
                                 control_uuid = _get_control_uuid_by_ref(control_ref)
@@ -475,8 +488,11 @@ class XMLImportService:
                                 )
                                 th_control_refs.add(wc.get("ref", ""))
                                 new_library.relations[relation.uuid] = relation
+                                threat_has_relations = True
                     
-                    for c in th.iter("countermeasure"):
+                    # Case 3: Threat with orphaned controls (controls not associated with any weakness)
+                    orphaned_controls_list = list(th.iter("countermeasure"))
+                    for c in orphaned_controls_list:
                         control_ref = c.get("ref", "")
                         if control_ref not in th_control_refs:
                             control_uuid = _get_control_uuid_by_ref(control_ref)
@@ -489,6 +505,19 @@ class XMLImportService:
                                 mitigation=c.get("mitigation", "")
                             )
                             new_library.relations[relation.uuid] = relation
+                            threat_has_relations = True
+                    
+                    # Case 2: Threat without weaknesses and without orphaned controls
+                    if not threat_has_relations:
+                        relation = IRRelation(
+                            risk_pattern_uuid=risk_pattern.uuid,
+                            usecase_uuid=usecase.uuid,
+                            threat_uuid=threat_uuid,
+                            weakness_uuid="",
+                            control_uuid="",
+                            mitigation=""
+                        )
+                        new_library.relations[relation.uuid] = relation
             
             if usecase.uuid not in version_element.usecases:
                 version_element.usecases[usecase.uuid] = usecase

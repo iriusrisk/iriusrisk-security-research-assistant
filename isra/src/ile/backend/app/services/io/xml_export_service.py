@@ -392,11 +392,13 @@ class XMLExportService:
             # Implementations
             impls_elem = ET.SubElement(cm_elem, "implementations")
             for imp in ctr.implementations:
-                imp_parts = imp.split("_::_", 1)
+                imp_parts = imp.split("_::_", 2)
+                imp_uuid = imp_parts[0] if len(imp_parts) > 0 else ""
                 platform = imp_parts[0] if len(imp_parts) > 0 else ""
                 desc = imp_parts[1] if len(imp_parts) > 1 else ""
                 
                 impl_elem = ET.SubElement(impls_elem, "implementation")
+                impl_elem.set("uuid", imp_uuid)
                 impl_elem.set("platform", platform)
                 
                 impl_desc_elem = ET.SubElement(impl_elem, "desc")

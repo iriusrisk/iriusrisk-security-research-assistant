@@ -720,7 +720,7 @@ const Dashboard = () => {
           >
             <Menu />
           </IconButton>
-          <img src={Logo} alt="logo" style={{ width: 'auto', height: '60px' }} />
+          <img src={Logo} alt="logo" style={{ width: 'auto', height: '40px' }} />
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
           </Typography>
           {project !== "" &&
