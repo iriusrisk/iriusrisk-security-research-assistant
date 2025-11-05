@@ -490,15 +490,29 @@ class YSCImportService:
             ref_url = ref_data.get("url", "")
             
             if ref_name and ref_url:
+                # Check if reference already exists in this threat by name
+                existing_ref_key = self._find_reference_in_item(
+                    threat.references, version_element, ref_name, ref_url
+                )
+                
+                if existing_ref_key:
+                    # Reference already exists in this threat, skip it
+                    logger.debug(f"Reference already exists in threat: {ref_name}")
+                    continue
+                
+                # Check if reference exists in version
                 existing_ref = self._check_reference_exists_in_version(
                     version_element, ref_name, ref_url
                 )
+                
                 if existing_ref:
-                    threat.references[ref_data.get("uuid", "")] = existing_ref.uuid
+                    # Use existing reference, generate new key for this threat
+                    threat.references[str(uuid.uuid4())] = existing_ref.uuid
                 else:
+                    # Create new reference
                     new_reference = IRReference(name=ref_name, url=ref_url)
                     version_element.references[new_reference.uuid] = new_reference
-                    threat.references[ref_data.get("uuid", "")] = new_reference.uuid
+                    threat.references[str(uuid.uuid4())] = new_reference.uuid
         
         return threat
     
@@ -539,15 +553,19 @@ class YSCImportService:
             ref_url = ref_data.get("url", "")
             
             if ref_name and ref_url:
+                # Check if reference exists in version
                 existing_ref = self._check_reference_exists_in_version(
                     version_element, ref_name, ref_url
                 )
+                
                 if existing_ref:
-                    threat.references[ref_data.get("uuid", "")] = existing_ref.uuid
+                    # Use existing reference, generate new key for this threat
+                    threat.references[str(uuid.uuid4())] = existing_ref.uuid
                 else:
+                    # Create new reference
                     new_reference = IRReference(name=ref_name, url=ref_url)
                     version_element.references[new_reference.uuid] = new_reference
-                    threat.references[ref_data.get("uuid", "")] = new_reference.uuid
+                    threat.references[str(uuid.uuid4())] = new_reference.uuid
     
     def _create_control_from_yaml(self, countermeasure_data: Dict, version_element: ILEVersion) -> IRControl:
         """Create control from YAML countermeasure data"""
@@ -571,15 +589,29 @@ class YSCImportService:
             ref_url = ref_data.get("url", "")
             
             if ref_name and ref_url:
+                # Check if reference already exists in this control by name
+                existing_ref_key = self._find_reference_in_item(
+                    control.references, version_element, ref_name, ref_url
+                )
+                
+                if existing_ref_key:
+                    # Reference already exists in this control, skip it
+                    logger.debug(f"Reference already exists in control: {ref_name}")
+                    continue
+                
+                # Check if reference exists in version
                 existing_ref = self._check_reference_exists_in_version(
                     version_element, ref_name, ref_url
                 )
+                
                 if existing_ref:
-                    control.references[ref_data.get("uuid", "")] = existing_ref.uuid
+                    # Use existing reference, generate new key for this control
+                    control.references[str(uuid.uuid4())] = existing_ref.uuid
                 else:
+                    # Create new reference
                     new_reference = IRReference(name=ref_name, url=ref_url)
                     version_element.references[new_reference.uuid] = new_reference
-                    control.references[ref_data.get("uuid", "")] = new_reference.uuid
+                    control.references[str(uuid.uuid4())] = new_reference.uuid
         
         # Standards
         standards_data = countermeasure_data.get("standards") or {}
@@ -690,15 +722,19 @@ class YSCImportService:
             ref_url = ref_data.get("url", "")
             
             if ref_name and ref_url:
+                # Check if reference exists in version
                 existing_ref = self._check_reference_exists_in_version(
                     version_element, ref_name, ref_url
                 )
+                
                 if existing_ref:
-                    control.references[ref_data.get("uuid", "")] = existing_ref.uuid
+                    # Use existing reference, generate new key for this control
+                    control.references[str(uuid.uuid4())] = existing_ref.uuid
                 else:
+                    # Create new reference
                     new_reference = IRReference(name=ref_name, url=ref_url)
                     version_element.references[new_reference.uuid] = new_reference
-                    control.references[ref_data.get("uuid", "")] = new_reference.uuid
+                    control.references[str(uuid.uuid4())] = new_reference.uuid
         
         # Update standards (replace dictionary)
         control.standards.clear()
@@ -874,6 +910,18 @@ class YSCImportService:
         for ref in version.references.values():
             if ref.name == name and ref.url == url:
                 return ref
+        return None
+    
+    def _find_reference_in_item(self, item_references: Dict[str, str], version: ILEVersion, ref_name: str, ref_url: str) -> Optional[str]:
+        """
+        Find if a reference already exists in a threat or control by name.
+        Returns the key (UUID) in the item's references dictionary if found, None otherwise.
+        """
+        for ref_key, ref_uuid in item_references.items():
+            if ref_uuid in version.references:
+                ref = version.references[ref_uuid]
+                if ref.name == ref_name and ref.url == ref_url:
+                    return ref_key
         return None
     
     def _check_standard_exists_in_version(self, version: ILEVersion, supported_standard_ref: str, standard_ref: str) -> Optional[IRStandard]:
