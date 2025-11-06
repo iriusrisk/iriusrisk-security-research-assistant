@@ -204,7 +204,7 @@ class PropertiesManager:
             
             # List of resource files to copy
             resource_files = [
-                "ysc_schema.json"
+                "library_structure.json"
             ]
             
             # Copy each resource file if it doesn't exist in config

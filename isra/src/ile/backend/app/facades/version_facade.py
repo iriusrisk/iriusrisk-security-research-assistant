@@ -61,6 +61,10 @@ class VersionFacade:
         """Export version to folder"""
         self.version_service.export_version_to_folder(version_ref, format)
     
+    def create_marketplace_release(self, version_ref: str) -> None:
+        """Create marketplace release"""
+        self.version_service.create_marketplace_release(version_ref)
+    
     def quick_reload_version(self, version_ref: str) -> None:
         """Quick reload version"""
         self.version_service.quick_reload_version(version_ref)

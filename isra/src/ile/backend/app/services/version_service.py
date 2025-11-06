@@ -178,6 +178,94 @@ class VersionService:
             logger.error(f"Error exporting version {version_ref}: {e}")
             raise RuntimeError("Error exporting version") from e
     
+    def create_marketplace_release(self, version_ref: str) -> None:
+        """Create marketplace release structure from version libraries"""
+        logger.info(f"Creating marketplace release for version {version_ref}")
+        version = self.data_service.get_version(version_ref)
+        if version is None:
+            raise ValueError(f"Version '{version_ref}' not found")
+        
+        # Load library structure from config folder
+        library_structure_path = Path(ILEConstants.CONFIG_FOLDER) / "library_structure.json"
+        if not library_structure_path.exists():
+            raise FileNotFoundError(f"Library structure file not found at {library_structure_path}")
+        
+        with open(library_structure_path, 'r', encoding='utf-8') as f:
+            library_structure = json.load(f)
+        
+        # Create mapping from library ref to package info
+        library_to_package = {}
+        for package_ref, package_info in library_structure.get("packages", {}).items():
+            for library_ref in package_info.get("libraries", []):
+                library_to_package[library_ref] = {
+                    "package_ref": package_ref,
+                    "type": package_info.get("type", "v2")
+                }
+        
+        # Group libraries by package and type
+        packages_by_type = {}  # {type: {package_ref: [library_refs]}}
+        
+        for library_ref, library in version.libraries.items():
+            if library_ref in library_to_package:
+                package_info = library_to_package[library_ref]
+                package_type = package_info["type"]
+                package_ref = package_info["package_ref"]
+                
+                if package_type not in packages_by_type:
+                    packages_by_type[package_type] = {}
+                if package_ref not in packages_by_type[package_type]:
+                    packages_by_type[package_type][package_ref] = []
+                
+                packages_by_type[package_type][package_ref].append(library_ref)
+            else:
+                logger.warning(f"Library '{library_ref}' not found in library structure, skipping")
+        
+        # Create marketplace folder structure and export libraries
+        marketplace_path = Path(ILEConstants.OUTPUT_FOLDER) / "marketplace"
+        marketplace_path.mkdir(parents=True, exist_ok=True)
+        
+        try:
+            for package_type, packages in packages_by_type.items():
+                type_path = marketplace_path / package_type
+                type_path.mkdir(parents=True, exist_ok=True)
+                
+                for package_ref, library_refs in packages.items():
+                    package_path = type_path / package_ref
+                    package_path.mkdir(parents=True, exist_ok=True)
+                    
+                    # Export each library in the package
+                    for library_ref in library_refs:
+                        if library_ref in version.libraries:
+                            library = version.libraries[library_ref]
+                            
+                            # Save original filename
+                            original_filename = library.filename
+                            
+                            # Append revision number to filename
+                            # Format: {base_name}_v{revision}.xml
+                            filename_path = Path(original_filename)
+                            base_name = filename_path.stem  # filename without extension
+                            extension = filename_path.suffix or ".xml"
+                            revision = library.revision or "0"
+                            
+                            # Create new filename with revision
+                            new_filename = f"{base_name}_v{revision}{extension}"
+                            library.filename = new_filename
+                            
+                            try:
+                                self.io_facade.export_library_xml(library, version, str(package_path))
+                                logger.info(f"Exported library '{library_ref}' (revision {revision}) to package '{package_ref}' in {package_type} as '{new_filename}'")
+                            finally:
+                                # Restore original filename
+                                library.filename = original_filename
+                        else:
+                            logger.warning(f"Library '{library_ref}' not found in version, skipping")
+            
+            logger.info(f"Marketplace release created successfully at {marketplace_path}")
+        except Exception as e:
+            logger.error(f"Error creating marketplace release for version {version_ref}: {e}")
+            raise RuntimeError("Error creating marketplace release") from e
+    
     def get_suggestions(self, version_ref: str, element_type: str, ref: str) -> IRSuggestions:
         """Get suggestions for element"""
         suggestions = IRSuggestions()

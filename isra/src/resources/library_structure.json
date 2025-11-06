@@ -1,0 +1,760 @@
+{
+  "categories": {
+    "regulatory": {
+      "name": "Regulatory",
+      "description": "Libraries focused on regulatory compliance and legal requirements",
+      "subcategories": {
+        "na-regulations": {
+          "id": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+          "ref": "na-regulations",
+          "name": "NA Regulations",
+          "desc": "North America regulatory frameworks",
+          "packages": [
+            "fedramp",
+            "hipaa",
+            "legal-regulations"
+          ]
+        },
+        "latam-regulations": {
+          "id": "b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e",
+          "ref": "latam-regulations",
+          "name": "LATAM Regulations",
+          "desc": " Latin America regulatory frameworks",
+          "packages": []
+        },
+        "emea-regulations": {
+          "id": "c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f",
+          "ref": "emea-regulations",
+          "name": "EMEA Regulations",
+          "desc": "European Union and Middle East regulatory frameworks",
+          "packages": [
+            "eu-gdpr"
+          ]
+        },
+        "apac-regulations": {
+          "id": "d4e5f6a7-b8c9-4d5e-1f2a-3b4c5d6e7f8a",
+          "ref": "apac-regulations",
+          "name": "APAC Regulations",
+          "desc": "Asia-Pacific regulatory frameworks",
+          "packages": []
+        },
+        "global-regulations": {
+          "id": "e5f6a7b8-c9d0-4e5f-2a3b-4c5d6e7f8a9b",
+          "ref": "global-regulations",
+          "name": "Global Regulations",
+          "desc": "Global regulatory frameworks with worldwide applicability",
+          "packages": [
+            "pci-dss"
+          ]
+        }
+      }
+    },
+    "cloud-services": {
+      "name": "Cloud Services",
+      "description": "Libraries focused on cloud services and their specific security requirements",
+      "subcategories": {
+        "cloud-service-providers": {
+          "id": "f6a7b8c9-d0e1-4f5a-3b4c-5d6e7f8a9b0c",
+          "ref": "cloud-service-providers",
+          "name": "Cloud Service Providers",
+          "desc": "Major cloud platforms like AWS, Azure, and Google Cloud with their infrastructure security controls",
+          "packages": [
+            "alibaba-cloud",
+            "amazon-web-services",
+            "google-cloud-platform",
+            "huawei-cloud",
+            "microsoft-azure",
+            "openstack",
+            "oracle-cloud-infrastructure"
+          ]
+        },
+        "saas": {
+          "id": "a7b8c9d0-e1f2-4a5b-4c5d-6e7f8a9b0c1d",
+          "ref": "saas",
+          "name": "SaaS",
+          "desc": "Web-based applications and services that users access through browsers",
+          "packages": []
+        },
+        "enterprise-systems": {
+          "id": "b8c9d0e1-f2a3-4b5c-5d6e-7f8a9b0c1d2e",
+          "ref": "enterprise-systems",
+          "name": "Enterprise Systems",
+          "desc": "Large-scale business software platforms for enterprise operations",
+          "packages": [
+            "salesforce-components",
+            "sap-components"
+          ]
+        }
+      }
+    },
+    "technology-platforms": {
+      "name": "Technology Platforms",
+      "description": "Libraries focused on specific technology platforms and frameworks",
+      "subcategories": {
+        "container-orchestration": {
+          "id": "c9d0e1f2-a3b4-4c5d-6e7f-8a9b0c1d2e3f",
+          "ref": "container-orchestration",
+          "name": "Container Orchestration",
+          "desc": "Libraries focused on container orchestration technologies",
+          "packages": [
+            "docker-category",
+            "kubernetes"
+          ]
+        },
+        "machine-learning-and-artificial-intelligence": {
+          "id": "d0e1f2a3-b4c5-4d5e-7f8a-9b0c1d2e3f4a",
+          "ref": "machine-learning-and-artificial-intelligence",
+          "name": "Machine Learning And Artificial Intelligence",
+          "desc": "Libraries focused on AI topics such as machine learning, deep learning, and Generative AI",
+          "packages": [
+            "machine-learning-artificial-intelligence"
+          ]
+        },
+        "internet-of-things": {
+          "id": "e1f2a3b4-c5d6-4e5f-8a9b-0c1d2e3f4a5b",
+          "ref": "internet-of-things",
+          "name": "Internet Of Things",
+          "desc": "Libraries focused on IoT topics such as IoT devices, IoT networks, and IoT security",
+          "packages": [
+            "iiot-components",
+            "iot-components"
+          ]
+        },
+        "emerging-technologies": {
+          "id": "f2a3b4c5-d6e7-4f5a-9b0c-1d2e3f4a5b6c",
+          "ref": "emerging-technologies",
+          "name": "Emerging Technologies",
+          "desc": "Emerging and specialized technologies",
+          "packages": [
+            "blockchain"
+          ]
+        },
+        "development-tools": {
+          "id": "a3b4c5d6-e7f8-4a5b-0c1d-2e3f4a5b6c7d",
+          "ref": "development-tools",
+          "name": "Development Tools",
+          "desc": "Any software related to software development",
+          "packages": []
+        },
+        "runtime-executable": {
+          "id": "b4c5d6e7-f8a9-4b5c-1d2e-3f4a5b6c7d8e",
+          "ref": "runtime-executable",
+          "name": "Runtime Executable",
+          "desc": "Any executable software that runs on a machine or a device",
+          "packages": []
+        },
+        "security-operations": {
+          "id": "c5d6e7f8-a9b0-4c5d-2e3f-4a5b6c7d8e9f",
+          "ref": "security-operations",
+          "name": "Security Operations",
+          "desc": "Any software related with security operations and security tools",
+          "packages": []
+        }
+      }
+    },
+    "infrastructure-components": {
+      "name": "Infrastructure Components",
+      "description": "Libraries focused on infrastructure and system components",
+      "subcategories": {
+        "network-infrastructure": {
+          "id": "d6e7f8a9-b0c1-4d5e-3f4a-5b6c7d8e9f0a",
+          "ref": "network-infrastructure",
+          "name": "Network Infrastructure",
+          "desc": "Libraries focused on network infrastructure and communication components",
+          "packages": [
+            "network-components"
+          ]
+        },
+        "hardware-systems": {
+          "id": "e7f8a9b0-c1d2-4e5f-4a5b-6c7d8e9f0a1b",
+          "ref": "hardware-systems",
+          "name": "Hardware Systems",
+          "desc": "Libraries focused on hardware systems and embedded devices",
+          "packages": [
+            "embedded-device",
+            "hardware"
+          ]
+        },
+        "operating-systems": {
+          "id": "0ac5e948-5533-47c7-b1c6-fe5975dc7bb1",
+          "ref": "operating-systems",
+          "name": "Operating Systems",
+          "desc": "Libraries focused on operating systems and their security requirements",
+          "packages": [
+            "operating-system"
+          ]
+        },
+        "virtualization": {
+          "id": "f8a9b0c1-d2e3-4f5a-5b6c-7d8e9f0a1b2c",
+          "ref": "virtualization",
+          "name": "Virtualization",
+          "desc": "Libraries focused on virtualization technologies and their security requirements",
+          "packages": [
+            "virtual-components"
+          ]
+        },
+        "generic-components": {
+          "id": "a9b0c1d2-e3f4-4a5b-6c7d-8e9f0a1b2c3d",
+          "ref": "generic-components",
+          "name": "Generic Components",
+          "desc": "Generic component definitions",
+          "packages": [
+            "generic-components"
+          ]
+        }
+      }
+    },
+    "architecture-patterns": {
+      "name": "Architecture Patterns",
+      "description": "Software architecture patterns and frameworks",
+      "subcategories": {
+        "microservice-architecture": {
+          "id": "b0c1d2e3-f4a5-4b5c-7d8e-9f0a1b2c3d4e",
+          "ref": "microservice-architecture",
+          "name": "Microservice Architecture",
+          "desc": "Components that help building microservices architectures",
+          "packages": [
+            "microservice-architecture"
+          ]
+        }
+      }
+    },
+    "software-application-layers": {
+      "name": "Software Application Layers",
+      "description": "Libraries focused on application layer components",
+      "subcategories": {
+        "client-side": {
+          "id": "c1d2e3f4-a5b6-4c5d-8e9f-0a1b2c3d4e5f",
+          "ref": "client-side",
+          "name": "Client Side",
+          "desc": "Libraries focused on client-side application components",
+          "packages": [
+            "client-side"
+          ]
+        },
+        "service-side": {
+          "id": "d2e3f4a5-b6c7-4d5e-9f0a-1b2c3d4e5f6a",
+          "ref": "service-side",
+          "name": "Service Side",
+          "desc": "Libraries focused on server-side application components",
+          "packages": [
+            "service-side"
+          ]
+        },
+        "data-storage": {
+          "id": "e3f4a5b6-c7d8-4e5f-0a1b-2c3d4e5f6a7b",
+          "ref": "data-storage",
+          "name": "Data Storage",
+          "desc": "Libraries focused on data storage and management components",
+          "packages": [
+            "data-store"
+          ]
+        },
+        "functional-components": {
+          "id": "f4a5b6c7-d8e9-4f5a-1b2c-3d4e5f6a7b8c",
+          "ref": "functional-components",
+          "name": "Functional Components",
+          "desc": "Libraries focused on functional components",
+          "packages": [
+            "functional"
+          ]
+        }
+      }
+    },
+    "industry-specific": {
+      "name": "Industry Specific",
+      "description": "Libraries focused on industry-specific requirements and regulations",
+      "subcategories": {
+        "financial-services": {
+          "id": "5ac36d73-4353-4267-bf3d-20dcb9e9d45f",
+          "ref": "financial-services",
+          "name": "Financial Services",
+          "desc": "A collection of libraries focused on financial services industry systems",
+          "packages": [
+            "financial-services"
+          ]
+        },
+        "automotive": {
+          "id": "cce5c20f-67a6-46f3-84e1-db934ac39bfd",
+          "ref": "automotive",
+          "name": "Automotive",
+          "desc": "Libraries focused on automotive industry systems and regulations",
+          "packages": [
+            "unece-wp-29-csms"
+          ]
+        }
+      }
+    },
+    "security-frameworks": {
+      "name": "Security Frameworks",
+      "description": "Foundational security frameworks and methodologies",
+      "subcategories": {
+        "mitre-frameworks": {
+          "id": "a5b6c7d8-e9f0-4a5b-2c3d-4e5f6a7b8c9d",
+          "ref": "mitre-frameworks",
+          "name": "MITRE Frameworks",
+          "desc": "A collection of libraries focused on MITRE frameworks and methodologies",
+          "packages": [
+            "mitre-attack-framework"
+          ]
+        }
+      }
+    },
+    "iriusrisk-feature-bundles": {
+      "name": "IriusRisk Feature Bundles",
+      "description": "Libraries that deliver functionalities to IriusRisk through the rules engine",
+      "subcategories": {
+        "data-flows": {
+          "id": "b6c7d8e9-f0a1-4b5c-3d4e-5f6a7b8c9d0e",
+          "ref": "data-flows",
+          "name": "Data Flows",
+          "desc": "Data flow and integration patterns",
+          "packages": [
+            "dataflows"
+          ]
+        },
+        "security-policies": {
+          "id": "c7d8e9f0-a1b2-4c5d-4e5f-6a7b8c9d0e1f",
+          "ref": "security-policies",
+          "name": "Security Policies",
+          "desc": "Default security policies and rules",
+          "packages": [
+            "security-policies"
+          ]
+        }
+      }
+    }
+  },
+  "packages": {
+    "alibaba-cloud": {
+      "ref": "alibaba-cloud",
+      "type": "v2",
+      "libraries": [
+        "alibaba-cloud-components",
+        "alibaba-cloud-rules"
+      ],
+      "files": [
+        "v2/alibaba-cloud-components.xml",
+        "v2/alibaba-cloud-rules.xml"
+      ]
+    },
+    "amazon-web-services": {
+      "ref": "amazon-web-services",
+      "type": "v2",
+      "libraries": [
+        "amazon-web-services-components",
+        "amazon-web-services-rules"
+      ],
+      "files": [
+        "v2/amazon-web-services-components.xml",
+        "v2/amazon-web-services-rules.xml"
+      ]
+    },
+    "blockchain": {
+      "ref": "blockchain",
+      "type": "v2",
+      "libraries": [
+        "blockchain-components",
+        "blockchain-rules"
+      ],
+      "files": [
+        "v2/blockchain-components.xml",
+        "v2/blockchain-rules.xml"
+      ]
+    },
+    "client-side": {
+      "ref": "client-side",
+      "type": "v2",
+      "libraries": [
+        "client-side-components",
+        "client-side-rules"
+      ],
+      "files": [
+        "v2/client-side-components.xml",
+        "v2/client-side-rules.xml"
+      ]
+    },
+    "data-store": {
+      "ref": "data-store",
+      "type": "v2",
+      "libraries": [
+        "data-store-components",
+        "data-store-rules"
+      ],
+      "files": [
+        "v2/data-store-components.xml",
+        "v2/data-store-rules.xml"
+      ]
+    },
+    "dataflows": {
+      "ref": "dataflows",
+      "type": "v1",
+      "libraries": [
+        "IR-Dataflows"
+      ],
+      "files": [
+        "v1/IR-Dataflows.xml"
+      ]
+    },
+    "docker-category": {
+      "ref": "docker-category",
+      "type": "v2",
+      "libraries": [
+        "docker-category-components",
+        "docker-category-rules"
+      ],
+      "files": [
+        "v2/docker-category-components.xml",
+        "v2/docker-category-rules.xml"
+      ]
+    },
+    "embedded-device": {
+      "ref": "embedded-device",
+      "type": "v2",
+      "libraries": [
+        "embedded-device-components",
+        "embedded-device-rules"
+      ],
+      "files": [
+        "v2/embedded-device-components.xml",
+        "v2/embedded-device-rules.xml"
+      ]
+    },
+    "eu-gdpr": {
+      "ref": "eu-gdpr",
+      "type": "v1",
+      "libraries": [
+        "Eu-Gdpr"
+      ],
+      "files": [
+        "v1/Eu-Gdpr.xml"
+      ]
+    },
+    "eu-cyber-resilience-act": {
+      "ref": "eu-cyber-resilience-act",
+      "type": "v1",
+      "libraries": [
+        "IR-EU-Cyber-Resilience-Act"
+      ],
+      "files": []
+    },
+    "fedramp": {
+      "ref": "fedramp",
+      "type": "v1",
+      "libraries": [
+        "fedramp"
+      ],
+      "files": [
+        "v1/fedramp.xml"
+      ]
+    },
+    "financial-services": {
+      "ref": "financial-services",
+      "type": "v2",
+      "libraries": [
+        "financial-services-components",
+        "financial-services-rules"
+      ],
+      "files": [
+        "v2/financial-services-components.xml",
+        "v2/financial-services-rules.xml"
+      ]
+    },
+    "functional": {
+      "ref": "functional",
+      "type": "v2",
+      "libraries": [
+        "functional-components",
+        "functional-rules"
+      ],
+      "files": [
+        "v2/functional-components.xml",
+        "v2/functional-rules.xml"
+      ]
+    },
+    "generic-components": {
+      "ref": "generic-components",
+      "type": "v2",
+      "libraries": [
+        "generic-components",
+        "generic-components-rules"
+      ],
+      "files": [
+        "v2/generic-components.xml",
+        "v2/generic-components-rules.xml"
+      ]
+    },
+    "google-cloud-platform": {
+      "ref": "google-cloud-platform",
+      "type": "v2",
+      "libraries": [
+        "google-cloud-platform-components",
+        "google-cloud-platform-rules"
+      ],
+      "files": [
+        "v2/google-cloud-platform-components.xml",
+        "v2/google-cloud-platform-rules.xml"
+      ]
+    },
+    "hardware": {
+      "ref": "hardware",
+      "type": "v2",
+      "libraries": [
+        "hardware-components",
+        "hardware-rules"
+      ],
+      "files": [
+        "v2/hardware-components.xml",
+        "v2/hardware-rules.xml"
+      ]
+    },
+    "hipaa": {
+      "ref": "hipaa",
+      "type": "v1",
+      "libraries": [
+        "hipaa"
+      ],
+      "files": [
+        "v1/hipaa.xml"
+      ]
+    },
+    "huawei-cloud": {
+      "ref": "huawei-cloud",
+      "type": "v2",
+      "libraries": [
+        "huawei-cloud-components",
+        "huawei-cloud-rules"
+      ],
+      "files": [
+        "v2/huawei-cloud-components.xml",
+        "v2/huawei-cloud-rules.xml"
+      ]
+    },
+    "iiot-components": {
+      "ref": "iiot-components",
+      "type": "v2",
+      "libraries": [
+        "iiot-components",
+        "iiot-components-rules"
+      ],
+      "files": [
+        "v2/iiot-components.xml",
+        "v2/iiot-components-rules.xml"
+      ]
+    },
+    "iot-components": {
+      "ref": "iot-components",
+      "type": "v2",
+      "libraries": [
+        "iot-components",
+        "iot-components-rules"
+      ],
+      "files": [
+        "v2/iot-components.xml",
+        "v2/iot-components-rules.xml"
+      ]
+    },
+    "kubernetes": {
+      "ref": "kubernetes",
+      "type": "v2",
+      "libraries": [
+        "kubernetes-components",
+        "kubernetes-rules"
+      ],
+      "files": [
+        "v2/kubernetes-components.xml",
+        "v2/kubernetes-rules.xml"
+      ]
+    },
+    "legal-regulations": {
+      "ref": "legal-regulations",
+      "type": "v1",
+      "libraries": [
+        "IR-Legal-Regulations"
+      ],
+      "files": [
+        "v1/IR-Legal-Regulations.xml"
+      ]
+    },
+    "machine-learning-artificial-intelligence": {
+      "ref": "machine-learning-artificial-intelligence",
+      "type": "v2",
+      "libraries": [
+        "machine-learning-artificial-intelligence-components",
+        "machine-learning-artificial-intelligence-rules"
+      ],
+      "files": [
+        "v2/machine-learning-artificial-intelligence-components.xml",
+        "v2/machine-learning-artificial-intelligence-rules.xml"
+      ]
+    },
+    "maestro-framework": {
+      "ref": "maestro-framework",
+      "type": "v1",
+      "libraries": [
+        "IR-Maestro-Framework"
+      ],
+      "files": []
+    },
+    "microservice-architecture": {
+      "ref": "microservice-architecture",
+      "type": "v2",
+      "libraries": [
+        "microservice-architecture-components",
+        "microservice-architecture-rules"
+      ],
+      "files": [
+        "v2/microservice-architecture-components.xml",
+        "v2/microservice-architecture-rules.xml"
+      ]
+    },
+    "microsoft-azure": {
+      "ref": "microsoft-azure",
+      "type": "v2",
+      "libraries": [
+        "microsoft-azure-components",
+        "microsoft-azure-rules"
+      ],
+      "files": [
+        "v2/microsoft-azure-components.xml",
+        "v2/microsoft-azure-rules.xml"
+      ]
+    },
+    "mitre-attack-framework": {
+      "ref": "mitre-attack-framework",
+      "type": "v1",
+      "libraries": [
+        "mitre-attack-framework"
+      ],
+      "files": [
+        "v1/mitre-attack-framework.xml"
+      ]
+    },
+    "network-components": {
+      "ref": "network-components",
+      "type": "v2",
+      "libraries": [
+        "network-components",
+        "network-components-rules"
+      ],
+      "files": [
+        "v2/network-components.xml",
+        "v2/network-components-rules.xml"
+      ]
+    },
+    "openstack": {
+      "ref": "openstack",
+      "type": "v2",
+      "libraries": [
+        "openstack-components",
+        "openstack-rules"
+      ],
+      "files": [
+        "v2/openstack-components.xml",
+        "v2/openstack-rules.xml"
+      ]
+    },
+    "operating-system": {
+      "ref": "operating-system",
+      "type": "v2",
+      "libraries": [
+        "operating-system-components",
+        "operating-system-rules"
+      ],
+      "files": [
+        "v2/operating-system-components.xml",
+        "v2/operating-system-rules.xml"
+      ]
+    },
+    "oracle-cloud-infrastructure": {
+      "ref": "oracle-cloud-infrastructure",
+      "type": "v2",
+      "libraries": [
+        "oracle-cloud-infrastructure-components",
+        "oracle-cloud-infrastructure-rules"
+      ],
+      "files": [
+        "v2/oracle-cloud-infrastructure-components.xml",
+        "v2/oracle-cloud-infrastructure-rules.xml"
+      ]
+    },
+    "pci-dss": {
+      "ref": "pci-dss",
+      "type": "v1",
+      "libraries": [
+        "PCI-DSS"
+      ],
+      "files": [
+        "v1/PCI-DSS.xml"
+      ]
+    },
+    "salesforce-components": {
+      "ref": "salesforce-components",
+      "type": "v2",
+      "libraries": [
+        "salesforce-components",
+        "salesforce-components-rules"
+      ],
+      "files": [
+        "v2/salesforce-components.xml",
+        "v2/salesforce-components-rules.xml"
+      ]
+    },
+    "sap-components": {
+      "ref": "sap-components",
+      "type": "v2",
+      "libraries": [
+        "sap-components",
+        "sap-components-rules"
+      ],
+      "files": [
+        "v2/sap-components.xml",
+        "v2/sap-components-rules.xml"
+      ]
+    },
+    "security-policies": {
+      "ref": "security-policies",
+      "type": "v1",
+      "libraries": [
+        "CS-Policies"
+      ],
+      "files": [
+        "v1/CS-Policies.xml"
+      ]
+    },
+    "service-side": {
+      "ref": "service-side",
+      "type": "v2",
+      "libraries": [
+        "service-side-components",
+        "service-side-rules"
+      ],
+      "files": [
+        "v2/service-side-components.xml",
+        "v2/service-side-rules.xml"
+      ]
+    },
+    "unece-wp-29-csms": {
+      "ref": "unece-wp-29-csms",
+      "type": "v1",
+      "libraries": [
+        "unece-wp-29-csms"
+      ],
+      "files": [
+        "v1/unece-wp-29-csms.xml"
+      ]
+    },
+    "virtual-components": {
+      "ref": "virtual-components",
+      "type": "v2",
+      "libraries": [
+        "virtual-components",
+        "virtual-components-rules"
+      ],
+      "files": [
+        "v2/virtual-components.xml",
+        "v2/virtual-components-rules.xml"
+      ]
+    }
+  }
+}

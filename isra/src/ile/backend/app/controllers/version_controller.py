@@ -72,6 +72,21 @@ async def export_version_to_folder_xml(version_ref: str, format: str,
     version_facade.export_version_to_folder(version_ref, format)
 
 
+@router.get("/version/{version_ref}/marketplace/release")
+async def create_marketplace_release(version_ref: str,
+                                      version_facade: VersionFacade = Depends(get_version_facade)) -> dict:
+    """Create marketplace release structure"""
+    try:
+        version_facade.create_marketplace_release(version_ref)
+        return {"status": "success", "message": f"Marketplace release created successfully for version {version_ref}"}
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error creating marketplace release: {str(e)}")
+
+
 @router.get("/version/{version_ref}/quickreload")
 async def quick_reload(version_ref: str, version_facade: VersionFacade = Depends(get_version_facade)) -> None:
     """Quick reload version"""
