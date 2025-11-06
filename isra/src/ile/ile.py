@@ -17,6 +17,86 @@ backend_process = None
 frontend_process = None
 
 
+def find_project_root():
+    """
+    Find the project root directory.
+    Works in both development (source) and installed package scenarios.
+    
+    Returns:
+        Path: Path to project root, or None if not found
+    """
+    current_dir = Path(__file__).parent
+    
+    # First, try to find pyproject.toml (development mode)
+    for parent in current_dir.parents:
+        if (parent / "pyproject.toml").exists():
+            return parent
+    
+    # If not found, we're likely in an installed package
+    # When Poetry includes files with "include = ['frontend/build']",
+    # they are placed at the root of the distribution (same level as the package in site-packages)
+    try:
+        import isra
+        package_path = Path(isra.__file__).parent
+        # The frontend/build would be at the same level as the package directory
+        # So if package is at site-packages/isra/, frontend is at site-packages/frontend/
+        potential_root = package_path.parent
+        # Verify by checking if frontend/build exists there
+        if (potential_root / "frontend" / "build").exists():
+            return potential_root
+    except (ImportError, AttributeError):
+        pass
+    
+    return None
+
+
+def find_frontend_build_dir():
+    """
+    Find the frontend build directory.
+    Works in both development (source) and installed package scenarios.
+    
+    Returns:
+        Path: Path to frontend/build directory, or None if not found
+    """
+    # Try via project root first (works for both dev and installed)
+    project_root = find_project_root()
+    
+    if project_root:
+        frontend_build = project_root / "frontend" / "build"
+        if frontend_build.exists():
+            return frontend_build
+    
+    # If not found via project root, try direct package location approach
+    # This handles the case where frontend/build is at the same level as the package
+    try:
+        import isra
+        package_path = Path(isra.__file__).parent
+        # In installed package, frontend/build is at the same level as the package
+        # e.g., site-packages/isra/ and site-packages/frontend/build/
+        potential_build = package_path.parent / "frontend" / "build"
+        if potential_build.exists():
+            return potential_build
+    except (ImportError, AttributeError):
+        pass
+    
+    return None
+
+
+def get_working_directory():
+    """
+    Get the working directory for running subprocesses.
+    In development, use project root. In installed package, use current directory.
+    
+    Returns:
+        Path: Working directory path
+    """
+    project_root = find_project_root()
+    if project_root:
+        return project_root
+    # Fallback to current working directory
+    return Path.cwd()
+
+
 @app.callback()
 def callback():
     """
@@ -36,19 +116,8 @@ def start_backend(port: int, app_dir: str):
         print("[yellow]Please run: poetry install[/yellow]")
         return None
     
-    # Find the project root by looking for pyproject.toml
-    current_dir = Path(__file__).parent
-    project_root = None
-    
-    # Walk up the directory tree to find pyproject.toml
-    for parent in current_dir.parents:
-        if (parent / "pyproject.toml").exists():
-            project_root = parent
-            break
-    
-    if not project_root:
-        print("[red]Could not find project root (pyproject.toml not found)[/red]")
-        return None
+    # Get working directory (works in both dev and installed scenarios)
+    working_dir = get_working_directory()
     
     # Set environment variables for the backend
     env = os.environ.copy()
@@ -64,7 +133,7 @@ def start_backend(port: int, app_dir: str):
             "--host", "127.0.0.1", 
             "--port", str(port),
             "--reload"
-        ], cwd=project_root, env=env)
+        ], cwd=working_dir, env=env)
         
         print(f"[green]Backend server started on http://127.0.0.1:{port}[/green]")
         return backend_process
@@ -87,19 +156,8 @@ def start_backend_with_static(port: int, app_dir: str, static_dir: str):
         print("[yellow]Please run: poetry install[/yellow]")
         return None
     
-    # Find the project root by looking for pyproject.toml
-    current_dir = Path(__file__).parent
-    project_root = None
-    
-    # Walk up the directory tree to find pyproject.toml
-    for parent in current_dir.parents:
-        if (parent / "pyproject.toml").exists():
-            project_root = parent
-            break
-    
-    if not project_root:
-        print("[red]Could not find project root (pyproject.toml not found)[/red]")
-        return None
+    # Get working directory (works in both dev and installed scenarios)
+    working_dir = get_working_directory()
     
     # Set environment variables for the backend
     env = os.environ.copy()
@@ -117,7 +175,7 @@ def start_backend_with_static(port: int, app_dir: str, static_dir: str):
             "--host", "127.0.0.1", 
             "--port", str(port),
             "--reload"
-        ], cwd=project_root, env=env)
+        ], cwd=working_dir, env=env)
         
         print(f"[green]Backend server with static files started on http://127.0.0.1:{port}[/green]")
         return backend_process
@@ -133,18 +191,10 @@ def start_frontend(port: int, backend_port: int):
     global frontend_process
     
     # Get the frontend directory - find it relative to the project root
-    # First, find the project root by looking for pyproject.toml
-    current_dir = Path(__file__).parent
-    project_root = None
-    
-    # Walk up the directory tree to find pyproject.toml
-    for parent in current_dir.parents:
-        if (parent / "pyproject.toml").exists():
-            project_root = parent
-            break
+    project_root = find_project_root()
     
     if not project_root:
-        print("[red]Could not find project root (pyproject.toml not found)[/red]")
+        print("[red]Could not find project root. This command requires running from source code.[/red]")
         return None
     
     frontend_dir = project_root / "frontend"
@@ -337,25 +387,13 @@ def run():
     
     backend_port = int(get_property("ile_port"))
     
-    # Check if frontend build exists
-    current_dir = Path(__file__).parent
-    project_root = None
+    # Find frontend build directory (works in both dev and installed scenarios)
+    frontend_build_dir = find_frontend_build_dir()
     
-    # Walk up the directory tree to find pyproject.toml
-    for parent in current_dir.parents:
-        if (parent / "pyproject.toml").exists():
-            project_root = parent
-            break
-    
-    if not project_root:
-        print("[red]Could not find project root (pyproject.toml not found)[/red]")
-        raise typer.Exit(-1)
-    
-    frontend_build_dir = project_root / "frontend" / "build"
-    
-    if not frontend_build_dir.exists():
-        print("[red]Frontend build directory not found. Please build the frontend first.[/red]")
-        print("[yellow]Run: cd frontend && npm run build[/yellow]")
+    if not frontend_build_dir or not frontend_build_dir.exists():
+        print("[red]Frontend build directory not found.[/red]")
+        print("[yellow]If running from source, build the frontend first: cd frontend && npm run build[/yellow]")
+        print("[yellow]If running from installed package, ensure the wheel was built with frontend/build included.[/yellow]")
         raise typer.Exit(-1)
     
     print("[bold blue]IriusRisk Content Manager")
