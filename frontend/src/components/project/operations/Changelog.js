@@ -10,24 +10,54 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import Chip from '@material-ui/core/Chip';
+import Box from '@material-ui/core/Box';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ReactHtmlParser from 'react-html-parser';
 
 const useStyles = (theme) => ({
     root: {
-      display: 'flex',
+      display: 'flex'
     },
     container: {
       paddingTop: theme.spacing(4),
-      paddingBottom: theme.spacing(4),
+      paddingBottom: theme.spacing(4)
     },
-    newItem: {
-        backgroundColor: "#13e29d"
+    changelogPaper: {
+        padding: theme.spacing(3),
+        marginTop: theme.spacing(2)
     },
-    deletedItem: {
-        backgroundColor: "#f97678"
+    changeItem: {
+        marginBottom: theme.spacing(2),
+        borderRadius: theme.shape.borderRadius,
+        transition: 'all 0.2s ease-in-out',
     },
-    editedItem: {
-        backgroundColor: "#ffe381"
+    oldValuePaper: {
+        padding: theme.spacing(1.5),
+        backgroundColor: '#fff5f5',
+        borderLeft: '3px solid #f97678',
+        borderRadius: theme.shape.borderRadius,
+    },
+    newValuePaper: {
+        padding: theme.spacing(1.5),
+        backgroundColor: '#f0fff4',
+        borderLeft: '3px solid #13e29d',
+        borderRadius: theme.shape.borderRadius,
+    },
+    fieldLabel: {
+        fontWeight: 600,
+        marginBottom: theme.spacing(1),
+        color: theme.palette.text.secondary,
+    },
+    valueLabel: {
+        fontWeight: 600,
+        textTransform: 'uppercase',
+        fontSize: '0.7rem',
+        marginBottom: theme.spacing(0.5),
+    },
+    emptyValue: {
+        fontStyle: 'italic',
+        color: theme.palette.text.disabled,
     }
 });
 
@@ -37,6 +67,33 @@ const Changelog = (props) => {
     const [elements, setElements] = useState({});
     const [noGraph] = useState(propsNoGraph !== undefined ? propsNoGraph : false);
     const [selectedNode, setSelectedNode] = useState("");
+    const [expandedSections, setExpandedSections] = useState({});
+
+    // Helper functions
+    const getColorHex = (action) => {
+        switch (action) {
+            case "E": return "#ffe381";
+            case "N": return "#13e29d";
+            case "D": return "#f97678";
+            default: return "#cdf0ff";
+        }
+    };
+
+    const getActionLabel = (action) => {
+        switch (action) {
+            case "E": return "EDITED";
+            case "N": return "NEW";
+            case "D": return "DELETED";
+            default: return "UNKNOWN";
+        }
+    };
+
+    const renderValue = (htmlContent) => {
+        if (!htmlContent || htmlContent.trim() === '' || htmlContent === 'null' || htmlContent === 'undefined') {
+            return <span className={classes.emptyValue}>No value</span>;
+        }
+        return ReactHtmlParser(htmlContent);
+    };
 
     useEffect(() => {
         let newElements = {};
@@ -72,7 +129,7 @@ const Changelog = (props) => {
     return (
         <div className={classes.root}>
           <CssBaseline />
-          <div>
+          <div style={{width: '100%'}}>
 
           { noGraph === false && data.nodes.length !== 0 && data.links.length !== 0 &&
 
@@ -110,29 +167,44 @@ const Changelog = (props) => {
                         />
                     </Grid>
                     { selectedNode !== "" &&
-                      <Grid container spacing={3}>
+                      <Grid container spacing={3} style={{ marginTop: 16 }}>
                           <Grid item xs={12}>
-                              <Typography>
-                                  Selected node: {selectedNode.name}
-                              </Typography>
+                              <Paper elevation={2} style={{ padding: 16 }}>
+                                  <Typography variant="h6" style={{ marginBottom: 16 }}>
+                                      Selected node: {selectedNode.name}
+                                  </Typography>
+                                  {selectedNode.changes && selectedNode.changes.map((value2, index2) => (
+                                      <Grid key={index2} container spacing={2} style={{ marginBottom: 16 }}>
+                                          <Grid item xs={12}>
+                                              <Typography className={classes.fieldLabel}>
+                                                  {value2.field}
+                                              </Typography>
+                                          </Grid>
+                                          <Grid item xs={6}>
+                                              <Paper className={classes.oldValuePaper} elevation={0}>
+                                                  <Typography className={classes.valueLabel} style={{ color: '#c53030' }}>
+                                                      Old Value
+                                                  </Typography>
+                                                  <Typography variant="body2">
+                                                      {renderValue(value2.old)}
+                                                  </Typography>
+                                              </Paper>
+                                          </Grid>
+                                          <Grid item xs={6}>
+                                              <Paper className={classes.newValuePaper} elevation={0}>
+                                                  <Typography className={classes.valueLabel} style={{ color: '#22543d' }}>
+                                                      New Value
+                                                  </Typography>
+                                                  <Typography variant="body2">
+                                                      {renderValue(value2.new)}
+                                                  </Typography>
+                                              </Paper>
+                                          </Grid>
+                                      </Grid>
+                                  ))}
+                              </Paper>
                           </Grid>
-                          {selectedNode.changes.map((value2,index2) => {
-                              return [
-                                  <Grid key={index2} item xs={4}>
-                                      <Typography style={{ fontWeight: 600 }}>
-                                          {value2.field}
-                                      </Typography>
-                                  </Grid>,
-                                  <Grid key={index2 + 10000} item xs={4}>
-                                      { ReactHtmlParser (value2.old) }
-                                  </Grid>,
-                                  <Grid key={index2 + 1000000} item xs={4}>
-                                      { ReactHtmlParser (value2.new) }
-                                  </Grid>
-                              ]
-                          })}
                       </Grid>
-
                     }
 
                 </Grid>
@@ -140,67 +212,117 @@ const Changelog = (props) => {
 
           }
           { data.changelogList.length !== 0 &&
-            <Paper>
-                <Typography variant="h5">
+            <Paper className={classes.changelogPaper} elevation={3}>
+                <Typography variant="h5" style={{ marginBottom: 16 }}>
                     Changelog
                 </Typography>
 
                 {
                     Object.keys(elements).map(function(keyName, keyIndex) {
                         let elem = elements[keyName];
-                        return <Accordion key={keyIndex} expanded={true}>
-                            <AccordionSummary
-                                aria-controls="panel1a-content"
-                                id="panel1a-header"
+                        const isExpanded = expandedSections[keyName] !== false;
+                        return (
+                            <Accordion 
+                                key={keyIndex} 
+                                expanded={isExpanded}
+                                onChange={() => setExpandedSections(prev => ({
+                                    ...prev,
+                                    [keyName]: !prev[keyName]
+                                }))}
+                                style={{ marginBottom: 8 }}
                             >
-                                <Typography variant="h6">{keyName}</Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <List>
-                                    {elem.map((value, index) => {
-                                        let color = undefined;
-                                        switch (value.action) {
-                                            case "E":
-                                                color = classes.editedItem;
-                                                break;
-                                            case "N":
-                                                color = classes.newItem;
-                                                break;
-                                            case "D":
-                                                color = classes.deletedItem;
-                                                break;
-                                            default:
-                                                break;
-                                        }
+                                <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls={`panel-${keyIndex}-content`}
+                                    id={`panel-${keyIndex}-header`}
+                                >
+                                    <Box display="flex" alignItems="center" width="100%">
+                                        <Typography variant="h6" style={{ flexGrow: 1 }}>
+                                            {keyName}
+                                        </Typography>
+                                        <Chip 
+                                            label={`${elem.length} change${elem.length !== 1 ? 's' : ''}`}
+                                            size="small"
+                                            style={{ marginRight: 16 }}
+                                        />
+                                    </Box>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <List style={{ width: '100%' }}>
+                                        {elem.map((value, index) => {
+                                            const colorHex = getColorHex(value.action);
+                                            const actionLabel = getActionLabel(value.action);
 
-                                        return <ListItem key={index} className={color}>
-                                            <Grid container spacing={3}>
-                                                <Grid item xs={12}>
-                                                    <Typography>
-                                                        {value.info}
-                                                    </Typography>
-                                                </Grid>
-                                                {value.changes.map((value2,index2) => {
-                                                    return [
-                                                        <Grid key={index2} item xs={4}>
-                                                            <Typography style={{ fontWeight: 600 }}>
+                                            return (
+                                                <ListItem 
+                                                    key={index} 
+                                                    className={classes.changeItem}
+                                                    style={{ 
+                                                        backgroundColor: `${colorHex}20`,
+                                                        borderLeft: `4px solid ${colorHex}`,
+                                                        padding: 16,
+                                                        marginBottom: 8,
+                                                        display: 'block'
+                                                    }}
+                                                >
+                                                    <Box display="flex" alignItems="center" justifyContent="space-between" style={{ marginBottom: 12 }}>
+                                                        <Typography variant="subtitle1" style={{ fontWeight: 600 }}>
+                                                            {value.info}
+                                                        </Typography>
+                                                        <Chip 
+                                                            label={actionLabel}
+                                                            size="small"
+                                                            style={{ 
+                                                                backgroundColor: colorHex,
+                                                                color: 'white',
+                                                                fontWeight: 600
+                                                            }}
+                                                        />
+                                                    </Box>
+                                                    {value.changes && value.changes.map((value2, index2) => (
+                                                        <Paper 
+                                                            key={index2} 
+                                                            elevation={1} 
+                                                            style={{ 
+                                                                padding: 12, 
+                                                                marginBottom: 12,
+                                                                backgroundColor: 'white'
+                                                            }}
+                                                        >
+                                                            <Typography className={classes.fieldLabel}>
                                                                 {value2.field}
                                                             </Typography>
-                                                        </Grid>,
-                                                        <Grid key={index2 + 10000} item xs={4}>
-                                                            { ReactHtmlParser (value2.old) }
-                                                        </Grid>,
-                                                        <Grid key={index2 + 1000000} item xs={4}>
-                                                            { ReactHtmlParser (value2.new) }
-                                                        </Grid>
-                                                    ]
-                                                })}
-                                            </Grid>
-                                        </ListItem>
-                                    })}
-                                </List>
-                            </AccordionDetails>
-                        </Accordion>
+                                                            <Grid container spacing={2}>
+                                                                <Grid item xs={6}>
+                                                                    <Paper className={classes.oldValuePaper} elevation={0}>
+                                                                        <Typography className={classes.valueLabel} style={{ color: '#c53030' }}>
+                                                                            Old Value
+                                                                        </Typography>
+                                                                        <Typography variant="body2" style={{ marginTop: 4 }}>
+                                                                            {renderValue(value2.old)}
+                                                                        </Typography>
+                                                                    </Paper>
+                                                                </Grid>
+                                                                <Grid item xs={6}>
+                                                                    <Paper className={classes.newValuePaper} elevation={0}>
+                                                                        <Typography className={classes.valueLabel} style={{ color: '#22543d' }}>
+                                                                            New Value
+                                                                        </Typography>
+                                                                        <Typography variant="body2" style={{ marginTop: 4 }}>
+                                                                            {renderValue(value2.new)}
+                                                                        </Typography>
+                                                                    </Paper>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Paper>
+                                                    ))}
+                                                </ListItem>
+                                            );
+                                        })}
+                                    </List>
+                                </AccordionDetails>
+                            </Accordion>
+                        );
                     })
                 }
 

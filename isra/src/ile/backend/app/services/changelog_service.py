@@ -248,6 +248,13 @@ class ChangelogService:
                              old_library.desc != new_library.desc or
                              old_library.filename != new_library.filename or
                              old_library.enabled != new_library.enabled)
+
+                # Check if there are changes in the components, supported standards, standards, risk patterns, usecases, threats, weaknesses, controls, rules
+                # Here I should call the method that compares two libraries, if the result is not empty, then there are changes
+                # library_changes = self.get_library_specific_changes(new_library.ref)
+                # if library_changes.changelogList:
+                #     has_changes = True
+                             
                 if has_changes:
                     response.modified_libraries.append(LibrarySummary(
                         ref=new_library.ref,
