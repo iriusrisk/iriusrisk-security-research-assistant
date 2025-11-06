@@ -424,7 +424,7 @@ class XMLImportService:
                         threat.risk_rating = risk_rating
                         
                         # Handle custom fields
-                        for custom_field in a.iter("customField"):
+                        for custom_field in th.iter("customField"):
                             ref = custom_field.get("ref", "")
                             value = custom_field.get("value", "")
                             

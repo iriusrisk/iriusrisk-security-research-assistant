@@ -394,8 +394,8 @@ class XMLExportService:
             for imp in ctr.implementations:
                 imp_parts = imp.split("_::_", 2)
                 imp_uuid = imp_parts[0] if len(imp_parts) > 0 else ""
-                platform = imp_parts[0] if len(imp_parts) > 0 else ""
-                desc = imp_parts[1] if len(imp_parts) > 1 else ""
+                platform = imp_parts[1] if len(imp_parts) > 1 else ""
+                desc = imp_parts[2] if len(imp_parts) > 2 else ""
                 
                 impl_elem = ET.SubElement(impls_elem, "implementation")
                 impl_elem.set("uuid", imp_uuid)
