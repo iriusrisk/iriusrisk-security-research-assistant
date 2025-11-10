@@ -945,8 +945,7 @@ class YSCImportService:
             del control.references[ref_key]
             logger.debug(f"Removed reference from control: {ref_key}")
         
-        # Update standards (replace dictionary) - expand from base_standard/base_standard_section and merge with manual standards
-        control.standards.clear()
+        # Update standards - preserve existing mapping UUIDs when possible
         standards_data = countermeasure_data.get("standards") or {}
         base_standard = countermeasure_data.get("base_standard") or ""
         base_standard_section = countermeasure_data.get("base_standard_section") or []
@@ -961,7 +960,13 @@ class YSCImportService:
         # Merge expanded standards with manual standards and deduplicate
         all_standards = self._merge_and_deduplicate_standards(expanded_standards, standards_data)
         
-        # Add all standards to the control
+        # Build set of expected standards (by supported_standard_ref, standard_ref)
+        expected_standards = set()
+        for supported_standard_ref, sections in all_standards.items():
+            for section in sections:
+                expected_standards.add((supported_standard_ref, section))
+        
+        # Process expected standards - preserve existing mapping UUIDs
         for supported_standard_ref, sections in all_standards.items():
             # Get supported standard name from OUTPUT_NAME
             supported_standard_name = supported_standard_ref
@@ -986,25 +991,54 @@ class YSCImportService:
             
             # Add standards for each section
             for section in sections:
+                # Check if standard already exists in this control by supported_standard_ref and standard_ref
+                existing_std_key = self._find_standard_in_item(
+                    control.standards, version_element, supported_standard_ref, section
+                )
+                
+                if existing_std_key:
+                    # Standard already exists in this control, preserve the mapping UUID
+                    logger.debug(f"Preserving existing standard mapping in control: {supported_standard_ref} - {section}")
+                    continue
+                
+                # Check if standard exists in version
                 existing_standard = self._check_standard_exists_in_version(
                     version_element, supported_standard_ref, section
                 )
+                
                 if existing_standard:
-                    # Check if this standard is already in the control to avoid duplicates
-                    standard_already_in_control = False
-                    for std_uuid in control.standards.values():
-                        if std_uuid == existing_standard.uuid:
-                            standard_already_in_control = True
-                            break
-                    if not standard_already_in_control:
-                        control.standards[str(uuid.uuid4())] = existing_standard.uuid
+                    # Use existing standard, generate new mapping UUID for this control
+                    control.standards[str(uuid.uuid4())] = existing_standard.uuid
                 else:
+                    # Create new standard
                     new_standard = IRStandard(
                         supported_standard_ref=supported_standard_ref,
                         standard_ref=section
                     )
                     version_element.standards[new_standard.uuid] = new_standard
                     control.standards[str(uuid.uuid4())] = new_standard.uuid
+        
+        # Remove standards that are no longer in expected set, but only if they could be from OpenCRE
+        # (preserve truly manual standards that are not in OpenCRE)
+        stds_to_remove = []
+        for std_key, std_uuid in control.standards.items():
+            if std_uuid in version_element.standards:
+                std = version_element.standards[std_uuid]
+                std_key_tuple = (std.supported_standard_ref, std.standard_ref)
+                
+                if std_key_tuple not in expected_standards:
+                    # Standard is not in expected set - check if it's from OpenCRE
+                    if self._is_standard_in_opencre(std.supported_standard_ref, std.standard_ref):
+                        # This standard could have been generated from OpenCRE, so remove it
+                        stds_to_remove.append(std_key)
+                        logger.debug(f"Removing standard from control (not in YSC and from OpenCRE): {std.supported_standard_ref} - {std.standard_ref}")
+                    else:
+                        # This is a truly manual standard (not in OpenCRE), preserve it
+                        logger.debug(f"Preserving manual standard (not in OpenCRE): {std.supported_standard_ref} - {std.standard_ref}")
+        
+        for std_key in stds_to_remove:
+            del control.standards[std_key]
+            logger.debug(f"Removed standard from control: {std_key}")
         
         # Update base standard and base standard section (replace lists)
         if base_standard:
@@ -1136,6 +1170,47 @@ class YSCImportService:
             if standard.supported_standard_ref == supported_standard_ref and standard.standard_ref == standard_ref:
                 return standard
         return None
+    
+    def _find_standard_in_item(self, item_standards: Dict[str, str], version: ILEVersion, supported_standard_ref: str, standard_ref: str) -> Optional[str]:
+        """
+        Find if a standard already exists in a control by supported_standard_ref and standard_ref.
+        Returns the key (mapping UUID) in the item's standards dictionary if found, None otherwise.
+        """
+        for std_key, std_uuid in item_standards.items():
+            if std_uuid in version.standards:
+                std = version.standards[std_uuid]
+                if std.supported_standard_ref == supported_standard_ref and std.standard_ref == standard_ref:
+                    return std_key
+        return None
+    
+    def _is_standard_in_opencre(self, supported_standard_ref: str, standard_ref: str) -> bool:
+        """
+        Check if a standard could be from OpenCRE mappings.
+        Returns True if the standard appears in OpenCRE mappings, False otherwise.
+        """
+        mappings_yaml = self._get_opencre_mappings()
+        
+        # Get all standard names that appear in OpenCRE+
+        opencre_standards = {'CRE', 'OpenCRE'}
+        for cre_values in mappings_yaml.values():
+            opencre_standards.update(cre_values.keys())
+        
+        # Map supported_standard_ref to standard name for comparison
+        standard_name = supported_standard_ref
+        for key, value in OUTPUT_NAME.items():
+            if value["ref"] == supported_standard_ref:
+                standard_name = key
+                break
+        
+        # Check if this standard name is in OpenCRE
+        if standard_name in opencre_standards:
+            return True
+        
+        # Also check if supported_standard_ref itself is in OpenCRE
+        if supported_standard_ref in opencre_standards:
+            return True
+        
+        return False
     
     def _find_component_definition_by_ref(self, library: IRLibrary, component_ref: str) -> Optional[IRComponentDefinition]:
         """Find component definition by ref in library"""
