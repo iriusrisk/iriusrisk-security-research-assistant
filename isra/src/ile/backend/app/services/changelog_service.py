@@ -364,6 +364,9 @@ class ChangelogService:
         """Add components to graph"""
         node_list = []
         
+        # Create a mapping of ref to component for the second library
+        components_second_by_ref = {c.ref: c for c in self.second.component_definitions.values()}
+        
         # Added
         components_first = {c.ref for c in self.first.component_definitions.values()}
         for c2 in self.second.component_definitions.values():
@@ -382,13 +385,16 @@ class ChangelogService:
         
         # Modified
         for c1 in self.first.component_definitions.values():
-            c2 = self.second.component_definitions.get(c1.ref)
+            c2 = components_second_by_ref.get(c1.ref)
             if c2:
                 changes = []
                 self._get_change(changes, "name", c1.name or "", c2.name or "")
                 self._get_change(changes, "desc", c1.desc or "", c2.desc or "")
                 self._get_change(changes, "categoryRef", c1.category_ref or "", c2.category_ref or "")
-                self._get_change(changes, "riskPatterns", ",".join(c1.risk_pattern_refs or []), ",".join(c2.risk_pattern_refs or []))
+                # Sort risk patterns before joining to ensure order-independent comparison
+                risk_patterns1 = sorted(c1.risk_pattern_refs or [])
+                risk_patterns2 = sorted(c2.risk_pattern_refs or [])
+                self._get_change(changes, "riskPatterns", ",".join(risk_patterns1), ",".join(risk_patterns2))
                 self._get_change(changes, "visible", c1.visible or "", c2.visible or "")
                 
                 if changes:

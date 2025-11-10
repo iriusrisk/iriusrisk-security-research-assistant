@@ -288,6 +288,10 @@ class YSCImportService:
                 self._set_risk_patterns(risk_pattern_data, new_library, version_element)
                 self._set_rules(component, rules_library)
             
+            # Increment revision for affected libraries
+            self._increment_library_revision(new_library)
+            self._increment_library_revision(rules_library)
+            
             logger.debug(f"Component added to library {new_library.ref} in version {version_element.version}")
             
         except Exception as e:
@@ -1298,4 +1302,15 @@ class YSCImportService:
             if weakness.ref == weakness_ref:
                 return weakness
         return None
+    
+    def _increment_library_revision(self, library: IRLibrary) -> None:
+        """Increment library revision by 1"""
+        try:
+            current_rev = int(library.revision) if library.revision else 1
+            library.revision = str(current_rev + 1)
+            logger.debug(f"Incremented revision for library {library.ref} to {library.revision}")
+        except (ValueError, AttributeError) as e:
+            # If revision is not a valid integer, set it to "2" (assuming it was "1" or invalid)
+            logger.warning(f"Could not parse revision for library {library.ref}: {e}. Setting to '2'")
+            library.revision = "2"
     
