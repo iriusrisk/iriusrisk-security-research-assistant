@@ -220,11 +220,11 @@ const Changelog = (props) => {
                 {
                     Object.keys(elements).map(function(keyName, keyIndex) {
                         let elem = elements[keyName];
-                        const isExpanded = expandedSections[keyName] !== false;
+                        const isExpanded = expandedSections[keyName] !== true;
                         return (
                             <Accordion 
                                 key={keyIndex} 
-                                expanded={isExpanded}
+                                expanded={!isExpanded}
                                 onChange={() => setExpandedSections(prev => ({
                                     ...prev,
                                     [keyName]: !prev[keyName]

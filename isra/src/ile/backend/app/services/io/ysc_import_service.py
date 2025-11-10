@@ -444,6 +444,9 @@ class YSCImportService:
 
         # Create usecases and relations based on STRIDE groups
         original_cwe_weaknesses = get_original_cwe_weaknesses()
+        
+        # Track expected relations from YSC file (as tuples for comparison)
+        expected_relations = set()
 
         for threat_data in threats_data:
             threat_ref = threat_data.get("ref", "")
@@ -562,6 +565,7 @@ class YSCImportService:
                 # Create relation: threat -> weakness -> countermeasure (or threat -> countermeasure if no weakness)
                 # Check if relation already exists by checking if a relation with the same UUIDs exists
                 relation_exists = False
+                existing_relation_uuid = None
                 for existing_relation in new_library.relations.values():
                     if (existing_relation.risk_pattern_uuid == risk_pattern.uuid and
                         existing_relation.usecase_uuid == usecase.uuid and
@@ -569,6 +573,7 @@ class YSCImportService:
                         existing_relation.weakness_uuid == weakness_uuid and
                         existing_relation.control_uuid == control.uuid):
                         relation_exists = True
+                        existing_relation_uuid = existing_relation.uuid
                         logger.debug(f"Relation already exists, skipping: {threat.ref} -> {control.ref}")
                         break
 
@@ -582,6 +587,30 @@ class YSCImportService:
                         mitigation=""
                     )
                     new_library.relations[relation.uuid] = relation
+                    expected_relations.add((risk_pattern.uuid, usecase.uuid, threat.uuid, weakness_uuid, control.uuid))
+                else:
+                    # Track existing relation as expected
+                    expected_relations.add((risk_pattern.uuid, usecase.uuid, threat.uuid, weakness_uuid, control.uuid))
+
+        # Remove relations that exist in the library but are not in the YSC file
+        # Only remove relations for this specific risk pattern
+        relations_to_remove = []
+        for relation_uuid, relation in new_library.relations.items():
+            if relation.risk_pattern_uuid == risk_pattern.uuid:
+                relation_key = (
+                    relation.risk_pattern_uuid,
+                    relation.usecase_uuid,
+                    relation.threat_uuid,
+                    relation.weakness_uuid,
+                    relation.control_uuid
+                )
+                if relation_key not in expected_relations:
+                    relations_to_remove.append(relation_uuid)
+                    logger.debug(f"Removing relation not in YSC: {relation_uuid} (threat: {relation.threat_uuid}, control: {relation.control_uuid})")
+        
+        for relation_uuid in relations_to_remove:
+            del new_library.relations[relation_uuid]
+            logger.debug(f"Removed relation: {relation_uuid}")
 
     def _create_threat_from_yaml(self, threat_data: Dict, version_element: ILEVersion) -> IRThreat:
         """Create threat from YAML data"""
@@ -956,56 +985,69 @@ class YSCImportService:
                 if question:
                     questions.append((control_ref, question, question_desc))
 
-        # Create question group rule
+        # Create or update question group rule
+        rule_name = f"Q - Security Context - {component_ref}"
+        
+        # Check if rule already exists by name
+        existing_rule = None
+        existing_rule_index = -1
+        for idx, rule in enumerate(rules_library.rules):
+            if rule.name == rule_name:
+                existing_rule = rule
+                existing_rule_index = idx
+                break
+        
         if questions:
-            rule_name = f"Q - Security Context - {component_ref}"
-            
-            # Check if rule already exists by name
-            rule_exists = False
-            for existing_rule in rules_library.rules:
-                if existing_rule.name == rule_name:
-                    rule_exists = True
-                    logger.debug(f"Rule already exists, skipping: {rule_name}")
-                    break
-            
-            if not rule_exists:
-                rule = IRRule(
+            # Create or update rule with questions
+            if existing_rule:
+                # Update existing rule: clear actions and rebuild from YSC
+                logger.debug(f"Updating existing rule: {rule_name}")
+                existing_rule.actions.clear()
+            else:
+                # Create new rule
+                existing_rule = IRRule(
                     name=rule_name,
                     module="component",
                     gui="true"
                 )
-                
                 # Add condition
                 condition = IRRuleCondition(name="CONDITION_COMPONENT_DEFINITION", field="id", value=component_ref)
-                rule.conditions.append(condition)
-                
-                # Add actions for questions
-                priority = 7000
-                for question in questions:
-                    control_ref, question_text, question_desc_text = question
-                    control_name = ""
-                    # Find control name
-                    for threat_data in threats_data:
-                        countermeasures_data = threat_data.get("countermeasures", [])
-                        for cm in countermeasures_data:
-                            if cm.get("ref") == control_ref:
-                                control_name = cm.get("name", "")
-                                break
-                        if control_name:
+                existing_rule.conditions.append(condition)
+            
+            # Add actions for questions (rebuild from current YSC content)
+            priority = 7000
+            for question in questions:
+                control_ref, question_text, question_desc_text = question
+                control_name = ""
+                # Find control name
+                for threat_data in threats_data:
+                    countermeasures_data = threat_data.get("countermeasures", [])
+                    for cm in countermeasures_data:
+                        if cm.get("ref") == control_ref:
+                            control_name = cm.get("name", "")
                             break
+                    if control_name:
+                        break
 
-                    action_value = (
-                        f"provided.question.{control_ref}_::_Security Context_::_{question_text}_::_{priority}_::_true_::_false_::_{question_desc_text}"
-                    )
-                    action = IRRuleAction(
-                        name="INSERT_COMPONENT_QUESTION_GROUP",
-                        value=action_value,
-                        project=""
-                    )
-                    rule.actions.append(action)
-                    priority += 1
-                
-                rules_library.rules.append(rule)
+                action_value = (
+                    f"provided.question.{control_ref}_::_Security Context_::_{question_text}_::_{priority}_::_true_::_false_::_{question_desc_text}"
+                )
+                action = IRRuleAction(
+                    name="INSERT_COMPONENT_QUESTION_GROUP",
+                    value=action_value,
+                    project=""
+                )
+                existing_rule.actions.append(action)
+                priority += 1
+            
+            # Add rule to library if it's new
+            if existing_rule_index == -1:
+                rules_library.rules.append(existing_rule)
+        else:
+            # No questions in YSC - remove rule if it exists
+            if existing_rule:
+                logger.debug(f"Removing rule with no questions: {rule_name}")
+                rules_library.rules.pop(existing_rule_index)
     
     def _check_reference_exists_in_version(self, version: ILEVersion, name: str, url: str) -> Optional[IRReference]:
         """Check if reference exists in version"""

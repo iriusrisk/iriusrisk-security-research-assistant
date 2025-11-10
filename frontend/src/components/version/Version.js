@@ -238,6 +238,14 @@ const Version = (props) => {
             .catch(err => failedToast("Export failed: " + err));
     };
 
+    const createMarketplaceRelease = () => {
+        axios.get('/api/version/' + version + "/marketplace/release")
+            .then(res => {
+                easyToast(res, "Marketplace release created successfully (/output/marketplace/)", "Marketplace release creation failed");
+            })
+            .catch(err => failedToast("Marketplace release creation failed: " + err));
+    };
+
     const deleteLibrary = (props) => {
         const parts = props.link.split('/');
         const library = parts[parts.length - 1];
@@ -535,19 +543,19 @@ const Version = (props) => {
                             </Grid>
                         </Grid>
                     </div>
-                    {/* Import/Export Operations */}
+                    {/* Testing & Reports Operations */}
                     <div className={classes.section}>
                         <Typography variant="h4" className={classes.sectionTitle}>
-                            <ImportIcon /> Import/Export
+                            <TestIcon /> Testing & Reports
                         </Typography>
                         <Grid container spacing={2} className={classes.operationsGrid}>
                             <Grid item xs={12} sm={6} md={4}>
                                 <Card className={classes.groupedOperationCard}>
-                                    <CardActionArea component={Link} to={"/version/" + version + "/importLibraryToVersion"}>
+                                    <CardActionArea component={Link} to={"/version/" + version + "/runContentTests"}>
                                         <CardContent className={classes.groupedOperationContent}>
-                                            <ImportIcon className={classes.operationIcon} />
+                                            <TestIcon className={classes.operationIcon} />
                                             <Typography className={classes.operationTitle}>
-                                                Import Library
+                                                Run Content Tests
                                             </Typography>
                                         </CardContent>
                                     </CardActionArea>
@@ -555,11 +563,11 @@ const Version = (props) => {
                             </Grid>
                             <Grid item xs={12} sm={6} md={4}>
                                 <Card className={classes.groupedOperationCard}>
-                                    <CardActionArea onClick={exportToXML}>
+                                    <CardActionArea component={Link} to={"/version/" + version + "/createReports"}>
                                         <CardContent className={classes.groupedOperationContent}>
-                                            <ExportIcon className={classes.operationIcon} />
+                                            <ReportIcon className={classes.operationIcon} />
                                             <Typography className={classes.operationTitle}>
-                                                Export to XML
+                                                Create Reports
                                             </Typography>
                                         </CardContent>
                                     </CardActionArea>
@@ -567,17 +575,18 @@ const Version = (props) => {
                             </Grid>
                             <Grid item xs={12} sm={6} md={4}>
                                 <Card className={classes.groupedOperationCard}>
-                                    <CardActionArea onClick={exportToXLSX}>
+                                    <CardActionArea onClick={fixNonASCIIValues}>
                                         <CardContent className={classes.groupedOperationContent}>
-                                            <ExportIcon className={classes.operationIcon} />
+                                            <CodeIcon className={classes.operationIcon} />
                                             <Typography className={classes.operationTitle}>
-                                                Export to XLSX
+                                                Fix Non-ASCII Values
                                             </Typography>
                                         </CardContent>
                                     </CardActionArea>
                                 </Card>
                             </Grid>
                         </Grid>
+
                     </div>
                 </div>
 
@@ -710,19 +719,20 @@ const Version = (props) => {
                             </Grid> */}
                         </Grid>
                     </div>
-                    {/* Testing & Reports Operations */}
+
+                    {/* Import/Export Operations */}
                     <div className={classes.section}>
                         <Typography variant="h4" className={classes.sectionTitle}>
-                            <TestIcon /> Testing & Reports
+                            <ImportIcon /> Import/Export
                         </Typography>
                         <Grid container spacing={2} className={classes.operationsGrid}>
                             <Grid item xs={12} sm={6} md={4}>
                                 <Card className={classes.groupedOperationCard}>
-                                    <CardActionArea component={Link} to={"/version/" + version + "/runContentTests"}>
+                                    <CardActionArea component={Link} to={"/version/" + version + "/importLibraryToVersion"}>
                                         <CardContent className={classes.groupedOperationContent}>
-                                            <TestIcon className={classes.operationIcon} />
+                                            <ImportIcon className={classes.operationIcon} />
                                             <Typography className={classes.operationTitle}>
-                                                Run Content Tests
+                                                Import Library
                                             </Typography>
                                         </CardContent>
                                     </CardActionArea>
@@ -730,11 +740,11 @@ const Version = (props) => {
                             </Grid>
                             <Grid item xs={12} sm={6} md={4}>
                                 <Card className={classes.groupedOperationCard}>
-                                    <CardActionArea component={Link} to={"/version/" + version + "/createReports"}>
+                                    <CardActionArea onClick={exportToXML}>
                                         <CardContent className={classes.groupedOperationContent}>
-                                            <ReportIcon className={classes.operationIcon} />
+                                            <ExportIcon className={classes.operationIcon} />
                                             <Typography className={classes.operationTitle}>
-                                                Create Reports
+                                                Export to XML
                                             </Typography>
                                         </CardContent>
                                     </CardActionArea>
@@ -742,11 +752,23 @@ const Version = (props) => {
                             </Grid>
                             <Grid item xs={12} sm={6} md={4}>
                                 <Card className={classes.groupedOperationCard}>
-                                    <CardActionArea onClick={fixNonASCIIValues}>
+                                    <CardActionArea onClick={exportToXLSX}>
                                         <CardContent className={classes.groupedOperationContent}>
-                                            <CodeIcon className={classes.operationIcon} />
+                                            <ExportIcon className={classes.operationIcon} />
                                             <Typography className={classes.operationTitle}>
-                                                Fix Non-ASCII Values
+                                                Export to XLSX
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Card>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={4}>
+                                <Card className={classes.groupedOperationCard}>
+                                    <CardActionArea onClick={createMarketplaceRelease}>
+                                        <CardContent className={classes.groupedOperationContent}>
+                                            <ExportIcon className={classes.operationIcon} />
+                                            <Typography className={classes.operationTitle}>
+                                                Create Marketplace Release
                                             </Typography>
                                         </CardContent>
                                     </CardActionArea>
