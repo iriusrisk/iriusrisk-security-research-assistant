@@ -708,27 +708,58 @@ class YSCImportService:
         attack_enterprise_technique = taxonomies_data.get("attack_enterprise_technique") or []
         threat.mitre = attack_enterprise_technique if attack_enterprise_technique else []
         
-        # Update references (replace dictionary)
-        threat.references.clear()
+        # Update references - preserve existing mapping UUIDs when possible
         references_data = threat_data.get("references") or []
+        
+        # Build set of references that should exist (by name/url)
+        expected_refs = set()
+        for ref_data in references_data:
+            ref_name = ref_data.get("name", "")
+            ref_url = ref_data.get("url", "")
+            if ref_name and ref_url:
+                expected_refs.add((ref_name, ref_url))
+        
+        # Process references from YSC - preserve existing mapping UUIDs
         for ref_data in references_data:
             ref_name = ref_data.get("name", "")
             ref_url = ref_data.get("url", "")
             
             if ref_name and ref_url:
+                # Check if reference already exists in this threat by name/url
+                existing_ref_key = self._find_reference_in_item(
+                    threat.references, version_element, ref_name, ref_url
+                )
+                
+                if existing_ref_key:
+                    # Reference already exists in this threat, preserve the mapping UUID
+                    logger.debug(f"Preserving existing reference mapping in threat: {ref_name}")
+                    continue
+                
                 # Check if reference exists in version
                 existing_ref = self._check_reference_exists_in_version(
                     version_element, ref_name, ref_url
                 )
                 
                 if existing_ref:
-                    # Use existing reference, generate new key for this threat
+                    # Use existing reference, generate new mapping UUID for this threat
                     threat.references[str(uuid.uuid4())] = existing_ref.uuid
                 else:
                     # Create new reference
                     new_reference = IRReference(name=ref_name, url=ref_url)
                     version_element.references[new_reference.uuid] = new_reference
                     threat.references[str(uuid.uuid4())] = new_reference.uuid
+        
+        # Remove references that are no longer in YSC
+        refs_to_remove = []
+        for ref_key, ref_uuid in threat.references.items():
+            if ref_uuid in version_element.references:
+                ref = version_element.references[ref_uuid]
+                if (ref.name, ref.url) not in expected_refs:
+                    refs_to_remove.append(ref_key)
+        
+        for ref_key in refs_to_remove:
+            del threat.references[ref_key]
+            logger.debug(f"Removed reference from threat: {ref_key}")
     
     def _create_control_from_yaml(self, countermeasure_data: Dict, version_element: ILEVersion) -> IRControl:
         """Create control from YAML countermeasure data"""
@@ -861,27 +892,58 @@ class YSCImportService:
         control.desc = countermeasure_data.get("description", "")
         control.cost = countermeasure_data.get("cost", "0")
         
-        # Update references (replace dictionary)
-        control.references.clear()
+        # Update references - preserve existing mapping UUIDs when possible
         references_data = countermeasure_data.get("references") or []
+        
+        # Build set of references that should exist (by name/url)
+        expected_refs = set()
+        for ref_data in references_data:
+            ref_name = ref_data.get("name", "")
+            ref_url = ref_data.get("url", "")
+            if ref_name and ref_url:
+                expected_refs.add((ref_name, ref_url))
+        
+        # Process references from YSC - preserve existing mapping UUIDs
         for ref_data in references_data:
             ref_name = ref_data.get("name", "")
             ref_url = ref_data.get("url", "")
             
             if ref_name and ref_url:
+                # Check if reference already exists in this control by name/url
+                existing_ref_key = self._find_reference_in_item(
+                    control.references, version_element, ref_name, ref_url
+                )
+                
+                if existing_ref_key:
+                    # Reference already exists in this control, preserve the mapping UUID
+                    logger.debug(f"Preserving existing reference mapping in control: {ref_name}")
+                    continue
+                
                 # Check if reference exists in version
                 existing_ref = self._check_reference_exists_in_version(
                     version_element, ref_name, ref_url
                 )
                 
                 if existing_ref:
-                    # Use existing reference, generate new key for this control
+                    # Use existing reference, generate new mapping UUID for this control
                     control.references[str(uuid.uuid4())] = existing_ref.uuid
                 else:
                     # Create new reference
                     new_reference = IRReference(name=ref_name, url=ref_url)
                     version_element.references[new_reference.uuid] = new_reference
                     control.references[str(uuid.uuid4())] = new_reference.uuid
+        
+        # Remove references that are no longer in YSC
+        refs_to_remove = []
+        for ref_key, ref_uuid in control.references.items():
+            if ref_uuid in version_element.references:
+                ref = version_element.references[ref_uuid]
+                if (ref.name, ref.url) not in expected_refs:
+                    refs_to_remove.append(ref_key)
+        
+        for ref_key in refs_to_remove:
+            del control.references[ref_key]
+            logger.debug(f"Removed reference from control: {ref_key}")
         
         # Update standards (replace dictionary) - expand from base_standard/base_standard_section and merge with manual standards
         control.standards.clear()
