@@ -3,19 +3,21 @@ Version facade for IriusRisk Content Manager API
 """
 
 from typing import Collection, List
+
 from fastapi import UploadFile
+
 from isra.src.ile.backend.app.models import (
-    ILEVersion, IRCategoryComponent, IRControl, IRLibrary, IRReference, 
+    ILEVersion, IRCategoryComponent, IRControl, IRLibrary, IRReference,
     IRStandard, IRSupportedStandard, IRThreat, IRUseCase, IRWeakness,
     IRSuggestions, IRTestReport, IRVersionReport, CategoryRequest, CategoryUpdateRequest,
-    ControlRequest, ControlUpdateRequest, LibraryRequest, ReferenceItemRequest,
-    StandardItemRequest, ReferenceRequest, ReferenceUpdateRequest, StandardRequest, StandardUpdateRequest, SuggestionRequest,
-    SupportedStandardRequest, SupportedStandardUpdateRequest, ThreatRequest, ThreatUpdateRequest, 
+    ControlRequest, ControlUpdateRequest, ReferenceItemRequest,
+    StandardItemRequest, ReferenceRequest, ReferenceUpdateRequest, StandardRequest, StandardUpdateRequest,
+    SupportedStandardRequest, SupportedStandardUpdateRequest, ThreatRequest, ThreatUpdateRequest,
     UsecaseRequest, UsecaseUpdateRequest, WeaknessRequest
 )
 from isra.src.ile.backend.app.models.requests import WeaknessUpdateRequest
-from isra.src.ile.backend.app.services.version_service import VersionService
 from isra.src.ile.backend.app.services.test_service import TestService
+from isra.src.ile.backend.app.services.version_service import VersionService
 
 
 class VersionFacade:

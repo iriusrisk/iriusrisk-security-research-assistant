@@ -4,59 +4,59 @@ Version service for IriusRisk Content Manager API
 
 import json
 import logging
-import os
 import uuid
 from pathlib import Path
-from typing import Collection, List, Set, BinaryIO
+from typing import Collection, List, Set
 
 from fastapi import UploadFile
 
 from isra.src.ile.backend.app.configuration.constants import ILEConstants
 from isra.src.ile.backend.app.configuration.properties_manager import PropertiesManager
+from isra.src.ile.backend.app.facades.io_facade import IOFacade
 from isra.src.ile.backend.app.models import (
-    ILEVersion, IRCategoryComponent, IRComponentDefinition, IRControl,
-    IRLibrary, IRReference, IRRelation, IRRiskPattern, IRRiskRating,
+    ILEVersion, IRCategoryComponent, IRControl,
+    IRLibrary, IRReference, IRRiskRating,
     IRStandard, IRSupportedStandard, IRThreat, IRUseCase, IRWeakness,
     IRSuggestions, IRVersionReport, CategoryRequest, CategoryUpdateRequest, ControlRequest,
     ControlUpdateRequest, ReferenceItemRequest, ReferenceRequest, ReferenceUpdateRequest,
-    StandardItemRequest, StandardRequest, StandardUpdateRequest, SupportedStandardRequest, SupportedStandardUpdateRequest,
+    StandardItemRequest, StandardRequest, StandardUpdateRequest, SupportedStandardRequest,
+    SupportedStandardUpdateRequest,
     ThreatRequest, ThreatUpdateRequest, UsecaseRequest, UsecaseUpdateRequest, WeaknessRequest
 )
 from isra.src.ile.backend.app.models.requests import WeaknessUpdateRequest
 from isra.src.ile.backend.app.services.data_service import DataService
-from isra.src.ile.backend.app.facades.io_facade import IOFacade
 
 logger = logging.getLogger(__name__)
 
 
 class VersionService:
     """Service for handling version operations"""
-    
+
     def __init__(self):
         self.data_service = DataService()
         self.io_facade = IOFacade()
-    
+
     def get_version(self, version_ref: str) -> ILEVersion:
         """Get version by reference"""
         return self.data_service.get_version(version_ref)
-    
+
     def list_stored_versions(self) -> List[str]:
         """List stored versions"""
         versions_folder = Path(ILEConstants.VERSIONS_FOLDER)
         if not versions_folder.exists():
             return []
-        
+
         return [
-            f.name.replace(".irius", "") 
-            for f in versions_folder.iterdir() 
+            f.name.replace(".irius", "")
+            for f in versions_folder.iterdir()
             if f.is_file() and f.suffix == ".irius"
         ]
-    
+
     def save_version(self, version_ref: str) -> None:
         """Save version to file"""
         logger.info(f"Saving version {version_ref}")
         version_path = Path(ILEConstants.VERSIONS_FOLDER) / f"{version_ref}.irius"
-        
+
         try:
             v = self.data_service.get_version(version_ref)
             with open(version_path, 'w') as f:
@@ -64,13 +64,13 @@ class VersionService:
             logger.info(f"Saving version success: {version_ref}")
         except Exception as e:
             raise RuntimeError("Failed to save version") from e
-    
+
     def clean_version(self, version_ref: str) -> List[str]:
         """Clean unused elements from version"""
         logger.info(f"Cleaning version {version_ref}")
         removed_items = []
         v = self.data_service.get_version(version_ref)
-        
+
         # Collect used elements
         used_risk_patterns: Set[str] = set()
         used_usecases: Set[str] = set()
@@ -81,27 +81,27 @@ class VersionService:
         used_references: Set[IRReference] = set()
         used_standards: Set[IRStandard] = set()
         used_supported_standards: Set[IRSupportedStandard] = set()
-        
+
         for l in v.libraries.values():
             for comp in l.component_definitions.values():
                 used_categories.add(comp.category_ref)
                 used_risk_patterns.update(comp.risk_pattern_refs)
-        
+
         # Remove unused elements (simplified implementation)
         # In a full implementation, you would remove unused elements here
-        
+
         return removed_items
-    
+
     def quick_reload_version(self, version_ref: str) -> None:
         """Quick reload version"""
         self.data_service.remove_version(version_ref)
-        self.data_service.put_version(ILEVersion(version_ref))
+        self.data_service.put_version(ILEVersion(version=version_ref))
         self.import_libraries_from_folder(version_ref)
-    
+
     def create_version_report(self, version_ref: str) -> IRVersionReport:
         """Create version report"""
         return self.data_service.create_version_report(version_ref)
-    
+
     def import_libraries_from_folder(self, version_ref: str) -> None:
         """Import libraries from configured folder"""
         folder = PropertiesManager.get_property(ILEConstants.MAIN_LIBRARY_FOLDER)
@@ -109,7 +109,7 @@ class VersionService:
             folder_path = Path(folder)
             if folder_path.is_dir():
                 self._import_files_recursively(folder_path, version_ref)
-    
+
     def _import_files_recursively(self, directory: Path, version_ref: str) -> None:
         """Import files recursively from directory"""
         # Check if version exists, create it if it doesn't
@@ -118,7 +118,7 @@ class VersionService:
             logger.info(f"Version {version_ref} does not exist, creating it")
             version = ILEVersion(version=version_ref)
             self.data_service.put_version(version)
-        
+
         for file_path in directory.iterdir():
             if file_path.is_dir():
                 self._import_files_recursively(file_path, version_ref)
@@ -135,7 +135,7 @@ class VersionService:
                             self.io_facade.import_ysc_component(file_path.name, f, version)
                 except Exception as e:
                     logger.error(f"Error when importing {file_path.name}: {e}")
-    
+
     def import_library_to_version(self, version_ref: str, submissions: List[UploadFile]) -> None:
         """Import library files to version"""
         # Check if version exists, create it if it doesn't
@@ -144,7 +144,7 @@ class VersionService:
             logger.info(f"Version {version_ref} does not exist, creating it")
             version = ILEVersion(version=version_ref)
             self.data_service.put_version(version)
-        
+
         for file in submissions:
             try:
                 filename = file.filename
@@ -155,19 +155,19 @@ class VersionService:
                 elif filename.endswith(".yaml"):
                     self.io_facade.import_ysc_component(filename, file.file, version)
             except Exception as e:
-                logger.error(f"Error when importing {filename}: {e}")
+                logger.error(f"Error when importing {file.filename}: {e}")
                 raise RuntimeError("Error when importing") from e
-    
+
     def export_version_to_folder(self, version_ref: str, format: str) -> None:
         """Export version to folder"""
         logger.info(f"Exporting {version_ref} to {format}")
         version = self.data_service.get_version(version_ref)
         if version is None:
             raise ValueError(f"Version '{version_ref}' not found")
-        
+
         version_path = Path(ILEConstants.OUTPUT_FOLDER) / version.version
         version_path.mkdir(parents=True, exist_ok=True)
-        
+
         try:
             for lib in version.libraries.values():
                 if format == "xml":
@@ -177,22 +177,22 @@ class VersionService:
         except Exception as e:
             logger.error(f"Error exporting version {version_ref}: {e}")
             raise RuntimeError("Error exporting version") from e
-    
+
     def create_marketplace_release(self, version_ref: str) -> None:
         """Create marketplace release structure from version libraries"""
         logger.info(f"Creating marketplace release for version {version_ref}")
         version = self.data_service.get_version(version_ref)
         if version is None:
             raise ValueError(f"Version '{version_ref}' not found")
-        
+
         # Load library structure from config folder
         library_structure_path = Path(ILEConstants.CONFIG_FOLDER) / "library_structure.json"
         if not library_structure_path.exists():
             raise FileNotFoundError(f"Library structure file not found at {library_structure_path}")
-        
+
         with open(library_structure_path, 'r', encoding='utf-8') as f:
             library_structure = json.load(f)
-        
+
         # Create mapping from library ref to package info
         library_to_package = {}
         for package_ref, package_info in library_structure.get("packages", {}).items():
@@ -201,148 +201,150 @@ class VersionService:
                     "package_ref": package_ref,
                     "type": package_info.get("type", "v2")
                 }
-        
+
         # Group libraries by package and type
         packages_by_type = {}  # {type: {package_ref: [library_refs]}}
-        
+
         for library_ref, library in version.libraries.items():
             if library_ref in library_to_package:
                 package_info = library_to_package[library_ref]
                 package_type = package_info["type"]
                 package_ref = package_info["package_ref"]
-                
+
                 if package_type not in packages_by_type:
                     packages_by_type[package_type] = {}
                 if package_ref not in packages_by_type[package_type]:
                     packages_by_type[package_type][package_ref] = []
-                
+
                 packages_by_type[package_type][package_ref].append(library_ref)
             else:
                 logger.warning(f"Library '{library_ref}' not found in library structure, skipping")
-        
+
         # Create marketplace folder structure and export libraries
         marketplace_path = Path(ILEConstants.OUTPUT_FOLDER) / "marketplace"
         marketplace_path.mkdir(parents=True, exist_ok=True)
-        
+
         try:
             for package_type, packages in packages_by_type.items():
                 type_path = marketplace_path / package_type
                 type_path.mkdir(parents=True, exist_ok=True)
-                
+
                 for package_ref, library_refs in packages.items():
                     package_path = type_path / package_ref
                     package_path.mkdir(parents=True, exist_ok=True)
-                    
+
                     # Export each library in the package
                     for library_ref in library_refs:
                         if library_ref in version.libraries:
                             library = version.libraries[library_ref]
-                            
+
                             # Save original filename
                             original_filename = library.filename
-                            
+
                             # Append revision number to filename
                             # Format: {base_name}_v{revision}.xml
                             filename_path = Path(original_filename)
                             base_name = filename_path.stem  # filename without extension
                             extension = filename_path.suffix or ".xml"
                             revision = library.revision or "0"
-                            
+
                             # Create new filename with revision
                             new_filename = f"{base_name}_v{revision}{extension}"
                             library.filename = new_filename
-                            
+
                             try:
                                 self.io_facade.export_library_xml(library, version, str(package_path))
-                                logger.info(f"Exported library '{library_ref}' (revision {revision}) to package '{package_ref}' in {package_type} as '{new_filename}'")
+                                logger.info(
+                                    f"Exported library '{library_ref}' (revision {revision}) to package '{package_ref}'"
+                                    f" in {package_type} as '{new_filename}'")
                             finally:
                                 # Restore original filename
                                 library.filename = original_filename
                         else:
                             logger.warning(f"Library '{library_ref}' not found in version, skipping")
-            
+
             logger.info(f"Marketplace release created successfully at {marketplace_path}")
         except Exception as e:
             logger.error(f"Error creating marketplace release for version {version_ref}: {e}")
             raise RuntimeError("Error creating marketplace release") from e
-    
+
     def get_suggestions(self, version_ref: str, element_type: str, ref: str) -> IRSuggestions:
         """Get suggestions for element"""
         suggestions = IRSuggestions()
         v = self.data_service.get_version(version_ref)
-        
+
         for library in v.libraries.values():
             for relation in library.relations.values():
                 if element_type == "threat":
                     if relation.threat_uuid == ref:
-                        suggestions.library_suggestions.add(library.ref)
+                        suggestions.library_suggestions.append(library.ref)
                         if relation.weakness_uuid and relation.weakness_uuid != "":
-                            suggestions.weakness_suggestions.add(relation.weakness_uuid)
+                            suggestions.weakness_suggestions.append(relation.weakness_uuid)
                         if relation.control_uuid and relation.control_uuid != "":
-                            suggestions.control_suggestions.add(relation.control_uuid)
-                        suggestions.relation_suggestions.add(relation)
+                            suggestions.control_suggestions.append(relation.control_uuid)
+                        suggestions.relation_suggestions.append(relation)
                 elif element_type == "weakness":
                     if relation.weakness_uuid == ref:
-                        suggestions.library_suggestions.add(library.ref)
+                        suggestions.library_suggestions.append(library.ref)
                         if relation.threat_uuid and relation.threat_uuid != "":
-                            suggestions.threat_suggestions.add(relation.threat_uuid)
+                            suggestions.threat_suggestions.append(relation.threat_uuid)
                         if relation.control_uuid and relation.control_uuid != "":
-                            suggestions.control_suggestions.add(relation.control_uuid)
-                        suggestions.relation_suggestions.add(relation)
+                            suggestions.control_suggestions.append(relation.control_uuid)
+                        suggestions.relation_suggestions.append(relation)
                 elif element_type == "control":
                     if relation.control_uuid == ref:
-                        suggestions.library_suggestions.add(library.ref)
+                        suggestions.library_suggestions.append(library.ref)
                         if relation.threat_uuid and relation.threat_uuid != "":
-                            suggestions.threat_suggestions.add(relation.threat_uuid)
+                            suggestions.threat_suggestions.append(relation.threat_uuid)
                         if relation.weakness_uuid and relation.weakness_uuid != "":
-                            suggestions.weakness_suggestions.add(relation.weakness_uuid)
-                        suggestions.relation_suggestions.add(relation)
-        
+                            suggestions.weakness_suggestions.append(relation.weakness_uuid)
+                        suggestions.relation_suggestions.append(relation)
+
         return suggestions
-    
+
     def fix_non_ascii_values(self, version_ref: str) -> None:
         """Fix non-ASCII values in version"""
         logger.info(f"Fixing non-ASCII values in version {version_ref}")
         version = self.data_service.get_version(version_ref)
-        
+
         # Fix risk patterns in libraries
         for library in version.libraries.values():
             for risk_pattern in library.risk_patterns.values():
                 risk_pattern.name = self._fix_ascii(risk_pattern.ref, risk_pattern.name)
                 risk_pattern.desc = self._fix_ascii(risk_pattern.ref, risk_pattern.desc)
-            
+
             # Fix component definitions in libraries
             for component_def in library.component_definitions.values():
                 component_def.name = self._fix_ascii(component_def.ref, component_def.name)
                 component_def.desc = self._fix_ascii(component_def.ref, component_def.desc)
-        
+
         # Fix use cases
         for usecase in version.usecases.values():
             usecase.name = self._fix_ascii(usecase.ref, usecase.name)
             usecase.desc = self._fix_ascii(usecase.ref, usecase.desc)
-        
+
         # Fix threats
         for threat in version.threats.values():
             threat.name = self._fix_ascii(threat.ref, threat.name)
             threat.desc = self._fix_ascii(threat.ref, threat.desc)
-        
+
         # Fix weaknesses
         for weakness in version.weaknesses.values():
             weakness.name = self._fix_ascii(weakness.ref, weakness.name)
             weakness.desc = self._fix_ascii(weakness.ref, weakness.desc)
             weakness.test.steps = self._fix_ascii(weakness.ref, weakness.test.steps)
-        
+
         # Fix controls
         for control in version.controls.values():
             control.name = self._fix_ascii(control.ref, control.name)
             control.desc = self._fix_ascii(control.ref, control.desc)
             control.test.steps = self._fix_ascii(control.ref, control.test.steps)
-    
+
     def _fix_ascii(self, ref: str, text: str) -> str:
         """Fix non-ASCII characters in text"""
         if not text:
             return text
-        
+
         result = text
         for char in text:
             code = ord(char)
@@ -350,15 +352,15 @@ class VersionService:
                 replacement = ILEConstants.NON_ASCII_CODES[code]
                 logger.debug(f"{ref}: Replaced {char} with {replacement}")
                 result = result.replace(char, replacement)
-        
+
         return result
-    
+
     # CRUD operations for various elements
-    
+
     def list_supported_standards(self, version_ref: str) -> Collection[IRSupportedStandard]:
         """List supported standards"""
         return self.data_service.get_version(version_ref).supported_standards.values()
-    
+
     def add_supported_standard(self, version_ref: str, st: SupportedStandardRequest) -> IRSupportedStandard:
         """Add supported standard"""
         v = self.data_service.get_version(version_ref)
@@ -368,8 +370,9 @@ class VersionService:
         )
         v.supported_standards[standard.uuid] = standard
         return standard
-    
-    def update_supported_standard(self, version_ref: str, updated: SupportedStandardUpdateRequest) -> IRSupportedStandard:
+
+    def update_supported_standard(self, version_ref: str,
+                                  updated: SupportedStandardUpdateRequest) -> IRSupportedStandard:
         """Update supported standard"""
         v = self.data_service.get_version(version_ref)
         standard = v.supported_standards[updated.uuid]
@@ -377,16 +380,16 @@ class VersionService:
         standard.supported_standard_name = updated.supported_standard_name
         v.supported_standards[updated.uuid] = standard
         return standard
-    
+
     def delete_supported_standard(self, version_ref: str, st: IRSupportedStandard) -> None:
         """Delete supported standard"""
         v = self.data_service.get_version(version_ref)
         v.supported_standards.pop(st.uuid, None)
-    
+
     def list_standards(self, version_ref: str) -> Collection[IRStandard]:
         """List standards"""
         return self.data_service.get_version(version_ref).standards.values()
-    
+
     def add_standard(self, version_ref: str, st: StandardRequest) -> IRStandard:
         """Add standard"""
         v = self.data_service.get_version(version_ref)
@@ -396,7 +399,7 @@ class VersionService:
         )
         v.standards[standard.uuid] = standard
         return standard
-    
+
     def update_standard(self, version_ref: str, updated: StandardUpdateRequest) -> IRStandard:
         """Update standard"""
         v = self.data_service.get_version(version_ref)
@@ -405,20 +408,20 @@ class VersionService:
         standard.standard_ref = updated.standard_ref
         v.standards[updated.uuid] = standard
         return standard
-    
+
     def delete_standard(self, version_ref: str, st: IRStandard) -> None:
         """Delete standard"""
         v = self.data_service.get_version(version_ref)
         v.standards.pop(st.uuid, None)
-    
+
     def get_reference(self, version_ref: str, uuid: str) -> IRReference:
         """Get reference by UUID"""
         return self.data_service.get_version(version_ref).references.get(uuid)
-    
+
     def list_references(self, version_ref: str) -> Collection[IRReference]:
         """List references"""
         return self.data_service.get_version(version_ref).references.values()
-    
+
     def add_reference(self, version_ref: str, body: ReferenceRequest) -> IRReference:
         """Add reference"""
         v = self.data_service.get_version(version_ref)
@@ -428,7 +431,7 @@ class VersionService:
         )
         v.references[ref.uuid] = ref
         return ref
-    
+
     def update_reference(self, version_ref: str, body: ReferenceUpdateRequest) -> IRReference:
         """Update reference"""
         v = self.data_service.get_version(version_ref)
@@ -437,16 +440,16 @@ class VersionService:
         reference.url = body.url
         v.references[body.uuid] = reference
         return reference
-    
+
     def delete_reference(self, version_ref: str, body: IRReference) -> None:
         """Delete reference"""
         v = self.data_service.get_version(version_ref)
         v.references.pop(body.uuid, None)
-    
+
     def list_categories(self, version_ref: str) -> Collection[IRCategoryComponent]:
         """List categories"""
         return self.data_service.get_version(version_ref).categories.values()
-    
+
     def add_category(self, version_ref: str, body: CategoryRequest) -> IRCategoryComponent:
         """Add category"""
         v = self.data_service.get_version(version_ref)
@@ -457,7 +460,7 @@ class VersionService:
         )
         v.categories[category.uuid] = category
         return category
-    
+
     def update_category(self, version_ref: str, new_cat: CategoryUpdateRequest) -> IRCategoryComponent:
         """Update category"""
         v = self.data_service.get_version(version_ref)
@@ -466,7 +469,7 @@ class VersionService:
         category.name = new_cat.name
         v.categories[new_cat.uuid] = category
         return category
-    
+
     def delete_category(self, version_ref: str, ref: str) -> None:
         """Delete category"""
         v = self.data_service.get_version(version_ref)
@@ -475,11 +478,11 @@ class VersionService:
             if cat.ref == ref:
                 v.categories.pop(uuid)
                 break
-    
+
     def list_controls(self, version_ref: str) -> Collection[IRControl]:
         """List controls"""
         return self.data_service.get_version(version_ref).controls.values()
-    
+
     def add_control(self, version_ref: str, control: ControlRequest) -> IRControl:
         """Add control"""
         v = self.data_service.get_version(version_ref)
@@ -499,12 +502,12 @@ class VersionService:
             ctrl.test.steps = control.steps
         v.controls[ctrl.uuid] = ctrl
         return ctrl
-    
+
     def update_control(self, version_ref: str, new_control: ControlUpdateRequest) -> IRControl:
         """Update control"""
         v = self.data_service.get_version(version_ref)
         control = v.controls[new_control.uuid]
-        
+
         if new_control.ref is not None:
             control.ref = new_control.ref
         if new_control.name is not None:
@@ -525,29 +528,29 @@ class VersionService:
             control.scope = new_control.scope
         if new_control.mitre is not None:
             control.mitre = new_control.mitre
-        
+
         v.controls[control.uuid] = control
         return control
-    
+
     def delete_control(self, version_ref: str, control: IRControl) -> None:
         """Delete control"""
         v = self.data_service.get_version(version_ref)
         v.controls.pop(control.uuid, None)
-    
+
     def get_control(self, version_ref: str, uuid: str) -> IRControl:
         """Get control by UUID"""
         return self.data_service.get_version(version_ref).controls.get(uuid)
-    
+
     def add_reference_to_element(self, version_ref: str, reference_item_request: ReferenceItemRequest) -> None:
         """Add reference to element"""
         v = self.data_service.get_version(version_ref)
         ref_uuid = reference_item_request.reference_uuid
         item_uuid = reference_item_request.item_uuid
         item_type = reference_item_request.item_type
-        
+
         # Generate a unique key for the references map
         reference_key = str(uuid.uuid4())
-        
+
         if item_type == "THREAT":
             if item_uuid in v.threats:
                 v.threats[item_uuid].references[reference_key] = ref_uuid
@@ -560,73 +563,73 @@ class VersionService:
         elif item_type == "WEAKNESS_TEST":
             if item_uuid in v.weaknesses:
                 v.weaknesses[item_uuid].test.references[reference_key] = ref_uuid
-    
+
     def delete_reference_from_element(self, version_ref: str, reference_item_request: ReferenceItemRequest) -> None:
         """Delete reference from element"""
         v = self.data_service.get_version(version_ref)
         ref_uuid = reference_item_request.reference_uuid
         item_uuid = reference_item_request.item_uuid
         item_type = reference_item_request.item_type
-        
+
         if item_type == "THREAT":
             if item_uuid in v.threats:
                 # Find and remove references that match the value (not the key)
-                keys_to_remove = [key for key, value in v.threats[item_uuid].references.items() 
-                                if value == ref_uuid]
+                keys_to_remove = [key for key, value in v.threats[item_uuid].references.items()
+                                  if value == ref_uuid]
                 for key in keys_to_remove:
                     del v.threats[item_uuid].references[key]
         elif item_type == "CONTROL":
             if item_uuid in v.controls:
-                keys_to_remove = [key for key, value in v.controls[item_uuid].references.items() 
-                                if value == ref_uuid]
+                keys_to_remove = [key for key, value in v.controls[item_uuid].references.items()
+                                  if value == ref_uuid]
                 for key in keys_to_remove:
                     del v.controls[item_uuid].references[key]
         elif item_type == "CONTROL_TEST":
             if item_uuid in v.controls:
-                keys_to_remove = [key for key, value in v.controls[item_uuid].test.references.items() 
-                                if value == ref_uuid]
+                keys_to_remove = [key for key, value in v.controls[item_uuid].test.references.items()
+                                  if value == ref_uuid]
                 for key in keys_to_remove:
                     del v.controls[item_uuid].test.references[key]
         elif item_type == "WEAKNESS_TEST":
             if item_uuid in v.weaknesses:
-                keys_to_remove = [key for key, value in v.weaknesses[item_uuid].test.references.items() 
-                                if value == ref_uuid]
+                keys_to_remove = [key for key, value in v.weaknesses[item_uuid].test.references.items()
+                                  if value == ref_uuid]
                 for key in keys_to_remove:
                     del v.weaknesses[item_uuid].test.references[key]
-    
+
     def add_standard_to_element(self, version_ref: str, standard_item_request: StandardItemRequest) -> None:
         """Add standard to element"""
         v = self.data_service.get_version(version_ref)
         item_uuid = standard_item_request.item_uuid
         standard_uuid = standard_item_request.standard_uuid
         item_type = standard_item_request.item_type
-        
+
         # Generate a unique key for the standards map
         standard_key = str(uuid.uuid4())
-        
+
         if item_type == "CONTROL":
             if item_uuid in v.controls:
                 v.controls[item_uuid].standards[standard_key] = standard_uuid
-    
+
     def delete_standard_from_element(self, version_ref: str, standard_item_request: StandardItemRequest) -> None:
         """Delete standard from element"""
         v = self.data_service.get_version(version_ref)
         item_uuid = standard_item_request.item_uuid
         standard_uuid = standard_item_request.standard_uuid
         item_type = standard_item_request.item_type
-        
+
         if item_type == "CONTROL":
             if item_uuid in v.controls:
                 # Find and remove standards that match the value (not the key)
-                keys_to_remove = [key for key, value in v.controls[item_uuid].standards.items() 
-                                if value == standard_uuid]
+                keys_to_remove = [key for key, value in v.controls[item_uuid].standards.items()
+                                  if value == standard_uuid]
                 for key in keys_to_remove:
                     del v.controls[item_uuid].standards[key]
-    
+
     def list_weaknesses(self, version_ref: str) -> Collection[IRWeakness]:
         """List weaknesses"""
         return self.data_service.get_version(version_ref).weaknesses.values()
-    
+
     def add_weakness(self, version_ref: str, weakness: WeaknessRequest) -> IRWeakness:
         """Add weakness"""
         v = self.data_service.get_version(version_ref)
@@ -638,12 +641,12 @@ class VersionService:
         )
         v.weaknesses[w.uuid] = w
         return w
-    
+
     def update_weakness(self, version_ref: str, new_weakness: WeaknessUpdateRequest) -> IRWeakness:
         """Update weakness"""
         v = self.data_service.get_version(version_ref)
         weakness = v.weaknesses[new_weakness.uuid]
-        
+
         if new_weakness.ref is not None:
             weakness.ref = new_weakness.ref
         if new_weakness.name is not None:
@@ -652,27 +655,27 @@ class VersionService:
             weakness.desc = new_weakness.desc
         if new_weakness.impact is not None:
             weakness.impact = new_weakness.impact
-        
+
         v.weaknesses[weakness.uuid] = weakness
         return weakness
-    
+
     def delete_weakness(self, version_ref: str, weakness: IRWeakness) -> None:
         """Delete weakness"""
         v = self.data_service.get_version(version_ref)
         v.weaknesses.pop(weakness.uuid, None)
-    
+
     def get_weakness(self, version_ref: str, uuid: str) -> IRWeakness:
         """Get weakness by UUID"""
         return self.data_service.get_version(version_ref).weaknesses.get(uuid)
-    
+
     def get_threat(self, version_ref: str, uuid: str) -> IRThreat:
         """Get threat by UUID"""
         return self.data_service.get_version(version_ref).threats.get(uuid)
-    
+
     def list_threats(self, version_ref: str) -> Collection[IRThreat]:
         """List threats"""
         return self.data_service.get_version(version_ref).threats.values()
-    
+
     def add_threat(self, version_ref: str, threat: ThreatRequest) -> IRThreat:
         """Add threat"""
         v = self.data_service.get_version(version_ref)
@@ -691,12 +694,12 @@ class VersionService:
         )
         v.threats[t.uuid] = t
         return t
-    
+
     def update_threat(self, version_ref: str, new_threat: ThreatUpdateRequest) -> IRThreat:
         """Update threat"""
         v = self.data_service.get_version(version_ref)
         threat = v.threats[new_threat.uuid]
-        
+
         if new_threat.ref is not None:
             threat.ref = new_threat.ref
         if new_threat.name is not None:
@@ -714,13 +717,13 @@ class VersionService:
             threat.mitre = new_threat.mitre
         if new_threat.stride is not None:
             threat.stride = new_threat.stride
-        
+
         # Handle references to add
         if new_threat.references_to_add is not None:
             for ref_uuid in new_threat.references_to_add:
                 # Add reference using UUID as both key and value
                 threat.references[ref_uuid] = ref_uuid
-        
+
         # Handle references to delete
         if new_threat.references_to_delete is not None:
             for ref_uuid in new_threat.references_to_delete:
@@ -728,19 +731,19 @@ class VersionService:
                 keys_to_delete = [key for key, value in threat.references.items() if value == ref_uuid]
                 for key in keys_to_delete:
                     del threat.references[key]
-        
+
         v.threats[threat.uuid] = threat
         return threat
-    
+
     def delete_threat(self, version_ref: str, threat: IRThreat) -> None:
         """Delete threat"""
         v = self.data_service.get_version(version_ref)
         v.threats.pop(threat.uuid, None)
-    
+
     def list_usecases(self, version_ref: str) -> Collection[IRUseCase]:
         """List use cases"""
         return self.data_service.get_version(version_ref).usecases.values()
-    
+
     def add_usecase(self, version_ref: str, usecase: UsecaseRequest) -> IRUseCase:
         """Add use case"""
         v = self.data_service.get_version(version_ref)
@@ -751,7 +754,7 @@ class VersionService:
         )
         v.usecases[uc.uuid] = uc
         return uc
-    
+
     def update_usecase(self, version_ref: str, new_usecase: UsecaseUpdateRequest) -> IRUseCase:
         """Update use case"""
         v = self.data_service.get_version(version_ref)
@@ -763,16 +766,16 @@ class VersionService:
         usecase.desc = new_usecase.desc
         v.usecases[new_usecase.uuid] = usecase
         return usecase
-    
+
     def delete_usecase(self, version_ref: str, usecase: IRUseCase) -> None:
         """Delete use case"""
         v = self.data_service.get_version(version_ref)
         v.usecases.pop(usecase.uuid, None)
-    
+
     def list_libraries(self, version_ref: str) -> Collection[str]:
         """List libraries"""
         return self.data_service.get_version(version_ref).libraries.keys()
-    
+
     def create_library(self, version_ref: str, library_ref: str) -> IRLibrary:
         """Create library"""
         v = self.data_service.get_version(version_ref)
@@ -786,14 +789,14 @@ class VersionService:
         )
         v.libraries[library_ref] = library
         return library
-    
+
     def increment_library_revision(self, version_ref: str, library_ref: str) -> None:
         """Increment library revision"""
         v = self.data_service.get_version(version_ref)
         library = v.libraries[library_ref]
         current_rev = int(library.revision)
         library.revision = str(current_rev + 1)
-    
+
     def delete_library(self, version_ref: str, library_ref: str) -> None:
         """Delete library"""
         v = self.data_service.get_version(version_ref)

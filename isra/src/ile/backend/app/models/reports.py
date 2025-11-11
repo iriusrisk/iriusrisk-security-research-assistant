@@ -1,6 +1,9 @@
 from typing import List, Dict, Any
+
 from pydantic import BaseModel, Field
+
 from .base import IRBaseElement
+from .elements import IRRelation
 
 
 class IRProjectReport(IRBaseElement):
@@ -76,7 +79,3 @@ class IRTestReport(BaseModel):
     num_failed_tests: int = 0
     num_success_tests: int = 0
     test_results: Dict[str, List[str]] = Field(default_factory=dict)
-
-
-# Forward reference resolution
-from .elements import IRRelation

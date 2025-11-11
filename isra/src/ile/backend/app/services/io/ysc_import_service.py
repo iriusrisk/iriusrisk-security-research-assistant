@@ -588,7 +588,7 @@ class YSCImportService:
                         threat_uuid=threat.uuid,
                         weakness_uuid=weakness_uuid,
                         control_uuid=control.uuid,
-                        mitigation=""
+                        mitigation="100"
                     )
                     new_library.relations[relation.uuid] = relation
                     expected_relations.add((risk_pattern.uuid, usecase.uuid, threat.uuid, weakness_uuid, control.uuid))

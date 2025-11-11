@@ -6,7 +6,7 @@ from isra.src.ile.backend.app.models.elements import (
     IRRiskRating, IRTest, IRReference, IRStandard, IRSupportedStandard,
     IRRuleCondition, IRRuleAction, IRRule, IRRelation, IRExtendedRelation,
     IRCategoryComponent, IRComponentDefinition, IRThreat, IRWeakness, IRControl,
-    IRUseCase, IRRiskPattern, IRLibrary, IRCustomField,
+    IRUseCase, IRRiskPattern, IRLibrary,
     IRControlItem, IRWeaknessItem, IRThreatItem, IRUseCaseItem, IRRiskPatternItem
 )
 
@@ -44,7 +44,7 @@ __all__ = [
     'IRRiskRating', 'IRTest', 'IRReference', 'IRStandard', 'IRSupportedStandard',
     'IRRuleCondition', 'IRRuleAction', 'IRRule', 'IRRelation', 'IRExtendedRelation',
     'IRCategoryComponent', 'IRComponentDefinition', 'IRThreat', 'IRWeakness', 'IRControl',
-    'IRUseCase', 'IRRiskPattern', 'IRLibrary', 'IRCustomField',
+    'IRUseCase', 'IRRiskPattern', 'IRLibrary',
     'IRControlItem', 'IRWeaknessItem', 'IRThreatItem', 'IRUseCaseItem', 'IRRiskPatternItem',
     
     # Project

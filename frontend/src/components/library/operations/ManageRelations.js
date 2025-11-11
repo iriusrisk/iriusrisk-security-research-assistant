@@ -155,7 +155,7 @@ const ManageRelations = (props) => {
                             value={selectedRp}
                             onChange={(event) => selectRp(event)}
                         >
-                            <option key={2345678} value="">Select a risk pattern</option>
+                            <option key={2345678} value=""></option>
                             { rps.map((value, index) => {
                                 return <option key={index} value={value.uuid}>{value.ref} - {value.name}</option>
                             })}

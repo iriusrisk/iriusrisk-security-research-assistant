@@ -1,8 +1,10 @@
 from typing import Dict
+
 from pydantic import BaseModel, Field
+
 from .base import IRBaseElement
-from .elements import (IRLibrary, IRUseCase, IRThreat, IRWeakness, IRControl, 
-                      IRCategoryComponent, IRReference, IRSupportedStandard, IRStandard)
+from .elements import (IRLibrary, IRUseCase, IRThreat, IRWeakness, IRControl,
+                       IRCategoryComponent, IRReference, IRSupportedStandard, IRStandard)
 
 
 class ILEProject(IRBaseElement):

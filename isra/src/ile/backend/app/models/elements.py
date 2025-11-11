@@ -28,8 +28,8 @@ class IRReference(BaseModel):
     def __eq__(self, other):
         if not isinstance(other, IRReference):
             return False
-        return (self.uuid == other.uuid and 
-                self.name == other.name and 
+        return (self.uuid == other.uuid and
+                self.name == other.name and
                 self.url == other.url)
 
     def __hash__(self):
@@ -80,7 +80,8 @@ class IRSupportedStandard(BaseModel):
     def __lt__(self, other):
         if not isinstance(other, IRSupportedStandard):
             return NotImplemented
-        return (self.supported_standard_ref, self.supported_standard_name) < (other.supported_standard_ref, other.supported_standard_name)
+        return (self.supported_standard_ref, self.supported_standard_name) < (
+        other.supported_standard_ref, other.supported_standard_name)
 
 
 class IRRuleCondition(BaseModel):
@@ -154,7 +155,9 @@ class IRComponentDefinition(IRBaseElement):
 
 class IRThreat(IRBaseElement):
     """Threat definition"""
-    risk_rating: IRRiskRating = Field(default_factory=lambda: IRRiskRating(confidentiality="100", integrity="100", availability="100", ease_of_exploitation="100"))
+    risk_rating: IRRiskRating = Field(
+        default_factory=lambda: IRRiskRating(confidentiality="100", integrity="100", availability="100",
+                                             ease_of_exploitation="100"))
     mitre: List[str] = Field(default_factory=list)
     stride: List[str] = Field(default_factory=list)
     references: Dict[str, str] = Field(default_factory=dict)
@@ -197,11 +200,6 @@ class IRLibrary(IRBaseElement):
     rules: List[IRRule] = Field(default_factory=list)
     component_definitions: Dict[str, IRComponentDefinition] = Field(default_factory=dict)
     relations: Dict[str, IRRelation] = Field(default_factory=dict)
-
-
-class IRCustomField(IRBaseElement):
-    """Custom field"""
-    value: str = ""
 
 
 # Item classes extending IRBaseElementNoUUID

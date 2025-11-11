@@ -2,13 +2,14 @@
 Configuration factory for creating and managing configuration instances
 """
 
-import os
 import logging
+import os
 from typing import Optional, Dict, Any
+
 from isra.src.ile.backend.app.configuration.constants import ILEConstants, ExcelConstants
-from isra.src.ile.backend.app.configuration.safety import Safety
-from isra.src.ile.backend.app.configuration.properties_manager import PropertiesManager
 from isra.src.ile.backend.app.configuration.environment import EnvironmentConfig
+from isra.src.ile.backend.app.configuration.properties_manager import PropertiesManager
+from isra.src.ile.backend.app.configuration.safety import Safety
 
 
 class ConfigFactory:

@@ -797,6 +797,13 @@ class ChangelogService:
                     self._get_change(changes, "integrity", t1.risk_rating.integrity or "", t2.risk_rating.integrity or "")
                     self._get_change(changes, "availability", t1.risk_rating.availability or "", t2.risk_rating.availability or "")
                     self._get_change(changes, "easeOfExploitation", t1.risk_rating.ease_of_exploitation or "", t2.risk_rating.ease_of_exploitation or "")
+                    # Sort lists before joining to ensure order-independent comparison
+                    mitre1 = sorted(t1.mitre or [])
+                    mitre2 = sorted(t2.mitre or [])
+                    self._get_change(changes, "mitre", ",".join(mitre1), ",".join(mitre2))
+                    stride1 = sorted(t1.stride or [])
+                    stride2 = sorted(t2.stride or [])
+                    self._get_change(changes, "stride", ",".join(stride1), ",".join(stride2))
                     
                     node = IRNode(t2.ref, changes, "E")
                     
@@ -841,6 +848,19 @@ class ChangelogService:
                     self._get_change(changes, "state", c1.state or "", c2.state or "")
                     self._get_change(changes, "cost", c1.cost or "", c2.cost or "")
                     self._get_change(changes, "steps", c1.test.steps or "", c2.test.steps or "")
+                    # Sort lists before joining to ensure order-independent comparison
+                    base_standard1 = sorted(c1.base_standard or [])
+                    base_standard2 = sorted(c2.base_standard or [])
+                    self._get_change(changes, "baseStandard", ",".join(base_standard1), ",".join(base_standard2))
+                    base_standard_section1 = sorted(c1.base_standard_section or [])
+                    base_standard_section2 = sorted(c2.base_standard_section or [])
+                    self._get_change(changes, "baseStandardSection", ",".join(base_standard_section1), ",".join(base_standard_section2))
+                    scope1 = sorted(c1.scope or [])
+                    scope2 = sorted(c2.scope or [])
+                    self._get_change(changes, "scope", ",".join(scope1), ",".join(scope2))
+                    mitre1 = sorted(c1.mitre or [])
+                    mitre2 = sorted(c2.mitre or [])
+                    self._get_change(changes, "mitre", ",".join(mitre1), ",".join(mitre2))
                     
                     node = IRNode(c2.ref, changes, "E")
                     
