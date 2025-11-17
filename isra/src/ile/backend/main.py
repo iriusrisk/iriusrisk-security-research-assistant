@@ -18,6 +18,7 @@ from isra.src.ile.backend.app.controllers.library_controller import router as li
 from isra.src.ile.backend.app.controllers.version_controller import router as version_router
 from isra.src.ile.backend.app.controllers.changelog_controller import router as changelog_router
 from isra.src.ile.backend.app.controllers.test_controller import router as test_router
+from isra.src.ile.backend.app.controllers.marketplace_controller import router as marketplace_router
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -122,6 +123,7 @@ def create_app() -> FastAPI:
     app.include_router(library_router, prefix="/api", tags=["library"])
     app.include_router(changelog_router, prefix="/api", tags=["changelog"])
     app.include_router(test_router, prefix="/api", tags=["test"])
+    app.include_router(marketplace_router, prefix="/api", tags=["marketplace"])
     
     # Health check endpoint (always available, not under /api)
     @app.get("/health")

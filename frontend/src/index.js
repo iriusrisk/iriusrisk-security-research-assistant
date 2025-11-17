@@ -41,6 +41,8 @@ import 'react-contexify/dist/ReactContexify.css';
 import TextField from "@material-ui/core/TextField";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { ActivityIndicatorContext } from './components/utils/ActivityIndicatorContext';
+import Marketplace from './components/marketplace/Marketplace';
+import ManageReleaseNotes from './components/marketplace/operations/ManageReleaseNotes';
 import './index.css';
 
 // This components are loaded in this way to do code-splitting
@@ -671,6 +673,8 @@ const AppRouter = ({ handleProjectChange, project }) => {
         <Route path="/version/:id/:lib/rulesGraph" render={(props) => <CreateRulesGraph version={props.match.params.id} library={props.match.params.lib} />} />
         <Route path="/version/:id/:lib" render={(props) => <Library {...props} />} />
         <Route path="/version/:id" render={(props) => <Version {...props} />} />
+        <Route path="/marketplace/manageReleaseNotes" render={(props) => <ManageReleaseNotes {...props} />} />
+        <Route path="/marketplace" render={(props) => <Marketplace {...props} />} />
         <Route exact path="/" render={() => <Home />} />
       </Switch>
     </Suspense>
@@ -764,6 +768,12 @@ const Dashboard = () => {
               <AssignmentIcon  style={{ color: 'white' }} />
             </ListItemIcon>
             <ListItemText primary="Project" />
+          </ListItem>
+          <ListItem button component={NavLink} to="/marketplace" activeClassName={classes.menuButtonSelected}>
+            <ListItemIcon>
+              <CollectionsBookmarkIcon style={{ color: 'white' }}/>
+            </ListItemIcon>
+            <ListItemText primary="Marketplace" />
           </ListItem>
           {project !== "" &&
             <div>

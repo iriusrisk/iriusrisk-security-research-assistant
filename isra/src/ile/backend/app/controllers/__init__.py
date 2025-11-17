@@ -7,11 +7,13 @@ from isra.src.ile.backend.app.controllers.library_controller import router as li
 from isra.src.ile.backend.app.controllers.version_controller import router as version_router
 from isra.src.ile.backend.app.controllers.changelog_controller import router as changelog_router
 from isra.src.ile.backend.app.controllers.test_controller import router as test_router
+from isra.src.ile.backend.app.controllers.marketplace_controller import router as marketplace_router
 
 __all__ = [
     'project_router',
     'library_router', 
     'version_router',
     'changelog_router',
-    'test_router'
+    'test_router',
+    'marketplace_router'
 ]
