@@ -31,6 +31,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
+import Store from '@material-ui/icons/Store';
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 import HomeIcon from '@material-ui/icons/Home';
 import SimpleCard from "./components/utils/SimpleCard";
@@ -771,7 +772,7 @@ const Dashboard = () => {
           </ListItem>
           <ListItem button component={NavLink} to="/marketplace" activeClassName={classes.menuButtonSelected}>
             <ListItemIcon>
-              <CollectionsBookmarkIcon style={{ color: 'white' }}/>
+              <Store style={{ color: 'white' }}/>
             </ListItemIcon>
             <ListItemText primary="Marketplace" />
           </ListItem>

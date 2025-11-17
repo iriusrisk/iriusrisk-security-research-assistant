@@ -73,6 +73,7 @@ const ManageReleaseNotes = (props) => {
     const [loading, setLoading] = useState(false);
     const [basePath, setBasePath] = useState('');
     const [addReleaseNoteDialog, setAddReleaseNoteDialog] = useState({ open: false, packageIndex: null, revisionKey: '' });
+    const [expandedAccordions, setExpandedAccordions] = useState(new Set([0])); // Track which accordions are expanded
 
     const handleFolderSelect = async (event) => {
         const files = Array.from(event.target.files);
@@ -113,6 +114,8 @@ const ManageReleaseNotes = (props) => {
         }
 
         setPackages(loadedPackages);
+        // Reset expanded accordions - only expand the first one
+        setExpandedAccordions(new Set([0]));
         setLoading(false);
         successToast(`Loaded ${loadedPackages.length} package(s)`);
     };
@@ -366,6 +369,18 @@ const ManageReleaseNotes = (props) => {
         });
     };
 
+    const handleAccordionChange = (packageIndex) => (event, isExpanded) => {
+        setExpandedAccordions(prev => {
+            const newSet = new Set(prev);
+            if (isExpanded) {
+                newSet.add(packageIndex);
+            } else {
+                newSet.delete(packageIndex);
+            }
+            return newSet;
+        });
+    };
+
     return (
         <div className={classes.root}>
           <CssBaseline />
@@ -439,34 +454,41 @@ const ManageReleaseNotes = (props) => {
                                   Loaded Packages ({packages.length})
                               </Typography>
                               
-                              {packages.map((pkg, packageIndex) => (
-                                  <Accordion key={packageIndex} defaultExpanded={packageIndex === 0}>
-                                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginRight: '16px' }}>
-                                              <div>
-                                                  <Typography variant="h6">
-                                                      {pkg.data.library?.name || pkg.libraryName || 'Unknown Library'} ({pkg.data.library?.ref || pkg.libraryRef || 'unknown'})
-                                                  </Typography>
-                                                  <Typography variant="body2" style={{ color: '#666' }}>
-                                                      Path: {pkg.filePath} | Revision: {pkg.data.library?.revision || pkg.revision || 0}
-                                                  </Typography>
+                              {packages.map((pkg, packageIndex) => {
+                                  const isExpanded = expandedAccordions.has(packageIndex);
+                                  return (
+                                      <Accordion 
+                                          key={packageIndex} 
+                                          expanded={isExpanded}
+                                          onChange={handleAccordionChange(packageIndex)}
+                                      >
+                                          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginRight: '16px' }}>
+                                                  <div>
+                                                      <Typography variant="h6">
+                                                          {pkg.data.library?.name || pkg.libraryName || 'Unknown Library'} ({pkg.data.library?.ref || pkg.libraryRef || 'unknown'})
+                                                      </Typography>
+                                                      <Typography variant="body2" style={{ color: '#666' }}>
+                                                          Path: {pkg.filePath} | Revision: {pkg.data.library?.revision || pkg.revision || 0}
+                                                      </Typography>
+                                                  </div>
+                                                  <Button
+                                                      variant="contained"
+                                                      color="primary"
+                                                      size="small"
+                                                      startIcon={<SaveIcon />}
+                                                      onClick={(e) => {
+                                                          e.stopPropagation();
+                                                          saveSingleFile(packageIndex);
+                                                      }}
+                                                      disabled={loading}
+                                                  >
+                                                      Save
+                                                  </Button>
                                               </div>
-                                              <Button
-                                                  variant="contained"
-                                                  color="primary"
-                                                  size="small"
-                                                  startIcon={<SaveIcon />}
-                                                  onClick={(e) => {
-                                                      e.stopPropagation();
-                                                      saveSingleFile(packageIndex);
-                                                  }}
-                                                  disabled={loading}
-                                              >
-                                                  Save
-                                              </Button>
-                                          </div>
-                                      </AccordionSummary>
-                                      <AccordionDetails>
+                                          </AccordionSummary>
+                                          {isExpanded && (
+                                              <AccordionDetails>
                                           <div style={{ width: '100%' }}>
                                               {/* Library Properties Section */}
                                               <Paper elevation={1} style={{ padding: '16px', marginBottom: '20px', backgroundColor: '#f5f5f5' }}>
@@ -640,8 +662,10 @@ const ManageReleaseNotes = (props) => {
                                               )}
                                           </div>
                                       </AccordionDetails>
+                                      )}
                                   </Accordion>
-                              ))}
+                                  );
+                              })}
                           </div>
                       )}
 
