@@ -1,0 +1,1 @@
+These files are an attempt to improve ISRA data model to use proper data classes instead of basic data structures like lists or dicts. However, these are not being used in any part of the app
