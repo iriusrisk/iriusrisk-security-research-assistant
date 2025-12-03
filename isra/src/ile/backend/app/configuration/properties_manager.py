@@ -204,7 +204,7 @@ class PropertiesManager:
             
             # List of resource files to copy
             resource_files = [
-                "library_structure.json"
+                "marketplace_structure.json"
             ]
             
             # Copy each resource file if it doesn't exist in config

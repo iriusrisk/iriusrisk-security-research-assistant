@@ -186,16 +186,16 @@ class VersionService:
             raise ValueError(f"Version '{version_ref}' not found")
 
         # Load library structure from config folder
-        library_structure_path = Path(ILEConstants.CONFIG_FOLDER) / "library_structure.json"
-        if not library_structure_path.exists():
-            raise FileNotFoundError(f"Library structure file not found at {library_structure_path}")
+        marketplace_structure_path = Path(ILEConstants.CONFIG_FOLDER) / "marketplace_structure.json"
+        if not marketplace_structure_path.exists():
+            raise FileNotFoundError(f"Marketplace structure file not found at {marketplace_structure_path}")
 
-        with open(library_structure_path, 'r', encoding='utf-8') as f:
-            library_structure = json.load(f)
+        with open(marketplace_structure_path, 'r', encoding='utf-8') as f:
+            marketplace_structure = json.load(f)
 
         # Create mapping from library ref to package info
         library_to_package = {}
-        for package_ref, package_info in library_structure.get("packages", {}).items():
+        for package_ref, package_info in marketplace_structure.get("packages", {}).items():
             for library_ref in package_info.get("libraries", []):
                 library_to_package[library_ref] = {
                     "package_ref": package_ref,
