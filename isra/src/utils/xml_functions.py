@@ -9,7 +9,7 @@ from isra.src.config.config import get_property
 from isra.src.config.constants import OUTPUT_NAME, CATEGORIES_LIST, SF_C_MAP, SF_T_MAP, \
     CUSTOM_FIELD_SCOPE, \
     CUSTOM_FIELD_STANDARD_BASELINE_REF, CUSTOM_FIELD_STANDARD_BASELINE_SECTION, \
-    CUSTOM_FIELD_STRIDE, EMPTY_TEMPLATE, REVERSED_OUTPUT_NAME, get_app_dir
+    CUSTOM_FIELD_STRIDE, EMPTY_TEMPLATE, get_app_dir
 from isra.src.utils.cwe_functions import get_original_cwe_weaknesses, get_cwe_description
 from isra.src.utils.text_functions import merge_custom_fields, split_mitre_custom_field_threats, \
     split_mitre_custom_field_controls, generate_identifier_from_ref, set_category_suffix
@@ -229,12 +229,13 @@ def save_xml_file(template):
 
 def create_rule_elements(template, root, library_origin):
     comp_ref = generate_identifier_from_ref(template["component"]["ref"])
-
+    
+    # First we need to remove old rules
     for rule in root.findall('.//rules/rule'):
-        if template["component"]["ref"] in rule.attrib['name']:
+        rule_name_split = rule.attrib["name"].split(" - ")
+        if template["component"]["ref"] == rule_name_split[2]:
             # print(f"Removed rule {rule.attrib['name']}")
             root.find('rules').remove(rule)
-
 
     # First we get all the questions
     questions = []
@@ -242,7 +243,6 @@ def create_rule_elements(template, root, library_origin):
         cont = generate_identifier_from_ref(control["name"])
         qg_id = f"{comp_ref}.{cont}"
 
-        # First we need to remove old rules
         if "question" in control and control["question"] != "":
             questions.append((control_ref, control["question"], control["question_desc"]))
 
@@ -253,10 +253,8 @@ def create_rule_elements(template, root, library_origin):
 
     # Then we add the questions
     if len(questions) > 0:
-        rule_element = create_rule_question_group(questions, template['component']['ref'])            
+        rule_element = create_rule_question_group(questions, template['component']['ref'])
         root.find("rules").append(rule_element)
-
-
 
     return root
 
@@ -373,6 +371,7 @@ def create_rule_element():
 def create_rule_question_group(questions, component_definition_ref):
     rule = create_rule_element()
     rule.attrib["name"] = f"Q - Security Context - {component_definition_ref}"
+
     condition = etree.SubElement(rule.find("conditions"), "condition")
     condition.attrib["name"] = "CONDITION_COMPONENT_DEFINITION"
     condition.attrib["field"] = "id"
@@ -386,7 +385,6 @@ def create_rule_question_group(questions, component_definition_ref):
         action.attrib[
             "value"] = f"provided.question.{question[0]}_::_Security Context_::_{question[1]}_::_{priority}_::_true_::_false_::_{question[2]}"
         priority += 1
-
 
     return rule
 
@@ -698,7 +696,7 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
             # This removes those references from the library that are not in the template
             for std_element in new_control.find("references").iter("reference"):
                 if std_element.attrib["name"] not in [x["name"] for x in
-                                              template["controls"][control["ref"]]["references"]]:
+                                                      template["controls"][control["ref"]]["references"]]:
                     new_control.find("references").remove(std_element)
             for item in template["controls"][control["ref"]]["references"]:
                 reference_element = new_control.find(f'./references/reference[@name="{item["name"]}"]')
@@ -741,7 +739,8 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
                 uuid_map = dict()
                 for std_element in new_control.find("standards").iter("standard"):
                     if "uuid" in std_element.attrib:
-                        uuid_map[std_element.attrib['supportedStandardRef']+std_element.attrib['ref']] = std_element.attrib['uuid']
+                        uuid_map[std_element.attrib['supportedStandardRef'] + std_element.attrib['ref']] = \
+                        std_element.attrib['uuid']
                     new_control.find("standards").remove(std_element)
 
                 # Now we add the standards
@@ -759,8 +758,9 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
                     else:
                         std_element.attrib["ref"] = item["standard-section"]
 
-                    if std_element.attrib["supportedStandardRef"]+std_element.attrib["ref"] in uuid_map:
-                        std_element.attrib["uuid"] = uuid_map[std_element.attrib["supportedStandardRef"]+std_element.attrib["ref"]]
+                    if std_element.attrib["supportedStandardRef"] + std_element.attrib["ref"] in uuid_map:
+                        std_element.attrib["uuid"] = uuid_map[
+                            std_element.attrib["supportedStandardRef"] + std_element.attrib["ref"]]
 
     # Now we have to remove those controls that are not in the template but are present in the XML
     # This is only valid for upload operation
@@ -821,7 +821,8 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
 
         # This removes those references from the library that are not in the template
         for std_element in new_threat.find("references").iter("reference"):
-            if std_element.attrib["name"] not in [x["name"] for x in template["threats"][relation["threat"]]["references"]]:
+            if std_element.attrib["name"] not in [x["name"] for x in
+                                                  template["threats"][relation["threat"]]["references"]]:
                 new_threat.find("references").remove(std_element)
         for item in template["threats"][relation["threat"]]["references"]:
             reference_element = new_threat.find(f'./references/reference[@name="{item["name"]}"]')
