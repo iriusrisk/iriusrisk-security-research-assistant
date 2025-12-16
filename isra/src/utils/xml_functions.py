@@ -233,8 +233,12 @@ def create_rule_elements(template, root, library_origin):
     # First we need to remove old rules
     for rule in root.findall('.//rules/rule'):
         rule_name_split = rule.attrib["name"].split(" - ")
-        if template["component"]["ref"] == rule_name_split[2]:
-            # print(f"Removed rule {rule.attrib['name']}")
+        if rule_name_split[0] == "Q" and len(rule_name_split) == 3:
+            if template["component"]["ref"] == rule_name_split[2]:
+                # print(f"Removed rule {rule.attrib['name']}")
+                root.find('rules').remove(rule)
+        if "in dataflow:" in rule.attrib["name"] and comp_ref in rule.attrib["name"]:
+            # Dataflow rules are not removed
             root.find('rules').remove(rule)
 
     # First we get all the questions
