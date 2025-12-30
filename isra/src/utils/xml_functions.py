@@ -9,7 +9,7 @@ from isra.src.config.config import get_property
 from isra.src.config.constants import OUTPUT_NAME, CATEGORIES_LIST, SF_C_MAP, SF_T_MAP, \
     CUSTOM_FIELD_SCOPE, \
     CUSTOM_FIELD_STANDARD_BASELINE_REF, CUSTOM_FIELD_STANDARD_BASELINE_SECTION, \
-    CUSTOM_FIELD_STRIDE, EMPTY_TEMPLATE, REVERSED_OUTPUT_NAME, get_app_dir
+    CUSTOM_FIELD_STRIDE, EMPTY_TEMPLATE, get_app_dir
 from isra.src.utils.cwe_functions import get_original_cwe_weaknesses, get_cwe_description
 from isra.src.utils.text_functions import merge_custom_fields, split_mitre_custom_field_threats, \
     split_mitre_custom_field_controls, generate_identifier_from_ref, set_category_suffix
@@ -229,12 +229,17 @@ def save_xml_file(template):
 
 def create_rule_elements(template, root, library_origin):
     comp_ref = generate_identifier_from_ref(template["component"]["ref"])
-
+    
+    # First we need to remove old rules
     for rule in root.findall('.//rules/rule'):
-        if template["component"]["ref"] in rule.attrib['name']:
-            # print(f"Removed rule {rule.attrib['name']}")
+        rule_name_split = rule.attrib["name"].split(" - ")
+        if rule_name_split[0] == "Q" and len(rule_name_split) == 3:
+            if template["component"]["ref"] == rule_name_split[2]:
+                # print(f"Removed rule {rule.attrib['name']}")
+                root.find('rules').remove(rule)
+        if "in dataflow:" in rule.attrib["name"] and comp_ref in rule.attrib["name"]:
+            # Dataflow rules are not removed
             root.find('rules').remove(rule)
-
 
     # First we get all the questions
     questions = []
@@ -242,7 +247,6 @@ def create_rule_elements(template, root, library_origin):
         cont = generate_identifier_from_ref(control["name"])
         qg_id = f"{comp_ref}.{cont}"
 
-        # First we need to remove old rules
         if "question" in control and control["question"] != "":
             questions.append((control_ref, control["question"], control["question_desc"]))
 
@@ -253,10 +257,8 @@ def create_rule_elements(template, root, library_origin):
 
     # Then we add the questions
     if len(questions) > 0:
-        rule_element = create_rule_question_group(questions, template['component']['ref'])            
+        rule_element = create_rule_question_group(questions, template['component']['ref'])
         root.find("rules").append(rule_element)
-
-
 
     return root
 
@@ -373,6 +375,7 @@ def create_rule_element():
 def create_rule_question_group(questions, component_definition_ref):
     rule = create_rule_element()
     rule.attrib["name"] = f"Q - Security Context - {component_definition_ref}"
+
     condition = etree.SubElement(rule.find("conditions"), "condition")
     condition.attrib["name"] = "CONDITION_COMPONENT_DEFINITION"
     condition.attrib["field"] = "id"
@@ -386,7 +389,6 @@ def create_rule_question_group(questions, component_definition_ref):
         action.attrib[
             "value"] = f"provided.question.{question[0]}_::_Security Context_::_{question[1]}_::_{priority}_::_true_::_false_::_{question[2]}"
         priority += 1
-
 
     return rule
 
@@ -573,33 +575,49 @@ def import_rules_into_template(template, xml_text=None, root=None):
         raise typer.Exit(-1)
 
     comp_ref = generate_identifier_from_ref(template["component"]["ref"])
+    comp_ref_raw = template["component"]["ref"]
     for rule in root.iter("rule"):
-        if comp_ref in rule.attrib["name"]:
-            if (rule.attrib["name"].startswith("Implement countermeasure if tag")
-                    and rule.attrib["module"] == "dataflow"):
-                # Extract question and question desc from rule
-                condition = rule.xpath(".//conditions/condition")[0]
-                tag = condition.attrib["value"]
+        rule_name = rule.attrib.get("name", "")
+        if comp_ref not in rule_name and comp_ref_raw not in rule_name:
+            continue
 
-                action = rule.xpath(".//actions/action")[0]
-                countermeasure = action.attrib["value"].split("_::_")[0]
+        if (rule_name.startswith("Implement countermeasure if tag")
+                and rule.attrib["module"] == "dataflow"):
+            # Extract question and question desc from rule
+            condition = rule.xpath(".//conditions/condition")[0]
+            tag = condition.attrib["value"]
 
-                if tag not in template["controls"][countermeasure]["dataflow_tags"]:
-                    template["controls"][countermeasure]["dataflow_tags"].append(tag)
+            action = rule.xpath(".//actions/action")[0]
+            countermeasure = action.attrib["value"].split("_::_")[0]
 
-            if rule.attrib["name"].startswith(f"Q - ") and " - *" not in rule.attrib["name"]:
-                # Extract question and question desc from rule
-                action = rule.xpath(".//actions/action")[0]
-                question = action.attrib["value"].split("_::_")[2]
-                question_desc = action.attrib["value"].split("_::_")[6]
+            if tag not in template["controls"][countermeasure]["dataflow_tags"]:
+                template["controls"][countermeasure]["dataflow_tags"].append(tag)
 
-                # Find control to store question
-                for control_ref, control in template["controls"].items():
-                    cont = generate_identifier_from_ref(control["name"])
+        if rule_name.startswith("Q - ") and " - *" not in rule_name:
+            # Extract question and question desc from rule actions
+            for action in rule.xpath(".//actions/action"):
+                action_parts = action.attrib.get("value", "").split("_::_")
+                if len(action_parts) < 7:
+                    continue
 
-                    if cont in rule.attrib["name"]:
-                        control["question"] = question
-                        control["question_desc"] = question_desc
+                question = action_parts[2]
+                question_desc = action_parts[6]
+
+                # Prefer the control ref embedded in the action value
+                control_ref = None
+                if action_parts[0].startswith("provided.question."):
+                    control_ref = action_parts[0].replace("provided.question.", "", 1)
+
+                if control_ref and control_ref in template["controls"]:
+                    template["controls"][control_ref]["question"] = question
+                    template["controls"][control_ref]["question_desc"] = question_desc
+                else:
+                    # Fallback to matching by control name in rule name
+                    for control_ref, control in template["controls"].items():
+                        cont = generate_identifier_from_ref(control["name"])
+                        if cont in rule_name:
+                            control["question"] = question
+                            control["question_desc"] = question_desc
     return template
 
 
@@ -698,7 +716,7 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
             # This removes those references from the library that are not in the template
             for std_element in new_control.find("references").iter("reference"):
                 if std_element.attrib["name"] not in [x["name"] for x in
-                                              template["controls"][control["ref"]]["references"]]:
+                                                      template["controls"][control["ref"]]["references"]]:
                     new_control.find("references").remove(std_element)
             for item in template["controls"][control["ref"]]["references"]:
                 reference_element = new_control.find(f'./references/reference[@name="{item["name"]}"]')
@@ -741,7 +759,8 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
                 uuid_map = dict()
                 for std_element in new_control.find("standards").iter("standard"):
                     if "uuid" in std_element.attrib:
-                        uuid_map[std_element.attrib['supportedStandardRef']+std_element.attrib['ref']] = std_element.attrib['uuid']
+                        uuid_map[std_element.attrib['supportedStandardRef'] + std_element.attrib['ref']] = \
+                        std_element.attrib['uuid']
                     new_control.find("standards").remove(std_element)
 
                 # Now we add the standards
@@ -759,8 +778,9 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
                     else:
                         std_element.attrib["ref"] = item["standard-section"]
 
-                    if std_element.attrib["supportedStandardRef"]+std_element.attrib["ref"] in uuid_map:
-                        std_element.attrib["uuid"] = uuid_map[std_element.attrib["supportedStandardRef"]+std_element.attrib["ref"]]
+                    if std_element.attrib["supportedStandardRef"] + std_element.attrib["ref"] in uuid_map:
+                        std_element.attrib["uuid"] = uuid_map[
+                            std_element.attrib["supportedStandardRef"] + std_element.attrib["ref"]]
 
     # Now we have to remove those controls that are not in the template but are present in the XML
     # This is only valid for upload operation
@@ -821,7 +841,8 @@ def export_content_into_category_library(template, source_path=None, xml_text=No
 
         # This removes those references from the library that are not in the template
         for std_element in new_threat.find("references").iter("reference"):
-            if std_element.attrib["name"] not in [x["name"] for x in template["threats"][relation["threat"]]["references"]]:
+            if std_element.attrib["name"] not in [x["name"] for x in
+                                                  template["threats"][relation["threat"]]["references"]]:
                 new_threat.find("references").remove(std_element)
         for item in template["threats"][relation["threat"]]["references"]:
             reference_element = new_threat.find(f'./references/reference[@name="{item["name"]}"]')
