@@ -575,33 +575,49 @@ def import_rules_into_template(template, xml_text=None, root=None):
         raise typer.Exit(-1)
 
     comp_ref = generate_identifier_from_ref(template["component"]["ref"])
+    comp_ref_raw = template["component"]["ref"]
     for rule in root.iter("rule"):
-        if comp_ref in rule.attrib["name"]:
-            if (rule.attrib["name"].startswith("Implement countermeasure if tag")
-                    and rule.attrib["module"] == "dataflow"):
-                # Extract question and question desc from rule
-                condition = rule.xpath(".//conditions/condition")[0]
-                tag = condition.attrib["value"]
+        rule_name = rule.attrib.get("name", "")
+        if comp_ref not in rule_name and comp_ref_raw not in rule_name:
+            continue
 
-                action = rule.xpath(".//actions/action")[0]
-                countermeasure = action.attrib["value"].split("_::_")[0]
+        if (rule_name.startswith("Implement countermeasure if tag")
+                and rule.attrib["module"] == "dataflow"):
+            # Extract question and question desc from rule
+            condition = rule.xpath(".//conditions/condition")[0]
+            tag = condition.attrib["value"]
 
-                if tag not in template["controls"][countermeasure]["dataflow_tags"]:
-                    template["controls"][countermeasure]["dataflow_tags"].append(tag)
+            action = rule.xpath(".//actions/action")[0]
+            countermeasure = action.attrib["value"].split("_::_")[0]
 
-            if rule.attrib["name"].startswith(f"Q - ") and " - *" not in rule.attrib["name"]:
-                # Extract question and question desc from rule
-                action = rule.xpath(".//actions/action")[0]
-                question = action.attrib["value"].split("_::_")[2]
-                question_desc = action.attrib["value"].split("_::_")[6]
+            if tag not in template["controls"][countermeasure]["dataflow_tags"]:
+                template["controls"][countermeasure]["dataflow_tags"].append(tag)
 
-                # Find control to store question
-                for control_ref, control in template["controls"].items():
-                    cont = generate_identifier_from_ref(control["name"])
+        if rule_name.startswith("Q - ") and " - *" not in rule_name:
+            # Extract question and question desc from rule actions
+            for action in rule.xpath(".//actions/action"):
+                action_parts = action.attrib.get("value", "").split("_::_")
+                if len(action_parts) < 7:
+                    continue
 
-                    if cont in rule.attrib["name"]:
-                        control["question"] = question
-                        control["question_desc"] = question_desc
+                question = action_parts[2]
+                question_desc = action_parts[6]
+
+                # Prefer the control ref embedded in the action value
+                control_ref = None
+                if action_parts[0].startswith("provided.question."):
+                    control_ref = action_parts[0].replace("provided.question.", "", 1)
+
+                if control_ref and control_ref in template["controls"]:
+                    template["controls"][control_ref]["question"] = question
+                    template["controls"][control_ref]["question_desc"] = question_desc
+                else:
+                    # Fallback to matching by control name in rule name
+                    for control_ref, control in template["controls"].items():
+                        cont = generate_identifier_from_ref(control["name"])
+                        if cont in rule_name:
+                            control["question"] = question
+                            control["question_desc"] = question_desc
     return template
 
 
