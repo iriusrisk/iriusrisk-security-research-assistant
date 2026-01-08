@@ -96,6 +96,13 @@ class TestComponent(unittest.TestCase):
                 errors = check_empty_countermeasure_descriptions(self.roots[component])
                 self.assertCountEqual(errors, [])
 
+    def test_countermeasure_description_google_search_urls(self):
+        """Check that countermeasure descriptions do not include Google Search URLs"""
+        for component in self.components:
+            with self.subTest(component=component):
+                errors = check_countermeasure_description_google_search_urls(self.roots[component])
+                self.assertCountEqual(errors, [])
+
     def test_empty_countermeasure_baseline_standards(self):
         """Check that there are no countermeasures with empty baseline_standards"""
         for component in self.components:
