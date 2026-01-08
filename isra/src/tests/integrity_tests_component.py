@@ -1,4 +1,5 @@
 from collections import Counter
+import re
 
 import jsonschema
 import yaml
@@ -257,6 +258,24 @@ def check_empty_countermeasure_descriptions(root):
             if not countermeasure['description']:
                 errors.append(f"Component: {root['component']['ref']} --> Countermeasure ref: {countermeasure['ref']} "
                               f"has an empty description")
+
+    return errors
+
+
+def check_countermeasure_description_google_search_urls(root):
+    errors = []
+
+    yaml_fields = ["countermeasures"]
+    google_search_pattern = re.compile(r"https?://(www\.)?google\.[^/\s]+/search\?", re.IGNORECASE)
+    countermeasures_fields_found = collect_field_values_from_yaml_data(root, yaml_fields)
+    for countermeasures in countermeasures_fields_found:
+        for countermeasure in countermeasures:
+            description = countermeasure.get("description", "")
+            if google_search_pattern.search(description):
+                errors.append(
+                    f"Component: {root['component']['ref']} --> Countermeasure ref: {countermeasure['ref']} "
+                    f"has a Google Search URL in its description"
+                )
 
     return errors
 
