@@ -28,6 +28,7 @@
         <xs:attribute type="xs:string" name="name" use="required"/>
         <xs:attribute type="xs:string" name="tags" use="required"/>
         <xs:attribute type="xs:string" name="modelUpdated"/>
+        <xs:attribute type="xs:string" name="draft"/>
     </xs:complexType>
 
     <xs:element type="templateType" name="template"/>

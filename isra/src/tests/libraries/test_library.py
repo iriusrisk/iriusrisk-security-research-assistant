@@ -20,15 +20,22 @@ class TestLibrary(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        libraries_dir = get_property("libraries_dir") or get_app_dir()
-        cls.path = Path(libraries_dir)
-        cls.libraries = list()
-        for x in cls.path.iterdir():
-            if ".xml" in str(x):
-                cls.libraries.append(x)
-        cls.roots = dict()
-        for x in cls.libraries:
-            cls.roots[x] = etree.parse(str(x))
+        libraries_dir = Path(get_property("libraries_dir") or get_app_dir())
+
+        cls.libraries = []
+        cls.roots = {}
+
+        def collect_xml_files(base_dir: Path):
+            if not base_dir.exists():
+                return []
+            return [p for p in base_dir.iterdir() if p.suffix == ".xml"]
+
+        for version in ("v1", "v2"):
+            version_path = libraries_dir / version
+            cls.libraries.extend(collect_xml_files(version_path))
+
+        for lib in cls.libraries:
+            cls.roots[lib] = etree.parse(str(lib))
 
     @pytest.mark.skip(reason="not needed anymore")
     def test_copyright(self):

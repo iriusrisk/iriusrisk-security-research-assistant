@@ -14,18 +14,41 @@ class TestAllLibraries(unittest.TestCase):
     """This class initializes by retrieving all weaknesses, controls and the folder path"""
     roots = dict()
     libraries = list()
+    libraries_ok = True
     path = None
     maxDiff = None
 
     @classmethod
     def setUpClass(cls):
-        libraries_dir = get_property("libraries_dir") or get_app_dir()
-        cls.path = Path(libraries_dir)
-        for x in cls.path.iterdir():
-            if ".xml" in str(x):
-                cls.libraries.append(x)
-        for x in cls.libraries:
-            cls.roots[x] = etree.parse(str(x))
+        libraries_dir = Path(get_property("libraries_dir") or get_app_dir())
+        print(f"\nLibraries directory: {libraries_dir}")
+
+        cls.path = libraries_dir
+        cls.libraries = []
+        cls.roots = {}
+
+        def collect_xml_files(base_dir: Path):
+            if not base_dir.exists():
+                return []
+            return [p for p in base_dir.iterdir() if p.suffix == ".xml"]
+
+        for version in ("v1", "v2"):
+            version_path = libraries_dir / version
+            cls.libraries.extend(collect_xml_files(version_path))
+
+        for lib in cls.libraries:
+            cls.roots[lib] = etree.parse(str(lib))
+
+    def setUp(self):
+        if not self.__class__.libraries_ok and self._testMethodName != "test_00_libraries_present":
+            self.skipTest("No libraries found; skipping remaining tests in this class.")
+
+    def test_00_libraries_present(self):
+        """Check that there is at least one library to test"""
+        print(f"Number of libraries: {len(self.libraries)}")
+        if len(self.libraries) == 0:
+            self.__class__.libraries_ok = False
+            self.fail("Expected at least one library to be present.")
 
     def test_duplicated_components(self):
         """Check that there are no duplicated risk patterns"""

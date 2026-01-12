@@ -81,10 +81,17 @@ def checkDuplicatedComponentsFromLibrary(path_libraries):
     errors = []
     riskpatterns = list()
 
-    for library in os.listdir(str(path_libraries)):
-        if library.endswith(".xml"):
-            root = etree.parse(str(path_libraries / library))
+    def iter_library_xml(version):
+        version_dir = path_libraries / version
+        if not version_dir.exists():
+            return
+        for library in os.listdir(str(version_dir)):
+            if library.endswith(".xml"):
+                yield version_dir / library
 
+    for version in ("v1", "v2"):
+        for xml_path in iter_library_xml(version):
+            root = etree.parse(str(xml_path))
             for rp in root.find("riskPatterns").iter("riskPattern"):
                 riskpatterns.append(rp.attrib['ref'])
 
