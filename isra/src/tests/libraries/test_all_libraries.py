@@ -119,6 +119,11 @@ class TestAllLibraries(unittest.TestCase):
         errors = checkRuleReferencesAreNotBroken(self.roots, disabled)
         self.assertCountEqual(errors, [])
 
+    def test_check_category_component_refs_share_uuid(self):
+        """Check that category component refs are stable across libraries"""
+        errors = checkCategoryComponentRefsShareUuid(self.roots)
+        self.assertCountEqual(errors, [])
+
     @pytest.mark.skip(reason="element refs and names pending to be fixed in the future")
     def test_check_inconsistent_threat_names(self):
         """Check that the threats and weaknesses with the same ref don't have different names"""

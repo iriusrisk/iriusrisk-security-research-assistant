@@ -448,3 +448,32 @@ def checkRuleReferencesAreNotBroken(roots, disabled):
 
 
     return errors
+
+
+def checkCategoryComponentRefsShareUuid(roots):
+    errors = []
+    ref_to_uuid = {}
+    ref_to_library = {}
+
+    for root in roots.values():
+        library_ref = root.getroot().attrib.get("ref", "unknown")
+        category_components = root.find("categoryComponents")
+        if category_components is None:
+            continue
+
+        for category_component in category_components.iter("categoryComponent"):
+            ref = category_component.attrib.get("ref")
+            uuid = category_component.attrib.get("uuid")
+            if not ref:
+                continue
+            if ref not in ref_to_uuid:
+                ref_to_uuid[ref] = uuid
+                ref_to_library[ref] = library_ref
+                continue
+            if ref_to_uuid[ref] != uuid:
+                errors.append(
+                    f"Category component '{ref}' has different uuid values: "
+                    f"{ref_to_uuid[ref]} ({ref_to_library[ref]}) vs {uuid} ({library_ref})"
+                )
+
+    return errors
