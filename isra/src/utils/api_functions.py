@@ -3,6 +3,7 @@ import os
 import requests
 import time
 import typer
+from lxml import etree
 from requests import HTTPError
 from rich import print
 from rich.progress import Progress, SpinnerColumn, TextColumn
@@ -18,6 +19,10 @@ from isra.src.utils.yaml_functions import build_tree_hierarchy
 
 
 # Categories
+def get_all_libraries(size: int = 100):
+    answer = make_api_call("get", f"/api/v2/libraries/summary?size={size}")
+    return get_response_array([answer])
+
 def get_category(template):
     answer = make_api_call("get",
                            f"/api/v2/components/categories"
@@ -125,6 +130,62 @@ def post_library_xml(template, library, xml_library_path):
     return make_api_call("post", f"/api/v2/libraries/{library['id']}/update-with-file",
                          api_version="v2multipart",
                          files=files)
+
+
+def import_library_xml(xml_library_path):
+    if not os.path.exists(xml_library_path):
+        print(f"Library file not found: {xml_library_path}")
+        raise typer.Exit(-1)
+
+    try:
+        tree = etree.parse(xml_library_path)
+        root = tree.getroot()
+    except Exception as e:
+        print(f"Failed to parse XML library {xml_library_path}: {e}")
+        raise typer.Exit(-1)
+
+    reference_id = root.attrib.get("ref") or os.path.splitext(os.path.basename(xml_library_path))[0]
+    name = root.attrib.get("name") or reference_id
+
+    with open(xml_library_path, 'rb') as f:
+        filename = os.path.basename(f.name)
+        filedata = f.read()
+        mimetype = 'application/xml'
+        files = {"file": (filename, filedata, mimetype)}
+
+    data = {
+        "name": name,
+        "referenceId": reference_id
+    }
+
+    headers = dict(IRIUSRISK_API_HEADERS["v2multipart"])
+    headers["api-token"] = get_property("iriusrisk_api_token")
+    headers["X-Irius-Async"] = "true"
+    url = get_property("iriusrisk_url")
+
+    with Progress(
+            SpinnerColumn(),
+            TextColumn(f"Importing library {name}..."),
+            transient=True,
+    ) as progress:
+        progress.add_task(description="Processing...", total=None)
+        try:
+            response = requests.post(url + "/api/v2/libraries/import", headers=headers, files=files, data=data)
+            response.raise_for_status()
+        except HTTPError as e:
+            print(e.response.text)
+            raise typer.Exit(-1)
+        except requests.exceptions.ConnectionError as e:
+            print(e)
+            raise typer.Exit(-1)
+        except NewConnectionError as e:
+            print(e)
+            raise typer.Exit(-1)
+        except Exception as e:
+            print(e)
+            raise typer.Exit(-1)
+
+    return response.json()
 
 
 # Risk patterns
@@ -722,10 +783,12 @@ def upload_xml(template):
 
 def add_to_batch(template):
     output_folder = get_property("component_output_path") or get_app_dir()
+    print(f"ISRA INFO: Adding component {template['component']['name']} to batch in folder {output_folder}")
 
     category_ref = set_category_suffix(template["component"]["categoryRef"])
     library_path = os.path.join(output_folder, f'{category_ref}.xml')
     if not os.path.exists(library_path):
+        print(f"ISRA INFO: Creating local library file {library_path} using IriusRisk API")
         component_library = get_library(template)
         if component_library is None:
             component_library = post_library(template)
@@ -735,6 +798,7 @@ def add_to_batch(template):
 
     rules_library_path = os.path.join(output_folder, f'{template["component"]["categoryRef"]}-rules.xml')
     if not os.path.exists(rules_library_path):
+        print(f"ISRA INFO: Creating local rules library file {rules_library_path} using IriusRisk API")
         rules_library = get_rules_library(template)
         if rules_library is None:
             rules_library = post_rules_library(template)
