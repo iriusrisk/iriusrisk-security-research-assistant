@@ -1,4 +1,5 @@
 """This file provides tests for all libraries"""
+import os
 import unittest
 from pathlib import Path
 
@@ -13,7 +14,7 @@ class TestStandards(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        libraries_dir = get_property("libraries_dir") or get_app_dir()
+        libraries_dir = os.getenv("ISRA_LIBRARIES_DIR") or get_property("libraries_dir") or get_app_dir()
         libraries_path = Path(libraries_dir)
         cls.standards = getStandardsFromCountermeasures(libraries_path)
 

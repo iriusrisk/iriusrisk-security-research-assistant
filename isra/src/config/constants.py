@@ -32,6 +32,44 @@ YSC_SCHEMA = "ysc_schema.json"
 SYSTEM_FIELD_VALUES = "output_system_fields_values.yaml"
 SCORING_RULES = "rules.yaml"
 SYSTEM_LIBRARY_REFERENCE_IDS = frozenset({"CWE-COMPONENT-REFERENCE", "CAPEC"})
+V1_LIBRARIES = {
+    'aws-lambda': 'aws-lambda.xml',
+    'CS-Default': 'CS-Default.xml',
+    'CS-Default-Security-Policies': 'CS-Policies.xml',
+    'Docker CIS': 'Docker-CIS.xml',
+    'EU GDPR': 'Eu-Gdpr.xml',
+    'fedramp': 'fedramp.xml',
+    'Google Cloud Platform': 'Google-Cloud-Platform.xml',
+    'hipaa': 'hipaa.xml',
+    'Hydras-AWS-Foundation': 'Hydras-AWS-Foundation.xml',
+    'iot-security-compliance-framework': 'iot-security-compliance-framework.xml',
+    'IR-Alibaba-Cloud': 'IR-Alibaba-Cloud.xml',
+    'IR-Blockchain-Components': 'IR-Blockchain-Components.xml',
+    'IR-Dataflows': 'IR-Dataflows.xml',
+    'IR-EU-Cyber-Resilience-Act': 'IR-EU-Cyber-Resilience-Act.xml',
+    'IR-Functional-Components': 'IR-Functional-Components.xml',
+    'IR-Generic-Components': 'IR-Generic-Components.xml',
+    'IR-Hardware-Components': 'IR-Hardware-Components.xml',
+    'IR-Industrial-Internet-of-Things': 'IR-Industrial-Internet-of-Things.xml',
+    'IR-Legal-Regulations': 'IR-Legal-Regulations.xml',
+    'IR-Machine-Learning-Artificial-Intelligence': 'IR-Machine-Learning-Artificial-Intelligence.xml',
+    'IR-Network-Components': 'IR-Network-Components.xml',
+    'IR-Oracle-Cloud-Infrastructure': 'IR-Oracle-Cloud-Infrastructure.xml',
+    'IR-PIPL': 'IR-PIPL.xml',
+    'IR-Salesforce-Components': 'IR-Salesforce-Components.xml',
+    'IR-SAP-Components': 'IR-SAP-Components.xml',
+    'IR-Virtual-Components': 'IR-Virtual-Components.xml',
+    'kubernetes-library-devops': 'kubernetes-library-devops.xml',
+    'microservices-library-dev': 'microservices-library-dev.xml',
+    'Microsoft-Azure': 'Microsoft-Azure.xml',
+    'mitre-attack-framework': 'mitre-attack-framework.xml',
+    'OWASP-MASVS': 'OWASP-MASVS.xml',
+    'PCI-DSS': 'PCI-DSS.xml',
+    'IR-Maestro-Framework': 'IR-Maestro-Framework.xml',
+    'IR-MAESTRO-Framework': 'IR-Maestro-Framework.xml',
+    'unece-wp-29-csms': 'unece-wp-29-csms.xml',
+    'IR-NCA': 'IR-NCA-Saudi-Arabia.xml'
+}
 
 CUSTOM_FIELD_STRIDE = "stride_lm"
 CUSTOM_FIELD_SCOPE = "scope"

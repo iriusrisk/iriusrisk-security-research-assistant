@@ -20,7 +20,8 @@ class TestLibrary(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        libraries_dir = Path(get_property("libraries_dir") or get_app_dir())
+        libraries_dir = os.getenv("ISRA_LIBRARIES_DIR") or get_property("libraries_dir") or get_app_dir()
+        libraries_dir = Path(libraries_dir)
 
         cls.libraries = []
         cls.roots = {}

@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
-import { easyToast, failedToast, successToast } from "../../utils/toastFunctions";
+import { failedToast, successToast, warnToast } from "../../utils/toastFunctions";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -72,8 +72,19 @@ const ManageReleaseNotes = (props) => {
     const [packages, setPackages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [basePath, setBasePath] = useState('');
+    const [loadPath, setLoadPath] = useState('');
     const [addReleaseNoteDialog, setAddReleaseNoteDialog] = useState({ open: false, packageIndex: null, revisionKey: '' });
     const [expandedAccordions, setExpandedAccordions] = useState(new Set([0])); // Track which accordions are expanded
+
+    const buildPackageFromData = (filePath, jsonData, file = null) => ({
+        filePath,
+        file,
+        data: jsonData,
+        libraryRef: jsonData.library?.ref || 'unknown',
+        libraryName: jsonData.library?.name || 'Unknown Library',
+        revision: jsonData.library?.revision || 0,
+        releaseNotes: jsonData.library?.releaseNotes || {}
+    });
 
     const handleFolderSelect = async (event) => {
         const files = Array.from(event.target.files);
@@ -98,15 +109,7 @@ const ManageReleaseNotes = (props) => {
                 // Extract the relative path from the file's webkitRelativePath
                 const relativePath = file.webkitRelativePath || file.name;
                 
-                loadedPackages.push({
-                    filePath: relativePath,
-                    file: file,
-                    data: jsonData,
-                    libraryRef: jsonData.library?.ref || 'unknown',
-                    libraryName: jsonData.library?.name || 'Unknown Library',
-                    revision: jsonData.library?.revision || 0,
-                    releaseNotes: jsonData.library?.releaseNotes || {}
-                });
+                loadedPackages.push(buildPackageFromData(relativePath, jsonData, file));
             } catch (error) {
                 console.error(`Error reading file ${file.name}:`, error);
                 failedToast(`Error reading file ${file.name}: ${error.message}`);
@@ -127,6 +130,49 @@ const ManageReleaseNotes = (props) => {
             reader.onerror = (e) => reject(new Error('Failed to read file'));
             reader.readAsText(file);
         });
+    };
+
+    const handleLoadFromPath = async () => {
+        const trimmedPath = loadPath.trim();
+        if (!trimmedPath) {
+            failedToast("Please enter a folder path to load");
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const response = await axios.post('/api/marketplace/load-release-notes', {
+                basePath: trimmedPath
+            });
+
+            if (response.status !== 200) {
+                failedToast("Failed to load release notes");
+                return;
+            }
+
+            const files = response.data?.files || [];
+            if (files.length === 0) {
+                failedToast("No _summary.json files found in the selected path");
+                return;
+            }
+
+            const loadedPackages = files.map((file) => buildPackageFromData(file.filePath, file.data));
+            setPackages(loadedPackages);
+            setExpandedAccordions(new Set([0]));
+            setBasePath(response.data?.basePath || trimmedPath);
+
+            if (response.data?.errors?.length) {
+                console.error("Some files failed to load:", response.data.errors);
+                warnToast(`Loaded ${loadedPackages.length} package(s) with ${response.data.errors.length} error(s). Check console.`);
+            } else {
+                successToast(`Loaded ${loadedPackages.length} package(s)`);
+            }
+        } catch (error) {
+            console.error('Error loading release notes:', error);
+            failedToast(`Error loading release notes: ${error.message}`);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const updateLibraryProperty = useCallback((packageIndex, property, value) => {
@@ -414,6 +460,25 @@ const ManageReleaseNotes = (props) => {
                                       Select Folder
                                   </Button>
                               </label>
+
+                              <TextField
+                                  label="Load From Path"
+                                  variant="outlined"
+                                  size="small"
+                                  value={loadPath}
+                                  onChange={(e) => setLoadPath(e.target.value)}
+                                  placeholder="/path/to/folder"
+                                  disabled={loading}
+                                  style={{ minWidth: '280px' }}
+                              />
+                              <Button
+                                  variant="contained"
+                                  color="primary"
+                                  onClick={handleLoadFromPath}
+                                  disabled={loading}
+                              >
+                                  Load From Path
+                              </Button>
                               
                               {packages.length > 0 && (
                                   <Button

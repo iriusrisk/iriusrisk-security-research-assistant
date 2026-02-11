@@ -56,8 +56,16 @@ def xml_libraries_callback():
 
 
 @xml_libraries.command()
-def all():
+def all(
+    libraries_dir: str = typer.Option(
+        "",
+        "--libraries-dir",
+        help="Folder containing XML libraries to test (overrides config)",
+    ),
+):
     """
     Run all tests
     """
+    if libraries_dir:
+        os.environ["ISRA_LIBRARIES_DIR"] = libraries_dir
     exit(pytest.main(['-v', '-p no:warnings', f'{rootdir}/libraries']))
