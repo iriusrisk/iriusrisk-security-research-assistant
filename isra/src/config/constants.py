@@ -68,7 +68,8 @@ V1_LIBRARIES = {
     'IR-Maestro-Framework': 'IR-Maestro-Framework.xml',
     'IR-MAESTRO-Framework': 'IR-Maestro-Framework.xml',
     'unece-wp-29-csms': 'unece-wp-29-csms.xml',
-    'IR-NCA': 'IR-NCA-Saudi-Arabia.xml'
+    'IR-NCA': 'IR-NCA-Saudi-Arabia.xml',
+    'IR-KVKK': 'IR-KVKK.xml'
 }
 
 CUSTOM_FIELD_STRIDE = "stride_lm"
