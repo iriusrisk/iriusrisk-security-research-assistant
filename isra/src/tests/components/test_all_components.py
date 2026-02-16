@@ -12,10 +12,13 @@ class TestAllComponents(unittest.TestCase):
     maxDiff = None
     components = []
     roots = dict()
+    components_dir = None
+    components_ok = True
 
     @classmethod
     def setUpClass(cls):
-        components_dir = get_property("components_dir") or get_app_dir()
+        components_dir = os.getenv("ISRA_COMPONENTS_DIR") or get_property("components_dir") or get_app_dir()
+        cls.components_dir = components_dir
         cls.path = Path(components_dir)
         cls.components = list()
         for root, dirs, files in os.walk(components_dir):
@@ -25,6 +28,18 @@ class TestAllComponents(unittest.TestCase):
         cls.roots = dict()
         for x in cls.components:
             cls.roots[x] = read_yaml(x)
+
+    def setUp(self):
+        if not self.__class__.components_ok and self._testMethodName != "test_00_multiple_components_detected":
+            self.skipTest("Component count precheck failed; skipping remaining tests in this class.")
+
+    def test_00_multiple_components_detected(self):
+        """Check that there is more than one YAML component to test."""
+        print(f"\nComponents directory: {self.components_dir}")
+        print(f"Number of YAML components: {len(self.components)}")
+        if len(self.components) <= 1:
+            self.__class__.components_ok = False
+            self.fail("Expected more than one YAML component in the detected components directory.")
 
     def test_duplicated_components(self):
         """Check that there are no duplicated components"""

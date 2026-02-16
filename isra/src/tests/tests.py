@@ -27,10 +27,18 @@ def yaml_components_callback():
 
 
 @yaml_components.command()
-def all():
+def all(
+    components_dir: str = typer.Option(
+        "",
+        "--components-dir",
+        help="Folder containing YAML components to test (overrides config)",
+    ),
+):
     """
     Run all tests
     """
+    if components_dir:
+        os.environ["ISRA_COMPONENTS_DIR"] = components_dir
     exit(pytest.main(['-v', '-p no:warnings', f'{rootdir}/components']))
 
 

@@ -15,7 +15,7 @@ class TestComponent(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        components_dir = get_property("components_dir") or get_app_dir()
+        components_dir = os.getenv("ISRA_COMPONENTS_DIR") or get_property("components_dir") or get_app_dir()
         cls.path = Path(components_dir)
         cls.components = list()
         for root, dirs, files in os.walk(components_dir):
