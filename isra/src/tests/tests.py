@@ -39,7 +39,8 @@ def all(
     """
     if components_dir:
         os.environ["ISRA_COMPONENTS_DIR"] = components_dir
-    exit(pytest.main(['-v', '-p no:warnings', f'{rootdir}/components']))
+    # Fail fast so the suite stops immediately if the precheck test fails.
+    exit(pytest.main(['-v', '-x', '-p no:warnings', f'{rootdir}/components']))
 
 
 @yaml_components.command()
