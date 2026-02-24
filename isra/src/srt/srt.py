@@ -223,8 +223,8 @@ def import_libraries(
 
     import_failures = []
     import_successes = []
-    max_attempts = 25
-    wait_seconds = 2
+    max_attempts = 30
+    wait_seconds = 3
 
     def wait_for_library(reference_id: str):
         attempts_used = 0
