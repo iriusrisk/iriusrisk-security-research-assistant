@@ -1,6 +1,9 @@
 .idea
 venv
 
+# Ignore bash scripts located in the repository root only
+/*.sh
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

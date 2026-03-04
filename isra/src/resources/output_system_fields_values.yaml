@@ -25,6 +25,15 @@ SF-MITRE-C-TYPE:
 - ATLAS - AML.M0023 - AI Bill of Materials
 - ATLAS - AML.M0024 - AI Telemetry Logging
 - ATLAS - AML.M0025 - Maintain AI Dataset Provenance
+- ATLAS - AML.M0026 - Privileged AI Agent Permissions Configuration
+- ATLAS - AML.M0027 - Single-User AI Agent Permissions Configuration
+- ATLAS - AML.M0028 - AI Agent Tools Permissions Configuration
+- ATLAS - AML.M0029 - Human In-the-Loop for AI Agent Actions
+- ATLAS - AML.M0030 - Restrict AI Agent Tool Invocation on Untrusted Data
+- ATLAS - AML.M0031 - Memory Hardening
+- ATLAS - AML.M0032 - Segmentation of AI Agent Components
+- ATLAS - AML.M0033 - Input and Output Validation for AI Agent Components
+- ATLAS - AML.M0034 - Deepfake Detection
 - ATT&CK Enterprise - M1013 - Application Developer Guidance
 - ATT&CK Enterprise - M1015 - Active Directory Configuration
 - ATT&CK Enterprise - M1016 - Vulnerability Scanning
@@ -241,6 +250,7 @@ SF-MITRE-T-TYPE:
 - ATLAS - AML.TA0012 - Privilege Escalation
 - ATLAS - AML.TA0013 - Credential Access
 - ATLAS - AML.TA0014 - Command and Control
+- ATLAS - AML.TA0015 - Lateral Movement
 - ATLAS - AML.T0000 - Search Open Technical Databases
 - ATLAS - AML.T0000.000 - Journals and Conference Proceedings
 - ATLAS - AML.T0000.001 - Pre-Print Repositories
@@ -325,7 +335,7 @@ SF-MITRE-T-TYPE:
 - ATLAS - AML.T0051.001 - Indirect
 - ATLAS - AML.T0052 - Phishing
 - ATLAS - AML.T0052.000 - Spearphishing via Social Engineering LLM
-- ATLAS - AML.T0053 - LLM Plugin Compromise
+- ATLAS - AML.T0053 - AI Agent Tool Invocation
 - ATLAS - AML.T0054 - LLM Jailbreak
 - ATLAS - AML.T0055 - Unsecured Credentials
 - ATLAS - AML.T0056 - Extract LLM System Prompt
@@ -356,6 +366,46 @@ SF-MITRE-T-TYPE:
 - ATLAS - AML.T0077 - LLM Response Rendering
 - ATLAS - AML.T0078 - Drive-by Compromise
 - ATLAS - AML.T0079 - Stage Capabilities
+- ATLAS - AML.T0080 - AI Agent Context Poisoning
+- ATLAS - AML.T0080.000 - Memory
+- ATLAS - AML.T0080.001 - Thread
+- ATLAS - AML.T0081 - Modify AI Agent Configuration
+- ATLAS - AML.T0082 - RAG Credential Harvesting
+- ATLAS - AML.T0083 - Credentials from AI Agent Configuration
+- ATLAS - AML.T0084 - Discover AI Agent Configuration
+- ATLAS - AML.T0084.000 - Embedded Knowledge
+- ATLAS - AML.T0084.001 - Tool Definitions
+- ATLAS - AML.T0084.002 - Activation Triggers
+- ATLAS - AML.T0085 - Data from AI Services
+- ATLAS - AML.T0085.000 - RAG Databases
+- ATLAS - AML.T0085.001 - AI Agent Tools
+- ATLAS - AML.T0086 - Exfiltration via AI Agent Tool Invocation
+- ATLAS - AML.T0087 - Gather Victim Identity Information
+- ATLAS - AML.T0088 - Generate Deepfakes
+- ATLAS - AML.T0089 - Process Discovery
+- ATLAS - AML.T0090 - OS Credential Dumping
+- ATLAS - AML.T0091 - Use Alternate Authentication Material
+- ATLAS - AML.T0092 - Manipulate User LLM Chat History
+- ATLAS - AML.T0091.000 - Application Access Token
+- ATLAS - AML.T0093 - Prompt Infiltration via Public-Facing Application
+- ATLAS - AML.T0094 - Delay Execution of LLM Instructions
+- ATLAS - AML.T0051.002 - Triggered
+- ATLAS - AML.T0095 - Search Open Websites/Domains
+- ATLAS - AML.T0096 - AI Service API
+- ATLAS - AML.T0097 - Virtualization/Sandbox Evasion
+- ATLAS - AML.T0098 - AI Agent Tool Credential Harvesting
+- ATLAS - AML.T0099 - AI Agent Tool Data Poisoning
+- ATLAS - AML.T0100 - AI Agent Clickbait
+- ATLAS - AML.T0101 - Data Destruction via AI Agent Tool Invocation
+- ATLAS - AML.T0102 - Generate Malicious Commands
+- ATLAS - AML.T0103 - Deploy AI Agent
+- ATLAS - AML.T0104 - Publish Poisoned AI Agent Tool
+- ATLAS - AML.T0011.002 - Poisoned AI Agent Tool
+- ATLAS - AML.T0011.003 - Malicious Link
+- ATLAS - AML.T0105 - Escape to Host
+- ATLAS - AML.T0106 - Exploitation for Credential Access
+- ATLAS - AML.T0107 - Exploitation for Defense Evasion
+- ATLAS - AML.T0108 - AI Agent
 - ATT&CK Enterprise - TA0001 - Initial Access
 - ATT&CK Enterprise - TA0002 - Execution
 - ATT&CK Enterprise - TA0003 - Persistence

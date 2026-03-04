@@ -81,10 +81,17 @@ def checkDuplicatedComponentsFromLibrary(path_libraries):
     errors = []
     riskpatterns = list()
 
-    for library in os.listdir(str(path_libraries)):
-        if library.endswith(".xml"):
-            root = etree.parse(str(path_libraries / library))
+    def iter_library_xml(version):
+        version_dir = path_libraries / version
+        if not version_dir.exists():
+            return
+        for library in os.listdir(str(version_dir)):
+            if library.endswith(".xml"):
+                yield version_dir / library
 
+    for version in ("v1", "v2"):
+        for xml_path in iter_library_xml(version):
+            root = etree.parse(str(xml_path))
             for rp in root.find("riskPatterns").iter("riskPattern"):
                 riskpatterns.append(rp.attrib['ref'])
 
@@ -439,5 +446,34 @@ def checkRuleReferencesAreNotBroken(roots, disabled):
                     if value[0] not in countermeasures_in_libs[action_project]:
                         errors.append(f"Rule <{rule.attrib['name']}> has a wrong library reference (MARK_CONTROL_AS): {value[0]} not in countermeasures of {action_project}")
 
+
+    return errors
+
+
+def checkCategoryComponentRefsShareUuid(roots):
+    errors = []
+    ref_to_uuid = {}
+    ref_to_library = {}
+
+    for root in roots.values():
+        library_ref = root.getroot().attrib.get("ref", "unknown")
+        category_components = root.find("categoryComponents")
+        if category_components is None:
+            continue
+
+        for category_component in category_components.iter("categoryComponent"):
+            ref = category_component.attrib.get("ref")
+            uuid = category_component.attrib.get("uuid")
+            if not ref:
+                continue
+            if ref not in ref_to_uuid:
+                ref_to_uuid[ref] = uuid
+                ref_to_library[ref] = library_ref
+                continue
+            if ref_to_uuid[ref] != uuid:
+                errors.append(
+                    f"Category component '{ref}' has different uuid values: "
+                    f"{ref_to_uuid[ref]} ({ref_to_library[ref]}) vs {uuid} ({library_ref})"
+                )
 
     return errors

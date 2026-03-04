@@ -3,6 +3,7 @@ import os
 import requests
 import time
 import typer
+from lxml import etree
 from requests import HTTPError
 from rich import print
 from rich.progress import Progress, SpinnerColumn, TextColumn
@@ -18,6 +19,31 @@ from isra.src.utils.yaml_functions import build_tree_hierarchy
 
 
 # Categories
+def get_all_libraries(size: int = 100):
+    answer = make_api_call("get", f"/api/v2/libraries/summary?size={size}")
+    return get_response_array([answer])
+
+def get_library_by_reference_id(reference_id: str, silent: bool = False):
+    answer = make_api_call("get", f"/api/v2/libraries?filter='referenceId'='{reference_id}'", silent=silent)
+    return get_response_object([answer])
+
+def get_all_libraries_paginated(size: int = 100, silent: bool = False):
+    items = []
+    page = 0
+    total_pages = None
+
+    while total_pages is None or page < total_pages:
+        answer = make_api_call("get", f"/api/v2/libraries/summary?size={size}&page={page}", silent=silent)
+        items.extend(get_response_array([answer]))
+
+        if total_pages is None:
+            page_info = answer.get("page", {}) if isinstance(answer, dict) else {}
+            total_pages = page_info.get("totalPages") or page_info.get("total_pages") or 1
+
+        page += 1
+
+    return items
+
 def get_category(template):
     answer = make_api_call("get",
                            f"/api/v2/components/categories"
@@ -125,6 +151,62 @@ def post_library_xml(template, library, xml_library_path):
     return make_api_call("post", f"/api/v2/libraries/{library['id']}/update-with-file",
                          api_version="v2multipart",
                          files=files)
+
+
+def import_library_xml(xml_library_path):
+    if not os.path.exists(xml_library_path):
+        print(f"Library file not found: {xml_library_path}")
+        raise typer.Exit(-1)
+
+    try:
+        tree = etree.parse(xml_library_path)
+        root = tree.getroot()
+    except Exception as e:
+        print(f"Failed to parse XML library {xml_library_path}: {e}")
+        raise typer.Exit(-1)
+
+    reference_id = root.attrib.get("ref") or os.path.splitext(os.path.basename(xml_library_path))[0]
+    name = root.attrib.get("name") or reference_id
+
+    with open(xml_library_path, 'rb') as f:
+        filename = os.path.basename(f.name)
+        filedata = f.read()
+        mimetype = 'application/xml'
+        files = {"file": (filename, filedata, mimetype)}
+
+    data = {
+        "name": name,
+        "referenceId": reference_id
+    }
+
+    headers = dict(IRIUSRISK_API_HEADERS["v2multipart"])
+    headers["api-token"] = get_property("iriusrisk_api_token")
+    headers["X-Irius-Async"] = "true"
+    url = get_property("iriusrisk_url")
+
+    with Progress(
+            SpinnerColumn(),
+            TextColumn(f"Importing library {name}..."),
+            transient=True,
+    ) as progress:
+        progress.add_task(description="Processing...", total=None)
+        try:
+            response = requests.post(url + "/api/v2/libraries/import", headers=headers, files=files, data=data)
+            response.raise_for_status()
+        except HTTPError as e:
+            print(e.response.text)
+            raise typer.Exit(-1)
+        except requests.exceptions.ConnectionError as e:
+            print(e)
+            raise typer.Exit(-1)
+        except NewConnectionError as e:
+            print(e)
+            raise typer.Exit(-1)
+        except Exception as e:
+            print(e)
+            raise typer.Exit(-1)
+
+    return response.json()
 
 
 # Risk patterns
@@ -506,35 +588,33 @@ def get_response_array(answers):
 
 
 def make_api_call(http_method, api_endpoint, request_body=None, api_version="v2", color=None, no_response=False,
-                  files=None, response_format="json"):
+                  files=None, response_format="json", silent: bool = False):
     message = (f"[{color}]" if color else "") + f"Calling {http_method} {api_endpoint}"
-    print(message)
+    if not silent:
+        print(message)
 
     headers = IRIUSRISK_API_HEADERS[api_version]
     headers["api-token"] = get_property("iriusrisk_api_token")
 
-    with Progress(
-            SpinnerColumn(),
-            TextColumn(f"Querying IriusRisk API, wait a moment..."),
-            transient=True,
-    ) as progress:
-        progress.add_task(description="Processing...", total=None)
+    def execute_request():
         url = get_property("iriusrisk_url")
-        try:
-            if http_method == 'get':
-                response = requests.get(url + api_endpoint, headers=headers)
-            elif http_method == 'post' and files is None:
-                response = requests.post(url + api_endpoint, headers=headers, json=request_body)
-            elif http_method == 'post' and files is not None:
-                headers["X-Irius-Async"] = "true"
-                response = requests.post(url + api_endpoint, headers=headers, files=files)
-            elif http_method == 'put':
-                response = requests.put(url + api_endpoint, headers=headers, json=request_body)
-            elif http_method == 'delete':
-                response = requests.delete(url + api_endpoint, headers=headers)
-            else:
-                raise Exception("HTTP method not allowed")
+        if http_method == 'get':
+            return requests.get(url + api_endpoint, headers=headers)
+        elif http_method == 'post' and files is None:
+            return requests.post(url + api_endpoint, headers=headers, json=request_body)
+        elif http_method == 'post' and files is not None:
+            headers["X-Irius-Async"] = "true"
+            return requests.post(url + api_endpoint, headers=headers, files=files)
+        elif http_method == 'put':
+            return requests.put(url + api_endpoint, headers=headers, json=request_body)
+        elif http_method == 'delete':
+            return requests.delete(url + api_endpoint, headers=headers)
+        else:
+            raise Exception("HTTP method not allowed")
 
+    if silent:
+        try:
+            response = execute_request()
             response.raise_for_status()
         except HTTPError as e:
             print(e.response.text)
@@ -548,16 +628,38 @@ def make_api_call(http_method, api_endpoint, request_body=None, api_version="v2"
         except Exception as e:
             print(e)
             raise typer.Exit(-1)
+    else:
+        with Progress(
+                SpinnerColumn(),
+                TextColumn(f"Querying IriusRisk API, wait a moment..."),
+                transient=True,
+        ) as progress:
+            progress.add_task(description="Processing...", total=None)
+            try:
+                response = execute_request()
+                response.raise_for_status()
+            except HTTPError as e:
+                print(e.response.text)
+                raise typer.Exit(-1)
+            except requests.exceptions.ConnectionError as e:
+                print(e)
+                raise typer.Exit(-1)
+            except NewConnectionError as e:
+                print(e)
+                raise typer.Exit(-1)
+            except Exception as e:
+                print(e)
+                raise typer.Exit(-1)
 
-        if no_response:
-            return {"message": response.status_code}
+    if no_response:
+        return {"message": response.status_code}
+    else:
+        if response_format == "xml":
+            return response.content
+        elif response_format == "json":
+            return response.json()
         else:
-            if response_format == "xml":
-                return response.content
-            elif response_format == "json":
-                return response.json()
-            else:
-                return response.text
+            return response.text
 
 
 def upload_component_to_iriusrisk(template):
@@ -722,10 +824,12 @@ def upload_xml(template):
 
 def add_to_batch(template):
     output_folder = get_property("component_output_path") or get_app_dir()
+    print(f"ISRA INFO: Adding component {template['component']['name']} to batch in folder {output_folder}")
 
     category_ref = set_category_suffix(template["component"]["categoryRef"])
     library_path = os.path.join(output_folder, f'{category_ref}.xml')
     if not os.path.exists(library_path):
+        print(f"ISRA INFO: Creating local library file {library_path} using IriusRisk API")
         component_library = get_library(template)
         if component_library is None:
             component_library = post_library(template)
@@ -735,6 +839,7 @@ def add_to_batch(template):
 
     rules_library_path = os.path.join(output_folder, f'{template["component"]["categoryRef"]}-rules.xml')
     if not os.path.exists(rules_library_path):
+        print(f"ISRA INFO: Creating local rules library file {rules_library_path} using IriusRisk API")
         rules_library = get_rules_library(template)
         if rules_library is None:
             rules_library = post_rules_library(template)

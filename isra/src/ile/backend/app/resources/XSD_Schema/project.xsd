@@ -32,7 +32,8 @@
         <xs:attribute type="xs:string" name="tags" use="required"/>
         <xs:attribute type="xs:string" name="modelUpdated"/>
         <xs:attribute type="xs:string" name="workflowState" use="required"/>
-        <xs:attribute type="xs:string" name="locked" use="optional"/>
+        <xs:attribute type="xs:string" name="locked"/>
+        <xs:attribute type="xs:string" name="draft"/>
     </xs:complexType>
 
     <xs:element type="projectType" name="project"/>

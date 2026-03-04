@@ -26,6 +26,11 @@ class SaveReleaseNotesRequest(BaseModel):
     basePath: str = None  # Optional base path where files should be saved
 
 
+class LoadReleaseNotesRequest(BaseModel):
+    """Request model for loading release notes from a folder"""
+    basePath: str
+
+
 @router.post("/marketplace/save-release-notes")
 async def save_release_notes(request: SaveReleaseNotesRequest) -> Dict[str, Any]:
     """
@@ -83,3 +88,52 @@ async def save_release_notes(request: SaveReleaseNotesRequest) -> Dict[str, Any]
         logger.error(f"Error saving release notes: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error saving release notes: {str(e)}")
 
+
+@router.post("/marketplace/load-release-notes")
+async def load_release_notes(request: LoadReleaseNotesRequest) -> Dict[str, Any]:
+    """
+    Load release notes from JSON summary files in a folder.
+
+    This endpoint scans the provided basePath for *_summary.json files,
+    loads them, and returns their contents with relative paths.
+    """
+    try:
+        base_path = Path(request.basePath).expanduser()
+        try:
+            base_path = base_path.resolve()
+        except Exception:
+            # In case resolve fails due to permissions, keep expanded path
+            pass
+
+        if not base_path.exists() or not base_path.is_dir():
+            raise HTTPException(status_code=400, detail=f"Base path is not a directory: {base_path}")
+
+        files: List[Dict[str, Any]] = []
+        errors: List[str] = []
+
+        for file_path in base_path.rglob("*_summary.json"):
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                relative_path = file_path.relative_to(base_path).as_posix()
+                files.append({
+                    "filePath": relative_path,
+                    "data": data
+                })
+            except Exception as e:
+                error_msg = f"Error reading {file_path}: {str(e)}"
+                logger.error(error_msg)
+                errors.append(error_msg)
+
+        return {
+            "status": "success",
+            "basePath": str(base_path),
+            "files": files,
+            "errors": errors
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error loading release notes: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error loading release notes: {str(e)}")

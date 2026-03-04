@@ -27,11 +27,20 @@ def yaml_components_callback():
 
 
 @yaml_components.command()
-def all():
+def all(
+    components_dir: str = typer.Option(
+        "",
+        "--components-dir",
+        help="Folder containing YAML components to test (overrides config)",
+    ),
+):
     """
     Run all tests
     """
-    exit(pytest.main(['-v', '-p no:warnings', f'{rootdir}/components']))
+    if components_dir:
+        os.environ["ISRA_COMPONENTS_DIR"] = components_dir
+    # Fail fast so the suite stops immediately if the precheck test fails.
+    exit(pytest.main(['-v', '-x', '-p no:warnings', f'{rootdir}/components']))
 
 
 @yaml_components.command()
@@ -56,8 +65,16 @@ def xml_libraries_callback():
 
 
 @xml_libraries.command()
-def all():
+def all(
+    libraries_dir: str = typer.Option(
+        "",
+        "--libraries-dir",
+        help="Folder containing XML libraries to test (overrides config)",
+    ),
+):
     """
     Run all tests
     """
+    if libraries_dir:
+        os.environ["ISRA_LIBRARIES_DIR"] = libraries_dir
     exit(pytest.main(['-v', '-p no:warnings', f'{rootdir}/libraries']))
