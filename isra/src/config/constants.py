@@ -135,6 +135,7 @@ OUTPUT_NAME = {
     "NIST 800-63": {'ref': 'nist-800-63', 'name': 'NIST 800-63'},
     "FedRAMP": {'ref': 'fedramp-high-baseline', 'name': 'FedRAMP High Baseline'},
     "OWASP Top 10 2021": {'ref': 'owasp-top-10-2021', 'name': 'OWASP Top 10 2021'},
+    "OWASP Top 10 2025": {'ref': 'owasp-top-10-2025', 'name': 'OWASP Top 10 2025'},
     "PCI DSS v3.2.1": {'ref': 'PCI-DSS-v3.2.1', 'name': 'PCI-DSS-v3.2.1'},
     "Cloud Controls Matrix": {'ref': 'cloud-control-matrix', 'name': 'Cloud Controls Matrix'},
     "CWE": {'ref': 'cwe-standard', 'name': 'CWE'},

@@ -13,6 +13,8 @@
   - Session Management Cheat Sheet
   OWASP Proactive Controls:
   - C6
+  OWASP Top 10 2025:
+  - A07:2025 Authentication Failures
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-03
   PCI DSS v3.2.1:
@@ -49,6 +51,8 @@
   - 'DE.CM-5: Unauthorized mobile code is detected'
   NIST SSDF:
   - PO.1.2
+  OWASP Top 10 2025:
+  - A02:2025 Security Misconfiguration
   PCI DSS v3.2.1:
   - '5'
   PCI-DSS-v4.0:
@@ -359,6 +363,8 @@
   - PR.DS-01
   - PR.DS-02
   - PR.DS-10
+  OWASP Top 10 2025:
+  - A09:2025 Security Logging and Alerting Failures
   PCI DSS v3.2.1:
   - 1.1.1
   - 1.1.2
@@ -616,6 +622,8 @@
   - PR.PS-06
   NIST SSDF:
   - PS.1.1
+  OWASP Top 10 2025:
+  - A08:2025 Software or Data Integrity Failures
   PCI DSS v3.2.1:
   - '1.2'
   - '2.2'
@@ -828,6 +836,8 @@
   - 'PR.DS-5: Protections against data leaks are implemented'
   NIST CSF v2.0:
   - PR.AA-05
+  OWASP Top 10 2025:
+  - A01:2025 Broken Access Control
   PCI DSS v3.2.1:
   - '10.6'
   - 6.4.2
@@ -900,6 +910,10 @@
   - ID.RA-07
   - PR.PS-01
   - PR.PS-02
+  OWASP Top 10 2025:
+  - A02:2025 Security Misconfiguration
+  - A03:2025 Software Supply Chain Failures
+  - A08:2025 Software or Data Integrity Failures
   PCI DSS v3.2.1:
   - '1.2'
   - '10.1'
@@ -956,6 +970,8 @@
   - PR.AA-05
   - PR.DS-10
   - PR.IR-01
+  OWASP Top 10 2025:
+  - A01:2025 Broken Access Control
   PCI DSS v3.2.1:
   - '2.2'
   - 6.4.2
@@ -1024,6 +1040,8 @@
   NIST CSF v2.0:
   - PR.DS-10
   - PR.IR-03
+  OWASP Top 10 2025:
+  - A10:2025 Mishandling of Exceptional Conditions
 145-310:
   ASVS:
   - V5.2.7
@@ -1082,6 +1100,8 @@
   - ID.IM-03
   - ID.IM-04
   - PR.PS-03
+  OWASP Top 10 2025:
+  - A06:2025 Insecure Design
   PCI DSS v3.2.1:
   - '10.8'
   - 12.10.6
@@ -1251,6 +1271,8 @@
   - PR.DS-10
   OWASP Top 10 2021:
   - Cryptographic Failures
+  OWASP Top 10 2025:
+  - A04:2025 Cryptographic Failures
   PCI-DSS-v4.0:
   - 12.3.3
   - 2.2.7
@@ -1383,6 +1405,8 @@
   OWASP Top 10 2021:
   - Broken Access Controls
   - Identification and Authentication Failures
+  OWASP Top 10 2025:
+  - A07:2025 Authentication Failures
   PCI DSS v3.2.1:
   - '1'
   - '1.1'
@@ -1512,6 +1536,8 @@
   NIST CSF v2.0:
   - DE.CM-03
   - PR.DS-10
+  OWASP Top 10 2025:
+  - A09:2025 Security Logging and Alerting Failures
   PCI DSS v3.2.1:
   - '10.1'
   - '10.2'
@@ -1853,6 +1879,8 @@
   - RC.RP-02
   - RC.RP-03
   - RC.RP-05
+  OWASP Top 10 2025:
+  - A10:2025 Mishandling of Exceptional Conditions
   PCI DSS v3.2.1:
   - '1'
   - '10.1'
@@ -1983,6 +2011,8 @@
   - PR.AA-05
   - PR.DS-10
   - PR.IR-01
+  OWASP Top 10 2025:
+  - A01:2025 Broken Access Control
   PCI DSS v3.2.1:
   - '1.1'
   - 1.1.1
@@ -2253,6 +2283,8 @@
   - PR.DS-01
   - PR.DS-02
   - PR.DS-10
+  OWASP Top 10 2025:
+  - A01:2025 Broken Access Control
   PCI DSS v3.2.1:
   - '1'
   - 1.1.1
@@ -2493,6 +2525,10 @@
   - PR.IR-04
   - RC.RP-04
   - RS.AN-08
+  OWASP Top 10 2025:
+  - A03:2025 Software Supply Chain Failures
+  - A05:2025 Injection
+  - A06:2025 Insecure Design
   PCI DSS v3.2.1:
   - '1.5'
   - '10.6'
@@ -2988,6 +3024,8 @@
   - PR.PS-04
   OWASP Top 10 2021:
   - Logging and Monitoring Failures
+  OWASP Top 10 2025:
+  - A09:2025 Security Logging and Alerting Failures
   PCI DSS v3.2.1:
   - '10.1'
   - '10.2'
@@ -3200,6 +3238,9 @@
   - PO.4.1
   - PO.4.2
   - RV.1.2
+  OWASP Top 10 2025:
+  - A05:2025 Injection
+  - A06:2025 Insecure Design
   PCI DSS v3.2.1:
   - '11.2'
   - '11.3'
@@ -3298,6 +3339,8 @@
   - Session Management Cheat Sheet
   OWASP Proactive Controls:
   - C6
+  OWASP Top 10 2025:
+  - A07:2025 Authentication Failures
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-06
   PCI DSS v3.2.1:
@@ -3429,6 +3472,8 @@
   - RS.MI-02
   NIST SSDF:
   - RV.1.3
+  OWASP Top 10 2025:
+  - A09:2025 Security Logging and Alerting Failures
   PCI DSS v3.2.1:
   - '10.1'
   - '10.6'
@@ -3613,6 +3658,8 @@
   - PR.DS-02
   - PR.DS-10
   - PR.IR-01
+  OWASP Top 10 2025:
+  - A02:2025 Security Misconfiguration
   PCI DSS v3.2.1:
   - '1'
   - '1.1'
@@ -3754,6 +3801,8 @@
   - PR.PS-01
   OWASP Top 10 2021:
   - Security Misconfiguration
+  OWASP Top 10 2025:
+  - A02:2025 Security Misconfiguration
   PCI DSS v3.2.1:
   - 1.1.1
   - 1.1.2
@@ -3809,6 +3858,8 @@
     and information integrity'
   NIST CSF v2.0:
   - PR.DS-10
+  OWASP Top 10 2025:
+  - A05:2025 Injection
   PCI DSS v3.2.1:
   - '11.5'
 504-340:
@@ -4787,6 +4838,9 @@
   - PO.1.3
   - PW.4.1
   - PW.4.4
+  OWASP Top 10 2025:
+  - A03:2025 Software Supply Chain Failures
+  - A08:2025 Software or Data Integrity Failures
   PCI DSS v3.2.1:
   - 1.1.1
   - 1.1.2
@@ -4900,6 +4954,8 @@
   - PR.PS-06
   OWASP Proactive Controls:
   - C1
+  OWASP Top 10 2025:
+  - A06:2025 Insecure Design
   PCI DSS v3.2.1:
   - 10.6.1
   - '10.9'
@@ -5031,6 +5087,8 @@
   NIST CSF v2.0:
   - DE.CM-01
   - PR.IR-01
+  OWASP Top 10 2025:
+  - A10:2025 Mishandling of Exceptional Conditions
   PCI DSS v3.2.1:
   - '1'
   - 10.6.1
@@ -5059,6 +5117,8 @@
   - PR.PS-02
   NIST SSDF:
   - PW.2.1
+  OWASP Top 10 2025:
+  - A08:2025 Software or Data Integrity Failures
   PCI DSS v3.2.1:
   - '11.5'
   SAMM:
@@ -5154,6 +5214,9 @@
   - PR.AA-03
   OWASP Top 10 2021:
   - Identification and Authentication Failures
+  OWASP Top 10 2025:
+  - A01:2025 Broken Access Control
+  - A07:2025 Authentication Failures
   PCI DSS v3.2.1:
   - '12.3'
   - '2.1'
@@ -5337,6 +5400,8 @@
   - 'PR.DS-1: Data-at-rest is protected'
   NIST CSF v2.0:
   - PR.DS-01
+  OWASP Top 10 2025:
+  - A04:2025 Cryptographic Failures
   PCI DSS v3.2.1:
   - '3'
   - 8.2.1
@@ -5620,6 +5685,8 @@
   - PR.DS-10
   OWASP Top 10 2021:
   - Broken Access Controls
+  OWASP Top 10 2025:
+  - A01:2025 Broken Access Control
   PCI DSS v3.2.1:
   - '10.6'
   - 12.3.10
@@ -6447,6 +6514,9 @@
   - RS.AN-03
   - RS.AN-06
   - RS.AN-07
+  OWASP Top 10 2025:
+  - A09:2025 Security Logging and Alerting Failures
+  - A10:2025 Mishandling of Exceptional Conditions
   PCI DSS v3.2.1:
   - '10.1'
   - '10.2'

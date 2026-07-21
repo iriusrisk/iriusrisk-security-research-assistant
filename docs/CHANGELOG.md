@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.2.0 - 20260721
+
+### Features
+
+* Added new standard OWASP Top 10 2025
+
 ## 3.0.0 - 20251028
 
 ### Features
