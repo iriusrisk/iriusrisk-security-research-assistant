@@ -209,6 +209,13 @@ def show_init(standard_name, standard_section):
 
 
 def test_standard(standard_name, standard_section):
+    if standard_name not in CRE_MAPPING_NAME:
+        supported_names = ", ".join(sorted(CRE_MAPPING_NAME))
+        raise typer.BadParameter(
+            f"Unknown baseline standard '{standard_name}'. Supported names: {supported_names}",
+            param_hint="--standard-name"
+        )
+
     mappings_yaml = get_resource(OPENCRE_PLUS)
 
     standards_to_add = get_standard_from_opencre(mappings_yaml, standard_name, standard_section)
@@ -236,16 +243,18 @@ def expand(verbose: Annotated[bool, typer.Option(help="Verbose (True/False)")] =
 @app.command()
 def reset():
     """
-    This function will expand the standard set of a countermeasure by using the base standard
+    Removes all standards from every countermeasure in the current component
     """
     reset_init()
 
 
 @app.command()
-def test(standard_name: Annotated[str, typer.Option(help="Filter by standard name")] = "",
-         standard_section: Annotated[str, typer.Option(help="Filter by standard section")] = ""):
+def test(
+    standard_name: Annotated[str, typer.Option(help="Baseline standard name (for example: ASVS)")],
+    standard_section: Annotated[str, typer.Option(help="Baseline standard section (for example: V3.2.1)")]
+):
     """
-    Shows the current standard mapping used to propagate standards
+    Tests OpenCRE expansion and outputs the resulting IriusRisk XML standard elements
     """
     test_standard(standard_name, standard_section)
 

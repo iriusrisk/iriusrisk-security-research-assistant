@@ -87,6 +87,31 @@ class CLITests(unittest.TestCase):
     def test_about(self):
         self.run_about()
 
+    def test_standards_test_requires_options(self):
+        result = self.runner.invoke(app, ["standards", "test"])
+
+        assert result.exit_code == 2
+        assert "Missing option '--standard-name'" in result.stdout
+
+    def test_standards_test_rejects_unknown_standard(self):
+        result = self.runner.invoke(app, [
+            "standards", "test",
+            "--standard-name", "invalid",
+            "--standard-section", "V3.2.1"
+        ])
+
+        assert result.exit_code == 2
+        assert "Unknown baseline standard 'invalid'" in result.stdout
+
+    def test_standards_help_descriptions(self):
+        test_result = self.runner.invoke(app, ["standards", "test", "--help"])
+        reset_result = self.runner.invoke(app, ["standards", "reset", "--help"])
+
+        assert test_result.exit_code == 0
+        assert "Tests OpenCRE expansion" in test_result.stdout
+        assert reset_result.exit_code == 0
+        assert "Removes all standards" in reset_result.stdout
+
     def test_component_new(self):
         self.run_component_new()
 
