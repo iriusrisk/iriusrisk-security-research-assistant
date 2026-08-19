@@ -152,7 +152,7 @@ iriusrisk-security-research-assistant/
 **Standards Supported**:
 - ISO 27001 / ISO 27002:2022
 - NIST 800-53
-- OWASP ASVS4
+- OWASP ASVS4 / ASVS5 (Levels 1, 2, and 3)
 - NIST 800-63
 - FedRAMP
 - OWASP Top 10

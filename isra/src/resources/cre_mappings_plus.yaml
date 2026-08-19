@@ -24,6 +24,12 @@
   - V3.2.1
   owasp-asvs4-level-2:
   - V3.2.1
+  owasp-asvs5-level-1:
+  - V7.2.4
+  owasp-asvs5-level-2:
+  - V7.2.4
+  owasp-asvs5-level-3:
+  - V7.2.4
 002-801:
   ASVS:
   - V2.9.3
@@ -36,6 +42,12 @@
   - Key Management Cheat Sheet
   owasp-asvs4-level-2:
   - V2.9.3
+  owasp-asvs5-level-2:
+  - V11.2.1
+  - V11.6.1
+  owasp-asvs5-level-3:
+  - V11.2.1
+  - V11.6.1
 004-517:
   Cloud Controls Matrix:
   - Application Security Baseline Requirements
@@ -126,6 +138,12 @@
   - '10.1'
   owasp-asvs4-level-2:
   - V8.3.5
+  owasp-asvs5-level-2:
+  - V16.2.5
+  - V16.3.2
+  owasp-asvs5-level-3:
+  - V16.2.5
+  - V16.3.2
 026-280:
   ASVS:
   - V1.7.2
@@ -135,6 +153,12 @@
   - C9
   owasp-asvs4-level-2:
   - V1.7.2
+  owasp-asvs5-level-2:
+  - V16.2.3
+  - V16.4.3
+  owasp-asvs5-level-3:
+  - V16.2.3
+  - V16.4.3
 027-210:
   ASVS:
   - V6.3.2
@@ -144,6 +168,11 @@
   - WSTG-CRYP-04
   owasp-asvs4-level-2:
   - V6.3.2
+  owasp-asvs5-level-2:
+  - V11.5.1
+  owasp-asvs5-level-3:
+  - V11.5.1
+  - V11.5.2
 027-555:
   ASVS:
   - V2.1.1
@@ -163,6 +192,27 @@
   - V2.1.1
   owasp-asvs4-level-2:
   - V2.1.1
+  owasp-asvs5-level-1:
+  - V6.2.1
+  - V6.2.4
+  - V6.2.5
+  - V6.2.7
+  owasp-asvs5-level-2:
+  - V6.1.2
+  - V6.2.1
+  - V6.2.11
+  - V6.2.4
+  - V6.2.5
+  - V6.2.7
+  - V6.2.9
+  owasp-asvs5-level-3:
+  - V6.1.2
+  - V6.2.1
+  - V6.2.11
+  - V6.2.4
+  - V6.2.5
+  - V6.2.7
+  - V6.2.9
 028-254:
   ASVS:
   - V10.3.1
@@ -181,6 +231,10 @@
   - '11.6'
   - 5.4.1
   - A1.1.3
+  owasp-asvs5-level-2:
+  - V15.3.2
+  owasp-asvs5-level-3:
+  - V15.3.2
 031-447:
   ASVS:
   - V5.1.3
@@ -197,6 +251,19 @@
   - V5.1.3
   owasp-asvs4-level-2:
   - V5.1.3
+  owasp-asvs5-level-1:
+  - V2.1.1
+  - V2.2.1
+  owasp-asvs5-level-2:
+  - V2.1.1
+  - V2.1.2
+  - V2.2.1
+  - V2.2.3
+  owasp-asvs5-level-3:
+  - V2.1.1
+  - V2.1.2
+  - V2.2.1
+  - V2.2.3
 032-213:
   ASVS:
   - V6.4.2
@@ -208,6 +275,19 @@
   - C8
   owasp-asvs4-level-2:
   - V6.4.2
+  owasp-asvs5-level-2:
+  - V11.1.1
+  - V11.1.2
+  - V11.2.2
+  - V13.3.2
+  owasp-asvs5-level-3:
+  - V11.1.1
+  - V11.1.2
+  - V11.1.3
+  - V11.2.2
+  - V13.3.2
+  - V13.3.3
+  - V6.7.1
 036-147:
   ASVS:
   - V14.4.5
@@ -221,6 +301,13 @@
   - V14.4.5
   owasp-asvs4-level-2:
   - V14.4.5
+  owasp-asvs5-level-1:
+  - V3.4.1
+  owasp-asvs5-level-2:
+  - V3.4.1
+  owasp-asvs5-level-3:
+  - V3.4.1
+  - V3.7.4
 036-275:
   ASVS:
   - V1.1.7
@@ -245,6 +332,12 @@
   - V14.4.1
   owasp-asvs4-level-2:
   - V14.4.1
+  owasp-asvs5-level-1:
+  - V4.1.1
+  owasp-asvs5-level-2:
+  - V4.1.1
+  owasp-asvs5-level-3:
+  - V4.1.1
 036-810:
   ASVS:
   - V6.2.1
@@ -259,6 +352,8 @@
   - V6.2.1
   owasp-asvs4-level-2:
   - V6.2.1
+  owasp-asvs5-level-3:
+  - V11.2.5
 042-550:
   ASVS:
   - V5.1.2
@@ -273,6 +368,10 @@
   - V5.1.2
   owasp-asvs4-level-2:
   - V5.1.2
+  owasp-asvs5-level-2:
+  - V15.3.3
+  owasp-asvs5-level-3:
+  - V15.3.3
 046-257:
   ASVS:
   - V8.2.3
@@ -284,6 +383,12 @@
   - V8.2.3
   owasp-asvs4-level-2:
   - V8.2.3
+  owasp-asvs5-level-1:
+  - V14.3.1
+  owasp-asvs5-level-2:
+  - V14.3.1
+  owasp-asvs5-level-3:
+  - V14.3.1
 048-612:
   ASVS:
   - V7.3.1
@@ -297,6 +402,10 @@
   - WSTG-BUSL-03
   owasp-asvs4-level-2:
   - V7.3.1
+  owasp-asvs5-level-2:
+  - V16.4.1
+  owasp-asvs5-level-3:
+  - V16.4.1
 052-821:
   ASVS:
   - V3.6.2
@@ -304,6 +413,26 @@
   - '613'
   NIST 800-63:
   - 7.2.1
+  owasp-asvs5-level-2:
+  - V10.2.2
+  - V10.3.3
+  - V10.3.4
+  - V10.5.1
+  - V10.5.2
+  - V10.5.3
+  - V6.8.1
+  - V6.8.4
+  - V7.6.1
+  owasp-asvs5-level-3:
+  - V10.2.2
+  - V10.3.3
+  - V10.3.4
+  - V10.5.1
+  - V10.5.2
+  - V10.5.3
+  - V6.8.1
+  - V6.8.4
+  - V7.6.1
 053-751:
   ASVS:
   - V1.14.3
@@ -313,6 +442,17 @@
   - 7.2.4
   owasp-asvs4-level-2:
   - V1.14.3
+  owasp-asvs5-level-1:
+  - V15.1.1
+  - V15.2.1
+  owasp-asvs5-level-2:
+  - V15.1.1
+  - V15.1.2
+  - V15.2.1
+  owasp-asvs5-level-3:
+  - V15.1.1
+  - V15.1.2
+  - V15.2.1
 058-083:
   CCPA:
   - Verification for Password-Protected Accounts (b)
@@ -394,6 +534,10 @@
   - 10.7.2
   SAMM:
   - Incident Detection
+  owasp-asvs5-level-2:
+  - V16.1.1
+  owasp-asvs5-level-3:
+  - V16.1.1
 058-527:
   FedRAMP:
   - High
@@ -436,6 +580,12 @@
   - V4.2.2
   owasp-asvs4-level-2:
   - V4.2.2
+  owasp-asvs5-level-1:
+  - V3.5.1
+  owasp-asvs5-level-2:
+  - V3.5.1
+  owasp-asvs5-level-3:
+  - V3.5.1
 061-186:
   ASVS:
   - V13.1.1
@@ -448,6 +598,18 @@
   - V13.1.1
   owasp-asvs4-level-2:
   - V13.1.1
+  owasp-asvs5-level-2:
+  - V1.1.1
+  - V1.1.2
+  - V4.2.1
+  owasp-asvs5-level-3:
+  - V1.1.1
+  - V1.1.2
+  - V1.5.3
+  - V4.2.1
+  - V4.2.2
+  - V4.2.3
+  - V4.2.4
 064-808:
   ASVS:
   - V5.3.5
@@ -475,6 +637,12 @@
   - V5.3.5
   owasp-asvs4-level-2:
   - V5.3.5
+  owasp-asvs5-level-1:
+  - V1.2.4
+  owasp-asvs5-level-2:
+  - V1.2.4
+  owasp-asvs5-level-3:
+  - V1.2.4
 065-183:
   ASVS:
   - V2.10.2
@@ -484,6 +652,10 @@
   - 5.1.1.1
   owasp-asvs4-level-2:
   - V2.10.2
+  owasp-asvs5-level-2:
+  - V13.2.3
+  owasp-asvs5-level-3:
+  - V13.2.3
 065-388:
   ASVS:
   - V14.4.4
@@ -497,6 +669,10 @@
   - V14.4.4
   owasp-asvs4-level-2:
   - V14.4.4
+  owasp-asvs5-level-2:
+  - V3.4.4
+  owasp-asvs5-level-3:
+  - V3.4.4
 065-782:
   ASVS:
   - V3.3.2
@@ -514,6 +690,20 @@
   - V3.3.2
   owasp-asvs4-level-2:
   - V3.3.2
+  owasp-asvs5-level-1:
+  - V9.2.1
+  owasp-asvs5-level-2:
+  - V10.4.8
+  - V7.1.1
+  - V7.3.1
+  - V7.3.2
+  - V9.2.1
+  owasp-asvs5-level-3:
+  - V10.4.8
+  - V7.1.1
+  - V7.3.1
+  - V7.3.2
+  - V9.2.1
 067-050:
   ASVS:
   - V7.1.1
@@ -527,6 +717,10 @@
   - V7.1.1
   owasp-asvs4-level-2:
   - V7.1.1
+  owasp-asvs5-level-2:
+  - V16.2.5
+  owasp-asvs5-level-3:
+  - V16.2.5
 068-102:
   ASVS:
   - V1.1.5
@@ -551,6 +745,10 @@
   - Threat modeling
   owasp-asvs4-level-2:
   - V1.1.5
+  owasp-asvs5-level-2:
+  - V13.1.1
+  owasp-asvs5-level-3:
+  - V13.1.1
 072-713:
   SAMM:
   - Technology Management
@@ -575,6 +773,8 @@
   - 5.2.3
   owasp-asvs4-level-2:
   - V2.8.7
+  owasp-asvs5-level-3:
+  - V6.5.7
 077-781:
   ASVS:
   - V2.4.5
@@ -599,6 +799,12 @@
   - C6
   owasp-asvs4-level-2:
   - V2.4.4
+  owasp-asvs5-level-2:
+  - V11.4.2
+  - V11.4.4
+  owasp-asvs5-level-3:
+  - V11.4.2
+  - V11.4.4
 080-466:
   D3FEND:
   - Firmware Verification
@@ -642,6 +848,20 @@
   - V8.3.3
   owasp-asvs4-level-2:
   - V8.3.3
+  owasp-asvs5-level-2:
+  - V10.7.1
+  - V10.7.2
+  - V10.7.3
+  - V14.1.1
+  - V14.1.2
+  - V14.2.3
+  owasp-asvs5-level-3:
+  - V10.7.1
+  - V10.7.2
+  - V10.7.3
+  - V14.1.1
+  - V14.1.2
+  - V14.2.3
 082-530:
   ASVS:
   - V2.4.2
@@ -667,6 +887,10 @@
   - 5.1.2.2
   owasp-asvs4-level-2:
   - V2.6.1
+  owasp-asvs5-level-2:
+  - V6.5.1
+  owasp-asvs5-level-3:
+  - V6.5.1
 102-811:
   ASVS:
   - V2.7.4
@@ -680,6 +904,12 @@
   - V2.7.4
   owasp-asvs4-level-2:
   - V2.7.4
+  owasp-asvs5-level-2:
+  - V6.6.2
+  - V6.6.3
+  owasp-asvs5-level-3:
+  - V6.6.2
+  - V6.6.3
 103-707:
   ASVS:
   - V2.1.4
@@ -697,6 +927,12 @@
   - V2.1.4
   owasp-asvs4-level-2:
   - V2.1.4
+  owasp-asvs5-level-1:
+  - V6.2.5
+  owasp-asvs5-level-2:
+  - V6.2.5
+  owasp-asvs5-level-3:
+  - V6.2.5
 112-273:
   ASVS:
   - V12.4.2
@@ -715,6 +951,10 @@
   - V12.4.2
   owasp-asvs4-level-2:
   - V12.4.2
+  owasp-asvs5-level-2:
+  - V5.4.3
+  owasp-asvs5-level-3:
+  - V5.4.3
 112-648:
   Cloud Controls Matrix:
   - Change Control and Configuration Management
@@ -729,6 +969,12 @@
   - '306'
   owasp-asvs4-level-2:
   - V1.2.3
+  owasp-asvs5-level-2:
+  - V6.1.3
+  - V6.3.4
+  owasp-asvs5-level-3:
+  - V6.1.3
+  - V6.3.4
 114-853:
   CCPA:
   - Personal Information Security Breaches (a)(1)(2)
@@ -798,6 +1044,8 @@
   - WSTG-ERRH-02
   owasp-asvs4-level-2:
   - V7.4.3
+  owasp-asvs5-level-3:
+  - V16.5.4
 118-775:
   SAMM:
   - Organization and Culture
@@ -813,6 +1061,11 @@
   - C8
   owasp-asvs4-level-2:
   - V6.2.4
+  owasp-asvs5-level-2:
+  - V11.2.2
+  owasp-asvs5-level-3:
+  - V11.1.4
+  - V11.2.2
 123-124:
   CCPA:
   - Personal Information Security Breaches (a)(1)(2)
@@ -845,6 +1098,20 @@
   - '7.2'
   - '8.7'
   - '9.3'
+  owasp-asvs5-level-1:
+  - V10.4.4
+  owasp-asvs5-level-2:
+  - V10.1.1
+  - V10.4.11
+  - V10.4.4
+  - V10.6.1
+  owasp-asvs5-level-3:
+  - V10.1.1
+  - V10.2.3
+  - V10.4.11
+  - V10.4.12
+  - V10.4.4
+  - V10.6.1
 124-564:
   CCPA:
   - Requests to Limit Use and Disclosure of Sensitive Personal Information (m)(8)
@@ -1013,6 +1280,10 @@
   - V5.3.10
   owasp-asvs4-level-2:
   - V5.3.10
+  owasp-asvs5-level-2:
+  - V1.2.7
+  owasp-asvs5-level-3:
+  - V1.2.7
 134-412:
   ASVS:
   - V11.1.6
@@ -1022,6 +1293,15 @@
   - Abuse Case Cheat Sheet
   owasp-asvs4-level-2:
   - V11.1.6
+  owasp-asvs5-level-2:
+  - V15.3.5
+  - V2.3.4
+  owasp-asvs5-level-3:
+  - V15.3.5
+  - V15.4.2
+  - V15.4.3
+  - V17.2.6
+  - V2.3.4
 138-448:
   ASVS:
   - V2.3.3
@@ -1031,6 +1311,8 @@
   - 6.1.4
   owasp-asvs4-level-2:
   - V2.3.3
+  owasp-asvs5-level-3:
+  - V6.4.5
 141-555:
   FedRAMP:
   - High
@@ -1042,6 +1324,12 @@
   - PR.IR-03
   OWASP Top 10 2025:
   - A10:2025 Mishandling of Exceptional Conditions
+  owasp-asvs5-level-2:
+  - V16.5.2
+  - V17.3.2
+  owasp-asvs5-level-3:
+  - V16.5.2
+  - V17.3.2
 145-310:
   ASVS:
   - V5.2.7
@@ -1056,6 +1344,10 @@
   - V5.2.7
   owasp-asvs4-level-2:
   - V5.2.7
+  owasp-asvs5-level-2:
+  - V1.3.4
+  owasp-asvs5-level-3:
+  - V1.3.4
 146-706:
   ASVS:
   - V13.2.2
@@ -1069,6 +1361,12 @@
   - V13.2.2
   owasp-asvs4-level-2:
   - V13.2.2
+  owasp-asvs5-level-1:
+  - V2.2.1
+  owasp-asvs5-level-2:
+  - V2.2.1
+  owasp-asvs5-level-3:
+  - V2.2.1
 148-227:
   Cloud Controls Matrix:
   - Universal Endpoint Management
@@ -1141,6 +1439,13 @@
   - Web Service Security Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-ATHZ-02
+  owasp-asvs5-level-1:
+  - V8.2.1
+  owasp-asvs5-level-2:
+  - V8.2.1
+  owasp-asvs5-level-3:
+  - V8.2.1
+  - V8.4.2
 154-031:
   ASVS:
   - V10.2.6
@@ -1159,6 +1464,10 @@
   - '524'
   owasp-asvs4-level-2:
   - V8.1.2
+  owasp-asvs5-level-2:
+  - V14.2.2
+  owasp-asvs5-level-3:
+  - V14.2.2
 157-587:
   FedRAMP:
   - High
@@ -1199,6 +1508,10 @@
   - V2.1.2
   owasp-asvs4-level-2:
   - V2.1.2
+  owasp-asvs5-level-2:
+  - V6.2.9
+  owasp-asvs5-level-3:
+  - V6.2.9
 161-451:
   NIST 800-53 v5:
   - SI-15 Information Output Filtering
@@ -1211,6 +1524,10 @@
   - Abuse Case Cheat Sheet
   owasp-asvs4-level-2:
   - V1.11.1
+  owasp-asvs5-level-2:
+  - V13.1.1
+  owasp-asvs5-level-3:
+  - V13.1.1
 163-518:
   ASVS:
   - V12.1.2
@@ -1220,6 +1537,12 @@
   - File Upload Cheat Sheet
   owasp-asvs4-level-2:
   - V12.1.2
+  owasp-asvs5-level-2:
+  - V5.2.3
+  owasp-asvs5-level-3:
+  - V5.2.3
+  - V5.2.5
+  - V5.3.3
 163-776:
   ISO 27001:
   - Information backup
@@ -1239,6 +1562,12 @@
   - V4.1.5
   owasp-asvs4-level-2:
   - V4.1.5
+  owasp-asvs5-level-2:
+  - V16.5.3
+  - V17.2.4
+  owasp-asvs5-level-3:
+  - V16.5.3
+  - V17.2.4
 168-186:
   ASVS:
   - V2.7.3
@@ -1252,6 +1581,12 @@
   - V2.7.3
   owasp-asvs4-level-2:
   - V2.7.3
+  owasp-asvs5-level-2:
+  - V6.5.1
+  - V6.6.2
+  owasp-asvs5-level-3:
+  - V6.5.1
+  - V6.6.2
 170-772:
   Cloud Controls Matrix:
   - Cryptography, Encryption & Key Management
@@ -1374,6 +1709,12 @@
   - Third Party Javascript Management Cheat Sheet
   owasp-asvs4-level-2:
   - V12.2.1
+  owasp-asvs5-level-1:
+  - V5.2.2
+  owasp-asvs5-level-2:
+  - V5.2.2
+  owasp-asvs5-level-3:
+  - V5.2.2
 176-154:
   ASVS:
   - V8.1.4
@@ -1381,6 +1722,13 @@
   - '770'
   owasp-asvs4-level-2:
   - V8.1.4
+  owasp-asvs5-level-2:
+  - V2.4.1
+  - V4.3.1
+  owasp-asvs5-level-3:
+  - V2.4.1
+  - V4.3.1
+  - V5.2.4
 177-260:
   FedRAMP:
   - High
@@ -1424,6 +1772,20 @@
   - '8.3'
   - '8.5'
   - '8.6'
+  owasp-asvs5-level-1:
+  - V7.2.1
+  owasp-asvs5-level-2:
+  - V4.4.3
+  - V7.1.2
+  - V7.1.3
+  - V7.2.1
+  - V7.6.2
+  owasp-asvs5-level-3:
+  - V4.4.3
+  - V7.1.2
+  - V7.1.3
+  - V7.2.1
+  - V7.6.2
 180-488:
   ASVS:
   - V14.1.3
@@ -1447,6 +1809,14 @@
   - A3.5
   owasp-asvs4-level-2:
   - V7.1.3
+  owasp-asvs5-level-2:
+  - V16.3.1
+  - V16.3.2
+  - V16.3.3
+  owasp-asvs5-level-3:
+  - V16.3.1
+  - V16.3.2
+  - V16.3.3
 186-540:
   ASVS:
   - V8.3.1
@@ -1458,6 +1828,12 @@
   - V8.3.1
   owasp-asvs4-level-2:
   - V8.3.1
+  owasp-asvs5-level-1:
+  - V14.2.1
+  owasp-asvs5-level-2:
+  - V14.2.1
+  owasp-asvs5-level-3:
+  - V14.2.1
 201-246:
   ASVS:
   - V4.3.1
@@ -1469,6 +1845,8 @@
   - V4.3.1
   owasp-asvs4-level-2:
   - V4.3.1
+  owasp-asvs5-level-3:
+  - V8.4.2
 206-254:
   ASVS:
   - V2.7.6
@@ -1480,6 +1858,14 @@
   - Forgot Password Cheat Sheet
   owasp-asvs4-level-2:
   - V2.7.6
+  owasp-asvs5-level-2:
+  - V6.5.1
+  - V6.5.3
+  - V6.5.4
+  owasp-asvs5-level-3:
+  - V6.5.1
+  - V6.5.3
+  - V6.5.4
 208-355:
   ASVS:
   - V14.1.4
@@ -1498,6 +1884,10 @@
   - V14.3.2
   owasp-asvs4-level-2:
   - V14.3.2
+  owasp-asvs5-level-2:
+  - V13.4.2
+  owasp-asvs5-level-3:
+  - V13.4.2
 208-830:
   FedRAMP:
   - High
@@ -1575,6 +1965,12 @@
   - WSTG-CRYP-04
   owasp-asvs4-level-2:
   - V6.1.2
+  owasp-asvs5-level-2:
+  - V14.1.1
+  - V14.1.2
+  owasp-asvs5-level-3:
+  - V14.1.1
+  - V14.1.2
 227-045:
   ASVS:
   - V8.3.4
@@ -1604,6 +2000,10 @@
   - V8.3.4
   owasp-asvs4-level-2:
   - V8.3.4
+  owasp-asvs5-level-2:
+  - V14.1.1
+  owasp-asvs5-level-3:
+  - V14.1.1
 232-034:
   ASVS:
   - V3.4.4
@@ -1620,6 +2020,10 @@
   - V3.4.4
   owasp-asvs4-level-2:
   - V3.4.4
+  owasp-asvs5-level-2:
+  - V3.3.3
+  owasp-asvs5-level-3:
+  - V3.3.3
 232-217:
   ASVS:
   - V5.1.5
@@ -1634,6 +2038,11 @@
   - V5.1.5
   owasp-asvs4-level-2:
   - V5.1.5
+  owasp-asvs5-level-2:
+  - V3.7.2
+  owasp-asvs5-level-3:
+  - V3.7.2
+  - V3.7.3
 232-325:
   ASVS:
   - V1.6.4
@@ -1641,6 +2050,16 @@
   - '320'
   owasp-asvs4-level-2:
   - V1.6.4
+  owasp-asvs5-level-1:
+  - V8.3.1
+  owasp-asvs5-level-2:
+  - V11.1.2
+  - V14.3.3
+  - V8.3.1
+  owasp-asvs5-level-3:
+  - V11.1.2
+  - V14.3.3
+  - V8.3.1
 233-748:
   PCI-DSS-v4.0:
   - 2.2.4
@@ -1766,6 +2185,8 @@
   - V2.5.5
   owasp-asvs4-level-2:
   - V2.5.5
+  owasp-asvs5-level-3:
+  - V6.3.7
 238-346:
   ASVS:
   - V3.3.3
@@ -1777,6 +2198,14 @@
   - WSTG-SESS-06
   owasp-asvs4-level-2:
   - V3.3.3
+  owasp-asvs5-level-1:
+  - V7.4.2
+  owasp-asvs5-level-2:
+  - V7.4.2
+  - V7.4.3
+  owasp-asvs5-level-3:
+  - V7.4.2
+  - V7.4.3
 240-274:
   ASVS:
   - V7.1.2
@@ -1792,6 +2221,10 @@
   - V7.1.2
   owasp-asvs4-level-2:
   - V7.1.2
+  owasp-asvs5-level-2:
+  - V16.2.5
+  owasp-asvs5-level-3:
+  - V16.2.5
 240-464:
   Cloud Controls Matrix:
   - Business Continuity Management and Operational Resilience
@@ -2053,6 +2486,12 @@
   PCI-DSS-v4.0:
   - 6.5.6
   - 7.2.1
+  owasp-asvs5-level-1:
+  - V8.1.1
+  owasp-asvs5-level-2:
+  - V8.1.1
+  owasp-asvs5-level-3:
+  - V8.1.1
 248-646:
   ASVS:
   - V9.1.3
@@ -2068,6 +2507,12 @@
   - V9.1.3
   owasp-asvs4-level-2:
   - V9.1.3
+  owasp-asvs5-level-1:
+  - V12.1.1
+  owasp-asvs5-level-2:
+  - V12.1.1
+  owasp-asvs5-level-3:
+  - V12.1.1
 251-446:
   NIST SSDF:
   - PO.2.3
@@ -2096,6 +2541,13 @@
   - V14.4.3
   owasp-asvs4-level-2:
   - V14.4.3
+  owasp-asvs5-level-2:
+  - V3.4.3
+  - V3.4.6
+  owasp-asvs5-level-3:
+  - V3.4.3
+  - V3.4.6
+  - V3.4.7
 260-200:
   ASVS:
   - V1.7.1
@@ -2107,6 +2559,10 @@
   - C9
   owasp-asvs4-level-2:
   - V1.7.1
+  owasp-asvs5-level-2:
+  - V16.2.4
+  owasp-asvs5-level-3:
+  - V16.2.4
 261-010:
   Cloud Controls Matrix:
   - Application and Interface Security Policy and Procedures
@@ -2135,6 +2591,8 @@
   PCI DSS v3.2.1:
   - '12.2'
   - 9.6.1
+  owasp-asvs5-level-3:
+  - V15.4.4
 267-468:
   ASVS:
   - V6.1.3
@@ -2150,6 +2608,12 @@
   - '3.5'
   owasp-asvs4-level-2:
   - V6.1.3
+  owasp-asvs5-level-2:
+  - V14.1.1
+  - V14.1.2
+  owasp-asvs5-level-3:
+  - V14.1.1
+  - V14.1.2
 268-088:
   ASVS:
   - V13.4.1
@@ -2157,6 +2621,10 @@
   - '770'
   owasp-asvs4-level-2:
   - V13.4.1
+  owasp-asvs5-level-2:
+  - V4.3.1
+  owasp-asvs5-level-3:
+  - V4.3.1
 268-100:
   ASVS:
   - V14.4.6
@@ -2168,6 +2636,10 @@
   - V14.4.6
   owasp-asvs4-level-2:
   - V14.4.6
+  owasp-asvs5-level-2:
+  - V3.4.5
+  owasp-asvs5-level-3:
+  - V3.4.5
 268-272:
   ASVS:
   - V8.3.8
@@ -2179,6 +2651,8 @@
   - 9.4.7
   owasp-asvs4-level-2:
   - V8.3.8
+  owasp-asvs5-level-3:
+  - V14.2.7
 270-568:
   FedRAMP:
   - High
@@ -2225,6 +2699,10 @@
   - V2.5.1
   owasp-asvs4-level-2:
   - V2.5.1
+  owasp-asvs5-level-2:
+  - V13.3.1
+  owasp-asvs5-level-3:
+  - V13.3.1
 273-600:
   ASVS:
   - V1.14.1
@@ -2247,6 +2725,13 @@
   - '8.6'
   owasp-asvs4-level-2:
   - V1.2.2
+  owasp-asvs5-level-2:
+  - V13.2.1
+  - V13.2.2
+  owasp-asvs5-level-3:
+  - V12.3.5
+  - V13.2.1
+  - V13.2.2
 278-646:
   CCPA:
   - Opt-Out Preference Signals (c)(2)
@@ -2311,6 +2796,10 @@
   - REST Assessment Cheat Sheet
   owasp-asvs4-level-2:
   - V4.3.3
+  owasp-asvs5-level-2:
+  - V13.2.4
+  owasp-asvs5-level-3:
+  - V13.2.4
 286-500:
   Cloud Controls Matrix:
   - OS Hardening and Base Controls
@@ -2328,6 +2817,16 @@
   - Key Management Cheat Sheet
   owasp-asvs4-level-2:
   - V2.9.2
+  owasp-asvs5-level-2:
+  - V10.1.2
+  - V10.2.1
+  - V10.4.6
+  owasp-asvs5-level-3:
+  - V10.1.2
+  - V10.2.1
+  - V10.4.13
+  - V10.4.6
+  - V6.7.2
 287-305:
   ASVS:
   - V1.6.1
@@ -2338,6 +2837,16 @@
   - Key Management Cheat Sheet
   owasp-asvs4-level-2:
   - V1.6.1
+  owasp-asvs5-level-2:
+  - V11.1.1
+  - V11.1.2
+  - V17.2.1
+  owasp-asvs5-level-3:
+  - V11.1.1
+  - V11.1.2
+  - V13.1.4
+  - V13.3.4
+  - V17.2.1
 287-823:
   CCPA:
   - Requests to Know (k)(1)
@@ -2381,6 +2890,12 @@
   - V4.2.1
   owasp-asvs4-level-2:
   - V4.2.1
+  owasp-asvs5-level-1:
+  - V8.2.2
+  owasp-asvs5-level-2:
+  - V8.2.2
+  owasp-asvs5-level-3:
+  - V8.2.2
 307-111:
   ASVS:
   - V12.4.1
@@ -2392,6 +2907,14 @@
   - V12.4.1
   owasp-asvs4-level-2:
   - V12.4.1
+  owasp-asvs5-level-1:
+  - V5.3.1
+  owasp-asvs5-level-2:
+  - V5.3.1
+  - V5.4.3
+  owasp-asvs5-level-3:
+  - V5.3.1
+  - V5.4.3
 307-242:
   CCPA:
   - Authorized Agents (a)
@@ -2589,6 +3112,8 @@
   - V10.3.2
   owasp-asvs4-level-2:
   - V10.3.2
+  owasp-asvs5-level-3:
+  - V15.2.4
 314-131:
   ASVS:
   - V14.1.2
@@ -2601,6 +3126,10 @@
   - Docker Security Cheat Sheet
   owasp-asvs4-level-2:
   - V14.1.2
+  owasp-asvs5-level-2:
+  - V1.4.1
+  owasp-asvs5-level-3:
+  - V1.4.1
 314-701:
   ASVS:
   - V12.5.1
@@ -2612,6 +3141,8 @@
   - V12.5.1
   owasp-asvs4-level-2:
   - V12.5.1
+  owasp-asvs5-level-3:
+  - V13.4.7
 316-272:
   ASVS:
   - V14.5.3
@@ -2623,6 +3154,18 @@
   - V14.5.3
   owasp-asvs4-level-2:
   - V14.5.3
+  owasp-asvs5-level-1:
+  - V3.4.2
+  - V3.5.2
+  owasp-asvs5-level-2:
+  - V3.4.2
+  - V3.5.2
+  - V4.4.2
+  owasp-asvs5-level-3:
+  - V3.4.2
+  - V3.5.2
+  - V3.5.8
+  - V4.4.2
 317-743:
   ASVS:
   - V5.2.4
@@ -2639,6 +3182,17 @@
   - V5.2.4
   owasp-asvs4-level-2:
   - V5.2.4
+  owasp-asvs5-level-1:
+  - V1.3.2
+  owasp-asvs5-level-2:
+  - V1.2.8
+  - V1.3.2
+  - V15.3.6
+  owasp-asvs5-level-3:
+  - V1.2.8
+  - V1.3.2
+  - V15.3.6
+  - V3.2.3
 326-704:
   CCPA:
   - Authorized Agents (c)
@@ -2698,6 +3252,12 @@
   - V2.1.6
   owasp-asvs4-level-2:
   - V2.1.6
+  owasp-asvs5-level-1:
+  - V6.2.3
+  owasp-asvs5-level-2:
+  - V6.2.3
+  owasp-asvs5-level-3:
+  - V6.2.3
 330-281:
   ASVS:
   - V1.2.1
@@ -2707,6 +3267,10 @@
   - C3
   owasp-asvs4-level-2:
   - V1.2.1
+  owasp-asvs5-level-2:
+  - V13.2.2
+  owasp-asvs5-level-3:
+  - V13.2.2
 333-858:
   ASVS:
   - V2.2.4
@@ -2726,6 +3290,16 @@
   - 8.3.3
   - 8.3.9
   - 8.6.3
+  owasp-asvs5-level-1:
+  - V10.4.5
+  owasp-asvs5-level-2:
+  - V10.4.5
+  - V6.3.3
+  owasp-asvs5-level-3:
+  - V10.3.5
+  - V10.4.14
+  - V10.4.5
+  - V6.3.3
 333-888:
   ASVS:
   - V13.1.3
@@ -2740,6 +3314,12 @@
   - V13.1.3
   owasp-asvs4-level-2:
   - V13.1.3
+  owasp-asvs5-level-1:
+  - V14.2.1
+  owasp-asvs5-level-2:
+  - V14.2.1
+  owasp-asvs5-level-3:
+  - V14.2.1
 336-512:
   ASVS:
   - V10.3.3
@@ -2774,6 +3354,10 @@
   - V2.1.10
   owasp-asvs4-level-2:
   - V2.1.10
+  owasp-asvs5-level-2:
+  - V6.2.10
+  owasp-asvs5-level-3:
+  - V6.2.10
 340-375:
   ASVS:
   - V6.4.1
@@ -2785,6 +3369,10 @@
   - C8
   owasp-asvs4-level-2:
   - V6.4.1
+  owasp-asvs5-level-2:
+  - V13.3.1
+  owasp-asvs5-level-3:
+  - V13.3.1
 342-055:
   ASVS:
   - V3.4.3
@@ -2803,6 +3391,10 @@
   - V3.4.3
   owasp-asvs4-level-2:
   - V3.4.3
+  owasp-asvs5-level-2:
+  - V3.3.2
+  owasp-asvs5-level-3:
+  - V3.3.2
 342-764:
   ASVS:
   - V2.7.5
@@ -2838,6 +3430,13 @@
   - 5.1.2.2
   owasp-asvs4-level-2:
   - V2.6.2
+  owasp-asvs5-level-2:
+  - V6.5.2
+  - V6.5.4
+  owasp-asvs5-level-3:
+  - V6.5.2
+  - V6.5.4
+  - V6.7.2
 347-352:
   ASVS:
   - V14.1.5
@@ -2864,12 +3463,25 @@
   owasp-asvs4-level-2:
   - V2.2.2
   - V2.7.1
+  owasp-asvs5-level-2:
+  - V6.6.1
+  owasp-asvs5-level-3:
+  - V6.3.6
+  - V6.6.1
 356-282:
   NIST 800-53 v5:
   - SI-21 Information Refresh
   PCI-DSS-v4.0:
   - '3.2'
   - '9.4'
+  owasp-asvs5-level-1:
+  - V15.3.1
+  owasp-asvs5-level-2:
+  - V15.3.1
+  owasp-asvs5-level-3:
+  - V11.7.2
+  - V14.2.6
+  - V15.3.1
 358-860:
   ASVS:
   - V2.5.7
@@ -2882,6 +3494,10 @@
   - Forgot Password Cheat Sheet
   owasp-asvs4-level-2:
   - V2.5.7
+  owasp-asvs5-level-2:
+  - V6.4.4
+  owasp-asvs5-level-3:
+  - V6.4.4
 362-550:
   ISO 27001:
   - Privacy and protection of personal identifiable information (PII)
@@ -2932,6 +3548,22 @@
   - V5.3.3
   owasp-asvs4-level-2:
   - V5.3.3
+  owasp-asvs5-level-1:
+  - V1.2.1
+  - V1.2.3
+  - V3.2.2
+  owasp-asvs5-level-2:
+  - V1.1.2
+  - V1.2.1
+  - V1.2.3
+  - V1.2.9
+  - V3.2.2
+  owasp-asvs5-level-3:
+  - V1.1.2
+  - V1.2.1
+  - V1.2.3
+  - V1.2.9
+  - V3.2.2
 368-633:
   ASVS:
   - V4.1.3
@@ -2952,6 +3584,15 @@
   - V4.1.3
   owasp-asvs4-level-2:
   - V4.1.3
+  owasp-asvs5-level-1:
+  - V8.2.1
+  - V8.2.2
+  owasp-asvs5-level-2:
+  - V8.2.1
+  - V8.2.2
+  owasp-asvs5-level-3:
+  - V8.2.1
+  - V8.2.2
 377-680:
   ASVS:
   - V13.1.5
@@ -2962,6 +3603,12 @@
   - Web Service Security Cheat Sheet
   owasp-asvs4-level-2:
   - V13.1.5
+  owasp-asvs5-level-1:
+  - V4.1.1
+  owasp-asvs5-level-2:
+  - V4.1.1
+  owasp-asvs5-level-3:
+  - V4.1.1
 380-540:
   ASVS:
   - V1.11.3
@@ -2969,6 +3616,9 @@
   - '367'
   OWASP Cheat Sheets:
   - Abuse Case Cheat Sheet
+  owasp-asvs5-level-3:
+  - V15.4.1
+  - V15.4.2
 384-344:
   ASVS:
   - V1.12.2
@@ -2976,6 +3626,12 @@
   - '646'
   owasp-asvs4-level-2:
   - V1.12.2
+  owasp-asvs5-level-1:
+  - V3.2.1
+  owasp-asvs5-level-2:
+  - V3.2.1
+  owasp-asvs5-level-3:
+  - V3.2.1
 387-848:
   ASVS:
   - V5.5.4
@@ -2991,6 +3647,12 @@
   - V5.5.4
   owasp-asvs4-level-2:
   - V5.5.4
+  owasp-asvs5-level-1:
+  - V1.3.2
+  owasp-asvs5-level-2:
+  - V1.3.2
+  owasp-asvs5-level-3:
+  - V1.3.2
 402-133:
   ASVS:
   - V3.1.1
@@ -3002,6 +3664,12 @@
   - V3.1.1
   owasp-asvs4-level-2:
   - V3.1.1
+  owasp-asvs5-level-1:
+  - V14.2.1
+  owasp-asvs5-level-2:
+  - V14.2.1
+  owasp-asvs5-level-3:
+  - V14.2.1
 402-706:
   CCPA:
   - Record-Keeping (a)
@@ -3045,6 +3713,14 @@
   - 5.1.5.2
   owasp-asvs4-level-2:
   - V2.8.4
+  owasp-asvs5-level-1:
+  - V10.4.2
+  owasp-asvs5-level-2:
+  - V10.4.2
+  - V6.5.1
+  owasp-asvs5-level-3:
+  - V10.4.2
+  - V6.5.1
 405-411:
   ASVS:
   - V14.5.2
@@ -3054,6 +3730,12 @@
   - V14.5.2
   owasp-asvs4-level-2:
   - V14.5.2
+  owasp-asvs5-level-1:
+  - V8.3.1
+  owasp-asvs5-level-2:
+  - V8.3.1
+  owasp-asvs5-level-3:
+  - V8.3.1
 411-684:
   NIST SSDF:
   - PW.7.1
@@ -3089,6 +3771,10 @@
   - V12.3.4
   owasp-asvs4-level-2:
   - V12.3.4
+  owasp-asvs5-level-2:
+  - V5.4.1
+  owasp-asvs5-level-3:
+  - V5.4.1
 422-005:
   ASVS:
   - V5.2.5
@@ -3105,6 +3791,10 @@
   - V5.2.5
   owasp-asvs4-level-2:
   - V5.2.5
+  owasp-asvs5-level-2:
+  - V1.3.7
+  owasp-asvs5-level-3:
+  - V1.3.7
 424-242:
   SAMM:
   - System Decommissioning / Legacy Management
@@ -3119,6 +3809,18 @@
   - REST Security Cheat Sheet
   owasp-asvs4-level-2:
   - V13.2.6
+  owasp-asvs5-level-1:
+  - V9.1.1
+  - V9.1.3
+  owasp-asvs5-level-2:
+  - V6.8.2
+  - V9.1.1
+  - V9.1.3
+  owasp-asvs5-level-3:
+  - V4.1.5
+  - V6.8.2
+  - V9.1.1
+  - V9.1.3
 427-113:
   Cloud Controls Matrix:
   - Human Resources
@@ -3196,6 +3898,19 @@
   - '295'
   owasp-asvs4-level-2:
   - V9.2.1
+  owasp-asvs5-level-1:
+  - V12.2.2
+  owasp-asvs5-level-2:
+  - V12.1.3
+  - V12.2.2
+  - V12.3.2
+  - V12.3.4
+  owasp-asvs5-level-3:
+  - V12.1.3
+  - V12.2.2
+  - V12.3.2
+  - V12.3.4
+  - V17.2.8
 433-122:
   ASVS:
   - V6.2.6
@@ -3208,6 +3923,11 @@
   - WSTG-CRYP-04
   owasp-asvs4-level-2:
   - V6.2.6
+  owasp-asvs5-level-2:
+  - V6.8.3
+  owasp-asvs5-level-3:
+  - V11.3.4
+  - V6.8.3
 433-442:
   Cloud Controls Matrix:
   - Automated Application Security Testing
@@ -3266,6 +3986,8 @@
   - 5.2.1
   owasp-asvs4-level-2:
   - V2.8.6
+  owasp-asvs5-level-3:
+  - V6.5.6
 441-132:
   ASVS:
   - V6.2.5
@@ -3278,6 +4000,18 @@
   - WSTG-CRYP-04
   owasp-asvs4-level-2:
   - V6.2.5
+  owasp-asvs5-level-1:
+  - V11.3.1
+  - V11.3.2
+  - V11.4.1
+  owasp-asvs5-level-2:
+  - V11.3.1
+  - V11.3.2
+  - V11.4.1
+  owasp-asvs5-level-3:
+  - V11.3.1
+  - V11.3.2
+  - V11.4.1
 443-447:
   ASVS:
   - V7.2.2
@@ -3287,6 +4021,10 @@
   - Logging Cheat Sheet
   owasp-asvs4-level-2:
   - V7.2.2
+  owasp-asvs5-level-2:
+  - V16.3.2
+  owasp-asvs5-level-3:
+  - V16.3.2
 455-358:
   ASVS:
   - V3.2.3
@@ -3302,6 +4040,11 @@
   - V3.2.3
   owasp-asvs4-level-2:
   - V3.2.3
+  owasp-asvs5-level-2:
+  - V14.3.3
+  owasp-asvs5-level-3:
+  - V14.3.3
+  - V3.3.5
 456-535:
   ASVS:
   - V11.1.2
@@ -3315,6 +4058,8 @@
   - V11.1.2
   owasp-asvs4-level-2:
   - V11.1.2
+  owasp-asvs5-level-3:
+  - V2.4.2
 456-636:
   ASVS:
   - V13.3.2
@@ -3324,6 +4069,8 @@
   - XML Security Cheat Sheet
   owasp-asvs4-level-2:
   - V13.3.2
+  owasp-asvs5-level-3:
+  - V4.1.5
 457-165:
   ASVS:
   - V3.3.1
@@ -3350,6 +4097,12 @@
   - V3.3.1
   owasp-asvs4-level-2:
   - V3.3.1
+  owasp-asvs5-level-1:
+  - V7.4.1
+  owasp-asvs5-level-2:
+  - V7.4.1
+  owasp-asvs5-level-3:
+  - V7.4.1
 461-680:
   NIST SSDF:
   - PS.3.1
@@ -3367,6 +4120,12 @@
   - V14.2.2
   owasp-asvs4-level-2:
   - V14.2.2
+  owasp-asvs5-level-2:
+  - V13.4.5
+  - V15.2.3
+  owasp-asvs5-level-3:
+  - V13.4.5
+  - V15.2.3
 463-577:
   CCPA:
   - Requests to Limit Use and Disclosure of Sensitive Personal Information (m)(3)
@@ -3505,6 +4264,11 @@
   - File Upload Cheat Sheet
   owasp-asvs4-level-2:
   - V12.1.3
+  owasp-asvs5-level-2:
+  - V2.4.1
+  owasp-asvs5-level-3:
+  - V2.4.1
+  - V5.2.4
 464-084:
   ASVS:
   - V13.2.3
@@ -3520,6 +4284,15 @@
   - V13.2.3
   owasp-asvs4-level-2:
   - V13.2.3
+  owasp-asvs5-level-1:
+  - V3.5.1
+  - V3.5.2
+  owasp-asvs5-level-2:
+  - V3.5.1
+  - V3.5.2
+  owasp-asvs5-level-3:
+  - V3.5.1
+  - V3.5.2
 464-513:
   Cloud Controls Matrix:
   - Application Security Metrics
@@ -3721,6 +4494,11 @@
   - V8.2.1
   owasp-asvs4-level-2:
   - V8.2.1
+  owasp-asvs5-level-2:
+  - V14.3.2
+  owasp-asvs5-level-3:
+  - V14.2.5
+  - V14.3.2
 480-071:
   ASVS:
   - V14.4.7
@@ -3734,6 +4512,10 @@
   - V14.4.7
   owasp-asvs4-level-2:
   - V14.4.7
+  owasp-asvs5-level-2:
+  - V3.4.6
+  owasp-asvs5-level-3:
+  - V3.4.6
 482-771:
   ASVS:
   - V5.4.3
@@ -3741,6 +4523,10 @@
   - '190'
   owasp-asvs4-level-2:
   - V5.4.3
+  owasp-asvs5-level-2:
+  - V1.4.2
+  owasp-asvs5-level-3:
+  - V1.4.2
 482-866:
   ASVS:
   - V6.1.1
@@ -3753,6 +4539,12 @@
   - WSTG-CRYP-04
   owasp-asvs4-level-2:
   - V6.1.1
+  owasp-asvs5-level-2:
+  - V14.1.1
+  - V14.1.2
+  owasp-asvs5-level-3:
+  - V14.1.1
+  - V14.1.2
 483-715:
   ASVS:
   - V14.5.1
@@ -3764,6 +4556,11 @@
   - V14.5.1
   owasp-asvs4-level-2:
   - V14.5.1
+  owasp-asvs5-level-2:
+  - V13.4.4
+  owasp-asvs5-level-3:
+  - V13.4.4
+  - V4.1.4
 483-883:
   ASVS:
   - V3.5.3
@@ -3776,6 +4573,29 @@
   - WSTG-CRYP-04
   owasp-asvs4-level-2:
   - V3.5.3
+  owasp-asvs5-level-1:
+  - V9.1.1
+  - V9.1.2
+  owasp-asvs5-level-2:
+  - V10.3.1
+  - V10.5.4
+  - V10.5.5
+  - V10.6.2
+  - V9.1.1
+  - V9.1.2
+  - V9.2.2
+  - V9.2.3
+  - V9.2.4
+  owasp-asvs5-level-3:
+  - V10.3.1
+  - V10.5.4
+  - V10.5.5
+  - V10.6.2
+  - V9.1.1
+  - V9.1.2
+  - V9.2.2
+  - V9.2.3
+  - V9.2.4
 486-813:
   D3FEND:
   - Application Configuration Hardening
@@ -3847,6 +4667,12 @@
   - V2.1.12
   owasp-asvs4-level-2:
   - V2.1.12
+  owasp-asvs5-level-1:
+  - V6.2.6
+  owasp-asvs5-level-2:
+  - V6.2.6
+  owasp-asvs5-level-3:
+  - V6.2.6
 503-455:
   FedRAMP:
   - High
@@ -3871,6 +4697,17 @@
   - C8
   owasp-asvs4-level-2:
   - V8.3.7
+  owasp-asvs5-level-2:
+  - V11.2.1
+  - V11.3.3
+  - V11.6.1
+  - V14.1.2
+  owasp-asvs5-level-3:
+  - V11.2.1
+  - V11.3.3
+  - V11.3.5
+  - V11.6.1
+  - V14.1.2
 508-702:
   ASVS:
   - V1.6.2
@@ -3881,6 +4718,10 @@
   - Key Management Cheat Sheet
   owasp-asvs4-level-2:
   - V1.6.2
+  owasp-asvs5-level-2:
+  - V13.3.1
+  owasp-asvs5-level-3:
+  - V13.3.1
 510-324:
   ISO 27001:
   - Compliance with policies, rules and standards for information security
@@ -3903,6 +4744,12 @@
   - 5.1.2.2
   owasp-asvs4-level-2:
   - V2.6.3
+  owasp-asvs5-level-2:
+  - V6.5.2
+  - V6.5.3
+  owasp-asvs5-level-3:
+  - V6.5.2
+  - V6.5.3
 515-021:
   ASVS:
   - V1.14.5
@@ -3918,6 +4765,9 @@
   - '1.3'
   owasp-asvs4-level-2:
   - V1.14.5
+  owasp-asvs5-level-3:
+  - V15.1.5
+  - V15.2.5
 522-616:
   FedRAMP:
   - High
@@ -3978,6 +4828,15 @@
   PCI-DSS-v4.0:
   - 8.4.1
   - 8.4.2
+  owasp-asvs5-level-2:
+  - V6.3.3
+  - V6.4.4
+  - V6.5.1
+  owasp-asvs5-level-3:
+  - V6.3.3
+  - V6.4.4
+  - V6.5.1
+  - V6.5.7
 524-603:
   ASVS:
   - V4.1.2
@@ -3992,6 +4851,18 @@
   - V4.1.2
   owasp-asvs4-level-2:
   - V4.1.2
+  owasp-asvs5-level-1:
+  - V8.2.1
+  - V8.3.1
+  owasp-asvs5-level-2:
+  - V8.2.1
+  - V8.3.1
+  owasp-asvs5-level-3:
+  - V8.2.1
+  - V8.3.1
+  - V8.3.2
+  - V8.3.3
+  - V8.4.2
 525-361:
   ASVS:
   - V2.2.7
@@ -4005,6 +4876,10 @@
   - Transport Layer Protection Cheat Sheet
   PCI-DSS-v4.0:
   - '8.5'
+  owasp-asvs5-level-2:
+  - V6.3.3
+  owasp-asvs5-level-3:
+  - V6.3.3
 527-034:
   ASVS:
   - V1.9.1
@@ -4017,6 +4892,16 @@
   - C3
   owasp-asvs4-level-2:
   - V1.9.1
+  owasp-asvs5-level-1:
+  - V12.2.1
+  owasp-asvs5-level-2:
+  - V12.2.1
+  - V12.3.1
+  - V12.3.3
+  owasp-asvs5-level-3:
+  - V12.2.1
+  - V12.3.1
+  - V12.3.3
 530-671:
   ASVS:
   - V1.9.2
@@ -4027,6 +4912,13 @@
   - Transport Layer Protection Cheat Sheet
   owasp-asvs4-level-2:
   - V1.9.2
+  owasp-asvs5-level-2:
+  - V10.4.10
+  - V12.3.4
+  owasp-asvs5-level-3:
+  - V10.4.10
+  - V12.3.4
+  - V12.3.5
 531-558:
   ASVS:
   - V5.3.7
@@ -4056,6 +4948,12 @@
   - V5.3.7
   owasp-asvs4-level-2:
   - V5.3.7
+  owasp-asvs5-level-2:
+  - V1.2.6
+  - V1.3.8
+  owasp-asvs5-level-3:
+  - V1.2.6
+  - V1.3.8
 532-878:
   ASVS:
   - V13.2.1
@@ -4071,6 +4969,12 @@
   - V13.2.1
   owasp-asvs4-level-2:
   - V13.2.1
+  owasp-asvs5-level-1:
+  - V3.5.3
+  owasp-asvs5-level-2:
+  - V3.5.3
+  owasp-asvs5-level-3:
+  - V3.5.3
 533-516:
   ASVS:
   - V5.3.2
@@ -4100,6 +5004,12 @@
   - V5.3.2
   owasp-asvs4-level-2:
   - V5.3.2
+  owasp-asvs5-level-1:
+  - V4.1.1
+  owasp-asvs5-level-2:
+  - V4.1.1
+  owasp-asvs5-level-3:
+  - V4.1.1
 534-605:
   ASVS:
   - V11.1.1
@@ -4113,6 +5023,12 @@
   - V11.1.1
   owasp-asvs4-level-2:
   - V11.1.1
+  owasp-asvs5-level-1:
+  - V2.3.1
+  owasp-asvs5-level-2:
+  - V2.3.1
+  owasp-asvs5-level-3:
+  - V2.3.1
 537-367:
   ASVS:
   - V9.2.4
@@ -4120,6 +5036,8 @@
   - '299'
   owasp-asvs4-level-2:
   - V9.2.4
+  owasp-asvs5-level-3:
+  - V12.1.4
 538-446:
   ASVS:
   - V5.2.2
@@ -4136,6 +5054,10 @@
   - V5.2.2
   owasp-asvs4-level-2:
   - V5.2.2
+  owasp-asvs5-level-2:
+  - V1.3.3
+  owasp-asvs5-level-3:
+  - V1.3.3
 540-566:
   ASVS:
   - V10.2.2
@@ -4145,6 +5067,10 @@
   - Use of privileged utility programs
   owasp-asvs4-level-2:
   - V10.2.2
+  owasp-asvs5-level-2:
+  - V13.2.2
+  owasp-asvs5-level-3:
+  - V13.2.2
 542-445:
   ASVS:
   - V5.2.1
@@ -4163,6 +5089,17 @@
   - V5.2.1
   owasp-asvs4-level-2:
   - V5.2.1
+  owasp-asvs5-level-1:
+  - V1.2.1
+  - V1.3.1
+  owasp-asvs5-level-2:
+  - V1.1.2
+  - V1.2.1
+  - V1.3.1
+  owasp-asvs5-level-3:
+  - V1.1.2
+  - V1.2.1
+  - V1.3.1
 542-488:
   ASVS:
   - V6.3.1
@@ -4172,6 +5109,11 @@
   - WSTG-CRYP-04
   owasp-asvs4-level-2:
   - V6.3.1
+  owasp-asvs5-level-2:
+  - V11.5.1
+  owasp-asvs5-level-3:
+  - V11.5.1
+  - V11.5.2
 543-428:
   ASVS:
   - V2.8.2
@@ -4182,6 +5124,13 @@
   - 5.1.5.2
   owasp-asvs4-level-2:
   - V2.8.2
+  owasp-asvs5-level-2:
+  - V13.3.1
+  - V13.3.2
+  owasp-asvs5-level-3:
+  - V13.3.1
+  - V13.3.2
+  - V13.3.3
 543-512:
   ASVS:
   - V13.2.5
@@ -4193,6 +5142,15 @@
   - REST Security Cheat Sheet
   owasp-asvs4-level-2:
   - V13.2.5
+  owasp-asvs5-level-1:
+  - V3.5.2
+  - V4.1.1
+  owasp-asvs5-level-2:
+  - V3.5.2
+  - V4.1.1
+  owasp-asvs5-level-3:
+  - V3.5.2
+  - V4.1.1
 543-621:
   ASVS:
   - V2.5.3
@@ -4209,6 +5167,13 @@
   - V2.5.3
   owasp-asvs4-level-2:
   - V2.5.3
+  owasp-asvs5-level-2:
+  - V11.4.2
+  - V6.4.3
+  owasp-asvs5-level-3:
+  - V11.4.2
+  - V6.4.3
+  - V6.4.6
 545-243:
   ASVS:
   - V12.5.2
@@ -4220,6 +5185,15 @@
   - V12.5.2
   owasp-asvs4-level-2:
   - V12.5.2
+  owasp-asvs5-level-1:
+  - V3.2.1
+  - V5.3.1
+  owasp-asvs5-level-2:
+  - V3.2.1
+  - V5.3.1
+  owasp-asvs5-level-3:
+  - V3.2.1
+  - V5.3.1
 547-283:
   ASVS:
   - V5.3.9
@@ -4247,6 +5221,12 @@
   - V5.3.9
   owasp-asvs4-level-2:
   - V5.3.9
+  owasp-asvs5-level-1:
+  - V5.3.2
+  owasp-asvs5-level-2:
+  - V5.3.2
+  owasp-asvs5-level-3:
+  - V5.3.2
 551-054:
   ASVS:
   - V3.5.2
@@ -4259,6 +5239,12 @@
   - WSTG-SESS-01
   owasp-asvs4-level-2:
   - V3.5.2
+  owasp-asvs5-level-1:
+  - V7.2.2
+  owasp-asvs5-level-2:
+  - V7.2.2
+  owasp-asvs5-level-3:
+  - V7.2.2
 551-400:
   ASVS:
   - V3.5.1
@@ -4271,6 +5257,10 @@
   - REST Security Cheat Sheet
   owasp-asvs4-level-2:
   - V3.5.1
+  owasp-asvs5-level-2:
+  - V10.4.9
+  owasp-asvs5-level-3:
+  - V10.4.9
 553-413:
   ASVS:
   - V2.3.2
@@ -4280,6 +5270,10 @@
   - 6.1.3
   owasp-asvs4-level-2:
   - V2.3.2
+  owasp-asvs5-level-2:
+  - V6.3.3
+  owasp-asvs5-level-3:
+  - V6.3.3
 555-048:
   ASVS:
   - V7.1.4
@@ -4313,6 +5307,10 @@
   - 10.7.1
   owasp-asvs4-level-2:
   - V7.1.4
+  owasp-asvs5-level-2:
+  - V16.2.1
+  owasp-asvs5-level-3:
+  - V16.2.1
 558-807:
   ASVS:
   - V2.2.5
@@ -4324,6 +5322,8 @@
   - Authentication Cheat Sheet
   - TLS Cipher String Cheat Sheet
   - Transport Layer Protection Cheat Sheet
+  owasp-asvs5-level-3:
+  - V12.3.5
 560-224:
   Cloud Controls Matrix:
   - Capacity and Resource Planning
@@ -4559,6 +5559,12 @@
   - '306'
   owasp-asvs4-level-2:
   - V1.2.4
+  owasp-asvs5-level-2:
+  - V6.1.3
+  - V6.3.4
+  owasp-asvs5-level-3:
+  - V6.1.3
+  - V6.3.4
 576-651:
   ASVS:
   - V2.1.7
@@ -4578,6 +5584,16 @@
   - V2.1.7
   owasp-asvs4-level-2:
   - V2.1.7
+  owasp-asvs5-level-1:
+  - V6.2.4
+  owasp-asvs5-level-2:
+  - V6.2.10
+  - V6.2.12
+  - V6.2.4
+  owasp-asvs5-level-3:
+  - V6.2.10
+  - V6.2.12
+  - V6.2.4
 577-260:
   ASVS:
   - V14.2.3
@@ -4592,6 +5608,8 @@
   - V14.2.3
   owasp-asvs4-level-2:
   - V14.2.3
+  owasp-asvs5-level-3:
+  - V3.6.1
 581-525:
   ASVS:
   - V2.5.6
@@ -4610,6 +5628,15 @@
   - V2.5.6
   owasp-asvs4-level-2:
   - V2.5.6
+  owasp-asvs5-level-1:
+  - V6.4.2
+  owasp-asvs5-level-2:
+  - V6.4.2
+  - V6.4.3
+  owasp-asvs5-level-3:
+  - V6.4.2
+  - V6.4.3
+  - V6.4.6
 582-541:
   ASVS:
   - V3.7.1
@@ -4626,6 +5653,11 @@
   - V3.7.1
   owasp-asvs4-level-2:
   - V3.7.1
+  owasp-asvs5-level-2:
+  - V7.5.1
+  owasp-asvs5-level-3:
+  - V7.5.1
+  - V7.5.3
 586-842:
   OWASP Top 10 2021:
   - Identification and Authentication Failures
@@ -4655,6 +5687,11 @@
   - '287'
   owasp-asvs4-level-2:
   - V9.2.3
+  owasp-asvs5-level-2:
+  - V13.2.1
+  owasp-asvs5-level-3:
+  - V12.3.5
+  - V13.2.1
 607-671:
   ASVS:
   - V5.3.6
@@ -4684,6 +5721,14 @@
   - V5.3.6
   owasp-asvs4-level-2:
   - V5.3.6
+  owasp-asvs5-level-1:
+  - V1.2.3
+  owasp-asvs5-level-2:
+  - V1.2.3
+  owasp-asvs5-level-3:
+  - V1.2.3
+  - V3.5.6
+  - V3.5.7
 611-051:
   ASVS:
   - V13.3.1
@@ -4697,6 +5742,17 @@
   - V13.3.1
   owasp-asvs4-level-2:
   - V13.3.1
+  owasp-asvs5-level-1:
+  - V2.1.1
+  - V2.2.1
+  owasp-asvs5-level-2:
+  - V2.1.1
+  - V2.2.1
+  - V2.2.3
+  owasp-asvs5-level-3:
+  - V2.1.1
+  - V2.2.1
+  - V2.2.3
 611-158:
   ASVS:
   - V10.1.1
@@ -4713,6 +5769,10 @@
   - '285'
   owasp-asvs4-level-2:
   - V13.4.2
+  owasp-asvs5-level-2:
+  - V4.3.2
+  owasp-asvs5-level-3:
+  - V4.3.2
 612-435:
   ASVS:
   - V7.4.1
@@ -4728,6 +5788,11 @@
   - V7.4.1
   owasp-asvs4-level-2:
   - V7.4.1
+  owasp-asvs5-level-2:
+  - V16.5.1
+  owasp-asvs5-level-3:
+  - V16.5.1
+  - V6.3.8
 613-285:
   CCPA:
   - Contract Requirements for Service Providers and Contractors (b)
@@ -4901,6 +5966,14 @@
   - V4.3.2
   owasp-asvs4-level-2:
   - V4.3.2
+  owasp-asvs5-level-1:
+  - V13.4.1
+  owasp-asvs5-level-2:
+  - V13.4.1
+  - V13.4.3
+  owasp-asvs5-level-3:
+  - V13.4.1
+  - V13.4.3
 616-305:
   ASVS:
   - V1.1.1
@@ -4986,6 +6059,14 @@
   - V8.2.2
   owasp-asvs4-level-2:
   - V8.2.2
+  owasp-asvs5-level-1:
+  - V14.3.1
+  owasp-asvs5-level-2:
+  - V14.3.1
+  - V14.3.3
+  owasp-asvs5-level-3:
+  - V14.3.1
+  - V14.3.3
 618-403:
   ASVS:
   - V3.6.1
@@ -4995,6 +6076,10 @@
   - 7.2.1
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-SESS-01
+  owasp-asvs5-level-2:
+  - V7.6.1
+  owasp-asvs5-level-3:
+  - V7.6.1
 620-101:
   ASVS:
   - V5.3.1
@@ -5024,6 +6109,17 @@
   - V5.3.1
   owasp-asvs4-level-2:
   - V5.3.1
+  owasp-asvs5-level-1:
+  - V1.2.1
+  - V1.2.2
+  owasp-asvs5-level-2:
+  - V1.1.2
+  - V1.2.1
+  - V1.2.2
+  owasp-asvs5-level-3:
+  - V1.1.2
+  - V1.2.1
+  - V1.2.2
 622-203:
   ASVS:
   - V2.4.1
@@ -5037,6 +6133,12 @@
   - C6
   owasp-asvs4-level-2:
   - V2.4.1
+  owasp-asvs5-level-2:
+  - V11.4.2
+  - V11.4.4
+  owasp-asvs5-level-3:
+  - V11.4.2
+  - V11.4.4
 622-835:
   ASVS:
   - V2.3.1
@@ -5051,6 +6153,12 @@
   - V2.3.1
   owasp-asvs4-level-2:
   - V2.3.1
+  owasp-asvs5-level-1:
+  - V6.4.1
+  owasp-asvs5-level-2:
+  - V6.4.1
+  owasp-asvs5-level-3:
+  - V6.4.1
 623-347:
   ASVS:
   - V2.5.4
@@ -5071,6 +6179,12 @@
   - V2.5.4
   owasp-asvs4-level-2:
   - V2.5.4
+  owasp-asvs5-level-1:
+  - V6.3.2
+  owasp-asvs5-level-2:
+  - V6.3.2
+  owasp-asvs5-level-3:
+  - V6.3.2
 623-550:
   EU-CRA:
   - 1.3.f
@@ -5098,6 +6212,16 @@
   PCI-DSS-v4.0:
   - 1.3.1
   - 1.3.2
+  owasp-asvs5-level-2:
+  - V15.1.3
+  - V15.2.2
+  owasp-asvs5-level-3:
+  - V1.3.12
+  - V13.1.2
+  - V13.1.3
+  - V15.1.3
+  - V15.2.2
+  - V4.2.5
 626-250:
   FedRAMP:
   - High
@@ -5137,6 +6261,16 @@
   - V11.1.4
   owasp-asvs4-level-2:
   - V11.1.4
+  owasp-asvs5-level-2:
+  - V17.3.1
+  - V2.4.1
+  owasp-asvs5-level-3:
+  - V13.2.6
+  - V17.1.2
+  - V17.2.5
+  - V17.2.7
+  - V17.3.1
+  - V2.4.1
 630-577:
   ASVS:
   - V2.1.11
@@ -5154,6 +6288,12 @@
   - V2.1.11
   owasp-asvs4-level-2:
   - V2.1.11
+  owasp-asvs5-level-1:
+  - V6.2.7
+  owasp-asvs5-level-2:
+  - V6.2.7
+  owasp-asvs5-level-3:
+  - V6.2.7
 633-428:
   CCPA:
   - Authorized Agents (a)
@@ -5231,6 +6371,8 @@
   - 8.3.8
   - 8.4.3
   - A3.4
+  owasp-asvs5-level-3:
+  - V8.2.4
 635-851:
   NIST SSDF:
   - RV.3.4
@@ -5242,6 +6384,9 @@
 636-347:
   OWASP Secure Headers Project:
   - configuration
+  owasp-asvs5-level-3:
+  - V3.1.1
+  - V3.4.8
 636-660:
   NIST SSDF:
   - PW.5.1
@@ -5260,6 +6405,21 @@
   - 8.3.2
   owasp-asvs4-level-2:
   - V9.2.2
+  owasp-asvs5-level-1:
+  - V12.2.1
+  - V4.4.1
+  owasp-asvs5-level-2:
+  - V12.2.1
+  - V12.3.1
+  - V12.3.3
+  - V4.4.1
+  - V4.4.4
+  owasp-asvs5-level-3:
+  - V12.2.1
+  - V12.3.1
+  - V12.3.3
+  - V4.4.1
+  - V4.4.4
 640-364:
   ASVS:
   - V1.4.1
@@ -5269,6 +6429,12 @@
   - Docker Security Cheat Sheet
   owasp-asvs4-level-2:
   - V1.4.1
+  owasp-asvs5-level-1:
+  - V8.3.1
+  owasp-asvs5-level-2:
+  - V8.3.1
+  owasp-asvs5-level-3:
+  - V8.3.1
 646-227:
   ASVS:
   - V2.8.5
@@ -5278,6 +6444,12 @@
   - 5.1.5.2
   owasp-asvs4-level-2:
   - V2.8.5
+  owasp-asvs5-level-2:
+  - V16.3.1
+  - V6.5.1
+  owasp-asvs5-level-3:
+  - V16.3.1
+  - V6.5.1
 646-462:
   ASVS:
   - V5.2.8
@@ -5294,6 +6466,14 @@
   - V5.2.8
   owasp-asvs4-level-2:
   - V5.2.8
+  owasp-asvs5-level-2:
+  - V1.2.8
+  - V1.3.5
+  - V1.3.7
+  owasp-asvs5-level-3:
+  - V1.2.8
+  - V1.3.5
+  - V1.3.7
 650-560:
   ASVS:
   - V4.1.1
@@ -5308,6 +6488,15 @@
   - V4.1.1
   owasp-asvs4-level-2:
   - V4.1.1
+  owasp-asvs5-level-1:
+  - V8.3.1
+  owasp-asvs5-level-2:
+  - V3.5.5
+  - V8.3.1
+  owasp-asvs5-level-3:
+  - V10.4.15
+  - V3.5.5
+  - V8.3.1
 653-242:
   ASVS:
   - V5.1.4
@@ -5324,6 +6513,19 @@
   - V5.1.4
   owasp-asvs4-level-2:
   - V5.1.4
+  owasp-asvs5-level-1:
+  - V2.1.1
+  - V2.2.1
+  owasp-asvs5-level-2:
+  - V2.1.1
+  - V2.1.2
+  - V2.2.1
+  - V2.2.3
+  owasp-asvs5-level-3:
+  - V2.1.1
+  - V2.1.2
+  - V2.2.1
+  - V2.2.3
 657-084:
   ASVS:
   - V5.2.6
@@ -5340,6 +6542,14 @@
   - V5.2.6
   owasp-asvs4-level-2:
   - V5.2.6
+  owasp-asvs5-level-2:
+  - V1.3.6
+  - V15.3.2
+  - V17.1.1
+  owasp-asvs5-level-3:
+  - V1.3.6
+  - V15.3.2
+  - V17.1.1
 660-052:
   ASVS:
   - V12.1.1
@@ -5353,6 +6563,15 @@
   - V12.1.1
   owasp-asvs4-level-2:
   - V12.1.1
+  owasp-asvs5-level-1:
+  - V5.2.1
+  owasp-asvs5-level-2:
+  - V5.1.1
+  - V5.2.1
+  owasp-asvs5-level-3:
+  - V5.1.1
+  - V5.2.1
+  - V5.2.6
 660-867:
   ASVS:
   - V11.1.5
@@ -5366,6 +6585,20 @@
   - V11.1.5
   owasp-asvs4-level-2:
   - V11.1.5
+  owasp-asvs5-level-1:
+  - V2.2.1
+  - V2.3.1
+  owasp-asvs5-level-2:
+  - V2.1.3
+  - V2.2.1
+  - V2.3.1
+  - V2.3.2
+  owasp-asvs5-level-3:
+  - V2.1.3
+  - V2.2.1
+  - V2.3.1
+  - V2.3.2
+  - V2.3.5
 664-080:
   ASVS:
   - V13.1.4
@@ -5376,6 +6609,21 @@
   - Web Service Security Cheat Sheet
   owasp-asvs4-level-2:
   - V13.1.4
+  owasp-asvs5-level-1:
+  - V8.2.1
+  - V8.2.2
+  owasp-asvs5-level-2:
+  - V10.3.2
+  - V8.1.2
+  - V8.2.1
+  - V8.2.2
+  - V8.4.1
+  owasp-asvs5-level-3:
+  - V10.3.2
+  - V8.1.2
+  - V8.2.1
+  - V8.2.2
+  - V8.4.1
 664-571:
   ASVS:
   - V6.3.3
@@ -5383,6 +6631,11 @@
   - '338'
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-04
+  owasp-asvs5-level-2:
+  - V11.5.1
+  owasp-asvs5-level-3:
+  - V11.5.1
+  - V11.5.2
 668-364:
   ASVS:
   - V9.2.5
@@ -5405,6 +6658,10 @@
   PCI DSS v3.2.1:
   - '3'
   - 8.2.1
+  owasp-asvs5-level-2:
+  - V16.3.4
+  owasp-asvs5-level-3:
+  - V16.3.4
 670-660:
   ASVS:
   - V1.11.2
@@ -5414,6 +6671,8 @@
   - Abuse Case Cheat Sheet
   owasp-asvs4-level-2:
   - V1.11.2
+  owasp-asvs5-level-3:
+  - V15.4.1
 673-475:
   ASVS:
   - V1.14.6
@@ -5423,6 +6682,11 @@
   - 12.3.4
   owasp-asvs4-level-2:
   - V1.14.6
+  owasp-asvs5-level-2:
+  - V3.7.1
+  owasp-asvs5-level-3:
+  - V3.7.1
+  - V3.7.5
 673-736:
   ASVS:
   - V3.3.4
@@ -5436,6 +6700,18 @@
   - WSTG-SESS-06
   owasp-asvs4-level-2:
   - V3.3.4
+  owasp-asvs5-level-1:
+  - V7.4.2
+  owasp-asvs5-level-2:
+  - V7.4.2
+  - V7.4.4
+  - V7.4.5
+  - V7.5.2
+  owasp-asvs5-level-3:
+  - V7.4.2
+  - V7.4.4
+  - V7.4.5
+  - V7.5.2
 674-425:
   ASVS:
   - V6.2.3
@@ -5448,6 +6724,24 @@
   - WSTG-CRYP-04
   owasp-asvs4-level-2:
   - V6.2.3
+  owasp-asvs5-level-1:
+  - V11.3.1
+  - V11.3.2
+  - V11.4.1
+  owasp-asvs5-level-2:
+  - V11.2.3
+  - V11.3.1
+  - V11.3.2
+  - V11.4.1
+  - V12.1.2
+  owasp-asvs5-level-3:
+  - V11.2.3
+  - V11.3.1
+  - V11.3.2
+  - V11.3.4
+  - V11.4.1
+  - V11.6.2
+  - V12.1.2
 675-168:
   ASVS:
   - V12.3.1
@@ -5459,6 +6753,12 @@
   - V12.3.1
   owasp-asvs4-level-2:
   - V12.3.1
+  owasp-asvs5-level-1:
+  - V5.3.2
+  owasp-asvs5-level-2:
+  - V5.3.2
+  owasp-asvs5-level-3:
+  - V5.3.2
 681-823:
   ASVS:
   - V2.8.1
@@ -5471,6 +6771,11 @@
   - V2.8.1
   owasp-asvs4-level-2:
   - V2.8.1
+  owasp-asvs5-level-2:
+  - V6.5.5
+  owasp-asvs5-level-3:
+  - V6.5.5
+  - V6.5.8
 683-036:
   NIST 800-53 v5:
   - SC-40 Wireless Link Protection
@@ -5491,6 +6796,12 @@
   - V12.3.5
   owasp-asvs4-level-2:
   - V12.3.5
+  owasp-asvs5-level-1:
+  - V1.2.5
+  owasp-asvs5-level-2:
+  - V1.2.5
+  owasp-asvs5-level-3:
+  - V1.2.5
 688-081:
   ASVS:
   - V3.4.1
@@ -5509,6 +6820,12 @@
   - V3.4.1
   owasp-asvs4-level-2:
   - V3.4.1
+  owasp-asvs5-level-1:
+  - V3.3.1
+  owasp-asvs5-level-2:
+  - V3.3.1
+  owasp-asvs5-level-3:
+  - V3.3.1
 704-530:
   ASVS:
   - V3.2.2
@@ -5526,6 +6843,12 @@
   - V3.2.2
   owasp-asvs4-level-2:
   - V3.2.2
+  owasp-asvs5-level-1:
+  - V7.2.3
+  owasp-asvs5-level-2:
+  - V7.2.3
+  owasp-asvs5-level-3:
+  - V7.2.3
 705-182:
   ASVS:
   - V3.4.5
@@ -5544,6 +6867,10 @@
   - V3.4.5
   owasp-asvs4-level-2:
   - V3.4.5
+  owasp-asvs5-level-2:
+  - V3.5.4
+  owasp-asvs5-level-3:
+  - V3.5.4
 708-355:
   D3FEND:
   - Execution Isolation
@@ -5587,6 +6914,10 @@
   - 10.3.1
   owasp-asvs4-level-2:
   - V7.3.3
+  owasp-asvs5-level-2:
+  - V16.4.2
+  owasp-asvs5-level-3:
+  - V16.4.2
 715-223:
   ASVS:
   - V14.2.4
@@ -5599,6 +6930,11 @@
   - C2
   owasp-asvs4-level-2:
   - V14.2.4
+  owasp-asvs5-level-2:
+  - V15.1.2
+  owasp-asvs5-level-3:
+  - V15.1.2
+  - V3.6.1
 715-304:
   ASVS:
   - V8.3.6
@@ -5606,6 +6942,8 @@
   - '226'
   owasp-asvs4-level-2:
   - V8.3.6
+  owasp-asvs5-level-3:
+  - V11.7.1
 715-334:
   ASVS:
   - V14.2.1
@@ -5620,6 +6958,15 @@
   - V14.2.1
   owasp-asvs4-level-2:
   - V14.2.1
+  owasp-asvs5-level-1:
+  - V15.1.1
+  - V15.2.1
+  owasp-asvs5-level-2:
+  - V15.1.1
+  - V15.2.1
+  owasp-asvs5-level-3:
+  - V15.1.1
+  - V15.2.1
 715-681:
   ASVS:
   - V2.1.3
@@ -5639,6 +6986,12 @@
   - V2.1.3
   owasp-asvs4-level-2:
   - V2.1.3
+  owasp-asvs5-level-1:
+  - V6.2.8
+  owasp-asvs5-level-2:
+  - V6.2.8
+  owasp-asvs5-level-3:
+  - V6.2.8
 724-770:
   CCPA:
   - General Rules Regarding Verification (c)(1)
@@ -5730,6 +7083,12 @@
   - WSTG-SESS-01
   owasp-asvs4-level-2:
   - V3.2.4
+  owasp-asvs5-level-1:
+  - V7.2.3
+  owasp-asvs5-level-2:
+  - V7.2.3
+  owasp-asvs5-level-3:
+  - V7.2.3
 731-120:
   ASVS:
   - V1.8.2
@@ -5740,6 +7099,12 @@
   - User Privacy Protection Cheat Sheet
   owasp-asvs4-level-2:
   - V1.8.2
+  owasp-asvs5-level-2:
+  - V14.1.2
+  - V14.2.4
+  owasp-asvs5-level-3:
+  - V14.1.2
+  - V14.2.4
 732-148:
   CCPA:
   - Agency Audits (b)
@@ -5819,6 +7184,12 @@
   - V5.3.4
   owasp-asvs4-level-2:
   - V5.3.4
+  owasp-asvs5-level-1:
+  - V1.2.4
+  owasp-asvs5-level-2:
+  - V1.2.4
+  owasp-asvs5-level-3:
+  - V1.2.4
 736-237:
   ASVS:
   - V14.4.2
@@ -5830,6 +7201,14 @@
   - V14.4.2
   owasp-asvs4-level-2:
   - V14.4.2
+  owasp-asvs5-level-1:
+  - V3.2.1
+  owasp-asvs5-level-2:
+  - V3.2.1
+  - V5.4.2
+  owasp-asvs5-level-3:
+  - V3.2.1
+  - V5.4.2
 736-554:
   ASVS:
   - V1.5.2
@@ -5839,6 +7218,10 @@
   - Abuse Case Cheat Sheet
   - Deserialization Cheat Sheet
   owasp-asvs4-level-2:
+  - V1.5.2
+  owasp-asvs5-level-2:
+  - V1.5.2
+  owasp-asvs5-level-3:
   - V1.5.2
 737-086:
   ASVS:
@@ -5851,6 +7234,12 @@
   - V12.3.2
   owasp-asvs4-level-2:
   - V12.3.2
+  owasp-asvs5-level-1:
+  - V5.3.2
+  owasp-asvs5-level-2:
+  - V5.3.2
+  owasp-asvs5-level-3:
+  - V5.3.2
 742-056:
   ASVS:
   - V12.3.3
@@ -5862,6 +7251,12 @@
   - V12.3.3
   owasp-asvs4-level-2:
   - V12.3.3
+  owasp-asvs5-level-1:
+  - V5.3.2
+  owasp-asvs5-level-2:
+  - V5.3.2
+  owasp-asvs5-level-3:
+  - V5.3.2
 742-431:
   ASVS:
   - V6.2.2
@@ -5876,6 +7271,28 @@
   - WSTG-CRYP-04
   owasp-asvs4-level-2:
   - V6.2.2
+  owasp-asvs5-level-1:
+  - V11.3.1
+  - V11.3.2
+  - V11.4.1
+  owasp-asvs5-level-2:
+  - V11.2.1
+  - V11.2.3
+  - V11.3.1
+  - V11.3.2
+  - V11.3.3
+  - V11.4.1
+  - V11.4.3
+  - V11.6.1
+  owasp-asvs5-level-3:
+  - V11.2.1
+  - V11.2.3
+  - V11.3.1
+  - V11.3.2
+  - V11.3.3
+  - V11.4.1
+  - V11.4.3
+  - V11.6.1
 743-110:
   ASVS:
   - V14.3.3
@@ -5889,6 +7306,8 @@
   - V14.3.3
   owasp-asvs4-level-2:
   - V14.3.3
+  owasp-asvs5-level-3:
+  - V13.4.6
 743-237:
   ASVS:
   - V5.1.1
@@ -5903,6 +7322,10 @@
   - V5.1.1
   owasp-asvs4-level-2:
   - V5.1.1
+  owasp-asvs5-level-2:
+  - V15.3.7
+  owasp-asvs5-level-3:
+  - V15.3.7
 745-045:
   ASVS:
   - V9.1.1
@@ -5920,6 +7343,14 @@
   - V9.1.1
   owasp-asvs4-level-2:
   - V9.1.1
+  owasp-asvs5-level-1:
+  - V12.2.1
+  owasp-asvs5-level-2:
+  - V12.2.1
+  - V4.1.2
+  owasp-asvs5-level-3:
+  - V12.2.1
+  - V4.1.2
 745-356:
   NIST SSDF:
   - PO.3.3
@@ -5936,6 +7367,10 @@
   - V11.1.3
   owasp-asvs4-level-2:
   - V11.1.3
+  owasp-asvs5-level-2:
+  - V2.3.2
+  owasp-asvs5-level-3:
+  - V2.3.2
 751-176:
   ASVS:
   - V2.1.5
@@ -5953,6 +7388,12 @@
   - V2.1.5
   owasp-asvs4-level-2:
   - V2.1.5
+  owasp-asvs5-level-1:
+  - V6.2.2
+  owasp-asvs5-level-2:
+  - V6.2.2
+  owasp-asvs5-level-3:
+  - V6.2.2
 757-271:
   ASVS:
   - V1.10.1
@@ -5971,6 +7412,11 @@
   PCI-DSS-v4.0:
   - 6.2.4
   - '6.4'
+  owasp-asvs5-level-2:
+  - V1.3.9
+  owasp-asvs5-level-3:
+  - V1.2.10
+  - V1.3.9
 762-451:
   ASVS:
   - V8.3.2
@@ -5980,6 +7426,8 @@
   - V8.3.2
   owasp-asvs4-level-2:
   - V8.3.2
+  owasp-asvs5-level-3:
+  - V14.2.8
 762-616:
   ASVS:
   - V5.5.1
@@ -5995,6 +7443,10 @@
   - V5.5.1
   owasp-asvs4-level-2:
   - V5.5.1
+  owasp-asvs5-level-2:
+  - V1.5.2
+  owasp-asvs5-level-3:
+  - V1.5.2
 764-507:
   ASVS:
   - V5.5.2
@@ -6010,6 +7462,12 @@
   - V5.5.2
   owasp-asvs4-level-2:
   - V5.5.2
+  owasp-asvs5-level-1:
+  - V1.5.1
+  owasp-asvs5-level-2:
+  - V1.5.1
+  owasp-asvs5-level-3:
+  - V1.5.1
 765-788:
   ASVS:
   - V1.8.1
@@ -6023,6 +7481,10 @@
   - 9.4.2
   owasp-asvs4-level-2:
   - V1.8.1
+  owasp-asvs5-level-2:
+  - V14.1.1
+  owasp-asvs5-level-3:
+  - V14.1.1
 766-162:
   Cloud Controls Matrix:
   - Governance, Risk and Compliance
@@ -6059,6 +7521,12 @@
   - C6
   owasp-asvs4-level-2:
   - V2.4.3
+  owasp-asvs5-level-2:
+  - V11.4.2
+  - V11.4.4
+  owasp-asvs5-level-3:
+  - V11.4.2
+  - V11.4.4
 767-701:
   ASVS:
   - V9.1.2
@@ -6074,6 +7542,17 @@
   - V9.1.2
   owasp-asvs4-level-2:
   - V9.1.2
+  owasp-asvs5-level-1:
+  - V12.1.1
+  owasp-asvs5-level-2:
+  - V12.1.1
+  - V12.1.2
+  - V17.2.2
+  owasp-asvs5-level-3:
+  - V12.1.1
+  - V12.1.2
+  - V12.1.5
+  - V17.2.2
 770-361:
   ASVS:
   - V7.3.4
@@ -6084,6 +7563,10 @@
   - C9
   owasp-asvs4-level-2:
   - V7.3.4
+  owasp-asvs5-level-2:
+  - V16.2.2
+  owasp-asvs5-level-3:
+  - V16.2.2
 772-358:
   ASVS:
   - V2.5.2
@@ -6100,6 +7583,12 @@
   - V2.5.2
   owasp-asvs4-level-2:
   - V2.5.2
+  owasp-asvs5-level-1:
+  - V6.4.2
+  owasp-asvs5-level-2:
+  - V6.4.2
+  owasp-asvs5-level-3:
+  - V6.4.2
 774-888:
   ASVS:
   - V2.10.4
@@ -6107,6 +7596,10 @@
   - '798'
   owasp-asvs4-level-2:
   - V2.10.4
+  owasp-asvs5-level-2:
+  - V13.3.1
+  owasp-asvs5-level-3:
+  - V13.3.1
 777-470:
   ASVS:
   - V12.3.6
@@ -6114,6 +7607,11 @@
   - '829'
   owasp-asvs4-level-2:
   - V12.3.6
+  owasp-asvs5-level-2:
+  - V15.1.2
+  owasp-asvs5-level-3:
+  - V15.1.2
+  - V3.6.1
 782-234:
   ASVS:
   - V1.5.1
@@ -6126,6 +7624,14 @@
   - Deserialization Cheat Sheet
   owasp-asvs4-level-2:
   - V1.5.1
+  owasp-asvs5-level-1:
+  - V2.1.1
+  owasp-asvs5-level-2:
+  - V2.1.1
+  - V2.1.2
+  owasp-asvs5-level-3:
+  - V2.1.1
+  - V2.1.2
 783-255:
   ASVS:
   - V2.9.1
@@ -6155,6 +7661,14 @@
   - 3.7.9
   owasp-asvs4-level-2:
   - V2.9.1
+  owasp-asvs5-level-2:
+  - V13.3.1
+  - V13.3.2
+  owasp-asvs5-level-3:
+  - V13.3.1
+  - V13.3.2
+  - V13.3.3
+  - V6.7.1
 786-224:
   ASVS:
   - V6.2.7
@@ -6165,6 +7679,12 @@
   - Key Management Cheat Sheet
   OWASP Web Security Testing Guide (WSTG):
   - WSTG-CRYP-04
+  owasp-asvs5-level-2:
+  - V11.3.3
+  - V17.2.3
+  owasp-asvs5-level-3:
+  - V11.3.3
+  - V17.2.3
 801-310:
   ASVS:
   - V1.4.5
@@ -6176,6 +7696,19 @@
   - C7
   owasp-asvs4-level-2:
   - V1.4.5
+  owasp-asvs5-level-1:
+  - V8.1.1
+  owasp-asvs5-level-2:
+  - V8.1.1
+  - V8.1.2
+  - V8.2.3
+  owasp-asvs5-level-3:
+  - V8.1.1
+  - V8.1.2
+  - V8.1.3
+  - V8.1.4
+  - V8.2.3
+  - V8.2.4
 802-056:
   ASVS:
   - V2.2.1
@@ -6198,6 +7731,18 @@
   - V2.2.1
   owasp-asvs4-level-2:
   - V2.2.1
+  owasp-asvs5-level-1:
+  - V6.1.1
+  - V6.3.1
+  owasp-asvs5-level-2:
+  - V6.1.1
+  - V6.3.1
+  - V6.6.3
+  owasp-asvs5-level-3:
+  - V6.1.1
+  - V6.3.1
+  - V6.6.3
+  - V6.6.4
 804-220:
   ASVS:
   - V3.4.2
@@ -6216,6 +7761,10 @@
   - V3.4.2
   owasp-asvs4-level-2:
   - V3.4.2
+  owasp-asvs5-level-2:
+  - V3.3.4
+  owasp-asvs5-level-3:
+  - V3.3.4
 806-367:
   ASVS:
   - V1.5.4
@@ -6228,6 +7777,10 @@
   - C4
   owasp-asvs4-level-2:
   - V1.5.4
+  owasp-asvs5-level-2:
+  - V1.1.2
+  owasp-asvs5-level-3:
+  - V1.1.2
 807-565:
   ASVS:
   - V2.1.9
@@ -6247,6 +7800,12 @@
   - V2.1.9
   owasp-asvs4-level-2:
   - V2.1.9
+  owasp-asvs5-level-1:
+  - V6.2.5
+  owasp-asvs5-level-2:
+  - V6.2.5
+  owasp-asvs5-level-3:
+  - V6.2.5
 808-425:
   ASVS:
   - V2.2.3
@@ -6260,6 +7819,9 @@
   - V2.2.3
   owasp-asvs4-level-2:
   - V2.2.3
+  owasp-asvs5-level-3:
+  - V6.3.5
+  - V6.3.7
 813-610:
   ASVS:
   - V2.10.1
@@ -6269,6 +7831,11 @@
   - 5.1.1.1
   owasp-asvs4-level-2:
   - V2.10.1
+  owasp-asvs5-level-2:
+  - V13.2.1
+  owasp-asvs5-level-3:
+  - V10.4.16
+  - V13.2.1
 814-322:
   ASVS:
   - V12.6.1
@@ -6283,6 +7850,21 @@
   - V12.6.1
   owasp-asvs4-level-2:
   - V12.6.1
+  owasp-asvs5-level-1:
+  - V10.4.1
+  - V9.1.3
+  owasp-asvs5-level-2:
+  - V1.3.6
+  - V10.4.1
+  - V10.4.7
+  - V13.2.5
+  - V9.1.3
+  owasp-asvs5-level-3:
+  - V1.3.6
+  - V10.4.1
+  - V10.4.7
+  - V13.2.5
+  - V9.1.3
 816-631:
   ASVS:
   - V2.7.2
@@ -6296,6 +7878,14 @@
   - V2.7.2
   owasp-asvs4-level-2:
   - V2.7.2
+  owasp-asvs5-level-1:
+  - V10.4.3
+  owasp-asvs5-level-2:
+  - V10.4.3
+  - V6.5.5
+  owasp-asvs5-level-3:
+  - V10.4.3
+  - V6.5.5
 817-808:
   CWE:
   - '276'
@@ -6315,6 +7905,16 @@
   - '306'
   owasp-asvs4-level-2:
   - V14.5.4
+  owasp-asvs5-level-1:
+  - V8.3.1
+  owasp-asvs5-level-2:
+  - V15.3.4
+  - V4.1.3
+  - V8.3.1
+  owasp-asvs5-level-3:
+  - V15.3.4
+  - V4.1.3
+  - V8.3.1
 820-877:
   FedRAMP:
   - High
@@ -6348,6 +7948,10 @@
   - 1.2.4
   owasp-asvs4-level-2:
   - V1.1.4
+  owasp-asvs5-level-2:
+  - V13.1.1
+  owasp-asvs5-level-3:
+  - V13.1.1
 821-832:
   ASVS:
   - V1.6.3
@@ -6358,6 +7962,10 @@
   - Key Management Cheat Sheet
   owasp-asvs4-level-2:
   - V1.6.3
+  owasp-asvs5-level-2:
+  - V11.2.2
+  owasp-asvs5-level-3:
+  - V11.2.2
 822-100:
   ASVS:
   - V1.1.3
@@ -6376,6 +7984,10 @@
   - '134'
   owasp-asvs4-level-2:
   - V5.4.2
+  owasp-asvs5-level-2:
+  - V1.3.10
+  owasp-asvs5-level-3:
+  - V1.3.10
 831-563:
   ASVS:
   - V5.5.3
@@ -6389,6 +8001,10 @@
   - V5.5.3
   owasp-asvs4-level-2:
   - V5.5.3
+  owasp-asvs5-level-2:
+  - V1.5.2
+  owasp-asvs5-level-3:
+  - V1.5.2
 831-570:
   ASVS:
   - V5.4.1
@@ -6398,6 +8014,12 @@
   - WSTG-INPV-13
   owasp-asvs4-level-2:
   - V5.4.1
+  owasp-asvs5-level-2:
+  - V1.4.1
+  - V1.4.3
+  owasp-asvs5-level-3:
+  - V1.4.1
+  - V1.4.3
 833-030:
   CCPA:
   - Training (a)
@@ -6447,6 +8069,10 @@
   - Logging Cheat Sheet
   owasp-asvs4-level-2:
   - V7.2.1
+  owasp-asvs5-level-2:
+  - V16.3.1
+  owasp-asvs5-level-3:
+  - V16.3.1
 841-757:
   ASVS:
   - V2.8.3
@@ -6457,6 +8083,10 @@
   - 5.1.5.2
   owasp-asvs4-level-2:
   - V2.8.3
+  owasp-asvs5-level-2:
+  - V6.5.3
+  owasp-asvs5-level-3:
+  - V6.5.3
 842-876:
   CCPA:
   - Record-Keeping (a)
@@ -6548,6 +8178,11 @@
   - '524'
   owasp-asvs4-level-2:
   - V8.1.1
+  owasp-asvs5-level-2:
+  - V14.2.2
+  owasp-asvs5-level-3:
+  - V14.2.2
+  - V14.2.5
 847-247:
   Cloud Controls Matrix:
   - Interoperability and portability policy and procedures
@@ -6563,6 +8198,12 @@
   - C5
   owasp-asvs4-level-2:
   - V1.5.3
+  owasp-asvs5-level-1:
+  - V2.2.2
+  owasp-asvs5-level-2:
+  - V2.2.2
+  owasp-asvs5-level-3:
+  - V2.2.2
 850-376:
   Cloud Controls Matrix:
   - Datacenter security
@@ -6573,6 +8214,10 @@
   ISO 27001:
   - Data leakage prevention
   - Data masking
+  owasp-asvs5-level-2:
+  - V2.3.3
+  owasp-asvs5-level-3:
+  - V2.3.3
 857-718:
   ASVS:
   - V5.3.8
@@ -6602,6 +8247,12 @@
   - V5.3.8
   owasp-asvs4-level-2:
   - V5.3.8
+  owasp-asvs5-level-1:
+  - V1.2.5
+  owasp-asvs5-level-2:
+  - V1.2.5
+  owasp-asvs5-level-3:
+  - V1.2.5
 860-084:
   ASVS:
   - V14.2.6
@@ -6614,6 +8265,9 @@
   - C2
   owasp-asvs4-level-2:
   - V14.2.6
+  owasp-asvs5-level-3:
+  - V15.1.4
+  - V15.2.5
 862-452:
   CCPA:
   - Opt-Out Preference Signals (c)(1)
@@ -6662,6 +8316,10 @@
   - 6.3.2
   owasp-asvs4-level-2:
   - V14.2.5
+  owasp-asvs5-level-2:
+  - V15.1.2
+  owasp-asvs5-level-3:
+  - V15.1.2
 863-636:
   ASVS:
   - V7.4.2
@@ -6683,6 +8341,10 @@
   - SI-16 Memory Protection
   NIST CSF v2.0:
   - PR.DS-10
+  owasp-asvs5-level-2:
+  - V1.4.3
+  owasp-asvs5-level-3:
+  - V1.4.3
 872-574:
   ISO 27001:
   - Protection against malware
@@ -6699,6 +8361,8 @@
   OWASP Cheat Sheets:
   - Cryptographic Storage Cheat Sheet
   - Key Management Cheat Sheet
+  owasp-asvs5-level-3:
+  - V11.2.4
 881-321:
   ASVS:
   - V2.10.3
@@ -6708,6 +8372,10 @@
   - 5.1.1.1
   owasp-asvs4-level-2:
   - V2.10.3
+  owasp-asvs5-level-2:
+  - V13.3.1
+  owasp-asvs5-level-3:
+  - V13.3.1
 881-434:
   ASVS:
   - V5.2.3
@@ -6724,6 +8392,10 @@
   - V5.2.3
   owasp-asvs4-level-2:
   - V5.2.3
+  owasp-asvs5-level-2:
+  - V1.3.11
+  owasp-asvs5-level-3:
+  - V1.3.11
 888-770:
   ISO 27001:
   - Threat intelligence

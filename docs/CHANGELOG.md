@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+* Added support for OWASP ASVS 5 Levels 1, 2, and 3
+
 ## 3.2.0 - 20260721
 
 ### Features
