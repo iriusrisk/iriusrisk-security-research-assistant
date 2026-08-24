@@ -1,19 +1,234 @@
+import csv
+import io
 import os
 import uuid
-from typing import Annotated
+from collections import defaultdict
+from enum import Enum
+from pathlib import Path
+from typing import Annotated, Optional
 
 import pandas as pd
 import typer
+import yaml
 from rich import print
 from rich.table import Table
 
 from isra.src.component.component import read_current_component, write_current_component
 from isra.src.config.config import get_resource
 from isra.src.config.constants import OPENCRE_PLUS, CRE_MAPPING_NAME, CUSTOM_FIELD_STANDARD_BASELINE_REF, \
-    CUSTOM_FIELD_STANDARD_BASELINE_SECTION
+    CUSTOM_FIELD_STANDARD_BASELINE_SECTION, OUTPUT_NAME
 from isra.src.utils.gpt_functions import get_prompt, query_chatgpt
 
 app = typer.Typer(no_args_is_help=True, add_help_option=False)
+
+
+class CoverageReportFormat(str, Enum):
+    markdown = "markdown"
+    csv = "csv"
+
+
+def _standard_ref(mapping_name):
+    """Return the IriusRisk standard ref used in component repositories."""
+    return OUTPUT_NAME.get(mapping_name, {}).get("ref", mapping_name)
+
+
+def _requested_standards(std_refs, mappings_yaml):
+    refs = [ref.strip() for ref in std_refs.split(",") if ref.strip()]
+    if not refs:
+        raise typer.BadParameter("Provide at least one comma-separated standard ref", param_hint="--std-refs")
+
+    mapping_names = {name for values in mappings_yaml.values() for name in values}
+    aliases = {name: name for name in mapping_names}
+    aliases.update({_standard_ref(name): name for name in mapping_names})
+
+    unknown = [ref for ref in refs if ref not in aliases]
+    if unknown:
+        raise typer.BadParameter(
+            f"Unknown standard ref(s): {', '.join(unknown)}",
+            param_hint="--std-refs"
+        )
+
+    # Preserve input order while removing duplicates.
+    return list(dict.fromkeys((_standard_ref(aliases[ref]), aliases[ref]) for ref in refs))
+
+
+def _countermeasure_standards(countermeasure, mappings_yaml, expansion_cache=None):
+    """Get explicit and OpenCRE-expanded standards without modifying the component."""
+    standards = defaultdict(set)
+    for name, sections in (countermeasure.get("standards") or {}).items():
+        for section in sections or []:
+            standards[_standard_ref(name)].add(str(section))
+
+    baseline_ref = countermeasure.get("base_standard", "")
+    baseline_sections = countermeasure.get("base_standard_section") or []
+    if isinstance(baseline_sections, str):
+        baseline_sections = baseline_sections.split("||")
+
+    if baseline_ref not in CRE_MAPPING_NAME:
+        return standards
+
+    for section in baseline_sections:
+        cache_key = (baseline_ref, str(section))
+        if expansion_cache is not None and cache_key in expansion_cache:
+            expanded = expansion_cache[cache_key]
+        else:
+            expanded = get_standard_from_opencre(mappings_yaml, *cache_key)
+            if expansion_cache is not None:
+                expansion_cache[cache_key] = expanded
+        if not expanded:
+            expanded = {CRE_MAPPING_NAME[baseline_ref]: {str(section)}}
+        for name, mapped_sections in expanded.items():
+            for mapped_section in mapped_sections:
+                standards[_standard_ref(name)].add(str(mapped_section))
+    return standards
+
+
+def collect_standard_coverage(component_repo, requested_standards, mappings_yaml):
+    """Collect matching standard sections from every YAML component in a repository."""
+    coverage = defaultdict(list)
+    requested_refs = {ref for ref, _ in requested_standards}
+    expansion_cache = {}
+    total_components = 0
+    category_totals = defaultdict(int)
+
+    component_paths = sorted(component_repo.rglob("*.yaml")) + sorted(component_repo.rglob("*.yml"))
+    for component_path in component_paths:
+        try:
+            with component_path.open("r", encoding="utf8") as component_file:
+                # CSafeLoader has the same safe semantics and is substantially faster
+                # for repositories containing many large component files.
+                loader = getattr(yaml, "CSafeLoader", yaml.SafeLoader)
+                document = yaml.load(component_file, Loader=loader)
+        except (OSError, yaml.YAMLError) as exc:
+            raise typer.BadParameter(
+                f"Could not read YAML '{component_path}': {exc}",
+                param_hint="--yaml-component-repo"
+            ) from exc
+
+        # Component repositories can also contain CI workflows and other YAML metadata.
+        if not isinstance(document, dict) or "component" not in document:
+            continue
+        component = document["component"]
+        if not isinstance(component, dict):
+            raise typer.BadParameter(
+                f"Invalid component node in '{component_path}'",
+                param_hint="--yaml-component-repo"
+            )
+        total_components += 1
+        category = str(component.get("category", "uncategorized"))
+        category_totals[category] += 1
+        risk_pattern = component.get("risk_pattern") or {}
+
+        countermeasure_matches = defaultdict(lambda: defaultdict(set))
+        for threat in risk_pattern.get("threats") or []:
+            for countermeasure in threat.get("countermeasures") or []:
+                standards = _countermeasure_standards(countermeasure, mappings_yaml, expansion_cache)
+                countermeasure_ref = str(countermeasure.get("ref") or "(missing ref)")
+                for standard_ref in requested_refs:
+                    sections = standards.get(standard_ref, set())
+                    if sections:
+                        countermeasure_matches[countermeasure_ref][standard_ref].update(sections)
+
+        if countermeasure_matches:
+            coverage[category].append({
+                "ref": str(component.get("ref", component_path.stem)),
+                "name": str(component.get("name", component_path.stem)).strip(),
+                "countermeasures": countermeasure_matches,
+            })
+
+    return coverage, total_components, category_totals
+
+
+def render_coverage_report(coverage, requested_standards, component_repo, total_components, category_totals):
+    component_count = sum(len(components) for components in coverage.values())
+    lines = [
+        "# Security standards coverage report",
+        "",
+        f"Component repository: `{component_repo}`",
+        "",
+        "Requested standards: " + ", ".join(f"`{ref}`" for ref, _ in requested_standards),
+        "",
+        f"Matching components: **{component_count} of {total_components}**",
+        "",
+        "## Coverage by category",
+        "",
+        "| Component category | Matching components | Total components |",
+        "|---|---:|---:|",
+    ]
+
+    for category in sorted(category_totals, key=str.casefold):
+        escaped_category = category.replace("|", "\\|")
+        lines.append(
+            f"| {escaped_category} | {len(coverage.get(category, []))} | {category_totals[category]} |"
+        )
+    lines.append("")
+
+    if not coverage:
+        lines.extend(["No components cover any of the requested standards.", ""])
+        return "\n".join(lines)
+
+    for category in sorted(coverage, key=str.casefold):
+        lines.extend([f"## {category}", ""])
+        for component in sorted(coverage[category], key=lambda item: (item["name"].casefold(), item["ref"])):
+            name = component["name"].replace("|", "\\|")
+            ref = component["ref"].replace("|", "\\|")
+            lines.extend([
+                f"### {name} (`{ref}`)",
+                "",
+                "| Countermeasure ref | " + " | ".join(ref for ref, _ in requested_standards) + " |",
+                "|---|" + "---|" * len(requested_standards),
+            ])
+            for countermeasure_ref in sorted(component["countermeasures"]):
+                standard_matches = component["countermeasures"][countermeasure_ref]
+                cells = []
+                for standard_ref, _ in requested_standards:
+                    sections = sorted(standard_matches.get(standard_ref, set()))
+                    cells.append(
+                        "<br>".join(section.replace("|", "\\|") for section in sections) or "—"
+                    )
+                escaped_countermeasure_ref = countermeasure_ref.replace("|", "\\|")
+                lines.append(f"| `{escaped_countermeasure_ref}` | " + " | ".join(cells) + " |")
+            lines.append("")
+    return "\n".join(lines)
+
+
+def render_coverage_csv(coverage, requested_standards, total_components, category_totals):
+    """Render one CSV row per matching countermeasure."""
+    output = io.StringIO(newline="")
+    writer = csv.writer(output)
+    matching_components = sum(len(components) for components in coverage.values())
+    writer.writerow([
+        "repository_matching_components",
+        "repository_total_components",
+        "component_category",
+        "category_matching_components",
+        "category_total_components",
+        "component_name",
+        "component_ref",
+        "countermeasure_ref",
+        *(ref for ref, _ in requested_standards),
+    ])
+
+    for category in sorted(coverage, key=str.casefold):
+        category_matching_components = len(coverage[category])
+        for component in sorted(coverage[category], key=lambda item: (item["name"].casefold(), item["ref"])):
+            for countermeasure_ref in sorted(component["countermeasures"]):
+                standard_matches = component["countermeasures"][countermeasure_ref]
+                writer.writerow([
+                    matching_components,
+                    total_components,
+                    category,
+                    category_matching_components,
+                    category_totals[category],
+                    component["name"],
+                    component["ref"],
+                    countermeasure_ref,
+                    *(
+                        "; ".join(sorted(standard_matches.get(standard_ref, set())))
+                        for standard_ref, _ in requested_standards
+                    ),
+                ])
+    return output.getvalue()
 
 
 def extract_standard_from_table(text):
@@ -266,3 +481,44 @@ def show(standard_name: Annotated[str, typer.Option(help="Filter by standard nam
     Shows the current standard mapping used to propagate standards
     """
     show_init(standard_name, standard_section)
+
+
+@app.command("coverage-report")
+def coverage_report(
+    std_refs: Annotated[str, typer.Option(help="Comma-separated security standard refs")],
+    yaml_component_repo: Annotated[
+        Path,
+        typer.Option(exists=True, file_okay=False, dir_okay=True, readable=True,
+                     help="Path to the YAML component repository")
+    ],
+    report_format: Annotated[
+        CoverageReportFormat,
+        typer.Option("--format", help="Output format")
+    ] = CoverageReportFormat.markdown,
+    output: Annotated[
+        Optional[Path],
+        typer.Option(help="Path for the generated report")
+    ] = None
+):
+    """Generates a Markdown or CSV report of components covering the requested standards."""
+    mappings_yaml = get_resource(OPENCRE_PLUS)
+    requested_standards = _requested_standards(std_refs, mappings_yaml)
+    coverage, total_components, category_totals = collect_standard_coverage(
+        yaml_component_repo, requested_standards, mappings_yaml
+    )
+    if report_format == CoverageReportFormat.csv:
+        report = render_coverage_csv(coverage, requested_standards, total_components, category_totals)
+        output = output or Path("standards-coverage-report.csv")
+    else:
+        report = render_coverage_report(
+            coverage, requested_standards, yaml_component_repo, total_components, category_totals
+        )
+        output = output or Path("standards-coverage-report.md")
+
+    try:
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(report, encoding="utf8")
+    except OSError as exc:
+        raise typer.BadParameter(f"Could not write report '{output}': {exc}", param_hint="--output") from exc
+
+    print(f"Coverage report written to [green]{output}[/green]")

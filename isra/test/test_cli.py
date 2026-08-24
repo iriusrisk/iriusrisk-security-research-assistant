@@ -1,5 +1,7 @@
+import csv
 import json
 import unittest
+from pathlib import Path
 
 import pytest
 from typer.testing import CliRunner
@@ -106,11 +108,101 @@ class CLITests(unittest.TestCase):
     def test_standards_help_descriptions(self):
         test_result = self.runner.invoke(app, ["standards", "test", "--help"])
         reset_result = self.runner.invoke(app, ["standards", "reset", "--help"])
+        coverage_result = self.runner.invoke(app, ["standards", "coverage-report", "--help"])
 
         assert test_result.exit_code == 0
         assert "Tests OpenCRE expansion" in test_result.stdout
         assert reset_result.exit_code == 0
         assert "Removes all standards" in reset_result.stdout
+        assert coverage_result.exit_code == 0
+        assert "--std-refs" in coverage_result.stdout
+        assert "--yaml-component-repo" in coverage_result.stdout
+        assert "--format" in coverage_result.stdout
+
+    def test_standards_coverage_report_expands_without_changing_components(self):
+        component_yaml = """component:
+  ref: CD-V2-TEST-COVERAGE
+  name: Test Coverage
+  category: test-components
+  risk_pattern:
+    threats:
+    - countermeasures:
+      - base_standard: ASVS V4
+        ref: C-TEST-COVERAGE
+        base_standard_section:
+        - V3.2.1
+        standards: {}
+"""
+        with self.runner.isolated_filesystem():
+            component_repo = Path("components")
+            component_repo.mkdir()
+            component_path = component_repo / "component.yaml"
+            component_path.write_text(component_yaml, encoding="utf8")
+            (component_repo / "workflow.yml").write_text("jobs: {}\n", encoding="utf8")
+            (component_repo / "nonmatching.yaml").write_text(
+                """component:
+  ref: CD-V2-NONMATCHING
+  name: Nonmatching
+  category: test-components
+  risk_pattern:
+    threats: []
+""",
+                encoding="utf8"
+            )
+
+            result = self.runner.invoke(app, [
+                "standards", "coverage-report",
+                "--std-refs",
+                "owasp-asvs5-level-1, owasp-asvs5-level-2,owasp-asvs5-level-3,owasp-top-10-2025",
+                "--yaml-component-repo", str(component_repo),
+                "--output", "report.md",
+            ])
+
+            assert_process(result)
+            report = Path("report.md").read_text(encoding="utf8")
+            assert "## test-components" in report
+            assert "Test Coverage" in report
+            assert "Matching components: **1 of 2**" in report
+            assert "| test-components | 1 | 2 |" in report
+            assert "### Test Coverage (`CD-V2-TEST-COVERAGE`)" in report
+            assert "| Countermeasure ref | owasp-asvs5-level-1 |" in report
+            assert "V7.2.4" in report
+            assert "A07:2025 Authentication Failures" in report
+            assert "| `C-TEST-COVERAGE` |" in report
+            assert "**Countermeasures:**" not in report
+            assert component_path.read_text(encoding="utf8") == component_yaml
+
+            csv_result = self.runner.invoke(app, [
+                "standards", "coverage-report",
+                "--std-refs", "owasp-asvs5-level-1,owasp-top-10-2025",
+                "--yaml-component-repo", str(component_repo),
+                "--format", "csv",
+            ])
+
+            assert_process(csv_result)
+            with Path("standards-coverage-report.csv").open(newline="", encoding="utf8") as csv_file:
+                rows = list(csv.DictReader(csv_file))
+            assert len(rows) == 1
+            assert rows[0]["repository_matching_components"] == "1"
+            assert rows[0]["repository_total_components"] == "2"
+            assert rows[0]["category_matching_components"] == "1"
+            assert rows[0]["category_total_components"] == "2"
+            assert rows[0]["component_ref"] == "CD-V2-TEST-COVERAGE"
+            assert rows[0]["countermeasure_ref"] == "C-TEST-COVERAGE"
+            assert rows[0]["owasp-asvs5-level-1"] == "V7.2.4"
+            assert rows[0]["owasp-top-10-2025"] == "A07:2025 Authentication Failures"
+
+    def test_standards_coverage_report_rejects_unknown_standard(self):
+        with self.runner.isolated_filesystem():
+            Path("components").mkdir()
+            result = self.runner.invoke(app, [
+                "standards", "coverage-report",
+                "--std-refs", "not-a-standard",
+                "--yaml-component-repo", "components",
+            ])
+
+        assert result.exit_code == 2
+        assert "Unknown standard ref(s): not-a-standard" in result.stdout
 
     def test_component_new(self):
         self.run_component_new()

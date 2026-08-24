@@ -193,7 +193,28 @@ isra screening sections
 ```bash
 # Expand standards using OpenCRE
 isra standards expand
+
+# Report component coverage for one or more standard refs
+isra standards coverage-report \
+  --std-refs owasp-asvs5-level-1,owasp-asvs5-level-2,owasp-asvs5-level-3,owasp-top-10-2025 \
+  --yaml-component-repo /path/to/iriusrisk-ysc-components \
+  --output standards-coverage-report.md
+
+# Generate the same granular report as CSV
+isra standards coverage-report \
+  --std-refs owasp-asvs5-level-1,owasp-asvs5-level-2,owasp-asvs5-level-3,owasp-top-10-2025 \
+  --yaml-component-repo /path/to/iriusrisk-ysc-components \
+  --format csv
 ```
+
+The coverage report shows the matching and total component counts, groups
+matching components by component category, and creates one table per component.
+Each table has one row per matching countermeasure and one column per requested
+standard, preserving the exact relationship between countermeasures and covered
+sections. Standards are expanded from each countermeasure's baseline in memory,
+so source component files are not changed. The `--output` option defaults to
+`standards-coverage-report.md` for Markdown and
+`standards-coverage-report.csv` for CSV.
 
 ### Getting Help
 
