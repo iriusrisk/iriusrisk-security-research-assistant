@@ -204,7 +204,11 @@ OUTPUT_NAME = {
     'swift-cscf': {'ref': 'swift-cscf', 'name': 'SWIFT CSCF'},
     'unece-wp29-csms': {'ref': 'unece-wp29-csms', 'name': 'UNECE WP.29 Cybersecurity Regulation (CSMS)'},
     'owasp-agentic-ai-2025': {'ref': 'owasp-agentic-ai-2025', 'name': 'OWASP Agentic AI 2025'},
-    'EU-CRA': {'ref': 'EU-CRA', 'name': 'EU Cyber Resilience Act (Annex I)'}
+    'EU-CRA': {'ref': 'EU-CRA', 'name': 'EU Cyber Resilience Act (Annex I)'},
+    # Base standard of the IIoT Device component. It has no OpenCRE mappings, so the base
+    # standard itself is added as reference. Same ref and name as in the deprecated V1
+    # library IR-Industrial-Internet-of-Things.xml, so the released standard stays the same
+    'IEC62443-4-2-ICSA-500': {'ref': 'IEC62443-4-2-ICSA-500', 'name': 'IEC62443 4-2 ICSA-500'}
 }
 
 REVERSED_OUTPUT_NAME = {'iso-27002-2022': {'name': 'ISO/IEC 27002:2022', 'ref': 'ISO 27001'},
