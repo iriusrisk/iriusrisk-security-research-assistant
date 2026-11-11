@@ -71,10 +71,17 @@ def all(
         "--libraries-dir",
         help="Folder containing XML libraries to test (overrides config)",
     ),
+    components_dir: str = typer.Option(
+        "",
+        "--components-dir",
+        help="Folder containing YAML components to check against the libraries (overrides config)",
+    ),
 ):
     """
     Run all tests
     """
     if libraries_dir:
         os.environ["ISRA_LIBRARIES_DIR"] = libraries_dir
+    if components_dir:
+        os.environ["ISRA_COMPONENTS_DIR"] = components_dir
     exit(pytest.main(['-v', '-p no:warnings', f'{rootdir}/libraries']))

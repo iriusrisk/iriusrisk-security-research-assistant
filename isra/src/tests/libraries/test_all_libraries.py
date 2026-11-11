@@ -125,6 +125,15 @@ class TestAllLibraries(unittest.TestCase):
         errors = checkCategoryComponentRefsShareUuid(self.roots)
         self.assertCountEqual(errors, [])
 
+    def test_check_component_category_matches_folder(self):
+        """Check that every YAML component has the category that corresponds to the folder it is in"""
+        components_dir = os.getenv("ISRA_COMPONENTS_DIR") or get_property("components_dir")
+        if not components_dir or not Path(components_dir).is_dir():
+            self.fail(f"Components directory not found: '{components_dir}'. "
+                      f"Set 'components_dir' in the configuration or use --components-dir")
+        errors = checkComponentCategoryMatchesFolder(components_dir)
+        self.assertCountEqual(errors, [])
+
     @pytest.mark.skip(reason="element refs and names pending to be fixed in the future")
     def test_check_inconsistent_threat_names(self):
         """Check that the threats and weaknesses with the same ref don't have different names"""
