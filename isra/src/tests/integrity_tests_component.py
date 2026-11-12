@@ -1,4 +1,5 @@
 from collections import Counter
+from functools import lru_cache
 import re
 
 import jsonschema
@@ -9,21 +10,31 @@ from isra.src.config.constants import YSC_SCHEMA, IR_SF_T_STRIDE, SYSTEM_FIELD_V
     IR_SF_C_MITRE, SCORING_RULES
 
 
+# The C loader is much faster than the pure Python one (seconds instead of minutes for all the components)
+YAML_LOADER = getattr(yaml, "CSafeLoader", yaml.SafeLoader)
+
+
 def read_yaml(file_path):
     """Reads a YAML file and returns its content."""
     try:
         with open(file_path, 'r') as file:
-            return yaml.safe_load(file)
+            return yaml.load(file, Loader=YAML_LOADER)
     except Exception as e:
         print(f"Error reading {file_path}: {e}")
         return None
 
 
-def yaml_validator(yaml_component_path):
+@lru_cache(maxsize=1)
+def ysc_schema_validator():
+    # The schema is the same for every component: load it and build the validator only once
+    return jsonschema.Draft7Validator(get_resource(YSC_SCHEMA, filetype="json"))
+
+
+def yaml_validator(yaml_component_path, yaml_component_data=None):
     errors = []
-    yaml_component_data = read_yaml(yaml_component_path)
-    schema = get_resource(YSC_SCHEMA, filetype="json")
-    validator = jsonschema.Draft7Validator(schema)
+    if yaml_component_data is None:
+        yaml_component_data = read_yaml(yaml_component_path)
+    validator = ysc_schema_validator()
     if not validator.is_valid(yaml_component_data):
         errors.append(f"Component {yaml_component_path} doesn't fit the JSON schema: ")
         for error in sorted(validator.iter_errors(yaml_component_data), key=str):

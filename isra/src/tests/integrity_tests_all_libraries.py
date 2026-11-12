@@ -2,7 +2,6 @@ import os
 import html
 import logging
 import lxml.etree as etree
-import yaml
 from bs4 import BeautifulSoup
 from collections import Counter
 
@@ -476,36 +475,5 @@ def checkCategoryComponentRefsShareUuid(roots):
                     f"Category component '{ref}' has different uuid values: "
                     f"{ref_to_uuid[ref]} ({ref_to_library[ref]}) vs {uuid} ({library_ref})"
                 )
-
-    return errors
-
-
-def checkComponentCategoryMatchesFolder(components_dir):
-    """Check that every YAML component's category matches the top-level folder that contains it"""
-    errors = []
-
-    for root, dirs, files in os.walk(components_dir):
-        dirs[:] = [d for d in dirs if not d.startswith(".") and d != "to_review"]
-        rel_root = os.path.relpath(root, components_dir)
-        if rel_root == ".":
-            continue
-        folder = rel_root.split(os.sep)[0]
-
-        for file in sorted(files):
-            if not file.endswith(".yaml"):
-                continue
-            file_path = os.path.join(root, file)
-            rel_path = os.path.relpath(file_path, components_dir)
-            try:
-                with open(file_path, "r") as f:
-                    data = yaml.safe_load(f)
-            except Exception as e:
-                errors.append(f"{rel_path}: could not be parsed ({e})")
-                continue
-
-            component = data.get("component") if isinstance(data, dict) else None
-            category = component.get("category") if isinstance(component, dict) else None
-            if category != folder:
-                errors.append(f"{rel_path}: category is '{category}' but the component is in folder '{folder}'")
 
     return errors

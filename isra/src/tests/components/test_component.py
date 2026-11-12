@@ -30,7 +30,7 @@ class TestComponent(unittest.TestCase):
         """Check if the YAML file component is consistent with the JSON schema"""
         for component in self.components:
             with self.subTest(component=component):
-                errors = yaml_validator(component)
+                errors = yaml_validator(component, self.roots[component])
                 self.assertCountEqual(errors, [])
 
     def test_duplicated_standards_sections_per_control(self):

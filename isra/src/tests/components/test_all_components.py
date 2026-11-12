@@ -56,6 +56,11 @@ class TestAllComponents(unittest.TestCase):
         errors = check_duplicated_risk_pattern_names(self.roots)
         self.assertCountEqual(errors, [])
 
+    def test_check_component_category_matches_folder(self):
+        """Check that every YAML component has the category that corresponds to the folder it is in"""
+        errors = check_component_category_matches_folder(self.roots, self.components_dir)
+        self.assertCountEqual(errors, [])
+
 
 if __name__ == "__main__":
     unittest.main()
