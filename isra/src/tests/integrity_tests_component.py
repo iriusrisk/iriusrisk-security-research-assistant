@@ -395,8 +395,14 @@ def aux(ref, cf_values_list, valid_values):
     return errors
 
 
+@lru_cache(maxsize=1)
+def valid_system_field_values():
+    # The same for every component: load the file only once and use sets for fast lookups
+    return {key: frozenset(values) for key, values in get_resource(SYSTEM_FIELD_VALUES, filetype="yaml").items()}
+
+
 def check_custom_fields_are_valid(root):
-    cfs = get_resource(SYSTEM_FIELD_VALUES, filetype="yaml")
+    cfs = valid_system_field_values()
     errors = []
 
     for threat in root['component']['risk_pattern']['threats']:
